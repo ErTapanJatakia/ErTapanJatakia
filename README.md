@@ -290,14 +290,12 @@ I welcome opportunities for:
 ---
 
 <div align="center">
-
 <img src="https://readme-typing-svg.demolab.com?font=Saira+Stencil+One&size=46&duration=3500&pause=1000&color=FF4141&center=true&vCenter=true&repeat=true&width=1000&height=50&lines=THINK+SECURITY.+BUILD+RESILIENCY.;CYBER+SECURITY+IS+A+CONTINUOUS+MISSION.;THE+MISSION+CONTINUES..." alt="Mission continues"/>
 <br/>
 
 <img src="https://komarev.com/ghpvc/?username=ErTapanJatakia&style=for-the-badge&color=0879D1&label=PROFILE+RECONNAISSANCE" alt="Profile views"/>
 
 ### ER. TAPAN JATAKIA | C.ENG.
-
 </div>
 
 <!-- ========================================================= -->
