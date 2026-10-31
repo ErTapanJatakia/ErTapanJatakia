@@ -6,7 +6,6 @@
 
 <div align="center">
 
-<!-- ANIMATED HERO BANNER: Replace with your preferred GIF URL -->
 <img src="https://i.pinimg.com/originals/d2/8a/5f/d28a5f14d97545a8075872485fe13fa2.gif" width="100%" alt="Cyber Operations Centre"/>
 
 <br/>
@@ -69,11 +68,11 @@ My professional interests lie at the intersection of:
 - Artificial Intelligence & Machine Learning for Security
 - Privacy Engineering & Regulatory Compliance
 
-**My Operating Philosophy:**
+**Operating Philosophy:**
 
 > Think like an Adversary. Engineer like a Defender. Investigate like a Researcher. Advise like a Strategist.
 
-**My Operating MOTTO:**
+**Operating Motto:**
 
 > The Quieter You Become The More You Are Able To Hear. The Closer You Look The Less You See.
 
@@ -171,10 +170,9 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 
 </div>
 
-<!-- Add individual featured repositories below -->
-<!--
-<a href="https://github.com/ErTapanJatakia/REPOSITORY_NAME">
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=ErTapanJatakia&repo=REPOSITORY_NAME&theme=transparent&hide_border=true&bg_color=05070A&title_color=39FF88&text_color=FFFFFF"/>
+<--
+<a href="https://github.com/ErTapanJatakia/SAFER">
+<img src="https://github-readme-stats.vercel.app/api/pin/?username=ErTapanJatakia&repo=SAFER&theme=transparent&hide_border=true&bg_color=05070A&title_color=39FF88&text_color=FFFFFF"/>
 </a>
 -->
 
@@ -281,7 +279,7 @@ I welcome opportunities for:
 
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=16&duration=3500&pause=1000&color=FF4141&center=true&vCenter=true&width=700&height=40&lines=THINK+SECURE.+BUILD+RESILIENT.+STAY+CURIOUS.;SECURITY+IS+A+CONTINUOUS+MISSION.;THE+MISSION+CONTINUES..." alt="Mission continues"/>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=16&duration=3500&pause=1000&color=FF4141&center=true&vCenter=true&width=700&height=40&lines=THINK+SECURITY.+BUILD+RESILIENCY.;CYBER+SECURITY+IS+A+CONTINUOUS+MISSION.;THE+MISSION+CONTINUES..." alt="Mission continues"/>
 
 <br/>
 
