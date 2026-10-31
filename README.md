@@ -7,58 +7,57 @@
 <div align="center">
 
 <!-- ANIMATED HERO BANNER: Replace with your preferred GIF URL -->
-<img src="[YOUR_ANIMATED_MILITARY_CYBER_BANNER_GIF_URL](https://i.pinimg.com/originals/d2/8a/5f/d28a5f14d97545a8075872485fe13fa2.gif)" width="100%" alt="Cyber Operations Command Centre"/>
+<img src="https://i.pinimg.com/originals/d2/8a/5f/d28a5f14d97545a8075872485fe13fa2.gif" width="100%" alt="Cyber Operations Centre"/>
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=22&duration=3000&pause=1000&color=39FF88&center=true&vCenter=true&repeat=true&width=800&height=55&lines=ER.+TAPAN+JATAKIA;CYBER+SECURITY+ZEALOT;STRATEGIC+SECURITY+ADVISOR;CYBER+LITIGATION+ADVISOR;INDEPENDENT+SECURITY+RESEARCHER" alt="Animated typing introduction"/>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=36&duration=3000&pause=1000&color=39FF88&center=true&vCenter=true&repeat=true&width=800&height=72&lines=ER.+TAPAN+JATAKIA;CYBER+SECURITY+ZEALOT;STRATEGIC+SECURITY+ADVISOR;CYBER+LITIGATION+ADVISOR;INDEPENDENT+SECURITY+RESEARCHER" alt="Animated typing introduction"/>
 
-### `C.ENG. | (ISC)² | CYBER SECURITY CONSULTANT | RESEARCHER`
+## `C.ENG. | (ISC)² | CYBER SECURITY CONSULTANT / ADVISOR | RESEARCHER`
 
 **Securing Digital Frontiers | Engineering Resilience | Empowering Growth**
 
 <img src="https://img.shields.io/badge/STATUS-INDEPENDENT%20CONSULTANT-39FF88?style=for-the-badge&labelColor=05070A"/>
+<br/>
 <img src="https://img.shields.io/badge/EXPERIENCE-11%2B%20YEARS-0879D1?style=for-the-badge&labelColor=05070A"/>
+<br/>
 <img src="https://img.shields.io/badge/DOMAIN-CYBER%20SECURITY-FF4141?style=for-the-badge&labelColor=05070A"/>
 
 <br/>
 
 [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ertapanjatakia)
 [![Linktree](https://img.shields.io/badge/LINKTREE-39E09B?style=for-the-badge&logo=linktree&logoColor=black)](https://linktr.ee/ertapanjatakia)
-[![X](https://img.shields.io/badge/OPERATIONS%20FEED-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ertapanjatakia)
-[![Bluesky](https://img.shields.io/badge/BLUESKY-0285FF?style=for-the-badge&logo=bluesky&logoColor=white)](YOUR_BLUESKY_PROFILE_URL)
+[![X](https://img.shields.io/badge/X(TWITTER)-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ertapanjatakia)
+[![Bluesky](https://img.shields.io/badge/BLUESKY-0285FF?style=for-the-badge&logo=bluesky&logoColor=white)](https://bsky.app/profile/er-tapan-jatakia.bsky.social)
 [![Topmate](https://img.shields.io/badge/TOPMATE-FF6B35?style=for-the-badge)](https://topmate.io/ertapanjatakia)
 
-<br/>
-
-[![Cyber Security Advisor Profile](https://img.shields.io/badge/VIEW%20MY%20CYBER%20SECURITY%20ADVISOR%20PROFILE-PDF-FF4141?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://tr.ee/aIEMTsiBKW)
+[![Cyber Security Advisor Profile](https://img.shields.io/badge/CYBER%20SECURITY%20ADVISOR%20PROFILE-PDF-FF4141?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://tr.ee/aIEMTsiBKW)
 
 </div>
 
 ---
 
-## `01 // COMMANDER'S PROFILE`
+## `01 // PROFILE`
 
 ```bash
 ┌──────────────────────────────────────────────────────────┐
 │               PERSONNEL IDENTIFICATION                   │
 ├──────────────────────────────────────────────────────────┤
-│ DESIGNATION    : ER. TAPAN JATAKIA                        │
-│ CLASSIFICATION : CYBER SECURITY PROFESSIONAL              │
-│ SPECIALISATION : SECURITY ENGINEERING & STRATEGY          │
-│ AFFILIATION    : (ISC)²                                   │
-│ EXPERIENCE     : 11+ YEARS                                │
-│ OPERATIONAL    : INDEPENDENT CONSULTING & R&D             │
-│ STATUS         : ACTIVE                                   │
+│ DESIGNATION    : ER. TAPAN JATAKIA                       │
+│ CLASSIFICATION : CYBER SECURITY PROFESSIONAL             │
+│ SPECIALISATION : SECURITY ENGINEERING & STRATEGY         │
+│ AFFILIATION    : INDEPENDENT                             │
+│ EXPERIENCE     : 11+ YEARS                               │
+│ OPERATIONAL    : INDEPENDENT CONSULTING & R&D            │
+│ STATUS         : ACTIVE                                  │
 └──────────────────────────────────────────────────────────┘
 ```
 
-I am an independent Cyber Security Consultant, Chartered Engineer, Security Architect and Cyber Litigation Advisor with over 11 years of experience across cybersecurity, enterprise technology, security operations, governance, risk management and security engineering.
+I am an independent Cyber Security Consultant/Advisor, Chartered Engineer (IEI), Security Architect, and Cyber Litigation Advisor with over 11 years of experience across cybersecurity, enterprise technology, security operations, governance, risk management and security engineering. 
 
-My professional interests lie at the intersection of:
-
-- Strategic Cyber Security & Fractional CISO Advisory
-- Security Architecture & Enterprise Defence
+My professional interests lie at the intersection of: 
+- Strategic Cyber Security & Fractional CISO Advisory 
+- Security Architecture & Enterprise Defence 
 - Security Operations, SIEM & SOAR
 - Threat Intelligence & Digital Forensics
 - Cyber Litigation & Digital Evidence Analysis
