@@ -10,9 +10,15 @@
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=30&duration=4000&pause=2000&color=39FF88&center=true&vCenter=true&repeat=true&width=500&height=54&lines=ER.+TAPAN+JATAKIA;CYBER+SECURITY+ZEALOT;STRATEGIC+SECURITY+ADVISOR;CYBER+LITIGATION+ADVISOR;INDEPENDENT+SECURITY+RESEARCHER" alt="Animated typing introduction"/>
+<div align="center">
 
-### `C.ENG. | CYBER SECURITY CONSULTANT / ADVISOR | RESEARCHER`
+<img src="https://readme-typing-svg.demolab.com?font=Black+Ops+One&weight=400&size=72&duration=3500&pause=1800&color=39FF88&center=true&vCenter=true&repeat=true&width=1500&height=100&lines=ER.+TAPAN+JATAKIA" alt="Er. Tapan Jatakia - Military Stencil Nameplate"/>
+
+<img src="https://readme-typing-svg.demolab.com?font=Chakra+Petch&weight=700&size=42&duration=4000&pause=2000&color=0879D1&center=true&vCenter=true&repeat=true&width=1100&height=65&lines=CYBER+SECURITY+ZEALOT;STRATEGIC+SECURITY+ADVISOR;CYBER+LITIGATION+ADVISOR;INDEPENDENT+SECURITY+RESEARCHER" alt="Animated Tactical Professional Designations"/>
+
+</div>
+
+### `CHARTERED ENGINEER (C.ENG.) | CYBER SECURITY CONSULTANT / ADVISOR | CYBER LITIGATION ADVISOR`
 
 **Securing Digital Frontiers | Engineering Resilience | Empowering Growth**
 
