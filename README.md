@@ -12,9 +12,9 @@
 
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Black+Ops+One&weight=400&size=100&duration=3500&pause=1800&color=39FF88&center=true&vCenter=true&repeat=true&width=1500&height=100&lines=ER.+TAPAN+JATAKIA" alt="Er. Tapan Jatakia - Military Stencil Nameplate"/>
+<img src="https://readme-typing-svg.demolab.com?font=Black+Ops+One&weight=400&size=120&duration=3500&pause=1800&color=39FF88&center=true&vCenter=true&repeat=true&width=1500&height=100&lines=ER.+TAPAN+JATAKIA" alt="Er. Tapan Jatakia - Military Stencil Nameplate"/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Chakra+Petch&weight=700&size=42&duration=4000&pause=2000&color=0879D1&center=true&vCenter=true&repeat=true&width=1100&height=65&lines=CYBER+SECURITY+ZEALOT;STRATEGIC+SECURITY+ADVISOR;CYBER+LITIGATION+ADVISOR;INDEPENDENT+SECURITY+RESEARCHER" alt="Animated Tactical Professional Designations"/>
+<img src="https://readme-typing-svg.demolab.com?font=Chakra+Petch&weight=700&size=80&duration=4000&pause=2000&color=0879D1&center=true&vCenter=true&repeat=true&width=1500&height=80&lines=CYBER+SECURITY+ZEALOT;STRATEGIC+SECURITY+ADVISOR;CYBER+LITIGATION+ADVISOR;INDEPENDENT+SECURITY+RESEARCHER" alt="Animated Tactical Professional Designations"/>
 
 </div>
 
