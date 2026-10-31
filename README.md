@@ -62,8 +62,9 @@
 │ STATUS                       : ACTIVE                                                                                         │
 └───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
-
+<p align="justify">
 I am an independent Cyber Security Consultant/Advisor, Chartered Engineer (IEI), Security Architect, and Cyber Litigation Advisor with over 11 years of experience across cybersecurity, enterprise technology, security operations, governance, risk management and security engineering. 
+</p>
 
 My professional interests lie at the intersection of: 
 - Strategic Cyber Security & Fractional CISO Advisory 
@@ -162,9 +163,9 @@ My professional interests lie at the intersection of:
 ---
 
 ## `05 // ACTIVE PROJECTS & REPOSITORY OPERATIONS`
-
+<p align="justify">
 Explore my repositories for cybersecurity experiments, automation, research prototypes, security tools and technical implementations.
-
+</p>
 <div align="center">
 
 <a href="https://github.com/ErTapanJatakia?tab=repositories">
