@@ -12,7 +12,7 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=30&duration=4000&pause=2000&color=39FF88&center=true&vCenter=true&repeat=true&width=500&height=54&lines=ER.+TAPAN+JATAKIA;CYBER+SECURITY+ZEALOT;STRATEGIC+SECURITY+ADVISOR;CYBER+LITIGATION+ADVISOR;INDEPENDENT+SECURITY+RESEARCHER" alt="Animated typing introduction"/>
 
-## `C.ENG. | CYBER SECURITY CONSULTANT / ADVISOR | RESEARCHER`
+### `C.ENG. | CYBER SECURITY CONSULTANT / ADVISOR | RESEARCHER`
 
 **Securing Digital Frontiers | Engineering Resilience | Empowering Growth**
 
