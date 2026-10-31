@@ -283,7 +283,9 @@ I welcome opportunities for:
 | ADVISORY | Cyber Litigation & Digital Evidence |
 | INNOVATION | AI/ML-driven Security R&D |
 
-**Open to international research collaborations, technical partnerships, consulting engagements and meaningful cybersecurity initiatives.**
+<p align="justify">
+  <strong>Open to international research collaborations, technical partnerships, consulting engagements and meaningful cybersecurity initiatives.</strong>
+</p>
 
 ---
 
