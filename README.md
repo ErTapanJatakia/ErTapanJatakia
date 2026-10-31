@@ -14,7 +14,7 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=Black+Ops+One&weight=400&size=120&duration=3500&pause=1800&color=39FF88&center=true&vCenter=true&repeat=true&width=1500&height=100&lines=ER.+TAPAN+JATAKIA" alt="Er. Tapan Jatakia - Military Stencil Nameplate"/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Chakra+Petch&weight=700&size=80&duration=4000&pause=2000&color=0879D1&center=true&vCenter=true&repeat=true&width=1500&height=80&lines=CYBER+SECURITY+ZEALOT;STRATEGIC+SECURITY+ADVISOR;THREAT+INTELLIGENCE+SPECIALIST;SECURITY+INCIDENT+RESPONDER;CYBER+SECURITY+INSTRUCTOR/TRAINER/MENTOR;CYBER+SECURITY+TRAINER;CYBER+SECURITY+MENTOR;INDEPENDENT+SECURITY+RESEARCHER" alt="Animated Tactical Professional Designations"/>
+<img src="https://readme-typing-svg.demolab.com?font=Chakra+Petch&weight=700&size=80&duration=4000&pause=2000&color=0879D1&center=true&vCenter=true&repeat=true&width=1500&height=80&lines=CYBER+SECURITY+ZEALOT;STRATEGIC+SECURITY+ADVISOR;THREAT+INTELLIGENCE+SPECIALIST;SECURITY+INCIDENT+RESPONDER;CYBER+SECURITY+INSTRUCTOR;CYBER+SECURITY+TRAINER;CYBER+SECURITY+MENTOR;INDEPENDENT+SECURITY+RESEARCHER" alt="Animated Tactical Professional Designations"/>
 
 </div>
 
@@ -28,6 +28,7 @@
 <br/>
 <img src="https://img.shields.io/badge/DOMAIN-CYBER%20SECURITY-FF4141?style=for-the-badge&labelColor=05070A"/>
 
+<br>
 <br/>
 
 [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ertapanjatakia)
@@ -288,7 +289,7 @@ I welcome opportunities for:
 
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=16&duration=3500&pause=1000&color=FF4141&center=true&vCenter=true&width=700&height=40&lines=THINK+SECURITY.+BUILD+RESILIENCY.;CYBER+SECURITY+IS+A+CONTINUOUS+MISSION.;THE+MISSION+CONTINUES..." alt="Mission continues"/>
+<img src="https://readme-typing-svg.demolab.com?font=Saira+Stencil+One&size=46&duration=3500&pause=1000&color=FF4141&center=true&vCenter=true&repeat=true&width=1000&height=50&lines=THINK+SECURITY.+BUILD+RESILIENCY.;CYBER+SECURITY+IS+A+CONTINUOUS+MISSION.;THE+MISSION+CONTINUES..." alt="Mission continues"/>
 
 <br/>
 
@@ -296,9 +297,7 @@ I welcome opportunities for:
 
 <br/><br/>
 
-**ER. TAPAN JATAKIA | C.ENG.**
-
-`END OF TRANSMISSION // MISSION CONTINUES`
+### ER. TAPAN JATAKIA | C.ENG.
 
 </div>
 
