@@ -249,11 +249,13 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 
 </div>
 
-### CYBER SECURITY ADVISOR – PROFESSIONAL PROFILE
+### PROFESSIONAL PROFILES
 
 <div align="center">
 
-[![View Professional Profile PDF](https://img.shields.io/badge/OPEN%20CYBER%20SECURITY%20ADVISOR%20PROFILE-FF4141?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://tr.ee/aIEMTsiBKW)
+[![View Cyber Security Professional Profile PDF](https://img.shields.io/badge/CYBER%20SECURITY%20ADVISOR%20PROFILE-0879D1?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://tr.ee/aIEMTsiBKW) 
+<br/>
+[![View Cyber Litigation Advisor Profile PDF](https://img.shields.io/badge/CYBER%20LITIIGATION%20ADVISOR%20PROFILE-39FF88?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://tr.ee/QfryrmfmFH)
 
 </div>
 
@@ -304,18 +306,4 @@ ELECTRIC    #0879D1
 MATRIX      #39FF88
 ALERT       #FF4141
 WHITE       #FFFFFF
-
-CUSTOMIZATION:
-1. Replace YOUR_ANIMATED_MILITARY_CYBER_BANNER_GIF_URL.
-2. Replace YOUR_BLUESKY_PROFILE_URL.
-3. Add or remove technology badges.
-4. Add featured repository cards in Section 05.
-5. Change badge colours directly in Shields.io URLs.
-6. Change graph colours through URL parameters.
-7. Remove optional analytics images if external services fail.
-
-NOTE:
-GitHub Markdown supports HTML, images, tables and badges.
-Some animated assets and third-party analytics depend on external
-hosting and may be unavailable occasionally.
 -->
