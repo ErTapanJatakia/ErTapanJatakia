@@ -170,11 +170,13 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 
 </div>
 
-<--
+
 <a href="https://github.com/ErTapanJatakia/SAFER">
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=ErTapanJatakia&repo=SAFER&theme=transparent&hide_border=true&bg_color=05070A&title_color=39FF88&text_color=FFFFFF"/>
+<img src="https://github.com/user-attachments/assets/ecf0bca5-6c94-4aff-b1a3-3109eaed4c10"
+  width="500"
+  alt="SAFER Logo"/>
 </a>
--->
+
 
 ---
 
