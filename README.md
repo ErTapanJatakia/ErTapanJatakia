@@ -11,9 +11,9 @@
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=36&duration=3000&pause=1000&color=39FF88&center=true&vCenter=true&repeat=true&width=800&height=72&lines=ER.+TAPAN+JATAKIA;CYBER+SECURITY+ZEALOT;STRATEGIC+SECURITY+ADVISOR;CYBER+LITIGATION+ADVISOR;INDEPENDENT+SECURITY+RESEARCHER" alt="Animated typing introduction"/>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=36&duration=4000&pause=2000&color=39FF88&center=true&vCenter=true&repeat=true&width=800&height=72&lines=ER.+TAPAN+JATAKIA;CYBER+SECURITY+ZEALOT;STRATEGIC+SECURITY+ADVISOR;CYBER+LITIGATION+ADVISOR;INDEPENDENT+SECURITY+RESEARCHER" alt="Animated typing introduction"/>
 
-## `C.ENG. | (ISC)² | CYBER SECURITY CONSULTANT / ADVISOR | RESEARCHER`
+## `C.ENG. | CYBER SECURITY CONSULTANT / ADVISOR | RESEARCHER`
 
 **Securing Digital Frontiers | Engineering Resilience | Empowering Growth**
 
@@ -40,17 +40,21 @@
 ## `01 // PROFILE`
 
 ```bash
-┌──────────────────────────────────────────────────────────┐
-│               PERSONNEL IDENTIFICATION                   │
-├──────────────────────────────────────────────────────────┤
-│ DESIGNATION    : ER. TAPAN JATAKIA                       │
-│ CLASSIFICATION : CYBER SECURITY PROFESSIONAL             │
-│ SPECIALISATION : SECURITY ENGINEERING & STRATEGY         │
-│ AFFILIATION    : INDEPENDENT                             │
-│ EXPERIENCE     : 11+ YEARS                               │
-│ OPERATIONAL    : INDEPENDENT CONSULTING & R&D            │
-│ STATUS         : ACTIVE                                  │
-└──────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                             PERSONNEL IDENTIFICATION                                                          │
+├───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ HONORIFIC TITLE              : ENGINEER (ER.)                                                                                 │
+| NAME                         : TAPAN JATAKIA                                                                                  |
+│ CLASSIFICATION               : CYBER SECURITY PROFESSIONAL                                                                    │
+│ SPECIALISATION               : SECURITY ENGINEERING & STRATEGY                                                                │
+| CALL SIGN(S)                 : TJay, Wise Weasal                                                                              |
+│ OPERATIONAL ROLES            : SECURITY - ANALYST, SPECIALIST, INCIDENT RESPONDER, INSTRUCTOR, TRAINER, CONSULTANT, ADVISOR   |
+| PROFESSIONAL SPECIALIZATION  : ENGINEERING, STRATEGY, THREAT & RISK ASSESSMENT, CRISIS & EMERGENCY MANAGEMENT                 |
+| AFFILIATIONS                 : INSTITUTION OF ENGINEERS (INDIA), (ISC)2, IAENG, IBM, ATTACKIQ, SSPI                           │
+│ EXPERIENCE                   : 11+ YEARS                                                                                      │
+│ OPERATIONAL AREA             : APAC, MEA, EU                                                                                  |
+│ STATUS                       : ACTIVE                                                                                         │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 I am an independent Cyber Security Consultant/Advisor, Chartered Engineer (IEI), Security Architect, and Cyber Litigation Advisor with over 11 years of experience across cybersecurity, enterprise technology, security operations, governance, risk management and security engineering. 
@@ -65,9 +69,13 @@ My professional interests lie at the intersection of:
 - Artificial Intelligence & Machine Learning for Security
 - Privacy Engineering & Regulatory Compliance
 
-**My operating philosophy:**
+**My Operating Philosophy:**
 
-> Think like an adversary. Engineer like a defender. Investigate like a researcher. Advise like a strategist.
+> Think like an Adversary. Engineer like a Defender. Investigate like a Researcher. Advise like a Strategist.
+
+**My Operating MOTTO:**
+
+> The Quieter You Become The More You Are Able To Hear. The Closer You Look The Less You See.
 
 ---
 
@@ -199,7 +207,7 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 - **Chartered Engineer** – Institution of Engineers (India).
 - **(ISC)² Contributor** – Advisor, Trainer, Exam Development Volunteer and Content Contributor.
 - **Security Congress** – Event Advisory Committee contributor, 2023–24.
-- **Globee Awards** – Judge, with 500+ nominations evaluated.
+- **Globee Awards** – Judge, with 1000+ nominations evaluated.
 - **Cybersecurity Education** – 10,000+ learners reached through educational initiatives.
 - **Research Community** – IAENG and MERLOT researcher/member.
 - **Cybersecurity Competitions** – EC-Council Cyber Challenge achievements.
@@ -279,7 +287,7 @@ I welcome opportunities for:
 
 <br/><br/>
 
-**ER. TAPAN JATAKIA | C.ENG. | (ISC)²**
+**ER. TAPAN JATAKIA | C.ENG.**
 
 `END OF TRANSMISSION // MISSION CONTINUES`
 
