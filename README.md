@@ -179,7 +179,7 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 
 
 ---
-
+<!--
 ## `06 // GITHUB INTELLIGENCE DASHBOARD`
 
 <div align="center">
@@ -199,6 +199,7 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 <img width="100%" src="https://github-readme-activity-graph.vercel.app/graph?username=ErTapanJatakia&bg_color=05070A&color=0879D1&line=39FF88&point=FF4141&area=true&hide_border=true&custom_title=CYBER%20OPERATIONS%20%7C%20CONTRIBUTION%20ACTIVITY"/>
 
 </div>
+-->
 
 ---
 
