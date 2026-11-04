@@ -179,11 +179,40 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 </div>
 
 
-<a href="https://github.com/ErTapanJatakia/SAFER">
-<img src="https://github.com/user-attachments/assets/ecf0bca5-6c94-4aff-b1a3-3109eaed4c10"
-  width="500"
-  alt="SAFER Logo"/>
-</a>
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <a href="https://github.com/ErTapanJatakia/SAFER">
+        <img
+          src="https://github.com/user-attachments/assets/ecf0bca5-6c94-4aff-b1a3-3109eaed4c10"
+          width="450"
+          alt="SAFER — Security Administration, Field Readiness, Evidence & Reporting"
+        />
+      </a>
+      <br/>
+      <strong>SAFER</strong>
+      <br/>
+      <sub>AI-Assisted Security Operations Platform</sub>
+    </td>
+    <td align="center" width="50%">
+      <a href="https://github.com/ErTapanJatakia/SPECTRA">
+        <img
+          src="https://raw.githubusercontent.com/ErTapanJatakia/SPECTRA/main/assets/branding/SPECTRA_Defence_Training_Briefing.png"
+          width="450"
+          alt="SPECTRA — Systems, Platforms, Equipment, Capabilities, Technology & Readiness Atlas"
+        />
+      </a>
+      <br/>
+      <strong>SPECTRA</strong>
+      <br/>
+      <sub>Global Defence Systems & Peace Operations Learning Atlas</sub>
+    </td>
+  </tr>
+</table>
+
+</div>
 
 
 ---
