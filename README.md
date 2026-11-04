@@ -194,7 +194,7 @@ Explore my repositories for cybersecurity experiments, automation, research prot
       <br/>
       <strong>SAFER</strong>
       <br/>
-      <sub>AI-Assisted Security Operations Platform</sub>
+      <sub>Security Administration, Field Readiness, Evidence & Reporting [S.A.F.E.R.]</sub>
     </td>
     <td align="center" width="50%">
       <a href="https://github.com/ErTapanJatakia/SPECTRA">
