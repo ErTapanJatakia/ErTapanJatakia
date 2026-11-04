@@ -207,7 +207,7 @@ Explore my repositories for cybersecurity experiments, automation, research prot
       <br/>
       <strong>SPECTRA</strong>
       <br/>
-      <sub>Global Defence Systems & Peace Operations Learning Atlas</sub>
+      <sub>Systems, Platforms, Equipment, Capabilities, Technology & Readiness Atlas [S.P.E.C.T.R.A.]</sub>
     </td>
   </tr>
 </table>
