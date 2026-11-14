@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "repositories": [
+    {
+      "github": "ErTapanJatakia/ErTapanJatakia",
+      "branch": "main",
+      "gitverse": "ErTapanJatakia/ErTapanJatakia",
+      "enabled": true,
+      "mode": "sign-and-mirror"
+    }
+  ]
+}
