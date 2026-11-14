@@ -217,7 +217,7 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 
 ---
 <!--
-## `06 // GITHUB INTELLIGENCE DASHBOARD`
+## `06 // GITHUB & GITVERSE INTELLIGENCE DASHBOARD`
 
 <div align="center">
 
