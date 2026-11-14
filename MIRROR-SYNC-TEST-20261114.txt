@@ -1,2 +1,0 @@
-Temporary verification file for the GitHub-to-GitVerse mirror.
-Created to validate automatic push synchronization.
