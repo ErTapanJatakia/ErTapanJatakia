@@ -1,0 +1,67 @@
+name: Set up personal GPG commit signing
+description: Import the repository owner's GPG key and configure Git for signed commits in a trusted workflow.
+inputs:
+  private-key:
+    description: Armored private GPG key. Pass from a protected Actions secret.
+    required: true
+  passphrase:
+    description: Private-key passphrase. Pass from a protected Actions secret.
+    required: true
+  signing-key:
+    description: Primary GPG key ID or fingerprint.
+    required: true
+  git-name:
+    description: Git author and committer name.
+    required: true
+    default: ErTapanJatakia
+  git-email:
+    description: Verified Git author and committer email.
+    required: true
+    default: tapan_ditu_17.20@outlook.com
+
+runs:
+  using: composite
+  steps:
+    - name: Import key and configure signed commits
+      shell: bash
+      env:
+        GPG_PRIVATE_KEY: ${{ inputs.private-key }}
+        GPG_PASSPHRASE: ${{ inputs.passphrase }}
+        GPG_SIGNING_KEY: ${{ inputs.signing-key }}
+        GIT_NAME: ${{ inputs.git-name }}
+        GIT_EMAIL: ${{ inputs.git-email }}
+      run: |
+        set -euo pipefail
+        umask 077
+
+        export GNUPGHOME="$RUNNER_TEMP/personal-gpg"
+        mkdir -m 700 -p "$GNUPGHOME"
+        echo "GNUPGHOME=$GNUPGHOME" >> "$GITHUB_ENV"
+
+        if [[ -z "$GPG_PRIVATE_KEY" || -z "$GPG_PASSPHRASE" || -z "$GPG_SIGNING_KEY" ]]; then
+          echo "::error::Required personal GPG signing input is missing."
+          exit 1
+        fi
+
+        printf '%s' "$GPG_PRIVATE_KEY" > "$RUNNER_TEMP/personal-gpg-private.asc"
+        printf '%s' "$GPG_PASSPHRASE" > "$RUNNER_TEMP/personal-gpg-passphrase"
+        chmod 600 "$RUNNER_TEMP/personal-gpg-private.asc" "$RUNNER_TEMP/personal-gpg-passphrase"
+
+        gpg --batch --import "$RUNNER_TEMP/personal-gpg-private.asc"
+        rm -f "$RUNNER_TEMP/personal-gpg-private.asc"
+
+        cat > "$RUNNER_TEMP/personal-gpg-wrapper" <<'WRAPPER'
+        #!/usr/bin/env bash
+        set -euo pipefail
+        exec gpg --batch --yes --pinentry-mode loopback --passphrase-file "$RUNNER_TEMP/personal-gpg-passphrase" "$@"
+        WRAPPER
+        chmod 700 "$RUNNER_TEMP/personal-gpg-wrapper"
+
+        git config user.name "$GIT_NAME"
+        git config user.email "$GIT_EMAIL"
+        git config user.signingkey "$GPG_SIGNING_KEY"
+        git config commit.gpgsign true
+        git config gpg.program "$RUNNER_TEMP/personal-gpg-wrapper"
+
+        gpg --batch --list-secret-keys "$GPG_SIGNING_KEY" >/dev/null
+        echo "Personal GPG signing is configured for this job."
