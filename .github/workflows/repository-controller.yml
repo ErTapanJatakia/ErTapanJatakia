@@ -1,0 +1,129 @@
+name: Central Signed Repository Controller
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: central-repository-controller
+  cancel-in-progress: false
+
+jobs:
+  process-enabled-repositories:
+    name: Sign and mirror enabled repositories
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out controller configuration
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Validate registry
+        run: |
+          set -euo pipefail
+          jq -e '
+            .version == 1 and
+            (.repositories | type == "array") and
+            all(.repositories[];
+              (.github | type == "string" and test("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")) and
+              (.branch | type == "string" and length > 0) and
+              (.gitverse | type == "string" and test("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")) and
+              (.enabled | type == "boolean") and
+              (.mode == "sign-and-mirror")
+            )
+          ' config/repositories.json >/dev/null
+          echo "Repository registry schema is valid."
+
+      - name: Create short-lived GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.REPOSITORY_APP_ID }}
+          private-key: ${{ secrets.REPOSITORY_APP_PRIVATE_KEY }}
+          owner: ErTapanJatakia
+
+      - name: Configure personal GPG signing
+        uses: ./.github/actions/setup-personal-gpg
+        with:
+          private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          signing-key: ${{ secrets.GPG_SIGNING_KEY }}
+          git-name: Er. Tapan Jatakia
+          git-email: tapan_ditu_17.20@outlook.com
+
+      - name: Configure GitVerse SSH
+        env:
+          GITVERSE_SSH_PRIVATE_KEY: ${{ secrets.GITVERSE_SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$GITVERSE_SSH_PRIVATE_KEY"
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$GITVERSE_SSH_PRIVATE_KEY" > ~/.ssh/gitverse_ed25519
+          chmod 600 ~/.ssh/gitverse_ed25519
+          cat > ~/.ssh/known_hosts <<'EOF'
+          gitverse.ru ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCr4Mgh2eX+tkxoVcO4BQDDkC8HqJsUiKivWc0R6umR7eQM6kBsq/LgGgO7Xqts1oHl0/QhF307t7Icwf6S3pGRw5SkQC+VdIEzre/rDlDeVbU+Mzwc5GPCJB96OlOZMUVJ/xhHkw3vUowMMiShOZxpdBjKGpb/oD2hz5UY2aheDivjq1lCennAv0iN6CJfJFRHHWb6vgRMznxC8qoce3fVzcYzFd2gXA2iupdqI+6dUZsIuhDS76W3Yc/UrHOQey3NJZonsqXepfIh7GXjt4X0DQcw8fA2SMFoxmDyHMFVeTHLj1P/S1V+8NtOlqwT+ntCN4rNYtqXXbXNUw6OhThvuusmw21kgaCm9CjSSG54wf3lp+7bEn3Tkfu8Byb8hYRtqY4U+IRrSaDfdyUO8GKCNRFEnoC3c3AeTjPQF+jyx5bYbPZLPnVrPYWBNMwgA79OS/3BTOM4EuAOzLLTITew5nxjPnuwzMChr+j6+8aGaQAjNGWv7KbZxbCFxYkrwKo7Bb9wQsvGEUpzi5AGG00SrUkq1JjCf3Ep7YNqRA7HK6i8QukBOkwJ/LgI1csIG94AcWAhICoeal7XBRjZl/EiDrgbDJp/5TKtrvKzuMeRUiH6ATz6QDi2AcCFjcAv7I0HWlphwJvlN/Um0vg71h6zK/k053VhJucMxXODC6SCrw==
+          EOF
+          chmod 600 ~/.ssh/known_hosts
+          cat > ~/.ssh/config <<'EOF'
+          Host gitverse.ru
+            HostName gitverse.ru
+            User git
+            IdentityFile ~/.ssh/gitverse_ed25519
+            IdentitiesOnly yes
+            StrictHostKeyChecking yes
+            UserKnownHostsFile ~/.ssh/known_hosts
+          EOF
+          chmod 600 ~/.ssh/config
+
+      - name: Process enabled repositories
+        env:
+          APP_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          AUTH_HEADER="$(printf 'x-access-token:%s' "$APP_TOKEN" | base64 -w0)"
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0="http.https://github.com/.extraheader"
+          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $AUTH_HEADER"
+
+          mkdir -p "$RUNNER_TEMP/repository-work"
+          while IFS= read -r entry; do
+            repo="$(jq -r '.github' <<<"$entry")"
+            branch="$(jq -r '.branch' <<<"$entry")"
+            destination="$(jq -r '.gitverse' <<<"$entry")"
+            printf '::group::Processing %s (%s)\n' "$repo" "$branch"
+
+            workdir="$RUNNER_TEMP/repository-work/${repo//\//_}"
+            rm -rf "$workdir"
+            git clone --no-tags "https://github.com/$repo.git" "$workdir"
+            cd "$workdir"
+            git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"
+            git switch --detach "refs/remotes/origin/$branch"
+
+            if git verify-commit HEAD >/dev/null 2>&1; then
+              echo "Current HEAD already has a verifiable personal-key signature."
+            else
+              echo "Current HEAD is not signed by the configured personal key; creating a signed attestation commit."
+              git commit --allow-empty -S -m "chore: attest signed publication of $(git rev-parse --short HEAD)"
+              git verify-commit HEAD
+              git -c http.extraheader="AUTHORIZATION: basic $AUTH_HEADER" push origin "HEAD:refs/heads/$branch"
+            fi
+
+            git remote add gitverse "git@gitverse.ru:$destination.git"
+            git push gitverse "HEAD:refs/heads/$branch"
+            echo "Completed $repo -> $destination"
+            printf '::endgroup::\n'
+          done < <(jq -c '.repositories[] | select(.enabled == true)' "$GITHUB_WORKSPACE/config/repositories.json")
+
+      - name: Clean temporary credentials
+        if: always()
+        run: |
+          rm -f "$RUNNER_TEMP/personal-gpg-passphrase" \
+                "$RUNNER_TEMP/personal-gpg-private.asc" \
+                "$RUNNER_TEMP/personal-gpg-wrapper" \
+                ~/.ssh/gitverse_ed25519
+          rm -rf "$RUNNER_TEMP/personal-gpg" "$RUNNER_TEMP/repository-work"
