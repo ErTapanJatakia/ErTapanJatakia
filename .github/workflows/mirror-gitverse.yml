@@ -35,7 +35,7 @@ jobs:
           fi
 
           install -d -m 700 ~/.ssh
-          printf '%s\\n' "${GITVERSE_SSH_PRIVATE_KEY}" > ~/.ssh/gitverse_ed25519
+          printf '%s\n' "${GITVERSE_SSH_PRIVATE_KEY}" > ~/.ssh/gitverse_ed25519
           chmod 600 ~/.ssh/gitverse_ed25519
 
           # GitVerse RSA host key from its official fingerprint documentation.
