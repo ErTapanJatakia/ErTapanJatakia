@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   verify-signing:
-    name: Create and mirror a signed verification commit
+    name: Test reusable personal GPG signing action
     runs-on: ubuntu-latest
     steps:
       - name: Check out main
@@ -21,52 +21,21 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Import personal signing key and configure Git
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+      - name: Configure personal GPG signing
+        uses: ./.github/actions/setup-personal-gpg
+        with:
+          private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          signing-key: ${{ secrets.GPG_SIGNING_KEY }}
+          git-name: ErTapanJatakia
+          git-email: tapan_ditu_17.20@outlook.com
+
+      - name: Create and verify a signed test commit
         run: |
           set -euo pipefail
-          umask 077
-          export GNUPGHOME="$RUNNER_TEMP/gnupg"
-          mkdir -m 700 "$GNUPGHOME"
-          echo "GNUPGHOME=$GNUPGHOME" >> "$GITHUB_ENV"
-
-          if [ -z "$GPG_PRIVATE_KEY" ] || [ -z "$GPG_PASSPHRASE" ] || [ -z "$GPG_SIGNING_KEY" ]; then
-            echo "::error::One or more required GPG Actions secrets are missing."
-            exit 1
-          fi
-
-          printf '%s' "$GPG_PRIVATE_KEY" > "$RUNNER_TEMP/signing-key.asc"
-          printf '%s' "$GPG_PASSPHRASE" > "$RUNNER_TEMP/gpg-passphrase"
-          chmod 600 "$RUNNER_TEMP/signing-key.asc" "$RUNNER_TEMP/gpg-passphrase"
-
-          gpg --batch --import "$RUNNER_TEMP/signing-key.asc"
-          rm -f "$RUNNER_TEMP/signing-key.asc"
-
-          cat > "$RUNNER_TEMP/gpg-wrapper" <<'WRAPPER'
-          #!/usr/bin/env bash
-          set -euo pipefail
-          exec gpg --batch --yes --pinentry-mode loopback --passphrase-file "$RUNNER_TEMP/gpg-passphrase" "$@"
-          WRAPPER
-          chmod 700 "$RUNNER_TEMP/gpg-wrapper"
-
-          git config user.name "ErTapanJatakia"
-          git config user.email "tapan_ditu_17.20@outlook.com"
-          git config user.signingkey "$GPG_SIGNING_KEY"
-          git config commit.gpgsign true
-          git config gpg.program "$RUNNER_TEMP/gpg-wrapper"
-
-          gpg --batch --list-secret-keys "$GPG_SIGNING_KEY" >/dev/null
-          echo "Personal signing key imported and available."
-
-      - name: Create a signed, content-neutral verification commit
-        run: |
-          set -euo pipefail
-          git commit --allow-empty -S -m "chore: verify personal GPG commit signing"
+          git commit --allow-empty -S -m "chore: verify reusable personal GPG signing action"
           git verify-commit HEAD
-          echo "Signed verification commit created and locally verified."
+          echo "Reusable signing action created and verified the commit."
 
       - name: Configure GitVerse SSH authentication
         env:
@@ -79,7 +48,7 @@ jobs:
           fi
 
           install -d -m 700 ~/.ssh
-          printf '%s\n' "$GITVERSE_SSH_PRIVATE_KEY" > ~/.ssh/gitverse_ed25519
+          printf '%s\\n' "$GITVERSE_SSH_PRIVATE_KEY" > ~/.ssh/gitverse_ed25519
           chmod 600 ~/.ssh/gitverse_ed25519
 
           cat > ~/.ssh/known_hosts <<'EOF'
@@ -98,15 +67,17 @@ jobs:
           EOF
           chmod 600 ~/.ssh/config
 
-      - name: Push signed commit to GitHub and GitVerse
+      - name: Push the same signed commit to GitHub and GitVerse
         run: |
           set -euo pipefail
           git push origin HEAD:refs/heads/main
           git remote add gitverse git@gitverse.ru:ErTapanJatakia/ErTapanJatakia.git
           git push gitverse HEAD:refs/heads/main
 
-      - name: Remove temporary passphrase material
+      - name: Remove temporary signing material
         if: always()
         run: |
-          rm -f "$RUNNER_TEMP/gpg-passphrase" "$RUNNER_TEMP/signing-key.asc" "$RUNNER_TEMP/gpg-wrapper"
-          rm -rf "$RUNNER_TEMP/gnupg"
+          rm -f "$RUNNER_TEMP/personal-gpg-passphrase" \
+                "$RUNNER_TEMP/personal-gpg-private.asc" \
+                "$RUNNER_TEMP/personal-gpg-wrapper"
+          rm -rf "$RUNNER_TEMP/personal-gpg"
