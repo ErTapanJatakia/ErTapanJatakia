@@ -34,7 +34,7 @@ runs:
         set -euo pipefail
         umask 077
 
-        : "${GNUPGHOME:=$RUNNER_TEMP/personal-gpg}"
+        : "${GNUPGHOME:=$HOME/.gnupg}"
         export GNUPGHOME
         mkdir -m 700 -p "$GNUPGHOME"
 
