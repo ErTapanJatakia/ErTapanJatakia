@@ -14,12 +14,15 @@ jobs:
   verify-signing:
     name: Test reusable personal GPG signing action
     runs-on: ubuntu-latest
+    env:
+      GNUPGHOME: ${{ runner.temp }}/personal-gpg
     steps:
       - name: Check out main
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Configure personal GPG signing
         uses: ./.github/actions/setup-personal-gpg
@@ -68,9 +71,12 @@ jobs:
           chmod 600 ~/.ssh/config
 
       - name: Push the same signed commit to GitHub and GitVerse
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          git push origin HEAD:refs/heads/main
+          AUTH_HEADER="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)"
+          git -c http.extraheader="AUTHORIZATION: basic $AUTH_HEADER" push origin HEAD:refs/heads/main
           git remote add gitverse git@gitverse.ru:ErTapanJatakia/ErTapanJatakia.git
           git push gitverse HEAD:refs/heads/main
 
