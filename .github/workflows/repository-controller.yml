@@ -16,8 +16,6 @@ jobs:
   process-enabled-repositories:
     name: Sign and mirror enabled repositories
     runs-on: ubuntu-latest
-    env:
-      GNUPGHOME: ${{ github.workspace }}/.gnupg
     steps:
       - name: Check out controller configuration
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -130,4 +128,4 @@ jobs:
                 "$RUNNER_TEMP/personal-gpg-private.asc" \
                 "$RUNNER_TEMP/personal-gpg-wrapper" \
                 ~/.ssh/gitverse_ed25519
-          rm -rf "$GNUPGHOME" "$RUNNER_TEMP/repository-work"
+          rm -rf "$HOME/.gnupg" "$RUNNER_TEMP/repository-work"
