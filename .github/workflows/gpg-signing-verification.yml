@@ -14,8 +14,6 @@ jobs:
   verify-signing:
     name: Test reusable personal GPG signing action
     runs-on: ubuntu-latest
-    env:
-      GNUPGHOME: ${{ github.workspace }}/.gnupg
     steps:
       - name: Check out main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -86,4 +84,4 @@ jobs:
           rm -f "$RUNNER_TEMP/personal-gpg-passphrase" \
                 "$RUNNER_TEMP/personal-gpg-private.asc" \
                 "$RUNNER_TEMP/personal-gpg-wrapper"
-          rm -rf "$GNUPGHOME"
+          rm -rf "$HOME/.gnupg"
