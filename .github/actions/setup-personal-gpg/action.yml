@@ -34,9 +34,9 @@ runs:
         set -euo pipefail
         umask 077
 
-        export GNUPGHOME="$RUNNER_TEMP/personal-gpg"
+        : "${GNUPGHOME:=$RUNNER_TEMP/personal-gpg}"
+        export GNUPGHOME
         mkdir -m 700 -p "$GNUPGHOME"
-        echo "GNUPGHOME=$GNUPGHOME" >> "$GITHUB_ENV"
 
         if [[ -z "$GPG_PRIVATE_KEY" || -z "$GPG_PASSPHRASE" || -z "$GPG_SIGNING_KEY" ]]; then
           echo "::error::Required personal GPG signing input is missing."
