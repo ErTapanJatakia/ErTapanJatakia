@@ -438,7 +438,7 @@ The PR added repository-scoped governance and security policies for secrets, col
 |---|---|
 | PR #38 | [Merged](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) |
 | Repository Security Analysis | [45347044175](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044175) — Gitleaks and zizmor passed |
-| Dependency and Malware Alert Policy | [45347044223](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044223) — Dependabot alert gate passed; no unresolved Dependabot alerts returned |
+| Dependency and Malware Alert Policy | [45347044223](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044223) — Dependabot alert gate passed; no unresolved general or malware Dependabot alerts returned |
 | Dependency Review | [45346939758](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45346939758) — PR #38 dependency review passed |
 | SAST Policy Gate | [45347044217](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044217) — passed |
 | CodeQL Actions analysis | [45347044354](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044354) — passed |
@@ -450,6 +450,6 @@ The PR added repository-scoped governance and security policies for secrets, col
 
 The Scorecard run now reports CI-Tests **10** (30/30 merged PRs checked by CI) and SAST **10** (30 commits checked). Branch-Protection remains **4** because independent approvals, CODEOWNERS review and related review controls are not enabled. The repository still has one maintainer; no artificial reviewer was added.
 
-**Release scope:** the new workflow publishes only a versioned source/documentation/configuration snapshot, not compiled software. It creates a signed tag, archive, SHA-256 checksum manifest and detached GPG signature, release manifest and GitHub artifact attestations. The workflow is configured and validated by repository QA, but no public release has been published yet. First publication requires owner dispatch, a current Malware-alert review, license review and a GitHub tag ruleset for `profile-docs-*`.
+**Release scope:** the new workflow publishes only a versioned source/documentation/configuration snapshot, not compiled software. It creates a signed tag, archive, SHA-256 checksum manifest and detached GPG signature, release manifest and GitHub artifact attestations. The workflow is configured and validated by repository QA, but no public release has been published yet. First publication requires owner dispatch, a current review of full-SHA GitHub Actions dependencies, license review and a GitHub tag ruleset for `profile-docs-*`. The workflow's Dependabot gate queries both general and malware alert classifications; GitHub's malware-alert limitation for SHA-pinned Actions remains a manual review item.
 
 **Remaining platform actions:** the active main ruleset still requires only Gitleaks and zizmor. Add the successful PR check names `Dependency Review`, `Dependabot alert gate`, `Analyze (actions)` and `SAST policy gate` as required checks. The non-author approval control remains unmet until a genuine independent reviewer is available. Compiled-asset SBOM and multi-repository subproject controls remain not applicable.
