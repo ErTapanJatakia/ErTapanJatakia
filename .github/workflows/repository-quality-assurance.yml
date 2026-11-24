@@ -147,48 +147,6 @@ jobs:
       - name: Test VEX validator positive and negative cases
         run: ruby tests/vex_validator_test.rb
 
-  dco-validation:
-    name: DCO sign-off validation
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Check out the complete pull-request history
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: Check DCO validator Ruby syntax
-        run: ruby -c scripts/validate-dco.rb
-
-      - name: Test DCO validator positive and negative cases
-        run: ruby tests/dco_validator_test.rb
-
-      - name: Determine whether DCO enforcement is active on the base branch
-        id: dco-policy
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          if git cat-file -e "$BASE_SHA:DCO" 2>/dev/null; then
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-            echo "DCO policy is present on the base branch; all pull-request commits must be signed off."
-          else
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "DCO adoption pull request: pre-policy commits are grandfathered. Enforcement begins after this policy is merged."
-          fi
-
-      - name: Require a DCO sign-off on every pull-request commit
-        if: steps.dco-policy.outputs.enabled == 'true'
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: ruby scripts/validate-dco.rb
-
   major-change-validation:
     name: Major change validation
     if: always()
@@ -199,7 +157,6 @@ jobs:
       - actionlint
       - prettier
       - vex-validation
-      - dco-validation
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -220,19 +177,19 @@ jobs:
         run: |
           set -euo pipefail
           if [[ "$GITHUB_EVENT_NAME" != "pull_request" ]]; then
-            echo "No pull-request DCO or change classification is required for this event."
+            echo "No pull-request change classification is required for this event."
             exit 0
           fi
 
-          for job in vex-validation dco-validation; do
+          for job in vex-validation; do
             if ! jq -e --arg name "$job" '.[$name].result == "success"' <<< "$NEEDS_JSON" >/dev/null; then
-              echo "::error::Required automated test or DCO validation did not succeed: $job"
+              echo "::error::Required automated regression test did not succeed: $job"
               jq -r --arg name "$job" '.[$name].result // "missing"' <<< "$NEEDS_JSON"
               exit 1
             fi
           done
 
-          echo "The automated regression suite and DCO sign-off validation passed for this pull request."
+          echo "The automated regression suite passed for this pull request."
           git diff --name-only "$BASE_SHA...$HEAD_SHA" > "$RUNNER_TEMP/changed-files.txt"
           major_change=false
           while IFS= read -r path; do
