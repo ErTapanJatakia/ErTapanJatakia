@@ -21,6 +21,7 @@ Known exploitation, exposure of credentials, unsafe privileged workflow behavior
 ## 3. Enforcement
 
 - CodeQL default setup must analyze the supported GitHub Actions language on pull requests and pushes to the primary branch.
+- The SAST policy gate waits for the matching `Analyze (actions)` check on the same commit to complete successfully before it queries the CodeQL alert inventory; this prevents the gate from racing ahead of analysis.
 - Gitleaks and zizmor remain required checks under the current branch ruleset.
 - The CodeQL check named `Analyze (actions)` and the SAST policy gate should be added as required status checks in the main-branch ruleset after their successful check runs are visible.
 - Until those checks are required by the ruleset, CodeQL analysis is configured but its merge-blocking enforcement is not claimed.

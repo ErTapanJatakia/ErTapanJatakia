@@ -37,12 +37,12 @@ A shorter deadline applies when exploitation is known, the dependency is reachab
 ## 5. Pull-request and release enforcement
 
 - Dependency Review runs on pull requests and fails on High or Critical dependency vulnerabilities.
-- A separate policy job queries open Dependabot alerts and fails closed if an unresolved alert remains, unless a current, evidence-backed VEX exception is registered.
-- Dependabot alerts and malware detection remain enabled in GitHub. The separate GitHub Malware alerts interface is not queried by the Dependabot API job; the release workflow therefore requires an explicit owner review confirmation. Any open malware alert blocks publication.
+- The policy job queries open Dependabot alerts separately with `classification=general` and `classification=malware`. General vulnerability alerts fail closed unless a current, evidence-backed VEX exception is registered; any malware alert blocks immediately with no exception.
+- Dependabot alerts and malware detection remain enabled in GitHub. GitHub documents that malware alerts for GitHub Actions are generated only for semantic-version references, not full-SHA references. Because this repository pins Actions to full SHAs, the API gate cannot establish malware coverage for those pinned Actions. The release workflow therefore retains an owner review confirmation for the Actions dependency inventory and Malware alerts UI.
 - Before any official release, review the current Dependabot alert inventory, Dependency Review result, license information and the latest Dependency Graph SBOM. No unresolved Critical/High or malware finding may be included in a release.
 - Moderate/Low findings may be released only if the applicable remediation deadline is still met and the risk is recorded; a documented VEX exception is required when asserting that a vulnerability does not affect the project.
 
-The automated checks are not a full filesystem, container or binary SCA scanner. If those asset types are introduced, extend the inventory and enforcement scope before release.
+The automated checks are not a full filesystem, container or binary SCA scanner. See [GitHub's Dependabot malware-alert limitations](https://docs.github.com/en/code-security/concepts/supply-chain-security/malware-alerts) and [Dependabot alerts API](https://docs.github.com/en/rest/dependabot/alerts) for the supported malware classification and GitHub Actions SHA-reference limitation. If those asset types are introduced, extend the inventory and enforcement scope before release.
 
 ## 6. Exceptions and VEX
 

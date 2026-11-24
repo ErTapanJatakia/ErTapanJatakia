@@ -86,8 +86,20 @@ jobs:
           done < <(jq -c '.exceptions[]?' "$register")
 
           gh api --paginate --slurp \
-            "repos/$GH_REPOSITORY/dependabot/alerts?state=open&per_page=100" \
-            | jq 'add' > "$RUNNER_TEMP/open-dependabot-alerts.json"
+            "repos/$GH_REPOSITORY/dependabot/alerts?state=open&classification=general&per_page=100" \
+            | jq 'add' > "$RUNNER_TEMP/open-general-dependabot-alerts.json"
+
+          gh api --paginate --slurp \
+            "repos/$GH_REPOSITORY/dependabot/alerts?state=open&classification=malware&per_page=100" \
+            | jq 'add' > "$RUNNER_TEMP/open-malware-alerts.json"
+
+          malware_count="$(jq 'length' "$RUNNER_TEMP/open-malware-alerts.json")"
+          if (( malware_count > 0 )); then
+            echo "::error::$malware_count open Dependabot malware alert(s) violate the zero-tolerance policy."
+            jq -r '.[] | [.dependency.package.ecosystem, .dependency.package.name, .html_url] | @tsv' \
+              "$RUNNER_TEMP/open-malware-alerts.json"
+            exit 1
+          fi
 
           jq --slurpfile vex "$register" --arg today "$today" '
             [
@@ -104,7 +116,7 @@ jobs:
                   ] | length) == 0
                 )
             ]
-          ' "$RUNNER_TEMP/open-dependabot-alerts.json" > "$RUNNER_TEMP/blocking-dependabot-alerts.json"
+          ' "$RUNNER_TEMP/open-general-dependabot-alerts.json" > "$RUNNER_TEMP/blocking-dependabot-alerts.json"
 
           count="$(jq 'length' "$RUNNER_TEMP/blocking-dependabot-alerts.json")"
           if (( count > 0 )); then
@@ -114,5 +126,6 @@ jobs:
             exit 1
           fi
 
-          echo "No unresolved Dependabot alerts remain outside the validated VEX exception register."
-          echo "The separate GitHub Malware alerts interface is not exposed by this Dependabot API query and must be reviewed manually before each release."
+          echo "No unresolved general Dependabot alerts remain outside the validated VEX exception register."
+          echo "No open Dependabot malware alerts were returned by the classification=malware API query."
+          echo "GitHub documents that malware alerts for GitHub Actions are generated only for semantic-version references, not full-SHA references. This repository pins Actions to full SHAs, so the owner must also review the Actions dependency changes and malware inventory before release."
