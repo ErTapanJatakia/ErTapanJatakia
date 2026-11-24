@@ -189,6 +189,7 @@ The repository owner inspected both GitHub Security alert views. Each reported d
 | Auto-dismissed alerts | Separate filter available: [resolution:auto-dismissed](https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot?q=is%3Aopen+resolution%3Aauto-dismissed) | Auto-dismissed items must be reviewed separately; they are not equivalent to remediated findings |
 
 The owner also confirmed the GitHub-managed auto-triage presets:
+
 - **Enabled:** “Dismiss low-impact alerts for development-scoped dependencies”.
 - **Disabled:** “Dismiss package malware alerts” (match: `malware:package`).
 
