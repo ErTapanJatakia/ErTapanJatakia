@@ -194,15 +194,29 @@ The enabled development-scoped rule can remove qualifying alerts from the open i
 
 **Setting-state distinction:** the owner-observed empty alert views do not, by themselves, prove whether the Dependabot alerts feature toggle and dependency graph are enabled. Those platform enablement states remain unverified until their settings are explicitly inspected. No repository settings were changed as part of this documentation update.
 
-### P0 evidence still outstanding
+### Native GitHub security settings — owner-confirmed, 2026-11-24
 
-The connected GitHub integration can read the active ruleset and repository files, but it cannot access the repository's Code Scanning alert endpoint or the branch-protection endpoint (the latter returned HTTP 403). It also does not expose the repository's native Secret Scanning / Dependabot security-setting state. Therefore:
+The repository owner inspected **Settings → Security & analysis** and confirmed that the displayed security controls are enabled. This is owner-provided UI evidence, not an independent API read-back by the connected integration.
 
-- The five-alert inventory above is recorded from the owner's latest GitHub UI report and the matching Scorecard SARIF evidence; it is not represented as a fresh API enumeration.
-- Secret Scanning enablement and its alert inventory remain **unverified**.
-- Dependabot vulnerability-alert enablement and its alert inventory remain **unverified**.
-- Do not change the corresponding platform-status badges until those settings are inspected in GitHub's repository Security settings.
+| Control | Owner-confirmed state | Scope / interpretation |
+|---|---|---|
+| Private vulnerability reporting | Enabled | Community can privately report potential vulnerabilities to repository maintainers |
+| Dependency Graph | Enabled | GitHub dependency graph is enabled |
+| Automatic dependency submission | Enabled | GitHub automatic dependency submission is enabled for supported ecosystems; this does not imply every ecosystem or build-time dependency is covered |
+| Dependabot alerts | Enabled | Vulnerability alerts are enabled |
+| Malware alerts | Enabled | Package-malware alerts are enabled |
+| Dependabot security updates | Enabled | Security-fix pull requests are enabled when an applicable patch is available |
+| Grouped security updates | Enabled | Grouping is enabled for applicable security updates |
+| Dependabot version updates | Enabled | Version-update automation is enabled; the current `.github/dependabot.yml` config covers GitHub Actions only |
+| CodeQL default setup | Enabled | Default setup is active; the settings page reported the last scan approximately nine minutes before the owner's observation |
+| Push protection | Enabled | Supported secrets are blocked at push time |
+
+The settings page also displayed AI Scan for repositories, AI Scan for pull requests, Scan for AI applications, Copilot Autofix and Agentic Autofix as available capabilities. Their display on the page is **not** evidence that those optional capabilities are enabled or used; no status is claimed for them.
+
+The Dependabot alert views separately showed dependency files checked approximately one hour before the owner's observation and **no open alerts** in either the Malware alerts or Dependabot alerts inventory. The auto-dismissed filter remains a separate inventory and should be reviewed independently. The GitHub-managed auto-triage preset “Dismiss low-impact alerts for development-scoped dependencies” is enabled; “Dismiss package malware alerts” is disabled. These settings do not establish that previously auto-dismissed alerts were remediated.
+
+The connected integration still cannot independently read the native security-setting toggles or enumerate the Code Scanning alert endpoint. Accordingly, the above is explicitly labelled owner-confirmed; it is not represented as an API-verified state. No native settings or alert dispositions were changed during this documentation update.
 
 Historical DevSkim and Bearer remediation was tested in the earlier PR #272 post-merge pipeline (run #243, 7/7 jobs passed). Those scanners are not among the workflows currently present on `main`; their badges are now explicitly historical-only/not currently configured. Bandit remains not applicable because this repository does not maintain Python application source. The earlier pass is not current recurring coverage.
 
-**Next checkpoint:** inspect native GitHub Secret Scanning and Dependabot vulnerability-alert settings, then reconcile the five Scorecard posture alerts without artificial dismissals. The connected integration still cannot enumerate the platform alert inventories or inspect these native settings; owner-provided settings evidence is required.
+**Next checkpoint:** review the separate auto-dismissed Dependabot inventory and reconcile the five Scorecard posture alerts against genuine control improvements. Do not dismiss alerts solely to improve the dashboard score.
