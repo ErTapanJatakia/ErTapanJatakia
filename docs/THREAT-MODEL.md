@@ -36,7 +36,7 @@ Security objectives are confidentiality of signing/mirroring credentials, integr
 
 | Threat | Abuse case | Existing safeguards | Residual risk / required response |
 |---|---|---|---|
-| Account takeover | Attacker changes README, workflows, secrets or release settings | Protected main ruleset, six required checks, PR-only changes, no bypass actors, owner-side account security | Account compromise can still affect administration; maintain MFA, recovery hygiene and credential rotation |
+| Account takeover | Attacker changes README, workflows, secrets or release settings | Protected main ruleset, seven required checks, PR-only changes, no bypass actors, owner-side account security | Account compromise can still affect administration; maintain MFA, recovery hygiene and credential rotation |
 | Unauthorized privilege escalation | Unvetted contributor receives write/admin/secret/release access | Least-privilege vetting policy, access-decision record requirements and review triggers | Single-owner model; inspect live collaborator/team access before every grant and at least annually |
 | Malicious contribution | PR adds a workflow that exfiltrates secrets | Fork PRs do not receive signing secrets; Gitleaks, zizmor, CodeQL Actions, least-privilege token and required checks | No independent reviewer is currently available; preserve this as a documented limitation, not a false approval claim |
 | Workflow injection | Manual branch/version/message input alters shell behavior | Strict allow-list validation, Git ref/ancestry checks, quoting and bounded input | Re-test validation whenever inputs or shell boundaries change |
