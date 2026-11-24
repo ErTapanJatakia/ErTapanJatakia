@@ -39,6 +39,19 @@ jobs:
             end
           '
 
+      - name: Validate EditorConfig policy
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .editorconfig
+          grep -Fxq 'root = true' .editorconfig
+          grep -Fxq 'charset = utf-8' .editorconfig
+          grep -Fxq 'end_of_line = lf' .editorconfig
+          grep -Fxq 'insert_final_newline = true' .editorconfig
+          grep -Fxq 'indent_style = space' .editorconfig
+          grep -Fxq 'indent_size = 2' .editorconfig
+          grep -Fxq 'trim_trailing_whitespace = false' .editorconfig
+          echo "EditorConfig policy is present and contains the required repository settings."
       - name: Validate repository controller registry
         shell: bash
         run: |
