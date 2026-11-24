@@ -3,6 +3,7 @@
 **Assessment version:** 2026-11-24  
 **Repository:** `ErTapanJatakia/ErTapanJatakia`  
 **Assessment scope:** Evidence-led assessment of the 21 controls tracked for this repository.  
+**Related registers:** [Baseline Level 1 — 24 controls](OPENSSF-BASELINE-L1-IMPLEMENTATION.md) · [Baseline Level 2 — 19 controls](OPENSSF-BASELINE-L2-IMPLEMENTATION.md).  
 **Assessment limitation:** This is an internal implementation assessment, not an OpenSSF badge award, independent audit, or certification.
 
 ## Assessment summary
