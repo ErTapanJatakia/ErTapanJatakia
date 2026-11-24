@@ -117,15 +117,32 @@ DevSkim and Bearer were used in historical remediation work but are not configur
 
 ## Security reporting
 
-**Do not disclose suspected vulnerabilities in public issues or pull requests.** Use GitHub Private Vulnerability Reporting if enabled for this repository. If that option is unavailable, contact the repository owner through [the GitHub profile](https://github.com/ErTapanJatakia).
+**Do not disclose suspected vulnerabilities in public issues, pull requests, discussions, or commit messages.**
+
+The intended private reporting channel is [GitHub Private Vulnerability Reporting](https://github.com/ErTapanJatakia/ErTapanJatakia/security/advisories). When enabled, open the repository's **Security and quality → Advisories → Report a vulnerability** form and submit the report there. The feature is separate from this `SECURITY.md` policy; its repository-level enablement has not yet been independently confirmed. If the **Report a vulnerability** control is not visible, contact the repository owner through [the GitHub profile](https://github.com/ErTapanJatakia) and request a private channel before sending sensitive technical details. Do not place vulnerability details in a public issue.
+
+The repository owner must enable the feature at **Settings → Advanced Security → Private vulnerability reporting → Enable**, then verify that the public Advisories page displays the **Report a vulnerability** action. The owner should also subscribe to repository security-advisory notifications and confirm that notifications reach an actively monitored account. Until that platform step is confirmed, this policy does not claim that private reporting is fully operational.
 
 Please include a concise impact description, affected file or workflow, safe reproduction steps, and redacted evidence. Never include credentials, access tokens, private keys, personal information, or confidential data.
 
-This is a profile/documentation repository, not a software product or security-response service. Reports are handled on a best-effort basis; there is no published SLA or bug-bounty programme.
+## Coordinated vulnerability disclosure and response targets
 
-## Coordinated disclosure
+The repository is maintained by an individual owner and is not a staffed security-response service. The following response targets apply to reports received through a monitored private channel:
 
-Please give the repository owner a reasonable opportunity to investigate and address a confirmed issue before public disclosure. Do not access, modify, delete, or exfiltrate data; disrupt services; conduct denial-of-service testing; or test third-party systems without explicit authorisation.
+- **Initial acknowledgement:** within 5 business days of receipt.
+- **Initial triage and status:** within 10 business days of receipt, including whether the report is reproducible, needs more information, or is being investigated.
+- **Progress updates:** at least every 10 business days while an accepted report remains open, or sooner when a material change occurs.
+- **Missed target:** if circumstances prevent a target from being met, the owner will send a status update and a revised estimate rather than silently allowing the target to lapse.
+
+These are response and communication targets, not a guarantee that a fix will be delivered within a particular period. Remediation timing depends on severity, reproducibility, affected scope, available mitigation and the nature of the issue. There is no bug-bounty programme.
+
+## Coordinated disclosure and public advisories
+
+The reporter and owner should coordinate a disclosure date and avoid public release of exploit details while affected users remain exposed. The default objective is to publish after a fix or effective mitigation is available; where practical, aim to complete coordination within 90 calendar days of the initial report. A different timeline may be agreed where complexity, exploitation, downstream impact or a reporter's circumstances justify it.
+
+For a confirmed vulnerability, the owner will create and publicly publish a GitHub Security Advisory when disclosure is coordinated. The advisory should identify the affected repository/component and affected versions or commit range, severity and impact, patched version/commit or mitigation, remediation/workaround guidance, relevant references and a CVE identifier when assigned. Credit is included only with the reporter's consent. If a report is determined not to be a vulnerability or the repository is not affected, the owner will document the rationale in the private report and will not publish a misleading advisory. A VEX statement may be used only where its criteria and evidence requirements are met.
+
+This repository currently distributes profile/documentation and source-configuration snapshots only; it is not an application runtime or security-response service. The policy nevertheless establishes the response and publication process for any confirmed issue affecting the repository, its automation or its release integrity.
 
 ## Out of scope
 
@@ -137,9 +154,9 @@ Please report third-party issues to the relevant service provider through its ow
 
 Thank you for helping keep this repository and its visitors safe.
 
-## OpenSSF Baseline Level 3 implementation
+## OpenSSF Baseline implementation
 
-The repository's 21-control assessment register and supporting evidence are maintained in [docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md](docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md). PR [#38](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) introduced the governance/security policies and controlled documentation-release workflow. PR [#39](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/39) refreshed the dashboard and hardened the malware and SAST gates.
+The repository's assessment registers are maintained in [Baseline Level 1](docs/OPENSSF-BASELINE-L1-IMPLEMENTATION.md), [Baseline Level 2](docs/OPENSSF-BASELINE-L2-IMPLEMENTATION.md) and [Baseline Level 3](docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md). PR [#38](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) introduced the governance/security policies and controlled documentation-release workflow. PR [#39](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/39) refreshed the dashboard and hardened the malware and SAST gates.
 
 ### PR #39 validation
 
