@@ -23,7 +23,7 @@ A direct count of Markdown badge elements in `SECURITY.md` at the baseline commi
 
 The count is of rendered badge entries, not unique products, scanners, or independent controls. For example, CodeQL, zizmor, branch protection and security policy are represented more than once.
 
-**Current dashboard after P1 implementation:** 55 entries remain: 2 live workflow badges, 31 configured/published controls, 6 unverified/not-enforced badges, and 16 planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification.
+**Current dashboard after P1 implementation and historical-scanner reconciliation:** 55 entries remain: 2 live workflow badges, 31 configured/published controls, 4 unverified/not-enforced badges, and 18 planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification. The DevSkim and Bearer badges are now explicitly historical-only/not currently configured, moving those two entries out of the unverified group; this is a status correction, not a claim that their historical findings were all resolved.
 
 ## Priority roadmap
 
@@ -33,12 +33,12 @@ The count is of rendered badge entries, not unique products, scanners, or indepe
 |---|---|---|---|
 | GitHub Secret Scanning | Platform status unverified | Inspect repository security settings and secret-scanning alert inventory; confirm feature eligibility and enablement separately | Badge accurately says enabled, disabled, unavailable, or not eligible; alert status is reported separately |
 | Dependabot vulnerability alerts | Platform status unverified | Inspect repository Dependabot security settings and alert inventory | Setting and open-alert count are recorded; no claim that alerts are clear without evidence |
-| DevSkim | Status to verify | Re-run or inspect the latest authoritative scan and its SARIF/alert inventory | Findings are classified as open, fixed, dismissed with rationale, or not applicable |
-| Bearer | Status to verify | Re-run or inspect the latest authoritative scan and its SARIF/alert inventory | Findings are classified with evidence; do not dismiss unresolved findings merely to improve a badge |
+| DevSkim | Historical scan only; not configured on current `main` | No recurring workflow is present. Treat earlier remediation run as historical evidence only; obtain a fresh, deliberately scoped scan only if a meaningful target and maintenance plan are established | Do not display as current coverage; preserve any historical alert disposition separately |
+| Bearer | Historical scan only; not configured on current `main` | No recurring workflow is present. Treat earlier remediation run as historical evidence only; obtain a fresh, deliberately scoped scan only if a meaningful target and maintenance plan are established | Do not display as current coverage; preserve any historical alert disposition separately |
 | Commit signing | Signing not enforced | Inspect repository rules and actual commit verification coverage | Keep badge transparent unless signing is enforced for the intended commit scope |
 | Independent PR approval | Not required | Reconfirm active ruleset and reviewer availability | Keep the zero-approval policy explicit while no independent human reviewer is available; never manufacture approvals |
 
-**P0 guardrail:** prior alert inventories mentioned DevSkim, Bearer, Bandit and Scorecard findings. Their current remediation state is not established by this badge inventory. Reconcile the actual alert records before describing them as fixed or clean.
+**P0 guardrail:** DevSkim and Bearer are historical-only, not current recurring controls. Bandit remains not applicable because maintained Python source is absent. The five currently reported Code Scanning alerts are Scorecard posture findings; retain them pending genuine posture changes or evidence-based disposition. Do not describe historical scanner findings as clean/current without fresh scan evidence.
 
 ### P1 — Add low-risk quality checks suited to this repository
 
@@ -90,7 +90,7 @@ No artificial package, release, build artifact, or provenance workflow should be
 
 ## Recommended execution sequence
 
-1. **Close the P0 evidence gaps**: inspect native GitHub alert settings and alert inventories; reconcile DevSkim/Bearer findings; retain transparent signing and approval statements.
+1. **Close the P0 evidence gaps**: inspect native GitHub alert settings and alert inventories; retain transparent signing and approval statements. DevSkim/Bearer are historical-only, not current P0 scans.
 2. **P1 checks are now implemented in advisory mode**: Markdown lint, YAML syntax validation, internal/offline link checking and actionlint all passed together in run 45309272770.
 3. **Retain advisory status initially**: gather repeatable results before considering any new required status checks; do not modify branch rules as part of this PR.
 4. **Close the P0 evidence gaps** before changing alert-status badges or claiming a clean platform alert inventory.
@@ -123,7 +123,7 @@ For each work item, record:
 
 ## Latest verification snapshot — 2026-11-24
 
-**Verified main commit:** `97580573c7604d18a6c9400582b90fb08b3aa415` (PR #13, merged).
+**Verified main commit at PR #13 snapshot:** `97580573c7604d18a6c9400582b90fb08b3aa415` (PR #13, merged). The subsequent documentation-only PR #14 is recorded below.
 
 | Control | Latest evidence | Result / interpretation |
 |---|---|---|
@@ -135,6 +135,21 @@ For each work item, record:
 | Repository configuration | [Validation run 45309601879](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601879) | Passed. |
 | GitVerse mirror | [Mirror run 45309601988](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601988) | Passed. |
 | Personal GPG signing | [Verification run 45312695775](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45312695775) | Passed; isolated signed test commit was verified and temporary signing material was removed. |
+
+### PR #14 post-merge verification — commit `ad5293e265488cc7db5f0689cc8191db0e6cc8c5`
+
+PR #14 (`docs(security): record latest security posture evidence`) was merged after its pre-merge checks passed. Post-merge verification completed successfully:
+
+| Control | Run | Result |
+|---|---|---|
+| Repository Security Analysis (Gitleaks + zizmor) | [45313655994](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45313655994) | Passed |
+| Repository Quality Assurance (four advisory jobs) | [45313655992](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45313655992) | All four jobs passed |
+| Repository Configuration Validation | [45313656145](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45313656145) | Passed |
+| GitVerse mirror | [45313656029](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45313656029) | Passed |
+| CodeQL Actions analysis | [45313656907](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45313656907) | Passed; analysis completed |
+| OpenSSF Scorecard | [45313656089](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45313656089) | Passed; SARIF upload completed |
+
+This verifies workflow execution on the PR #14 merge commit. It does not close the five Scorecard posture alerts or verify native Secret Scanning/Dependabot platform settings.
 
 ### Scorecard findings and Code Scanning disposition
 
@@ -172,6 +187,6 @@ The connected GitHub integration can read the active ruleset and repository file
 - Dependabot vulnerability-alert enablement and its alert inventory remain **unverified**.
 - Do not change the corresponding platform-status badges until those settings are inspected in GitHub's repository Security settings.
 
-Historical DevSkim, Bearer and Bandit remediation was tested in the earlier PR #272 post-merge pipeline (run #243, 7/7 jobs passed). Those scanners are not among the workflows currently present on `main`; the historical pass must not be represented as a current recurring scan. Reassess their badges as historical/not currently configured, rather than implying current coverage.
+Historical DevSkim and Bearer remediation was tested in the earlier PR #272 post-merge pipeline (run #243, 7/7 jobs passed). Those scanners are not among the workflows currently present on `main`; their badges are now explicitly historical-only/not currently configured. Bandit remains not applicable because this repository does not maintain Python application source. The earlier pass is not current recurring coverage.
 
-**Next checkpoint:** inspect native GitHub Secret Scanning and Dependabot vulnerability-alert settings, then reconcile the five Scorecard posture alerts without artificial dismissals.
+**Next checkpoint:** inspect native GitHub Secret Scanning and Dependabot vulnerability-alert settings, then reconcile the five Scorecard posture alerts without artificial dismissals. The connected integration still cannot enumerate the platform alert inventories or inspect these native settings; owner-provided settings evidence is required.

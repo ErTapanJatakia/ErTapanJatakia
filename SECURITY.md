@@ -19,12 +19,12 @@
 [![OpenSSF Scorecard](https://img.shields.io/badge/Supply%20Chain-OpenSSF%20Scorecard%20configured-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml)
 [![CodeQL](https://img.shields.io/badge/Static%20Analysis-CodeQL%20Actions%20analysis-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/security/code-scanning)
 
-### Additional scanners — proposed, not yet enabled
+### Additional scanners and platform controls — applicability/status shown per badge
 
 [![Trivy](https://img.shields.io/badge/Scanner-Trivy%20planned-lightgrey?style=flat-square&logo=aqua)](https://trivy.dev/)
 [![Semgrep](https://img.shields.io/badge/SAST-Semgrep%20planned-lightgrey?style=flat-square)](https://semgrep.dev/)
-[![DevSkim](https://img.shields.io/badge/Secure%20Development-DevSkim%20status%20to%20verify-yellow?style=flat-square)](https://github.com/microsoft/DevSkim)
-[![Bearer](https://img.shields.io/badge/Data%20Security-Bearer%20status%20to%20verify-yellow?style=flat-square)](https://docs.bearer.com/)
+[![DevSkim](https://img.shields.io/badge/Secure%20Development-DevSkim%20historical%20scan%20only-lightgrey?style=flat-square)](https://github.com/microsoft/DevSkim)
+[![Bearer](https://img.shields.io/badge/Data%20Security-Bearer%20historical%20scan%20only-lightgrey?style=flat-square)](https://docs.bearer.com/)
 [![GitHub Secret Scanning](https://img.shields.io/badge/GitHub%20Secret%20Scanning-Platform%20status%20unverified-yellow?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/security_analysis)
 [![Dependabot Alerts](https://img.shields.io/badge/Dependabot%20Alerts-Platform%20status%20unverified-yellow?style=flat-square&logo=dependabot)](https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot)
 [![Bandit](https://img.shields.io/badge/Python%20SAST-Bandit%20not%20applicable-lightgrey?style=flat-square)](#scope-and-applicability)
@@ -104,7 +104,7 @@ Accordingly:
 
 The workflow badges above link to their authoritative GitHub Actions pages. For an audit, inspect the latest run on the current `main` commit and the associated job results. A green workflow badge means the workflow completed successfully; it does **not** prove that every security finding is absent.
 
-Outstanding security-alert inventories and any earlier DevSkim, Bearer, or Bandit findings must be reviewed separately before a clean security posture can be claimed.
+DevSkim and Bearer were used in historical remediation work but are not configured as recurring scans on the current `main` branch. Their historical pass must not be read as current coverage. GitHub-native Secret Scanning and Dependabot alert inventories remain separate platform-verification items; no clean platform alert posture is claimed.
 
 ---
 
