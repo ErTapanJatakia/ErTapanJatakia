@@ -81,7 +81,7 @@ No artificial package, release, build artifact, or provenance workflow should be
 
 | Work item | Current status | Applicability decision |
 |---|---|---|
-| Prettier | **Configured — repository configuration formatting check** | Exact Prettier version 3.6.2 checks `.github/workflows/*.yml`, `.github/dependabot.yml` and `.prettierrc.json` in advisory QA. This is configuration-format enforcement, not application-source formatting |
+| Prettier | **Configured — repository configuration formatting check** | Exact Prettier version 3.6.2 checks `.github/workflows/*.yml`, `.github/dependabot.yml` and `.prettierrc.json` in advisory QA. This is configuration-format enforcement, not application-source formatting. The five advisory QA jobs, including Prettier, passed in post-merge [Quality Assurance run 45337720318](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720318) |
 | EditorConfig | **Verified** | Root `.editorconfig` defines UTF-8, LF, final newlines, two-space indentation and Markdown trailing-space preservation. The repository configuration validation passed after adding explicit assertions for these settings in post-merge run [45325182343](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45325182343) on commit `0967983192f472845d0e95c06774a41138f85a02`. Keep verified through the configuration workflow |
 | SonarQube | **Not applicable** | No maintained application source or build target exists. Reassess only if the repository gains meaningful source code and a supported analysis scope |
 | Maintainability metric | **Not applicable** | No maintained application code exists for a meaningful code maintainability metric. Keep this distinct from documentation quality checks |
@@ -110,7 +110,7 @@ This review prioritises the non-green and non-current badge states rather than r
 | SLSA provenance | Not implemented | Deferred: signed Git commits are not build provenance; no artifact build pipeline exists | Introduce a build/release pipeline |
 | Artifact attestation | **Verified — SBOM JSON and checksum only** | Provenance attestations are generated and verified for the actual SPDX JSON and companion SHA-256 checksum. No software binary or release artifact is produced, so software-build attestation remains out of scope | Reassess if a distributable software artifact is introduced |
 | CODEOWNERS | Not configured | Deferred: a self-only ownership file would not create independent review or meaningful approval assurance | Add genuine maintainers/component owners |
-| Prettier | Not configured | Implemented: explicit `.prettierrc.json` and a recurring advisory QA job run Prettier 3.6.2 against maintained GitHub YAML/JSON configuration. The first successful PR check is recorded in [run 45337456552](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337456552); post-merge evidence will be added after merge | Keep the pinned version current and retain successful QA runs |
+| Prettier | Not configured | Implemented: explicit `.prettierrc.json` and a recurring advisory QA job run Prettier 3.6.2 against maintained GitHub YAML/JSON configuration. The successful PR check is recorded in [run 45337588468](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337588468), and the post-merge five-job Quality Assurance workflow passed in [run 45337720318](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720318) | Keep the pinned version current and retain successful QA runs |
 | EditorConfig | Not verified | Verified: root `.editorconfig` and required policy-key assertions passed in post-merge configuration run [45325182343](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45325182343) | Keep verified through the configuration workflow |
 | SonarQube | Not configured | Not applicable: no maintained application source or build target | Add meaningful source code and an analysis scope |
 | Maintainability metric | Not measured | Not applicable: no application codebase for a meaningful code maintainability metric | Add maintained application source |
@@ -120,6 +120,26 @@ This review prioritises the non-green and non-current badge states rather than r
 **Interpretation:** “deferred” is an active scope decision, not an implemented control. “Not applicable” is not a green security result. Historical scanner passes are not current coverage. The SBOM workflow's first run succeeded; it must still not be described as a complete software inventory. No artificial package, build artifact, source code, test suite, fuzzer or reviewer has been created to improve badge counts.
 
 **Badge presentation:** all badge images in `README.md` and `SECURITY.md` are being resized to 150% of their previous rendered height. For Shields.io `for-the-badge` images, the target height is 42 px; for standard/flat-square and GitHub workflow badges, it is 30 px. Image scaling enlarges the embedded badge text proportionally. This is a presentation change only and does not change the underlying control status.
+
+
+### PR #34 completion — Prettier configuration formatting check — 2026-11-24
+
+**Main commit:** `408af53c32b155b83c3a0be7ef0cd8014446a245` (PR #34, merged).
+
+Prettier is now configured as a recurring advisory repository-configuration formatting check. The workflow uses exact Prettier version 3.6.2 and checks `.github/workflows/*.yml`, `.github/dependabot.yml` and `.prettierrc.json`. It does not claim application-source formatting or application-level quality coverage.
+
+The PR check passed in [run 45337588468](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337588468). All six post-merge workflow groups completed successfully:
+
+| Control | Run | Result |
+|---|---|---|
+| Repository Quality Assurance (including Prettier) | [45337720318](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720318) | All five advisory jobs passed |
+| Repository Configuration Validation | [45337720137](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720137) | Passed |
+| Repository Security Analysis (Gitleaks + zizmor) | [45337720063](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720063) | Passed |
+| GitVerse mirror | [45337720053](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720053) | Passed |
+| Repository Dependency Graph SBOM | [45337720169](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720169) | Passed |
+| OpenSSF Scorecard | [45337720078](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720078) | Assessment and SARIF upload passed |
+
+**Dashboard effect:** one deferred badge moved to configured. The inventory remains 55 entries: 3 live workflow badges, 36 configured/published controls, 2 unverified/not-enforced badges and 14 deferred/planned/unconfigured/unmeasured/not-applicable badges. Prettier remains advisory and is not a required branch-protection check.
 
 ## Evidence and governance rules
 
