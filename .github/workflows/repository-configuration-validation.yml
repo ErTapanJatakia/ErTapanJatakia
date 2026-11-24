@@ -1,0 +1,57 @@
+name: Repository Configuration Validation
+
+on:
+  pull_request:
+    branches: ["**"]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: repository-configuration-validation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate repository configuration
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Parse GitHub Actions workflow YAML
+        shell: bash
+        run: |
+          set -euo pipefail
+          ruby -e '
+            require "yaml"
+            files = Dir.glob(".github/workflows/*.{yml,yaml}").sort
+            abort "No workflow YAML files found" if files.empty?
+            files.each do |file|
+              YAML.parse_file(file)
+              puts "Valid YAML: #{file}"
+            end
+          '
+
+      - name: Validate repository controller registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          jq -e '
+            .version == 1 and
+            (.repositories | type == "array") and
+            all(.repositories[];
+              (.github | type == "string" and test("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")) and
+              (.branch | type == "string" and length > 0) and
+              (.gitverse | type == "string" and test("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")) and
+              (.enabled | type == "boolean") and
+              (.mode == "sign-and-mirror")
+            )
+          ' config/repositories.json >/dev/null
+          echo "Repository controller registry is valid."
