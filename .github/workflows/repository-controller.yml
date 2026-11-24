@@ -5,8 +5,7 @@ on:
     - cron: "*/15 * * * *"
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 concurrency:
   group: central-repository-controller
@@ -14,8 +13,11 @@ concurrency:
 
 jobs:
   process-enabled-repositories:
-    name: Sign and mirror enabled repositories
+    name: Create signed attestation pull requests
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Check out controller configuration
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -37,17 +39,11 @@ jobs:
               (.mode == "sign-and-mirror")
             )
           ' config/repositories.json >/dev/null
-          echo "Repository registry schema is valid."
-
-      - name: Create short-lived GitHub App token
-        id: app-token
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
-        with:
-          app-id: ${{ secrets.REPOSITORY_APP_ID }}
-          private-key: ${{ secrets.REPOSITORY_APP_PRIVATE_KEY }}
-          owner: ErTapanJatakia
-          repositories: ErTapanJatakia
-          permission-contents: write
+          if jq -e --arg current "$GITHUB_REPOSITORY"             '.repositories[] | select(.enabled == true and .github != $current)'             config/repositories.json >/dev/null; then
+            echo "::error::This controller uses the repository-scoped GITHUB_TOKEN. Enabled registry entries must target $GITHUB_REPOSITORY."
+            exit 1
+          fi
+          echo "Repository registry is valid and limited to this repository."
 
       - name: Configure personal GPG signing
         uses: ./.github/actions/setup-personal-gpg
@@ -58,74 +54,63 @@ jobs:
           git-name: Er. Tapan Jatakia
           git-email: tapan_ditu_17.20@outlook.com
 
-      - name: Configure GitVerse SSH
+      - name: Create signed attestation pull requests
         env:
-          GITVERSE_SSH_PRIVATE_KEY: ${{ secrets.GITVERSE_SSH_PRIVATE_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
         run: |
           set -euo pipefail
-          test -n "$GITVERSE_SSH_PRIVATE_KEY"
-          install -d -m 700 ~/.ssh
-          printf '%s\n' "$GITVERSE_SSH_PRIVATE_KEY" > ~/.ssh/gitverse_ed25519
-          chmod 600 ~/.ssh/gitverse_ed25519
-          cat > ~/.ssh/known_hosts <<'EOF'
-          gitverse.ru ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCr4Mgh2eX+tkxoVcO4BQDDkC8HqJsUiKivWc0R6umR7eQM6kBsq/LgGgO7Xqts1oHl0/QhF307t7Icwf6S3pGRw5SkQC+VdIEzre/rDlDeVbU+Mzwc5GPCJB96OlOZMUVJ/xhHkw3vUowMMiShOZxpdBjKGpb/oD2hz5UY2aheDivjq1lCennAv0iN6CJfJFRHHWb6vgRMznxC8qoce3fVzcYzFd2gXA2iupdqI+6dUZsIuhDS76W3Yc/UrHOQey3NJZonsqXepfIh7GXjt4X0DQcw8fA2SMFoxmDyHMFVeTHLj1P/S1V+8NtOlqwT+ntCN4rNYtqXXbXNUw6OhThvuusmw21kgaCm9CjSSG54wf3lp+7bEn3Tkfu8Byb8hYRtqY4U+IRrSaDfdyUO8GKCNRFEnoC3c3AeTjPQF+jyx5bYbPZLPnVrPYWBNMwgA79OS/3BTOM4EuAOzLLTITew5nxjPnuwzMChr+j6+8aGaQAjNGWv7KbZxbCFxYkrwKo7Bb9wQsvGEUpzi5AGG00SrUkq1JjCf3Ep7YNqRA7HK6i8QukBOkwJ/LgI1csIG94AcWAhICoeal7XBRjZl/EiDrgbDJp/5TKtrvKzuMeRUiH6ATz6QDi2AcCFjcAv7I0HWlphwJvlN/Um0vg71h6zK/k053VhJucMxXODC6SCrw==
-          EOF
-          chmod 600 ~/.ssh/known_hosts
-          cat > ~/.ssh/config <<'EOF'
-          Host gitverse.ru
-            HostName gitverse.ru
-            User git
-            IdentityFile ~/.ssh/gitverse_ed25519
-            IdentitiesOnly yes
-            StrictHostKeyChecking yes
-            UserKnownHostsFile ~/.ssh/known_hosts
-          EOF
-          chmod 600 ~/.ssh/config
-
-      - name: Process enabled repositories
-        env:
-          APP_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          set -euo pipefail
-          AUTH_HEADER="$(printf 'x-access-token:%s' "$APP_TOKEN" | base64 -w0)"
-          export GIT_CONFIG_COUNT=1
-          export GIT_CONFIG_KEY_0="http.https://github.com/.extraheader"
-          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $AUTH_HEADER"
-
+          AUTH_HEADER="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
           mkdir -p "$RUNNER_TEMP/repository-work"
+
           while IFS= read -r entry; do
             repo="$(jq -r '.github' <<<"$entry")"
             branch="$(jq -r '.branch' <<<"$entry")"
-            destination="$(jq -r '.gitverse' <<<"$entry")"
-            printf '::group::Processing %s (%s)\n' "$repo" "$branch"
+            printf '::group::Checking %s (%s)\n' "$repo" "$branch"
 
-            workdir="$RUNNER_TEMP/repository-work/${repo//\//_}"
-            rm -rf "$workdir"
-            git clone --no-tags "https://github.com/$repo.git" "$workdir"
-            cd "$workdir"
-            git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"
-            git switch --detach "refs/remotes/origin/$branch"
-
-            if git verify-commit HEAD >/dev/null 2>&1; then
-              echo "Current HEAD already has a verifiable personal-key signature."
-            else
-              echo "Current HEAD is not signed by the configured personal key; creating a signed attestation commit."
-              git commit --allow-empty -S -m "chore: attest signed publication of $(git rev-parse --short HEAD)"
-              git verify-commit HEAD
-              git -c http.extraheader="AUTHORIZATION: basic $AUTH_HEADER" push origin "HEAD:refs/heads/$branch"
+            open_pr_count="$(gh pr list --repo "$repo" --state open --json headRefName               --jq '[.[] | select(.headRefName | startswith("automation/signed-attestation-"))] | length')"
+            if [[ "$open_pr_count" -gt 0 ]]; then
+              echo "A signed-attestation pull request is already open; leaving it for review."
+              printf '::endgroup::\n'
+              continue
             fi
 
-            git remote add gitverse "git@gitverse.ru:$destination.git"
-            git push gitverse "HEAD:refs/heads/$branch"
-            echo "Completed $repo -> $destination"
+            workdir="$RUNNER_TEMP/repository-work/repository"
+            rm -rf "$workdir"
+            git -c http.extraheader="AUTHORIZATION: basic $AUTH_HEADER"               clone --no-tags "https://github.com/$repo.git" "$workdir"
+            git -C "$workdir" fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"
+            git -C "$workdir" switch --detach "refs/remotes/origin/$branch"
+
+            if git -C "$workdir" verify-commit HEAD >/dev/null 2>&1; then
+              echo "Current HEAD has a verifiable commit signature; no attestation PR is needed."
+              printf '::endgroup::\n'
+              continue
+            fi
+
+            source_sha="$(git -C "$workdir" rev-parse --short=12 HEAD)"
+            safe_branch="$(printf '%s' "$branch" | tr '/' '-')"
+            automation_branch="automation/signed-attestation-$safe_branch-$source_sha-$GITHUB_RUN_ID"
+
+            git -C "$workdir" config user.name "Er. Tapan Jatakia"
+            git -C "$workdir" config user.email "tapan_ditu_17.20@outlook.com"
+            git -C "$workdir" config user.signingkey "$GPG_SIGNING_KEY"
+            git -C "$workdir" config commit.gpgsign true
+            git -C "$workdir" config gpg.program "$RUNNER_TEMP/personal-gpg-wrapper"
+
+            git -C "$workdir" switch -c "$automation_branch"
+            git -C "$workdir" commit --allow-empty -S               -m "chore: attest signed publication of $source_sha"
+            git -C "$workdir" verify-commit HEAD
+
+            git -C "$workdir" -c http.extraheader="AUTHORIZATION: basic $AUTH_HEADER"               push origin "HEAD:refs/heads/$automation_branch"
+
+            gh api --method POST "repos/$repo/pulls"               -f title="chore: add verified GPG signature attestation"               -f head="$automation_branch"               -f base="$branch"               -f body="## Signed attestation\n\nThis automation branch contains an empty attestation commit signed with the configured personal GPG key. The signature was verified with `git verify-commit`. No existing source files or application behavior were changed.\n\nPlease review and merge through the repository's pull-request process. The GitVerse mirror is handled after the merge to the target branch."
+
+            echo "Created signed attestation PR for $repo:$branch."
             printf '::endgroup::\n'
           done < <(jq -c '.repositories[] | select(.enabled == true)' "$GITHUB_WORKSPACE/config/repositories.json")
 
-      - name: Clean temporary credentials
+      - name: Remove temporary signing material
         if: always()
         run: |
-          rm -f "$RUNNER_TEMP/personal-gpg-passphrase" \
-                "$RUNNER_TEMP/personal-gpg-private.asc" \
-                "$RUNNER_TEMP/personal-gpg-wrapper" \
-                ~/.ssh/gitverse_ed25519
+          rm -f "$RUNNER_TEMP/personal-gpg-passphrase"                 "$RUNNER_TEMP/personal-gpg-private.asc"                 "$RUNNER_TEMP/personal-gpg-wrapper"
           rm -rf "$HOME/.gnupg" "$RUNNER_TEMP/repository-work"
