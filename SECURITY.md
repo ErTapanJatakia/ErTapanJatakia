@@ -7,7 +7,7 @@
 [![Pull Requests](https://img.shields.io/badge/Changes-Pull%20Request%20Required-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
 
 > **Evidence-first status:** live workflow badges report GitHub Actions workflow state. Descriptive badges identify configured controls; they do not claim that every scan is clean or that no vulnerabilities exist. Planned and unverified controls are explicitly labelled below.
-
+>
 > **Implementation tracking:** the dashboard contains 55 displayed badge entries. See the [Security Badge Implementation Roadmap](./docs/SECURITY-BADGE-ROADMAP.md) for the evidence-backed inventory, priorities, applicability decisions and verification criteria.
 
 ## 1. Security scanning & detection
