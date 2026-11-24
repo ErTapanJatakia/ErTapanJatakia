@@ -33,7 +33,7 @@
 
 <a href="https://www.linkedin.com/in/ertapanjatakia"><img src="https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" height="42" /></a>
 <a href="https://linktr.ee/ertapanjatakia"><img src="https://img.shields.io/badge/LINKTREE-39E09B?style=for-the-badge&logo=linktree&logoColor=black" alt="Linktree" height="42" /></a>
-<a href="https://x.com/ertapanjatakia"><img src="https://img.shields.io/badge/X%20%28TWITTER%29-000000?style=for-the-badge&logo=x&logoColor=white" alt="X (Twitter)" height="42" /></a>
+[![X (Twitter)](https://img.shields.io/badge/X-TWITTER-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ertapanjatakia)
 <a href="https://bsky.app/profile/er-tapan-jatakia.bsky.social"><img src="https://img.shields.io/badge/BLUESKY-0285FF?style=for-the-badge&logo=bluesky&logoColor=white" alt="Bluesky" height="42" /></a>
 <a href="https://topmate.io/ertapanjatakia"><img src="https://img.shields.io/badge/TOPMATE-FF6B35?style=for-the-badge" alt="Topmate" height="42" /></a>
 
@@ -260,7 +260,7 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 
 <a href="https://www.linkedin.com/in/ertapanjatakia"><img src="https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" height="42" /></a>
 <a href="https://linktr.ee/ertapanjatakia"><img src="https://img.shields.io/badge/LINKTREE-39E09B?style=for-the-badge&logo=linktree&logoColor=black" alt="Linktree" height="42" /></a>
-<a href="https://x.com/ertapanjatakia"><img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X" height="42" /></a>
+[![X (Twitter)](https://img.shields.io/badge/X-TWITTER-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ertapanjatakia)
 <img src="https://img.shields.io/badge/BLUESKY-0285FF?style=for-the-badge&logo=bluesky&logoColor=white" alt="Bluesky profile link pending" height="42" />
 
 </div>
