@@ -1,0 +1,305 @@
+name: Controlled Documentation Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Unique date-based suffix, for example 2026.11.24.1"
+        required: true
+        type: string
+      confirmation:
+        description: "Type PUBLISH to authorize creation of a public documentation release"
+        required: true
+        type: string
+      malware_alert_review:
+        description: "Check GitHub Security > Malware alerts and type NONE_OPEN only when none are open"
+        required: true
+        type: string
+      license_review:
+        description: "Confirm the release dependency/license review is complete by typing REVIEWED"
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: controlled-documentation-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Package, sign, attest and publish documentation snapshot
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+      checks: read
+    steps:
+      - name: Check out protected main history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate release request
+        id: release-input
+        env:
+          VERSION: ${{ inputs.version }}
+          CONFIRMATION: ${{ inputs.confirmation }}
+          MALWARE_ALERT_REVIEW: ${{ inputs.malware_alert_review }}
+          LICENSE_REVIEW: ${{ inputs.license_review }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! "$VERSION" =~ ^20[0-9]{2}\.[0-9]{2}\.[0-9]{2}\.[0-9]{1,3}$ ]]; then
+            echo "::error::Version must use YYYY.MM.DD.N format, for example 2026.11.24.1."
+            exit 1
+          fi
+          date_part="${VERSION%.*}"
+          IFS='.' read -r year month day <<< "$date_part"
+          if [[ "$(date -u -d "$year-$month-$day" '+%Y.%m.%d' 2>/dev/null || true)" != "$year.$month.$day" ]]; then
+            echo "::error::The date portion of the version is not a valid calendar date."
+            exit 1
+          fi
+          if [[ "$CONFIRMATION" != "PUBLISH" ]]; then
+            echo "::error::Confirmation must be exactly PUBLISH."
+            exit 1
+          fi
+          if [[ "$MALWARE_ALERT_REVIEW" != "NONE_OPEN" ]]; then
+            echo "::error::Review GitHub Security > Malware alerts and confirm NONE_OPEN before publishing."
+            exit 1
+          fi
+          if [[ "$LICENSE_REVIEW" != "REVIEWED" ]]; then
+            echo "::error::Complete the dependency and license review before publishing."
+            exit 1
+          fi
+          if [[ "$GITHUB_REF" != "refs/heads/main" ]]; then
+            echo "::error::Documentation releases may only be created from main."
+            exit 1
+          fi
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "::error::The checked-out source tree is not clean."
+            exit 1
+          fi
+          tag="profile-docs-$VERSION"
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+            git fetch --no-tags origin "refs/tags/$tag:refs/tags/$tag"
+            if [[ "$(git rev-parse "$tag^{commit}")" != "$(git rev-parse HEAD)" ]]; then
+              echo "::error::The release tag already exists for a different source commit. Tags are immutable and will not be replaced."
+              exit 1
+            fi
+            echo "tag_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag_exists=false" >> "$GITHUB_OUTPUT"
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "source_commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Verify current security gates on the release commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          SOURCE_SHA: ${{ steps.release-input.outputs.source_commit }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          checks_file="$RUNNER_TEMP/release-check-runs.json"
+          gh api --paginate --slurp \
+            "repos/$GH_REPOSITORY/commits/$SOURCE_SHA/check-runs?per_page=100" \
+            | jq '[.[].check_runs[]]' > "$checks_file"
+
+          required_checks=(
+            "Gitleaks secret detection"
+            "zizmor GitHub Actions audit"
+            "Analyze (actions)"
+            "SAST policy gate"
+            "Dependabot alert gate"
+          )
+          for check_name in "${required_checks[@]}"; do
+            record="$(jq -c --arg name "$check_name" '
+              [.[] | select(.name == $name)]
+              | sort_by(.completed_at // .started_at)
+              | last // empty
+            ' "$checks_file")"
+            if [[ -z "$record" ]]; then
+              echo "::error::Required release check is missing: $check_name"
+              exit 1
+            fi
+            status="$(jq -r '.status // ""' <<< "$record")"
+            conclusion="$(jq -r '.conclusion // ""' <<< "$record")"
+            if [[ "$status" != "completed" || "$conclusion" != "success" ]]; then
+              echo "::error::Required release check did not complete successfully: $check_name ($status/$conclusion)"
+              exit 1
+            fi
+            echo "Verified release check: $check_name"
+          done
+
+          echo "Dependency Review must also be a required successful pull-request check in the main-branch ruleset before this release workflow is used."
+          echo "The workflow dispatch inputs separately attest that the owner reviewed the Malware alerts interface and license inventory."
+
+      - name: Configure personal GPG signing
+        uses: $/.github/actions/setup-personal-gpg
+        with:
+          private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          signing-key: ${{ secrets.GPG_SIGNING_KEY }}
+          git-name: Er. Tapan Jatakia
+          git-email: tapan_ditu_17.20@outlook.com
+
+      - name: Create or verify immutable signed documentation tag
+        env:
+          TAG: ${{ steps.release-input.outputs.tag }}
+          TAG_EXISTS: ${{ steps.release-input.outputs.tag_exists }}
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$TAG_EXISTS" == "true" ]]; then
+            git verify-tag "$TAG"
+            echo "Existing tag signature verified; the tag will not be modified."
+          else
+            git tag -s "$TAG" -m "Controlled documentation release $TAG"
+            git verify-tag "$TAG"
+            AUTH_HEADER="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+            git -c http.extraheader="AUTHORIZATION: basic $AUTH_HEADER" push origin "refs/tags/$TAG"
+          fi
+
+      - name: Package source and documentation snapshot
+        id: package
+        env:
+          TAG: ${{ steps.release-input.outputs.tag }}
+          SOURCE_COMMIT: ${{ steps.release-input.outputs.source_commit }}
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          archive="dist/$TAG.tar.gz"
+          manifest="dist/$TAG-release-manifest.json"
+          checksums="dist/$TAG-SHA256SUMS"
+          signature="dist/$TAG-SHA256SUMS.asc"
+          support_end="$(date -u -d '+90 days' '+%Y-%m-%dT%H:%M:%SZ')"
+          created_at="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+
+          git archive --format=tar --prefix="$TAG/" HEAD | gzip -n > "$archive"
+          archive_sha256="$(sha256sum "$archive" | cut -d ' ' -f 1)"
+
+          jq -n \
+            --arg project "$GITHUB_REPOSITORY" \
+            --arg tag "$TAG" \
+            --arg sourceCommit "$SOURCE_COMMIT" \
+            --arg createdAt "$created_at" \
+            --arg supportEnds "$support_end" \
+            --arg archive "$TAG.tar.gz" \
+            --arg archiveSha256 "$archive_sha256" \
+            '{
+              schemaVersion: 1,
+              project: $project,
+              releaseTag: $tag,
+              sourceCommit: $sourceCommit,
+              createdAtUtc: $createdAt,
+              distributionType: "source-and-documentation-snapshot",
+              compiledSoftwareAssetsIncluded: false,
+              support: {
+                scope: "security and integrity corrections only",
+                supportEndsUtc: $supportEnds,
+                policy: "docs/RELEASE-POLICY.md"
+              },
+              assets: [
+                {
+                  name: $archive,
+                  type: "source-and-documentation-archive",
+                  sha256: $archiveSha256
+                }
+              ]
+            }' > "$manifest"
+
+          (
+            cd dist
+            sha256sum "$TAG.tar.gz" "$TAG-release-manifest.json" > "$TAG-SHA256SUMS"
+          )
+          gpg --batch --yes --pinentry-mode loopback \
+            --passphrase-file "$RUNNER_TEMP/personal-gpg-passphrase" \
+            --armor --detach-sign --local-user "$GPG_SIGNING_KEY" \
+            --output "$signature" "$checksums"
+          gpg --batch --verify "$signature" "$checksums"
+
+          cat > "$RUNNER_TEMP/release-notes.md" <<EOF
+          ## Documentation and source-configuration snapshot
+
+          - **Tag:** $TAG
+          - **Source commit:** $SOURCE_COMMIT
+          - **Support ends:** $support_end
+          - **Scope:** public profile content, policies, Markdown documentation and repository configuration.
+          - **Compiled software assets:** none.
+
+          This is not an application, binary, deployable service or software package. The archive is signed and accompanied by SHA-256 checksums, a release manifest and GitHub artifact attestations.
+
+          Follow [release verification instructions](https://github.com/$GITHUB_REPOSITORY/blob/main/docs/RELEASE-VERIFICATION.md) before use.
+          EOF
+
+          {
+            echo "archive=$archive"
+            echo "manifest=$manifest"
+            echo "checksums=$checksums"
+            echo "signature=$signature"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Generate GitHub artifact attestations
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: |
+            ${{ steps.package.outputs.archive }}
+            ${{ steps.package.outputs.manifest }}
+            ${{ steps.package.outputs.checksums }}
+
+      - name: Verify release artifact attestations
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARCHIVE: ${{ steps.package.outputs.archive }}
+          MANIFEST: ${{ steps.package.outputs.manifest }}
+          CHECKSUMS: ${{ steps.package.outputs.checksums }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for subject in "$ARCHIVE" "$MANIFEST" "$CHECKSUMS"; do
+            gh attestation verify "$subject" \
+              --repo "$GITHUB_REPOSITORY" \
+              --signer-workflow "github.com/$GITHUB_REPOSITORY/.github/workflows/documentation-release.yml"
+          done
+
+      - name: Publish immutable GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release-input.outputs.tag }}
+          ARCHIVE: ${{ steps.package.outputs.archive }}
+          MANIFEST: ${{ steps.package.outputs.manifest }}
+          CHECKSUMS: ${{ steps.package.outputs.checksums }}
+          SIGNATURE: ${{ steps.package.outputs.signature }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "::error::A GitHub Release already exists for $TAG. It will not be overwritten."
+            exit 1
+          fi
+          gh release create "$TAG" \
+            "$ARCHIVE" "$CHECKSUMS" "$SIGNATURE" "$MANIFEST" \
+            --title "$TAG" \
+            --notes-file "$RUNNER_TEMP/release-notes.md" \
+            --verify-tag \
+            --latest
+
+      - name: Remove temporary signing material
+        if: always()
+        shell: bash
+        run: |
+          rm -f "$RUNNER_TEMP/personal-gpg-passphrase" \
+                "$RUNNER_TEMP/personal-gpg-private.asc" \
+                "$RUNNER_TEMP/personal-gpg-wrapper"
+          rm -rf "$HOME/.gnupg"

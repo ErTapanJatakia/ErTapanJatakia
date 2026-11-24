@@ -1,0 +1,118 @@
+name: Dependency and Malware Alert Policy
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: dependency-policy-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-review:
+    name: Dependency Review
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Review dependency changes
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: high
+          show-openssf-scorecard: true
+
+  dependabot-alert-gate:
+    name: Dependabot alert gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      vulnerability-alerts: read
+    steps:
+      - name: Check out VEX exception register
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Fail on unresolved Dependabot alerts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          register=".github/dependabot-vex-exceptions.json"
+          today="$(date -u '+%Y-%m-%d')"
+          jq -e '.schemaVersion == 1 and (.exceptions | type == "array")' "$register" >/dev/null
+
+          # Every exception must be current, evidence-backed and linked to a real CycloneDX VEX document.
+          while IFS= read -r exception; do
+            vex_path="$(jq -r '.vex_document // ""' <<< "$exception")"
+            ghsa="$(jq -r '.ghsa_id // ""' <<< "$exception")"
+            package_name="$(jq -r '.package_name // ""' <<< "$exception")"
+            expires="$(jq -r '.expires_on // ""' <<< "$exception")"
+            status="$(jq -r '.status // ""' <<< "$exception")"
+            evidence="$(jq -r '.evidence_summary // ""' <<< "$exception")"
+
+            [[ "$vex_path" == docs/vex/*.json ]] || { echo "::error::Invalid VEX document path."; exit 1; }
+            [[ -f "$vex_path" ]] || { echo "::error::VEX document is missing: $vex_path"; exit 1; }
+            [[ "$ghsa" =~ ^GHSA-[A-Za-z0-9-]+$ ]] || { echo "::error::Invalid GHSA identifier in VEX exception."; exit 1; }
+            [[ -n "$package_name" ]] || { echo "::error::VEX exception package name is missing."; exit 1; }
+            [[ "$expires" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || { echo "::error::VEX expiry must use YYYY-MM-DD."; exit 1; }
+            [[ "$expires" > "$today" || "$expires" == "$today" ]] || { echo "::error::VEX exception expired: $ghsa"; exit 1; }
+            [[ "$status" == "not_affected" ]] || { echo "::error::Only evidence-backed not_affected VEX statements may suppress an alert."; exit 1; }
+            [[ ${#evidence} -ge 20 ]] || { echo "::error::VEX exception evidence summary is too short: $ghsa"; exit 1; }
+
+            jq -e --arg ghsa "$ghsa" '
+              .bomFormat == "CycloneDX" and
+              .specVersion == "1.6" and
+              any(.vulnerabilities[]?;
+                .id == $ghsa and
+                .analysis.state == "not_affected" and
+                (.analysis.justification | type == "string" and length > 0) and
+                (.analysis.detail | type == "string" and length > 20)
+              )
+            ' "$vex_path" >/dev/null || { echo "::error::VEX document does not contain a matching evidence-backed not_affected statement: $ghsa"; exit 1; }
+          done < <(jq -c '.exceptions[]?' "$register")
+
+          gh api --paginate --slurp \
+            "repos/$GH_REPOSITORY/dependabot/alerts?state=open&per_page=100" \
+            | jq 'add' > "$RUNNER_TEMP/open-dependabot-alerts.json"
+
+          jq --slurpfile vex "$register" --arg today "$today" '
+            [
+              .[] as $alert
+              | select(
+                  ([
+                    $vex[0].exceptions[]?
+                    | select(
+                        .ghsa_id == $alert.security_advisory.ghsa_id and
+                        .package_name == $alert.dependency.package.name and
+                        .status == "not_affected" and
+                        .expires_on >= $today
+                      )
+                  ] | length) == 0
+                )
+            ]
+          ' "$RUNNER_TEMP/open-dependabot-alerts.json" > "$RUNNER_TEMP/blocking-dependabot-alerts.json"
+
+          count="$(jq 'length' "$RUNNER_TEMP/blocking-dependabot-alerts.json")"
+          if (( count > 0 )); then
+            echo "::error::$count unresolved Dependabot alert(s) remain without a current, evidence-backed VEX exception."
+            jq -r '.[] | [.dependency.package.ecosystem, .dependency.package.name, .security_advisory.ghsa_id, .security_advisory.severity, .html_url] | @tsv' \
+              "$RUNNER_TEMP/blocking-dependabot-alerts.json"
+            exit 1
+          fi
+
+          echo "No unresolved Dependabot alerts remain outside the validated VEX exception register."
+          echo "The separate GitHub Malware alerts interface is not exposed by this Dependabot API query and must be reviewed manually before each release."

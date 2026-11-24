@@ -48,3 +48,11 @@ All contributions are subject to review and may be revised, deferred, or decline
 By participating, you agree to follow the repository's [Code of Conduct](CODE_OF_CONDUCT.md).
 
 Thank you for helping keep this profile repository accurate, accessible, and professional.
+
+## Repository QA and security-sensitive changes
+
+This repository runs documentation and configuration checks rather than an application test suite. Contributors should read the [Repository Quality Assurance Policy](docs/REPOSITORY-QA-POLICY.md) for the exact CI triggers, local commands, interpretation of results and major-change test expectations.
+
+Changes to workflows, permissions, credentials, dependency policy, release publication or security controls must include appropriate validation. Do not expose secrets to fork pull requests or unreviewed code, and do not weaken or bypass checks merely to obtain a passing result.
+
+Before proposing a release-related change, review the [Controlled Documentation Release Policy](docs/RELEASE-POLICY.md) and [Release Verification Instructions](docs/RELEASE-VERIFICATION.md). This repository currently distributes documentation/source-configuration snapshots only; it does not publish compiled application binaries.
