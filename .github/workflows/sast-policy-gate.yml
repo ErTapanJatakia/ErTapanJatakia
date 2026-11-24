@@ -55,4 +55,4 @@ jobs:
           fi
 
           echo "No open Critical/High CodeQL findings were returned by the repository API."
-          echo "The separate 'Analyze (actions)' CodeQL check must also be required by the main branch ruleset to ensure PR analysis completes before merge."
+          echo "The separate 'Analyze (actions)' CodeQL analysis check must also be required by the main branch ruleset so the PR's analysis completes before merge."
