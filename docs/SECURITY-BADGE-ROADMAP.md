@@ -128,7 +128,7 @@ For each work item, record:
 | Control | Latest evidence | Result / interpretation |
 |---|---|---|
 | Gitleaks | [Security Analysis run 45309601904](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601904) | Passed; log reports **no leaks found** in the pushed commit. Push events use an incremental commit range; this is not a full-history result. |
-| zizmor | [Security Analysis run 45309601904](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601904) | Passed; audited all nine current workflow/action configuration files and reported no findings, with 15 findings suppressed by its effective configuration. |
+| zizmor | [Security Analysis run 45309601904](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601904) | Passed; audited the current workflow, local-action and Dependabot configuration files it discovered and reported no findings, with 15 findings suppressed by its effective configuration. |
 | CodeQL | [CodeQL run 45309601412](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601412) | Passed; scanned 9/9 GitHub Actions files and uploaded SARIF successfully. This is workflow analysis, not application-language coverage. |
 | OpenSSF Scorecard | [Scorecard run 45309601974](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601974) | Passed; measured score **6.9/10**. A successful run does not mean every posture check scores 10. |
 | Quality checks | [Quality run 45309601895](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601895) | All four advisory jobs passed: YAML syntax, actionlint, Markdown lint and internal/offline Markdown link validation. |
@@ -172,6 +172,6 @@ The connected GitHub integration can read the active ruleset and repository file
 - Dependabot vulnerability-alert enablement and its alert inventory remain **unverified**.
 - Do not change the corresponding platform-status badges until those settings are inspected in GitHub's repository Security settings.
 
-Historical DevSkim, Bearer and Bandit remediation was tested in the earlier PR #272 post-merge pipeline (run #243, 7/7 jobs passed). Those scanners are not among the nine workflows currently present on `main`; the historical pass must not be represented as a current recurring scan. Reassess their badges as historical/not currently configured, rather than implying current coverage.
+Historical DevSkim, Bearer and Bandit remediation was tested in the earlier PR #272 post-merge pipeline (run #243, 7/7 jobs passed). Those scanners are not among the workflows currently present on `main`; the historical pass must not be represented as a current recurring scan. Reassess their badges as historical/not currently configured, rather than implying current coverage.
 
 **Next checkpoint:** inspect native GitHub Secret Scanning and Dependabot vulnerability-alert settings, then reconcile the five Scorecard posture alerts without artificial dismissals.
