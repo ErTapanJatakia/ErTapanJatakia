@@ -23,7 +23,7 @@ A direct count of Markdown badge elements in `SECURITY.md` at the baseline commi
 
 The count is of rendered badge entries, not unique products, scanners, or independent controls. For example, CodeQL, zizmor, branch protection and security policy are represented more than once.
 
-**Current dashboard after P1 implementation and historical-scanner reconciliation:** 55 entries remain: 2 live workflow badges, 33 configured/published controls, 2 unverified/not-enforced badges, and 18 planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification. The DevSkim and Bearer badges are now explicitly historical-only/not currently configured, moving those two entries out of the unverified group; this is a status correction, not a claim that their historical findings were all resolved.
+**Current dashboard after P1 implementation and historical-scanner reconciliation:** 55 entries remain: 2 live workflow badges, 34 configured/published controls, 2 unverified/not-enforced badges, and 17 deferred/planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification. The DevSkim and Bearer badges are now explicitly historical-only/not currently configured, moving those two entries out of the unverified group; this is a status correction, not a claim that their historical findings were all resolved.
 
 ## Priority roadmap
 
@@ -57,8 +57,8 @@ Every added GitHub Action must be pinned to a full commit SHA, use least-privile
 
 | Work item | Current status | Applicability decision |
 |---|---|---|
-| Trivy | Planned | Consider only if there are containers, filesystems, IaC or dependency targets it can meaningfully scan |
-| Semgrep | Planned | Consider when there is supported source code or security-relevant configuration with useful rules |
+| Trivy | **Deferred / not currently applicable** | Trivy's strongest misconfiguration coverage targets containers, IaC and supported deployment manifests; this repository has no such target. Gitleaks and workflow-focused CodeQL/zizmor already cover the relevant secrets and workflow-analysis scope. Reassess if containers, IaC or deployable artifacts are introduced |
+| Semgrep | **Deferred / not currently applicable** | No maintained application source is present; GitHub Actions are already covered by CodeQL and zizmor. Adding a generic YAML scan without a distinct, validated rule set would duplicate existing coverage. Reassess when meaningful application source or a specific uncovered rule set exists |
 | Bandit | Not applicable | Python-specific; do not enable unless maintained Python source is introduced |
 | npm audit | Not applicable | Requires a relevant Node.js dependency manifest/lockfile; do not create a package solely to obtain a badge |
 | OWASP ZAP | Not applicable | Requires an in-scope running web application; this repository does not currently provide one |
@@ -69,11 +69,11 @@ Do not add overlapping scanners merely to increase badge count. Select a tool on
 
 | Work item | Current status | Applicability decision |
 |---|---|---|
-| SBOM | Not generated | Generate when the repository produces a meaningful software artifact or dependency inventory |
-| SLSA provenance | Not implemented | Implement only for an actual build/release pipeline with verifiable provenance |
-| Artifact attestation | Not implemented | Use for produced artifacts where identity and provenance verification provide value |
+| SBOM | **Deferred / no meaningful inventory target** | No package manifests, application dependencies or built software artifacts exist to inventory. Do not generate a source-tree SBOM solely to obtain a badge. Reassess when a distributable artifact or meaningful dependency graph exists |
+| SLSA provenance | **Deferred / no build artifacts** | The signed-publish workflow signs a Git commit and opens a PR; it does not build a software artifact. Commit signing is not SLSA build provenance. Reassess when a build/release pipeline produces artifacts |
+| Artifact attestation | **Deferred / no built artifact** | No software artifact is currently built or released. Do not attest documentation commits as if they were release artifacts. Reassess when the repository produces a distributable artifact |
 | Signed releases | Not applicable | Reassess if versioned software releases are introduced |
-| CODEOWNERS | Not configured | Optional ownership clarity; does not create an independent reviewer or replace human review |
+| CODEOWNERS | **Deferred / single maintainer** | A self-owned CODEOWNERS file would not create an independent reviewer or add meaningful review assurance. Reassess if genuine additional maintainers or component owners join |
 
 No artificial package, release, build artifact, or provenance workflow should be created to improve a score.
 
@@ -81,12 +81,12 @@ No artificial package, release, build artifact, or provenance workflow should be
 
 | Work item | Current status | Applicability decision |
 |---|---|---|
-| Prettier | Not configured | Adopt only if consistent formatting is useful for maintained file types |
-| EditorConfig | Not verified | Lightweight optional consistency improvement |
-| SonarQube | Not configured | Reassess only if meaningful source code and an appropriate analysis scope exist |
-| Maintainability metric | Not measured | Avoid a numeric claim without a valid codebase and repeatable metric |
-| Test coverage | Not measured | No application test suite currently exists; configuration validation is not application coverage |
-| Automated application tests | No application test suite | Keep this distinction explicit; existing workflow/configuration checks are real but are not app tests |
+| Prettier | **Deferred / no demonstrated gap** | Existing Markdown lint, YAML parsing and actionlint provide format/syntax assurance. Avoid introducing a package/toolchain solely for a badge; reconsider if formatting drift becomes a real maintenance issue |
+| EditorConfig | **Implemented; CI verification pending** | Root `.editorconfig` now defines UTF-8, LF, final newlines, two-space indentation and Markdown trailing-space preservation. Repository configuration validation checks the required policy keys |
+| SonarQube | **Not applicable** | No maintained application source or build target exists. Reassess only if the repository gains meaningful source code and a supported analysis scope |
+| Maintainability metric | **Not applicable** | No maintained application code exists for a meaningful code maintainability metric. Keep this distinct from documentation quality checks |
+| Test coverage | **Not applicable** | There is no application test target or coverage instrumentation. Configuration/workflow validation must not be presented as application code coverage |
+| Automated application tests | **No application test suite** | Existing workflow, YAML, Markdown and configuration checks are real CI checks, but this repository has no application runtime or application-level test suite |
 
 ## Recommended execution sequence
 
@@ -95,6 +95,31 @@ No artificial package, release, build artifact, or provenance workflow should be
 3. **Retain advisory status initially**: gather repeatable results before considering any new required status checks; do not modify branch rules as part of this PR.
 4. **Close the P0 evidence gaps** before changing alert-status badges or claiming a clean platform alert inventory.
 5. **Reassess P2–P4 when repository scope changes**: do not implement controls whose prerequisites do not exist.
+
+### Status-focused badge audit and implementation — 2026-11-24
+
+This review prioritises the non-green and non-current badge states rather than repeating the already verified platform-control checks.
+
+| Badge / control | Previous label | Decision and work completed | Reassessment trigger |
+|---|---|---|---|
+| Trivy | Planned | Deferred: no container, IaC, deployable filesystem or dependency target that adds distinct coverage. Existing Gitleaks and workflow-focused CodeQL/zizmor checks cover the relevant current scope | Introduce containers, IaC or a meaningful supported target |
+| Semgrep | Planned | Deferred: no maintained application source; generic workflow scanning would overlap CodeQL Actions and zizmor without a distinct validated ruleset | Add application source or identify a specific uncovered rule set |
+| DevSkim | Historical scan only | Retain historical-only status; no recurring current-main workflow exists | Reintroduce only with a scoped target, maintained rules and recurring CI |
+| Bearer | Historical scan only | Retain historical-only status; no application data-flow target exists | Add an application with meaningful data flows |
+| SBOM | Not generated | Deferred: no package manifest, software dependency inventory or built artifact for a useful SBOM | Introduce a distributable artifact or meaningful dependency graph |
+| SLSA provenance | Not implemented | Deferred: signed Git commits are not build provenance; no artifact build pipeline exists | Introduce a build/release pipeline |
+| Artifact attestation | Not implemented | Deferred: no software artifact is currently produced for attestation | Produce a distributable artifact |
+| CODEOWNERS | Not configured | Deferred: a self-only ownership file would not create independent review or meaningful approval assurance | Add genuine maintainers/component owners |
+| Prettier | Not configured | Deferred: existing Markdown lint, YAML parsing and actionlint cover current quality needs; no demonstrated formatting gap justifies another toolchain | Repeated formatting drift or a supported source-code formatting need |
+| EditorConfig | Not verified | Implemented: root `.editorconfig` added; repository configuration workflow now validates required settings. Badge changes to configured/validated after CI passes | Keep verified through the configuration workflow |
+| SonarQube | Not configured | Not applicable: no maintained application source or build target | Add meaningful source code and an analysis scope |
+| Maintainability metric | Not measured | Not applicable: no application codebase for a meaningful code maintainability metric | Add maintained application source |
+| Test coverage | Not measured | Not applicable: no application test target or coverage instrumentation | Add application tests and coverage instrumentation |
+| Automated application tests | No application test suite | Retain explicit wording: configuration and workflow CI checks exist, but they are not application tests | Add a maintained application runtime/test suite |
+
+**Interpretation:** “deferred” is an active scope decision, not an implemented control. “Not applicable” is not a green security result. Historical scanner passes are not current coverage. No artificial package, build artifact, source code, test suite, fuzzer or reviewer has been created to improve badge counts.
+
+**Badge presentation:** all badge images in `README.md` and `SECURITY.md` are being resized to 150% of their previous rendered height. For Shields.io `for-the-badge` images, the target height is 42 px; for standard/flat-square and GitHub workflow badges, it is 30 px. Image scaling enlarges the embedded badge text proportionally. This is a presentation change only and does not change the underlying control status.
 
 ## Evidence and governance rules
 
