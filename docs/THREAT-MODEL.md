@@ -4,6 +4,8 @@
 **Scope:** Public profile content, repository administration, GitHub Actions automation, GPG signing, dependency inventory, attestations, GitVerse mirroring and controlled documentation releases.  
 **Out of scope:** An application runtime, network service, compiled product or end-user application; none is maintained or released by this repository.
 
+The repository's released automation assets and their actors/actions are described in [Repository Automation Architecture](REPOSITORY-AUTOMATION-ARCHITECTURE.md); external interfaces are inventoried in [External Software Interfaces](EXTERNAL-SOFTWARE-INTERFACES.md); toolchain and reproducible validation/package instructions are in [Build and Test Instructions](BUILD-AND-TEST-INSTRUCTIONS.md).
+
 ## 1. Method and security objectives
 
 This model identifies assets, actors, trust boundaries, abuse cases, existing safeguards and residual risks. It is reviewed when a workflow, credential, external action, distribution channel, maintainer, package ecosystem, executable artifact or release process changes, and after a security incident.
