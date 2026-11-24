@@ -23,6 +23,8 @@ A direct count of Markdown badge elements in `SECURITY.md` at the baseline commi
 
 The count is of rendered badge entries, not unique products, scanners, or independent controls. For example, CodeQL, zizmor, branch protection and security policy are represented more than once.
 
+**Current dashboard after P1 implementation:** 55 entries remain: 2 live workflow badges, 31 configured/published controls, 6 unverified/not-enforced badges, and 16 planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification.
+
 ## Priority roadmap
 
 ### P0 — Verify existing security posture before adding scanners
