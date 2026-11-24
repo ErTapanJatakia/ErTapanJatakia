@@ -36,7 +36,7 @@ Gold is cumulative: the project must first achieve Silver. Its contributor-diver
 | `achieve_silver` | achieve silver | **Unmet** | The public BadgeApp profile is in_progress; Silver has not been achieved. |
 | `bus_factor` | Maintain a bus factor of at least two (should at Silver) | **Unmet** | The documented operating model identifies one maintainer. |
 | `contributors_unassociated` | contributors unassociated | **Unmet** | Two unassociated significant contributors are not evidenced; the current project has one maintainer and one collaborator whose significant independent contribution status is not established. |
-| `copyright_per_file` | Include copyright statement in every source file | **Unmet** | The Ruby source files and other maintained source files have not been verified to contain a copyright statement identifying the copyright holder. |
+| `copyright_per_file` | Include copyright statement in every source file | **Unmet** | Inspection of all four maintained Ruby source/test files (`scripts/validate-dco.rb`, `scripts/validate-vex.rb`, `tests/dco_validator_test.rb` and `tests/vex_validator_test.rb`) found no copyright statement identifying the copyright holder. |
 | `license_per_file` | Include SPDX licence statement in every source file | **Unmet** | A root LICENSE exists, but SPDX license statements have not been verified in each applicable source file. |
 
 ## Change Control
