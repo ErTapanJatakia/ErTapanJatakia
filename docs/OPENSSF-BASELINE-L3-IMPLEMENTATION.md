@@ -50,7 +50,6 @@ PR [#38](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) was merged as
 
 The active main ruleset still requires only Gitleaks and zizmor. Add `Dependency Review`, `Dependabot alert gate`, `Analyze (actions)` and `SAST policy gate` as required checks after verifying the successful PR #38 results. The controlled documentation-release workflow is configured, but the first public release has not been created. The tag ruleset and first release require owner-side GitHub settings/dispatch actions.
 
-
 ## Latest verified evidence — PR #39 and main — 2026-11-24
 
 PR [#39](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/39) was merged as commit `88e1d16a13c7fc72fdaaacbbb995bd320070f8b8`.
