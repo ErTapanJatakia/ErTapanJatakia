@@ -438,7 +438,7 @@ The PR added repository-scoped governance and security policies for secrets, col
 |---|---|
 | PR #38 | [Merged](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) |
 | Repository Security Analysis | [45347044175](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044175) — Gitleaks and zizmor passed |
-| Dependency and Malware Alert Policy | [45347044223](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044223) — Dependabot alert gate passed; no unresolved general or malware Dependabot alerts returned |
+| Dependency and Malware Alert Policy | [45347044223](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044223) — earlier Dependabot alert gate passed; this run predates the explicit malware-classification query added in PR #39 |
 | Dependency Review | [45346939758](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45346939758) — PR #38 dependency review passed |
 | SAST Policy Gate | [45347044217](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044217) — passed |
 | CodeQL Actions analysis | [45347044354](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044354) — passed |
@@ -450,6 +450,39 @@ The PR added repository-scoped governance and security policies for secrets, col
 
 The Scorecard run now reports CI-Tests **10** (30/30 merged PRs checked by CI) and SAST **10** (30 commits checked). Branch-Protection remains **4** because independent approvals, CODEOWNERS review and related review controls are not enabled. The repository still has one maintainer; no artificial reviewer was added.
 
-**Release scope:** the new workflow publishes only a versioned source/documentation/configuration snapshot, not compiled software. It creates a signed tag, archive, SHA-256 checksum manifest and detached GPG signature, release manifest and GitHub artifact attestations. The workflow is configured and validated by repository QA, but no public release has been published yet. First publication requires owner dispatch, a current review of full-SHA GitHub Actions dependencies, license review and a GitHub tag ruleset for `profile-docs-*`. PR #39 extends the Dependabot gate to query both general and malware alert classifications; this update is pending validation. GitHub's malware-alert limitation for SHA-pinned Actions remains a manual review item.
+**Release scope:** the new workflow publishes only a versioned source/documentation/configuration snapshot, not compiled software. It creates a signed tag, archive, SHA-256 checksum manifest and detached GPG signature, release manifest and GitHub artifact attestations. The workflow is configured and validated by repository QA, but no public release has been published yet. First publication requires owner dispatch, a current review of full-SHA GitHub Actions dependencies, license review and a GitHub tag ruleset for `profile-docs-*`. PR #39 subsequently added and validated explicit general/malware classification queries; see the PR #39 completion record below. GitHub's malware-alert limitation for SHA-pinned Actions remains a manual review item.
 
 **Remaining platform actions:** the active main ruleset still requires only Gitleaks and zizmor. Add the successful PR check names `Dependency Review`, `Dependabot alert gate`, `Analyze (actions)` and `SAST policy gate` as required checks. The non-author approval control remains unmet until a genuine independent reviewer is available. Compiled-asset SBOM and multi-repository subproject controls remain not applicable.
+
+### PR #39 completion — dashboard and enforcement hardening — 2026-11-24
+
+**Main commit:** `88e1d16a13c7fc72fdaaacbbb995bd320070f8b8` (PR #39, merged).
+
+PR #39 added two live workflow badges, replaced the grey software Signed Releases badge with a blue documentation-release workflow status, refreshed the 21-control evidence register and added two enforcement safeguards:
+
+- Dependabot alert policy queries `classification=general` and `classification=malware` separately. General vulnerability alerts may be excepted only by a current, evidence-backed VEX entry; malware alerts cannot be excepted.
+- SAST policy gate waits for the matching `Analyze (actions)` check on the same commit to complete before querying CodeQL Critical/High findings.
+
+| Evidence | Result |
+|---|---|
+| PR #39 | [Merged](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/39) |
+| Dependency and Malware Alert Policy — PR | [45347826556](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347826556) — passed; no open general or malware alerts |
+| SAST Policy Gate — PR | [45347826559](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347826559) — passed after CodeQL completion |
+| CodeQL — PR | [45347823329](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347823329) — passed |
+| Repository QA — PR | [45347826535](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347826535) — passed |
+| Configuration Validation — PR | [45347826533](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347826533) — passed |
+| Dependency and Malware Alert Policy — main | [45348018077](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348018077) — passed; no open general or malware alerts |
+| SAST Policy Gate — main | [45348017876](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017876) — passed after CodeQL completion |
+| CodeQL — main | [45348018299](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348018299) — passed |
+| Repository Security Analysis | [45348017923](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017923) — passed |
+| Repository QA | [45348017809](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017809) — passed |
+| Configuration Validation | [45348017942](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017942) — passed |
+| Dependency Graph SBOM | [45348017820](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017820) — passed |
+| OpenSSF Scorecard | [45348017963](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017963) — passed; 6.9/10 |
+| GitVerse mirror | [45348017956](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017956) — passed |
+
+The latest Scorecard reports 21/21 GitHub-owned and 5/5 third-party GitHub Actions pinned, Token-Permissions 10, Pinned-Dependencies 10, SAST 10 (30 commits), CI-Tests 10 (30/30 merged PRs) and Branch-Protection 4. No software release has been published, so Signed-Releases and Packaging remain -1.
+
+The dashboard remains at 57 badges: 5 live workflow badges, 38 configured/published controls, 2 unverified/not-enforced badges and 12 deferred/not-applicable badges.
+
+**Remaining owner actions:** require `Dependency Review`, `Dependabot alert gate`, `Analyze (actions)` and `SAST policy gate` in the main ruleset; create a tag ruleset for `profile-docs-*` that restricts updates and deletion but permits workflow creation; then review the full-SHA Actions dependency inventory and licenses before manually dispatching the first documentation release. Independent human approval remains unmet until a genuine second maintainer/reviewer is available.
