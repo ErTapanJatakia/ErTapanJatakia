@@ -119,8 +119,9 @@ jobs:
           COMMIT_MESSAGE: ${{ inputs.commit_message }}
         run: |
           set -euo pipefail
+          BODY="$(printf '%s\\n' '## Signed publication' '' 'This publication branch was created by the signed-publish workflow.' 'Its publication commit was signed with the configured personal GPG key and verified with git verify-commit.' '' "Please review the changes and merge through the repository's protected pull-request process. The GitVerse mirror runs after the merge to main.")"
           gh api --method POST "repos/$GITHUB_REPOSITORY/pulls" \
             -f title="$COMMIT_MESSAGE" \
             -f head="$PUBLISH_BRANCH" \
             -f base="main" \
-            -f body="## Signed publication\n\nThis publication branch was created by the signed-publish workflow. Its publication commit was signed with the configured personal GPG key and verified with `git verify-commit`.\n\nPlease review the changes and merge through the repository's protected pull-request process. The GitVerse mirror runs after the merge to `main`."
+            -f body="$BODY"
