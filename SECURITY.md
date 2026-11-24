@@ -57,7 +57,9 @@
 [![Code Owners](https://img.shields.io/badge/CODEOWNERS-Not%20configured-lightgrey?style=flat-square)](#scope-and-applicability)
 [![Human Approval](https://img.shields.io/badge/Independent%20PR%20Approval-Not%20required-yellow?style=flat-square)](#governance-transparency)
 
-**Governance transparency:** the active default-branch ruleset requires pull requests and the named security status checks, enforces conversation resolution and linear/squash history, blocks force pushes, restricts deletion, and has an empty bypass list. It currently requires **zero approving reviews**. Therefore, this page does not claim that independent human approval is mandatory.
+### Governance transparency
+
+The active default-branch ruleset requires pull requests and the named security status checks, enforces conversation resolution and linear/squash history, blocks force pushes, restricts deletion, and has an empty bypass list. It currently requires **zero approving reviews**. Therefore, this page does not claim that independent human approval is mandatory.
 
 ## 4. Code, workflow & documentation quality
 
