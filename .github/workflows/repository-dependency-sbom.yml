@@ -24,6 +24,9 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
     steps:
       - name: Request GitHub Dependency Graph SBOM generation
         id: request
@@ -117,6 +120,49 @@ jobs:
             echo "- SHA-256: $(cut -d ' ' -f 1 "$sbom.sha256")"
           } >> "$GITHUB_STEP_SUMMARY"
           echo "Validated SPDX 2.3 SBOM with $package_count package records and $dependency_count dependency relationships."
+
+      - name: Generate SBOM artifact provenance attestation
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: |
+            dist/repository-dependency-sbom.spdx.json
+            dist/repository-dependency-sbom.spdx.json.sha256
+
+      - name: Verify SBOM artifact provenance attestations
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          verify_subject() {
+            local subject="$1"
+            local result error
+            result="$RUNNER_TEMP/attestation-$(basename "$subject").json"
+            error="$RUNNER_TEMP/attestation-$(basename "$subject").err"
+            for attempt in {1..6}; do
+              if gh attestation verify "$subject" \
+                --repo "$GITHUB_REPOSITORY" \
+                --signer-workflow "github.com/$GITHUB_REPOSITORY/.github/workflows/repository-dependency-sbom.yml" \
+                --format json > "$result" 2> "$error"; then
+                jq --exit-status 'length > 0' "$result" >/dev/null
+                echo "Verified provenance attestation for $subject."
+                return 0
+              fi
+              echo "Attestation is not yet available for $subject (attempt $attempt/6)."
+              sleep 5
+            done
+            cat "$error" >&2
+            echo "::error::Could not verify the provenance attestation for $subject."
+            return 1
+          }
+
+          verify_subject "dist/repository-dependency-sbom.spdx.json"
+          verify_subject "dist/repository-dependency-sbom.spdx.json.sha256"
+          {
+            echo
+            echo "- Provenance: Sigstore-backed GitHub artifact attestations generated and verified for the SPDX SBOM and its SHA-256 checksum."
+            echo "- Attestation scope: the generated SBOM and checksum files only; this is not software build provenance."
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload SPDX SBOM artifact
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
