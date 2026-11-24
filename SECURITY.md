@@ -107,7 +107,7 @@ Accordingly:
 
 ## 7. Verification record
 
-The workflow badges above link to their authoritative GitHub Actions pages. For an audit, inspect the latest run on the current `main` commit and the associated job results. A green workflow badge means the workflow completed successfully; it does **not** prove that every security finding is absent.
+The workflow badges above link to their authoritative GitHub Actions pages. The Dependency Graph SBOM workflow's first successful export is recorded in [run 45329290238](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45329290238), with the uploaded [SBOM artifact](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45329290238/artifacts/14891280949). For an audit, inspect the latest run on the current `main` commit and the associated job results. A green workflow badge means the workflow completed successfully; it does **not** prove that every security finding is absent.
 
 DevSkim and Bearer were used in historical remediation work but are not configured as recurring scans on the current `main` branch. Their historical pass must not be read as current coverage. GitHub-native Secret Scanning and Dependabot alerts are owner-confirmed enabled as of 2026-11-24. At that observation, the owner saw no open Malware alerts, no open Dependabot alerts, and no auto-dismissed Dependabot alerts. These inventory observations are point-in-time evidence and do not replace Code Scanning review or prove universal dependency cleanliness.
 
