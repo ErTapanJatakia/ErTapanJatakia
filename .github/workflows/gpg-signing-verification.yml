@@ -3,8 +3,7 @@ name: Verify Personal GPG Commit Signing
 on:
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
   group: personal-gpg-signing-verification
@@ -14,6 +13,8 @@ jobs:
   verify-signing:
     name: Test reusable personal GPG signing action
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Check out main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
