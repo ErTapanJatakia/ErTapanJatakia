@@ -137,12 +137,12 @@ Please report third-party issues to the relevant service provider through its ow
 
 Thank you for helping keep this repository and its visitors safe.
 
-
 ## OpenSSF Baseline Level 3 implementation
 
 The repository's 21-control assessment register and supporting evidence are maintained in [docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md](docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md). PR [#38](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) added secrets/access/QA/SCA/SAST/VEX policies, a repository-automation threat model, release-verification guidance and controlled documentation-release automation.
 
 Post-merge validation on commit `099708d2225f65e3ad31cbd4ac2fc44a8f17458c` passed:
+
 - [Repository Security Analysis run 45347044175](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044175): Gitleaks and zizmor passed.
 - [Dependency and Malware Alert Policy run 45347044223](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044223): Dependabot alert gate passed; no unresolved Dependabot alerts were returned. The separate Malware alerts interface still requires owner review before release.
 - [SAST Policy Gate run 45347044217](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044217) passed; CodeQL [Analyze (actions)](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044354) passed.
