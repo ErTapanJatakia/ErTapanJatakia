@@ -44,10 +44,14 @@ A shorter deadline applies when exploitation is known, the dependency is reachab
 
 The automated checks are not a full filesystem, container or binary SCA scanner. See [GitHub's Dependabot malware-alert limitations](https://docs.github.com/en/code-security/concepts/supply-chain-security/malware-alerts) and [Dependabot alerts API](https://docs.github.com/en/rest/dependabot/alerts) for the supported malware classification and GitHub Actions SHA-reference limitation. If those asset types are introduced, extend the inventory and enforcement scope before release.
 
-## 6. Exceptions and VEX
+## 6. Direct Action license inventory
+
+The direct GitHub Actions license inventory is maintained in [DEPENDENCY-LICENSE-REGISTER.md](DEPENDENCY-LICENSE-REGISTER.md). It records license evidence at the exact pinned commits. The register identifies the Gitleaks Action's proprietary EULA separately from the repository's GPL-3.0 license; its personal-account provision and non-redistribution boundary are documented. The register does not cover transitive Action dependencies or runner images and must be refreshed whenever a pinned Action changes.
+
+## 7. Exceptions and VEX
 
 An exception must identify the advisory, component/version, affected scope, evidence, exploitability decision, compensating controls, approver, expiry and remediation plan. A non-exploitable vulnerability must be documented using the [VEX process](VEX-PROCESS.md). Exceptions must not be used to conceal an unresolved exploitable issue.
 
-## 7. Evidence limits
+## 8. Evidence limits
 
 The current SBOM represents GitHub Dependency Graph data only. It does not establish that every file, action implementation, runner image, transitive runtime dependency, container or binary has been inventoried. The policy must be reassessed if the repository begins distributing executable software.
