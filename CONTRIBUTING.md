@@ -49,6 +49,16 @@ By participating, you agree to follow the repository's [Code of Conduct](CODE_OF
 
 Thank you for helping keep this profile repository accurate, accessible, and professional.
 
+## Developer Certificate of Origin (DCO)
+
+Every commit in a pull request must include a DCO sign-off matching that commit's author identity. Use Git's sign-off option when creating each commit:
+
+```bash
+git commit -s -m "type: describe the change"
+```
+
+The resulting commit message must contain a trailer such as `Signed-off-by: Your Name <your-verified-email@example.com>`. The sign-off is a legal assertion under the [Developer Certificate of Origin](DCO), not a cryptographic signature. GPG signing and DCO sign-off are separate controls; use both when the repository's signing process requires them. If you amend or recreate a commit, preserve or add its sign-off again. The required `Major change validation` check rejects a pull request if any new commit lacks the matching sign-off. Historical commits before this policy's adoption are not retroactively rewritten.
+
 ## Repository QA and security-sensitive changes
 
 This repository runs documentation and configuration checks rather than an application test suite. Contributors should read the [Repository Quality Assurance Policy](docs/REPOSITORY-QA-POLICY.md) for the exact CI triggers, local commands, interpretation of results and major-change test expectations.
