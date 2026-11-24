@@ -121,4 +121,57 @@ For each work item, record:
 
 **P1 evidence:** quality run [45309272770](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309272770), commit `aeaf81dcff6ceee809efeeeb53fda09ed18ca0bd`. All four quality jobs passed. The checks remain advisory and are not required branch protections.
 
-**Next checkpoint:** complete P0 evidence verification before changing platform-alert badges or claiming an improved security posture.
+## Latest verification snapshot — 2026-11-24
+
+**Verified main commit:** `97580573c7604d18a6c9400582b90fb08b3aa415` (PR #13, merged).
+
+| Control | Latest evidence | Result / interpretation |
+|---|---|---|
+| Gitleaks | [Security Analysis run 45309601904](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601904) | Passed; log reports **no leaks found** in the pushed commit. Push events use an incremental commit range; this is not a full-history result. |
+| zizmor | [Security Analysis run 45309601904](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601904) | Passed; audited the current workflow, local-action and Dependabot configuration files it discovered and reported no findings, with 15 findings suppressed by its effective configuration. |
+| CodeQL | [CodeQL run 45309601412](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601412) | Passed; scanned 9/9 GitHub Actions files and uploaded SARIF successfully. This is workflow analysis, not application-language coverage. |
+| OpenSSF Scorecard | [Scorecard run 45309601974](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601974) | Passed; measured score **6.9/10**. A successful run does not mean every posture check scores 10. |
+| Quality checks | [Quality run 45309601895](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601895) | All four advisory jobs passed: YAML syntax, actionlint, Markdown lint and internal/offline Markdown link validation. |
+| Repository configuration | [Validation run 45309601879](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601879) | Passed. |
+| GitVerse mirror | [Mirror run 45309601988](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309601988) | Passed. |
+| Personal GPG signing | [Verification run 45312695775](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45312695775) | Passed; isolated signed test commit was verified and temporary signing material was removed. |
+
+### Scorecard findings and Code Scanning disposition
+
+The latest Scorecard result reports these low-scoring posture checks:
+
+| Check | Score | Evidence / disposition |
+|---|---:|---|
+| Code-Review | 0 | The active ruleset requires PRs but currently requires zero approving reviews. Do not manufacture an independent reviewer or claim mandatory human approval. |
+| Maintained | 0 | Scorecard reports that the repository is less than 90 days old. Time-based; do not generate artificial activity to influence this result. |
+| Branch-Protection | 4 | The active ruleset protects the default branch, requires PRs and status checks, requires conversation resolution, permits squash only, enforces linear history, blocks deletion and non-fast-forward updates, and has no bypass actors. Scorecard notes that approving reviews, stale-review dismissal, CODEOWNERS review and last-push approval are not required. |
+| Fuzzing | 0 | No fuzzing integration is detected. This repository has no application runtime or meaningful fuzzing target at present. |
+| CII-Best-Practices | 0 | No OpenSSF Best Practices badge application is detected. This is an optional programme, not evidence of an exploitable code defect. |
+
+The five Code Scanning alerts most recently reported by the repository owner correspond to Scorecard posture findings, not five demonstrated exploitable vulnerabilities. Retain them unless the underlying posture is genuinely improved or a documented, evidence-based disposition is appropriate. Do not dismiss them merely to obtain a green dashboard.
+
+The same Scorecard report assigns 10 to its Vulnerabilities check (reporting zero known vulnerabilities in its checked scope), Dangerous-Workflow, Pinned-Dependencies, Token-Permissions, Security-Policy, SAST, License and CI-Tests. These scores are useful evidence, not a substitute for reviewing the platform's separate alert inventories.
+
+### Active governance evidence
+
+The current active repository ruleset, **Protect main - Security & PR Governance** (ID `27948154`), applies to the default branch and has an empty bypass list. Its required status checks are exactly:
+
+- `Gitleaks secret detection`
+- `zizmor GitHub Actions audit`
+
+The ruleset requires pull requests, conversation resolution, squash-only merging and linear history; it blocks deletion and non-fast-forward updates. It currently requires **zero approving reviews**. Advisory quality jobs and CodeQL/Scorecard runs are not required status checks under this ruleset.
+
+Dependabot configuration is present for **GitHub Actions** only, on a weekly Monday schedule at 04:00 Asia/Kolkata, with a seven-day cooldown and a five-PR limit. This confirms update configuration; it does **not** establish whether GitHub Dependabot vulnerability alerts are enabled.
+
+### P0 evidence still outstanding
+
+The connected GitHub integration can read the active ruleset and repository files, but it cannot access the repository's Code Scanning alert endpoint or the branch-protection endpoint (the latter returned HTTP 403). It also does not expose the repository's native Secret Scanning / Dependabot security-setting state. Therefore:
+
+- The five-alert inventory above is recorded from the owner's latest GitHub UI report and the matching Scorecard SARIF evidence; it is not represented as a fresh API enumeration.
+- Secret Scanning enablement and its alert inventory remain **unverified**.
+- Dependabot vulnerability-alert enablement and its alert inventory remain **unverified**.
+- Do not change the corresponding platform-status badges until those settings are inspected in GitHub's repository Security settings.
+
+Historical DevSkim, Bearer and Bandit remediation was tested in the earlier PR #272 post-merge pipeline (run #243, 7/7 jobs passed). Those scanners are not among the workflows currently present on `main`; the historical pass must not be represented as a current recurring scan. Reassess their badges as historical/not currently configured, rather than implying current coverage.
+
+**Next checkpoint:** inspect native GitHub Secret Scanning and Dependabot vulnerability-alert settings, then reconcile the five Scorecard posture alerts without artificial dismissals.
