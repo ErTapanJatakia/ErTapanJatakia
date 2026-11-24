@@ -68,7 +68,6 @@ jobs:
               echo "::error::The release tag already exists for a different source commit. Tags are immutable and will not be replaced."
               exit 1
             fi
-            git verify-tag "$tag"
             echo "tag_exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "tag_exists=false" >> "$GITHUB_OUTPUT"
@@ -85,7 +84,7 @@ jobs:
           git-name: Er. Tapan Jatakia
           git-email: tapan_ditu_17.20@outlook.com
 
-      - name: Create signed documentation tag when needed
+      - name: Create or verify immutable signed documentation tag
         env:
           TAG: ${{ steps.release-input.outputs.tag }}
           TAG_EXISTS: ${{ steps.release-input.outputs.tag_exists }}
@@ -93,13 +92,14 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$TAG_EXISTS" != "true" ]]; then
+          if [[ "$TAG_EXISTS" == "true" ]]; then
+            git verify-tag "$TAG"
+            echo "Existing tag signature verified; the tag will not be modified."
+          else
             git tag -s "$TAG" -m "Controlled documentation release $TAG"
             git verify-tag "$TAG"
             AUTH_HEADER="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
             git -c http.extraheader="AUTHORIZATION: basic $AUTH_HEADER" push origin "refs/tags/$TAG"
-          else
-            echo "Reusing the existing signed tag for the same source commit; no tag will be modified."
           fi
 
       - name: Package source and documentation snapshot
@@ -107,6 +107,7 @@ jobs:
         env:
           TAG: ${{ steps.release-input.outputs.tag }}
           SOURCE_COMMIT: ${{ steps.release-input.outputs.source_commit }}
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
         shell: bash
         run: |
           set -euo pipefail
@@ -151,7 +152,10 @@ jobs:
               ]
             }' > "$manifest"
 
-          sha256sum "$archive" "$manifest" > "$checksums"
+          (
+            cd dist
+            sha256sum "$TAG.tar.gz" "$TAG-release-manifest.json" > "$TAG-SHA256SUMS"
+          )
           gpg --batch --yes --pinentry-mode loopback \
             --passphrase-file "$RUNNER_TEMP/personal-gpg-passphrase" \
             --armor --detach-sign --local-user "$GPG_SIGNING_KEY" \
@@ -176,7 +180,6 @@ jobs:
           echo "manifest=$manifest" >> "$GITHUB_OUTPUT"
           echo "checksums=$checksums" >> "$GITHUB_OUTPUT"
           echo "signature=$signature" >> "$GITHUB_OUTPUT"
-          echo "support_end=$support_end" >> "$GITHUB_OUTPUT"
 
       - name: Generate GitHub artifact attestations
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
