@@ -11,6 +11,10 @@ module DcoValidator
     message.each_line.any? { |line| line.chomp == expected }
   end
 
+  def self.valid_commit_signoff?(message, author_name, author_email, committer_name, committer_email)
+    valid_signoff?(message, author_name, author_email) || valid_signoff?(message, committer_name, committer_email)
+  end
+
   def self.validate_range(base_sha, head_sha)
     commits, status = Open3.capture2("git", "rev-list", "--reverse", "#{base_sha}..#{head_sha}")
     raise "Unable to enumerate pull-request commits" unless status.success?
