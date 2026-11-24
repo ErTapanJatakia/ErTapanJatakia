@@ -1,0 +1,57 @@
+name: Dependency and Malware Alert Policy
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: dependency-policy-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-review:
+    name: Dependency Review
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Review dependency changes
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: high
+          show-openssf-scorecard: true
+
+  dependabot-alert-gate:
+    name: Dependabot alert gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      vulnerability-alerts: read
+    steps:
+      - name: Fail on unresolved Dependabot alerts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api --paginate --slurp \
+            "repos/$GH_REPOSITORY/dependabot/alerts?state=open&per_page=100" \
+            | jq 'add' > "$RUNNER_TEMP/open-dependabot-alerts.json"
+
+          count="$(jq 'length' "$RUNNER_TEMP/open-dependabot-alerts.json")"
+          if (( count > 0 )); then
+            echo "::error::The repository has $count unresolved Dependabot alert(s). Resolve or document a valid non-exploitable VEX exception before merging."
+            jq -r '.[] | [.dependency.package.ecosystem, .dependency.package.name, .security_advisory.ghsa_id, .security_advisory.severity, .html_url] | @tsv' \
+              "$RUNNER_TEMP/open-dependabot-alerts.json"
+            exit 1
+          fi
+
+          echo "No open Dependabot alerts were returned by the repository API."
+          echo "Malware alert inventory must also be reviewed in GitHub Security before release; this API gate does not claim to query the separate Malware alerts interface."
