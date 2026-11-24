@@ -44,10 +44,10 @@ The repository is primarily a profile README, Markdown documentation, configurat
 
 | Work item | Current status | Proposed implementation | Gate before enabling |
 |---|---|---|---|
-| Markdownlint | Planned | Lint maintained Markdown files | Establish baseline; configure narrowly; avoid unrelated mass reformatting |
-| YAML lint | Planned | Validate workflow/config YAML | Reuse existing YAML parsing validation; avoid conflicting style rules |
-| Link checker | Planned | Check first-party and external links in Markdown | Handle rate limits, redirects and intentionally unavailable/private links explicitly |
-| actionlint | Planned | Lint GitHub Actions workflows | First investigate the unusual local action reference `$/.github/actions/setup-personal-gpg`; do not rewrite it without evidence |
+| Markdownlint | **Verified** | Advisory markdownlint-cli2 check on maintained Markdown documentation; README excluded because its HTML-heavy visual layout is intentional | Passed in [quality run 45309272770](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309272770) |
+| YAML syntax validation | **Verified** | Ruby Psych parses all `.github/**/*.yml` and `.yaml` files, including composite-action metadata | Passed in [quality run 45309272770](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309272770) |
+| Link checker | **Verified (internal/offline)** | Lychee checks Markdown links and anchors without relying on external network responses | Passed in [quality run 45309272770](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309272770); prior online pass verified 167 links, while X profile endpoints returned HTTP 403 and remain unverified |
+| actionlint | **Verified with narrow compatibility exception** | actionlint v1.7.12 analyzes workflow definitions; one parser diagnostic is excluded for the exact GitHub-documented `$/` self-repository reference, which this actionlint release does not yet recognise | Passed in [quality run 45309272770](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309272770); no workflow reference was rewritten |
 
 Every added GitHub Action must be pinned to a full commit SHA, use least-privilege permissions, and have a documented update path through Dependabot. Prefer tools that can run without introducing an unnecessary third-party Action.
 
@@ -89,9 +89,9 @@ No artificial package, release, build artifact, or provenance workflow should be
 ## Recommended execution sequence
 
 1. **Close the P0 evidence gaps**: inspect native GitHub alert settings and alert inventories; reconcile DevSkim/Bearer findings; retain transparent signing and approval statements.
-2. **Establish P1 baselines**: run Markdown, YAML and link checks in advisory mode first; inspect actionlint compatibility before making it a required gate.
-3. **Review P1 findings**: fix genuine issues in small PRs; suppress only documented false positives or intentionally excluded paths.
-4. **Promote stable checks**: after repeatable clean runs, make the most useful checks required only where they are reliable and proportionate.
+2. **P1 checks are now implemented in advisory mode**: Markdown lint, YAML syntax validation, internal/offline link checking and actionlint all passed together in run 45309272770.
+3. **Retain advisory status initially**: gather repeatable results before considering any new required status checks; do not modify branch rules as part of this PR.
+4. **Close the P0 evidence gaps** before changing alert-status badges or claiming a clean platform alert inventory.
 5. **Reassess P2–P4 when repository scope changes**: do not implement controls whose prerequisites do not exist.
 
 ## Evidence and governance rules
@@ -117,4 +117,6 @@ For each work item, record:
 | Decision | Enable, defer, retain as not applicable, or remove an obsolete badge |
 | Last verified | Date and commit SHA |
 
-**Next checkpoint:** complete P0 evidence verification before adding new scanner badges or claiming an improved security posture.
+**P1 evidence:** quality run [45309272770](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45309272770), commit `aeaf81dcff6ceee809efeeeb53fda09ed18ca0bd`. All four quality jobs passed. The checks remain advisory and are not required branch protections.
+
+**Next checkpoint:** complete P0 evidence verification before changing platform-alert badges or claiming an improved security posture.
