@@ -139,14 +139,26 @@ Thank you for helping keep this repository and its visitors safe.
 
 ## OpenSSF Baseline Level 3 implementation
 
-The repository's 21-control assessment register and supporting evidence are maintained in [docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md](docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md). PR [#38](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) added secrets/access/QA/SCA/SAST/VEX policies, a repository-automation threat model, release-verification guidance and controlled documentation-release automation.
+The repository's 21-control assessment register and supporting evidence are maintained in [docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md](docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md). PR [#38](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) introduced the governance/security policies and controlled documentation-release workflow. PR [#39](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/39) refreshed the dashboard and hardened the malware and SAST gates.
 
-Post-merge validation on commit `099708d2225f65e3ad31cbd4ac2fc44a8f17458c` passed:
+### PR #39 validation
 
-- [Repository Security Analysis run 45347044175](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044175): Gitleaks and zizmor passed.
-- [Dependency and Malware Alert Policy run 45347044223](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044223): Dependabot alert gate passed; no unresolved Dependabot alerts were returned. PR #39 extends the gate to explicitly query malware-classified alerts. The owner must still review full-SHA GitHub Actions dependencies before release because GitHub's malware-alert coverage for Actions is limited to semantic-version references.
-- [SAST Policy Gate run 45347044217](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044217) passed; CodeQL [Analyze (actions)](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044354) passed.
-- [Repository Quality Assurance run 45347044201](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044201): all five advisory checks passed.
-- [Repository Configuration Validation run 45347044245](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044245), [SBOM run 45347044206](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044206), [Scorecard run 45347044243](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044243) and [GitVerse mirror run 45347044193](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044193) passed.
+- [Dependency and Malware Alert Policy run 45347826556](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347826556): general and malware classifications queried; no unresolved alerts returned.
+- [SAST Policy Gate run 45347826559](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347826559): passed after waiting for the matching CodeQL analysis.
+- [CodeQL Actions analysis run 45347823329](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347823329): passed.
+- [Repository Security Analysis run 45347826563](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347826563), [Repository Quality Assurance run 45347826535](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347826535) and [Repository Configuration Validation run 45347826533](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347826533): passed.
 
-PR #39 is extending the Dependabot gate to query malware classification and sequencing the SAST gate after CodeQL completion. Those updates require successful validation before the final enforcement status is recorded. The new Dependency Review, Dependabot alert gate, CodeQL and SAST policy checks are not merge-blocking until they are added to the main-branch ruleset. Independent human approval remains unavailable because the repository has one maintainer. The documentation-release workflow is configured but no public release has been created; a release requires an explicit owner dispatch and current malware/license review.
+### Current main-branch validation
+
+Post-merge commit `88e1d16a13c7fc72fdaaacbbb995bd320070f8b8` passed all applicable workflows:
+
+- [Repository Security Analysis 45348017923](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017923): Gitleaks and zizmor passed.
+- [Dependency and Malware Alert Policy 45348018077](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348018077): no unresolved general or malware Dependabot alerts returned.
+- [SAST Policy Gate 45348017876](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017876): passed after [CodeQL Analyze (actions) 45348018299](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348018299) completed successfully.
+- [Repository Quality Assurance 45348017809](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017809), [Repository Configuration Validation 45348017942](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017942), [Dependency Graph SBOM 45348017820](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017820), [OpenSSF Scorecard 45348017963](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017963) and [GitVerse mirror 45348017956](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45348017956): passed.
+
+GitHub's malware-alert coverage for GitHub Actions is limited to semantic-version references; this repository pins Actions to full SHAs. The owner must therefore review the pinned Actions dependency inventory before each release as a compensating control. See the [SCA policy](docs/SCA-AND-DEPENDENCY-POLICY.md).
+
+The new Dependency Review, Dependabot alert gate, CodeQL and SAST policy checks are **not yet merge-blocking**. Add `Dependency Review`, `Dependabot alert gate`, `Analyze (actions)` and `SAST policy gate` to the main-branch ruleset's required status checks. The current ruleset still requires Gitleaks and zizmor only.
+
+Independent human approval remains unavailable because the repository has one maintainer. The controlled documentation-release workflow is configured but no public release has been created. Before the first release, configure the `profile-docs-*` tag ruleset and complete the owner-side malware/Actions dependency and license review.
