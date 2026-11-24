@@ -46,7 +46,7 @@ The automated checks are not a full filesystem, container or binary SCA scanner.
 
 ## 6. Direct Action license inventory
 
-The direct GitHub Actions license inventory is maintained in [DEPENDENCY-LICENSE-REGISTER.md](DEPENDENCY-LICENSE-REGISTER.md). It records license evidence at the exact pinned commits. The register identifies the Gitleaks Action's proprietary EULA separately from the repository's GPL-3.0 license; its personal-account provision and non-redistribution boundary are documented. The register does not cover transitive Action dependencies or runner images and must be refreshed whenever a pinned Action changes.
+The direct GitHub Actions license inventory is maintained in [DEPENDENCY-LICENSE-REGISTER.md](DEPENDENCY-LICENSE-REGISTER.md). It records license evidence at the exact pinned commits. The Dependabot alert workflow verifies that every external pinned Action reference remains represented in the register, so a SHA update without a matching license-register update fails CI. The register identifies the Gitleaks Action's proprietary EULA separately from the repository's GPL-3.0 license; its personal-account provision and non-redistribution boundary are documented. The register does not cover transitive Action dependencies or runner images and must be refreshed whenever a pinned Action changes.
 
 ## 7. Exceptions and VEX
 
