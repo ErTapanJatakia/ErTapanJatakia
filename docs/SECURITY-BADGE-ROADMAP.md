@@ -186,11 +186,11 @@ The repository owner inspected both GitHub Security alert views. Each reported d
 |---|---|---|
 | Malware alerts | No open alerts | No currently open package-malware alerts were displayed |
 | Dependabot alerts | No open alerts | No currently open Dependabot vulnerability alerts were displayed |
-| Auto-dismissed alerts | Separate filter available: [resolution:auto-dismissed](https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot?q=is%3Aopen+resolution%3Aauto-dismissed) | Auto-dismissed items must be reviewed separately; they are not equivalent to remediated findings |
+| Auto-dismissed alerts | Owner-confirmed empty inventory, including the separate auto-dismissed filter | No auto-dismissed Dependabot alerts were displayed at the 2026-11-24 observation; this is a point-in-time inventory result, not proof that no alerts were ever generated |
 
 The owner also confirmed the GitHub-managed auto-triage presets: **Enabled** — “Dismiss low-impact alerts for development-scoped dependencies”; **Disabled** — “Dismiss package malware alerts” (match: `malware:package`).
 
-The enabled development-scoped rule can remove qualifying alerts from the open inventory without fixing the underlying dependency. Therefore, “no open alerts” is a point-in-time open-queue observation, not proof that no alerts were ever generated, that auto-dismissed alerts are absent, or that all dependencies are vulnerability-free. The malware-dismissal preset being disabled means that particular rule is not configured to dismiss package-malware alerts; it does not establish the absence of every other possible dismissal mechanism.
+The enabled development-scoped rule can remove qualifying alerts from the open inventory without fixing the underlying dependency. The owner separately confirmed that the auto-dismissed Dependabot inventory was also empty at the 2026-11-24 observation. These are point-in-time inventory observations, not proof that no alerts were ever generated or that all dependencies are vulnerability-free. The malware-dismissal preset being disabled means that particular rule is not configured to dismiss package-malware alerts; it does not establish the absence of every other possible dismissal mechanism.
 
 **Setting-state distinction:** the owner-observed empty alert views do not, by themselves, prove whether the Dependabot alerts feature toggle and dependency graph are enabled. Those platform enablement states remain unverified until their settings are explicitly inspected. No repository settings were changed as part of this documentation update.
 
@@ -219,4 +219,41 @@ The connected integration still cannot independently read the native security-se
 
 Historical DevSkim and Bearer remediation was tested in the earlier PR #272 post-merge pipeline (run #243, 7/7 jobs passed). Those scanners are not among the workflows currently present on `main`; their badges are now explicitly historical-only/not currently configured. Bandit remains not applicable because this repository does not maintain Python application source. The earlier pass is not current recurring coverage.
 
-**Next checkpoint:** review the separate auto-dismissed Dependabot inventory and reconcile the five Scorecard posture alerts against genuine control improvements. Do not dismiss alerts solely to improve the dashboard score.
+**Next checkpoint:** retain the five Scorecard posture findings with the applicability decisions below; revisit only when repository ownership, age, code scope or governance capacity materially changes. Do not dismiss alerts solely to improve the dashboard score.
+
+### PR #17 completion and current posture triage — 2026-11-24
+
+**Main commit:** `2a4bc7e7f582b6d4e6a7b02787424e569e938d38` (PR #17, merged).
+
+All six post-merge workflows completed successfully on this commit:
+
+| Control | Run | Result |
+|---|---|---|
+| Repository Security Analysis | [45319668848](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45319668848) | Passed |
+| Repository Configuration Validation | [45319668846](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45319668846) | Passed |
+| Repository Quality Assurance | [45319668797](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45319668797) | All four advisory jobs passed: actionlint, YAML syntax, Markdown links and Markdown lint |
+| GitVerse mirror | [45319668780](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45319668780) | Passed |
+| OpenSSF Scorecard | [45319668811](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45319668811) | Assessment and SARIF upload passed |
+| CodeQL Actions analysis | [45319668583](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45319668583) | Analysis completed successfully |
+
+#### Five Scorecard posture findings — disposition
+
+These are posture findings, not five confirmed exploitable vulnerabilities. Current decisions are:
+
+| Alert | Finding | Decision | Rationale / trigger for reassessment |
+|---:|---|---|---|
+| #10 | Code-Review | **Retain; no control change** | The project has a sole maintainer and no independent human reviewer. Keep PR-based change control and required security checks; do not fabricate an approval or configure a nominal reviewer. Reassess when a genuine independent reviewer becomes available. |
+| #11 | Maintained | **Time-based; defer** | Scorecard's finding is based on the repository being younger than 90 days. Do not generate artificial commits or activity. Reassess after the repository naturally passes the age threshold. |
+| #1 | Branch-Protection | **Retain current ruleset; no artificial review gate** | Ruleset `27948154` already requires PRs, conversation resolution and the two security checks, enforces squash-only/linear history, blocks deletion and force-push, and has no bypass actors. Review-dependent controls such as stale-approval dismissal and last-push approval do not provide meaningful protection when no independent approval is required. CODEOWNERS may clarify ownership but cannot create an independent reviewer. Reassess if the maintainer/reviewer model changes. |
+| #14 | Fuzzing | **Not applicable; defer** | This repository has no maintained application runtime or meaningful fuzzing target. Do not add a dummy target or claim fuzzing coverage. Reassess if executable code or a suitable parser/runtime is introduced. |
+| #13 | CII-Best-Practices | **Optional; defer** | The OpenSSF Best Practices badge is a voluntary programme, not a vulnerability fix. Reassess if the repository's scope and governance documentation justify a substantive application; do not pursue it solely to clear a Code Scanning alert. |
+
+**Alert handling:** retain these findings in Code Scanning. No alert was dismissed, suppressed, or marked fixed as part of this triage. The appropriate outcomes are genuine remediation when feasible, or continued transparent tracking where a finding is time-based, optional or not applicable.
+
+#### Dependabot inventory correction
+
+The repository owner confirmed that, as of 2026-11-24, all three inspected inventories were empty: open Malware alerts, open Dependabot alerts, and the separate auto-dismissed Dependabot inventory. Dependency files had been checked approximately one hour before the observation. This supersedes the earlier note that the auto-dismissed inventory still needed a separate review. The observation is time-bounded and does not establish that alerts never existed or that dependencies are universally vulnerability-free.
+
+The owner also confirmed the native GitHub security controls listed in the preceding section as enabled. Those platform settings remain labelled owner-confirmed rather than independently API-verified. No alert disposition or repository security setting was changed during this triage.
+
+**Outcome:** the remaining five Scorecard alerts are understood and have evidence-based dispositions. Four are deferred/retained for explicit applicability or governance reasons; one is time-based. None warrants a cosmetic dismissal or a fabricated implementation. Revisit only when the underlying repository conditions change.
