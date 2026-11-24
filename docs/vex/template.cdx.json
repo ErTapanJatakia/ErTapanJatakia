@@ -1,0 +1,30 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:00000000-0000-4000-8000-000000000000",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2000-01-01T00:00:00Z",
+    "component": {
+      "type": "application",
+      "name": "REPLACE-WITH-ACTUAL-PROJECT-OR-RELEASE",
+      "version": "REPLACE-WITH-ACTUAL-VERSION",
+      "purl": "pkg:generic/replace-with-actual-project@0.0.0"
+    }
+  },
+  "vulnerabilities": [
+    {
+      "id": "GHSA-PLACEHOLDER-0000-0000",
+      "analysis": {
+        "state": "not_affected",
+        "justification": "code_not_reachable",
+        "detail": "TEMPLATE ONLY. Replace this placeholder with a real advisory, component reference, evidence-based analysis, reviewer and review date. Do not publish this example as a real VEX statement."
+      },
+      "affects": [
+        {
+          "ref": "pkg:generic/replace-with-actual-component@0.0.0"
+        }
+      ]
+    }
+  ]
+}
