@@ -11,6 +11,14 @@ on:
         description: "Type PUBLISH to authorize creation of a public documentation release"
         required: true
         type: string
+      malware_alert_review:
+        description: "Check GitHub Security > Malware alerts and type NONE_OPEN only when none are open"
+        required: true
+        type: string
+      license_review:
+        description: "Confirm the release dependency/license review is complete by typing REVIEWED"
+        required: true
+        type: string
 
 permissions: {}
 
@@ -29,6 +37,7 @@ jobs:
       id-token: write
       attestations: write
       artifact-metadata: write
+      checks: read
     steps:
       - name: Check out protected main history
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -42,6 +51,8 @@ jobs:
         env:
           VERSION: ${{ inputs.version }}
           CONFIRMATION: ${{ inputs.confirmation }}
+          MALWARE_ALERT_REVIEW: ${{ inputs.malware_alert_review }}
+          LICENSE_REVIEW: ${{ inputs.license_review }}
         shell: bash
         run: |
           set -euo pipefail
@@ -51,6 +62,14 @@ jobs:
           fi
           if [[ "$CONFIRMATION" != "PUBLISH" ]]; then
             echo "::error::Confirmation must be exactly PUBLISH."
+            exit 1
+          fi
+          if [[ "$MALWARE_ALERT_REVIEW" != "NONE_OPEN" ]]; then
+            echo "::error::Review GitHub Security > Malware alerts and confirm NONE_OPEN before publishing."
+            exit 1
+          fi
+          if [[ "$LICENSE_REVIEW" != "REVIEWED" ]]; then
+            echo "::error::Complete the dependency and license review before publishing."
             exit 1
           fi
           if [[ "$GITHUB_REF" != "refs/heads/main" ]]; then
@@ -74,6 +93,48 @@ jobs:
           fi
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           echo "source_commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Verify current security gates on the release commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          SOURCE_SHA: ${{ steps.release-input.outputs.source_commit }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          checks_file="$RUNNER_TEMP/release-check-runs.json"
+          gh api --paginate --slurp \
+            "repos/$GH_REPOSITORY/commits/$SOURCE_SHA/check-runs?per_page=100" \
+            | jq '[.[].check_runs[]]' > "$checks_file"
+
+          required_checks=(
+            "Gitleaks secret detection"
+            "zizmor GitHub Actions audit"
+            "Analyze (actions)"
+            "SAST policy gate"
+            "Dependabot alert gate"
+          )
+          for check_name in "${required_checks[@]}"; do
+            record="$(jq -c --arg name "$check_name" '
+              [.[] | select(.name == $name)]
+              | sort_by(.completed_at // .started_at)
+              | last // empty
+            ' "$checks_file")"
+            if [[ -z "$record" ]]; then
+              echo "::error::Required release check is missing: $check_name"
+              exit 1
+            fi
+            status="$(jq -r '.status // ""' <<< "$record")"
+            conclusion="$(jq -r '.conclusion // ""' <<< "$record")"
+            if [[ "$status" != "completed" || "$conclusion" != "success" ]]; then
+              echo "::error::Required release check did not complete successfully: $check_name ($status/$conclusion)"
+              exit 1
+            fi
+            echo "Verified release check: $check_name"
+          done
+
+          echo "Dependency Review must also be a required successful pull-request check in the main-branch ruleset before this release workflow is used."
+          echo "The workflow dispatch inputs separately attest that the owner reviewed the Malware alerts interface and license inventory."
 
       - name: Configure personal GPG signing
         uses: $/.github/actions/setup-personal-gpg
