@@ -72,13 +72,7 @@ jobs:
       - name: Check Markdown links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          args: >-
-            --verbose --no-progress --accept 200,206,429
-            --exclude '^https://github\.com/ErTapanJatakia/ErTapanJatakia/(security|settings)/'
-            --exclude '^https://github\.com/ErTapanJatakia\?tab=stars$'
-            --exclude '^https://www\.(crunchbase|udemy)\.com/'
-            --exclude '^https://x\\.com/'
-            './**/*.md'
+          args: --offline --verbose --no-progress './**/*.md'
           lycheeVersion: v0.24.2
 
   actionlint:
