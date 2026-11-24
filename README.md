@@ -165,6 +165,8 @@ My professional interests lie at the intersection of:
 ## `05 // ACTIVE PROJECTS & REPOSITORY OPERATIONS`
 <p align="justify">
 Explore my repositories for cybersecurity experiments, automation, research prototypes, security tools and technical implementations.
+
+For guidance on navigating the profile, contributing, reporting issues, running repository QA and verifying documentation releases, see the [Repository User Guide](docs/USER-GUIDE.md).
 </p>
 <div align="center">
 
