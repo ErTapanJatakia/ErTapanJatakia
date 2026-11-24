@@ -26,7 +26,7 @@ The security-analysis, CodeQL default setup, Scorecard and dependency-analysis w
 | GitHub Actions lint | Workflow syntax and common GitHub Actions errors | Install actionlint 1.7.12, verify its published SHA-256, then run `actionlint -color -ignore 'specifying action .*setup-personal-gpg.* in invalid format because ref is missing' -ignore 'unknown permission scope .*vulnerability-alerts.*' .github/workflows/*.yml`; the CI workflow documents its narrow compatibility exception |
 | Prettier | Maintained workflow and repository configuration formatting | `npx --yes prettier@3.6.2 --check ".github/workflows/*.yml" ".github/dependabot.yml" ".prettierrc.json"` |
 | VEX register validation | Machine-readable exception records, CycloneDX 1.6 statements, expiry, evidence and matching advisory/component references | `ruby scripts/validate-vex.rb` |
-| VEX validator tests | Positive and negative cases for exception validation and fail-closed handling | `ruby tests/vex_validator_test.rb` |
+| VEX validator tests | Positive and negative cases for exception validation and fail-closed handling; this is the repository's automated regression test suite, not an application test suite | `ruby tests/vex_validator_test.rb` |\n| DCO validator tests | Positive and negative cases for commit sign-off validation | `ruby tests/dco_validator_test.rb` |\n| DCO commit validation | Checks every commit in the pull-request range for an exact sign-off matching its author identity | `BASE_SHA=<base> HEAD_SHA=<head> ruby scripts/validate-dco.rb` |
 
 CI is authoritative for the exact pinned action versions and command lines. If a local tool version differs, use the workflow definition as the source of truth.
 
@@ -42,14 +42,14 @@ A major change is any change that materially alters:
 
 For major changes, contributors must add or update automated checks that exercise the changed behavior where a meaningful test target exists. The pull request must run the relevant YAML, actionlint, Markdown, link, formatting, VEX-validation and targeted regression checks. Workflow behavior changes must include safe validation of input constraints and permission scope. Security-policy changes must include validation of machine-readable policy files where possible.
 
-The `Major change validation` job in the Repository Quality Assurance workflow identifies security-sensitive paths in a pull request and fails if any of the relevant QA jobs did not complete successfully. It is designed to become a required main-branch status check. Until that exact check is added to the active ruleset, the job is a passing CI result but is not yet an enforced merge gate; the implementation register must retain this distinction.
+The `Major change validation` job is an active required main-branch status check. On every pull request it fails closed unless both the VEX regression test suite and DCO commit validation succeed. For changes to major/security-sensitive paths, it additionally requires Markdown lint, YAML validation, link validation, actionlint, Prettier and VEX validation to succeed. This makes an automated regression suite a pre-acceptance gate for every pull request, while preserving broader targeted validation for major changes.
 
 Because this repository has no application source or application test suite, contributors must not invent meaningless unit tests or claim application test coverage. If maintained executable code or an application is introduced, its author must add suitable unit/integration tests and document their local and CI execution before that code is treated as production-ready.
 
 ## 5. Pull request acceptance
 
 - All applicable required checks must pass before merge.
-- Major changes must pass the Major change validation gate once it is required by the ruleset.
+- Every pull request must pass the required Major change validation gate, including the automated regression test suite and DCO validation.
 - Advisory checks must be reviewed and any failure disposition documented.
 - Security-sensitive workflow changes must be reviewed for least privilege, pinned actions, untrusted input handling and secret exposure.
 - A check must not be disabled, weakened or bypassed merely to make a pull request green.
