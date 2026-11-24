@@ -26,7 +26,9 @@ The security-analysis, CodeQL default setup, Scorecard and dependency-analysis w
 | GitHub Actions lint | Workflow syntax and common GitHub Actions errors | Install actionlint 1.7.12, verify its published SHA-256, then run `actionlint -color -ignore 'specifying action .*setup-personal-gpg.* in invalid format because ref is missing' -ignore 'unknown permission scope .*vulnerability-alerts.*' .github/workflows/*.yml`; the CI workflow documents its narrow compatibility exception |
 | Prettier | Maintained workflow and repository configuration formatting | `npx --yes prettier@3.6.2 --check ".github/workflows/*.yml" ".github/dependabot.yml" ".prettierrc.json"` |
 | VEX register validation | Machine-readable exception records, CycloneDX 1.6 statements, expiry, evidence and matching advisory/component references | `ruby scripts/validate-vex.rb` |
-| VEX validator tests | Positive and negative cases for exception validation and fail-closed handling; this is the repository's automated regression test suite, not an application test suite | `ruby tests/vex_validator_test.rb` |\n| DCO validator tests | Positive and negative cases for commit sign-off validation | `ruby tests/dco_validator_test.rb` |\n| DCO commit validation | Checks every commit in the pull-request range for an exact sign-off matching its author identity | `BASE_SHA=<base> HEAD_SHA=<head> ruby scripts/validate-dco.rb` |
+| VEX validator tests | Positive and negative cases for exception validation and fail-closed handling; this is the repository's automated regression test suite, not an application test suite | `ruby tests/vex_validator_test.rb` |
+| DCO validator tests | Positive and negative cases for commit sign-off validation | `ruby tests/dco_validator_test.rb` |
+| DCO commit validation | Checks every commit in the pull-request range for an exact sign-off matching its author identity | `BASE_SHA=<base> HEAD_SHA=<head> ruby scripts/validate-dco.rb` |
 
 CI is authoritative for the exact pinned action versions and command lines. If a local tool version differs, use the workflow definition as the source of truth.
 
@@ -57,4 +59,4 @@ Because this repository has no application source or application test suite, con
 
 ## 6. Results and evidence
 
-Workflow runs and check summaries are the execution evidence. A successful repository QA run does not establish application correctness, application test coverage, runtime security or release readiness for software binaries. A passing major-change job is not an enforced merge control until the main ruleset explicitly requires its exact check name.
+Workflow runs and check summaries are the execution evidence. A successful repository QA run does not establish application correctness, application test coverage, runtime security or release readiness for software binaries. The active main ruleset explicitly requires `Major change validation`; inspect the current ruleset and latest commit checks when auditing enforcement.
