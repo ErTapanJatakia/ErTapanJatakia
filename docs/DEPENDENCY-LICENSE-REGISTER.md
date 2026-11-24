@@ -4,7 +4,7 @@
 **Repository:** `ErTapanJatakia/ErTapanJatakia`  
 **Scope:** Direct external GitHub Actions referenced by maintained workflow files, checked at the exact pinned commit.
 
-This register covers the 10 distinct external Action repositories found in the current workflow `uses:` declarations. Scorecard reports 21/21 GitHub-owned and 5/5 third-party Action references pinned; repeated references to the same Action repository are consolidated here.
+This register covers the 10 distinct external Action repositories found in the current workflow `uses:` declarations. Scorecard reports 21/21 GitHub-owned and 5/5 third-party Action references pinned; repeated references to the same Action repository are consolidated here. The Dependency and Malware Alert Policy workflow checks that each external pinned Action reference remains represented in this register.
 
 ## License inventory
 
