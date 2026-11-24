@@ -37,7 +37,7 @@ The exact collaborator account identifier and effective role remain recorded in 
 | Repository Quality Assurance workflow | Markdown/YAML/link/workflow formatting checks, VEX regression tests and DCO checks | Pull-request and push events; Ruby, npm/npx, actionlint and lychee |
 | Security-analysis workflows | Secret scanning, workflow security audit, CodeQL, dependency review and alert policy | GitHub Actions, GitHub Security, Dependabot and CodeQL |
 | Ruby VEX validator | Validate VEX register structure, evidence metadata, advisory/component linkage and expiry | Local JSON files, Ruby standard library and process exit status |
-| Ruby DCO validator | Verify every post-adoption pull-request commit contains an exact author-matching sign-off | Git commit history, base/head SHA environment values and process exit status |
+| Ruby DCO validator | Verify every post-adoption pull-request commit contains an exact sign-off matching the commit author or committer | Git commit history, base/head SHA environment values and process exit status |
 | Controlled documentation release workflow | Validate owner request, verify checks, package source, sign, attest and publish | Workflow-dispatch inputs, Git, GPG, GitHub API/CLI and artifact attestations |
 | GitVerse mirror workflow | Push protected history and tags to the secondary mirror | Git transport over SSH and protected repository secret |
 | Security policy and advisory process | Receive, triage, coordinate and publish confirmed vulnerability information | GitHub Private Vulnerability Reporting and GitHub Security Advisories |
