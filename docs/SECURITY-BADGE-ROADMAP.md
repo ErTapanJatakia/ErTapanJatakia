@@ -258,7 +258,6 @@ The owner also confirmed the native GitHub security controls listed in the prece
 
 **Outcome:** the remaining five Scorecard alerts are understood and have evidence-based dispositions. Four are deferred/retained for explicit applicability or governance reasons; one is time-based. None warrants a cosmetic dismissal or a fabricated implementation. Revisit only when the underlying repository conditions change.
 
-
 ### PR #18 completion and latest Scorecard evidence — 2026-11-24
 
 **Main commit:** `f120a413136b14415be65581362cd3bb594e7cfc` (PR #18, merged).
