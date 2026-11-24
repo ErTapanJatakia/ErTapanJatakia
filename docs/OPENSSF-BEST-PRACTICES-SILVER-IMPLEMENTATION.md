@@ -21,7 +21,8 @@
 
 Silver is cumulative: the project must first achieve Passing. The current single-maintainer model, incomplete continuity arrangement and missing independent review evidence are material constraints; automated CI does not substitute for human review.
 
-**Status rules**
+### Status rules
+
 - **Met:** current, relevant evidence supports the criterion.
 - **Partial:** some implementation exists, but a material part of the criterion is not demonstrated.
 - **Unmet:** the criterion is not currently satisfied, or the available evidence shows a gap.
