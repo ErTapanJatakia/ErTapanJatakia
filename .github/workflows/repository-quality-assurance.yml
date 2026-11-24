@@ -161,6 +161,9 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Check DCO validator Ruby syntax
+        run: ruby -c scripts/validate-dco.rb
+
       - name: Test DCO validator positive and negative cases
         run: ruby tests/dco_validator_test.rb
 
