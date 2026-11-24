@@ -30,14 +30,14 @@ class DcoValidatorTest < Minitest::Test
   end
 
   def test_validates_commit_range_with_author_matching_signoff
-    with_git_repository do |base_sha, head_sha|
+    with_git_repository do |base_sha|
       create_commit("change with sign-off", "Signed-off-by: Test Author <test@example.com>")
       assert_empty DcoValidator.validate_range(base_sha, git!("rev-parse", "HEAD"))
     end
   end
 
   def test_accepts_committer_signoff_when_author_differs
-    with_git_repository do |base_sha, _head_sha|
+    with_git_repository do |base_sha|
       create_commit(
         "contribution by original author",
         "Signed-off-by: Test Author <test@example.com>",
@@ -48,7 +48,7 @@ class DcoValidatorTest < Minitest::Test
   end
 
   def test_rejects_commit_range_without_signoff
-    with_git_repository do |base_sha, _head_sha|
+    with_git_repository do |base_sha|
       create_commit("change without sign-off", nil)
       errors = DcoValidator.validate_range(base_sha, git!("rev-parse", "HEAD"))
       assert_equal 1, errors.length
@@ -68,15 +68,17 @@ class DcoValidatorTest < Minitest::Test
         git!("add", "tracked.txt")
         git!("commit", "-q", "-m", "base")
         base_sha = git!("rev-parse", "HEAD")
-        yield base_sha, base_sha
+        yield base_sha
       end
     end
   end
 
-  def create_commit(subject, signoff)
+  def create_commit(subject, signoff, author: nil)
     File.write("tracked.txt", "#{subject}\n")
     git!("add", "tracked.txt")
-    args = ["commit", "-q", "-m", subject]
+    args = ["commit", "-q"]
+    args += ["--author", author] if author
+    args += ["-m", subject]
     args += ["-m", signoff] if signoff
     git!(*args)
   end
