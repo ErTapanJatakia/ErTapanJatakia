@@ -23,7 +23,7 @@ A direct count of Markdown badge elements in `SECURITY.md` at the baseline commi
 
 The count is of rendered badge entries, not unique products, scanners, or independent controls. For example, CodeQL, zizmor, branch protection and security policy are represented more than once.
 
-**Current dashboard after P1 implementation, historical-scanner reconciliation and EditorConfig implementation:** 55 entries remain: 3 live workflow badges, 34 configured/published controls, 2 unverified/not-enforced badges, and 16 deferred/planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification. The DevSkim and Bearer badges are now explicitly historical-only/not currently configured, moving those two entries out of the unverified group; this is a status correction, not a claim that their historical findings were all resolved.
+**Current dashboard after P1 implementation, historical-scanner reconciliation and EditorConfig implementation:** 55 entries remain: 3 live workflow badges, 35 configured/published controls, 2 unverified/not-enforced badges, and 15 deferred/planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification. The DevSkim and Bearer badges are now explicitly historical-only/not currently configured, moving those two entries out of the unverified group; this is a status correction, not a claim that their historical findings were all resolved.
 
 ## Priority roadmap
 
@@ -69,9 +69,9 @@ Do not add overlapping scanners merely to increase badge count. Select a tool on
 
 | Work item | Current status | Applicability decision |
 |---|---|---|
-| GitHub Dependency Graph SBOM | **Verified — first successful generation 2026-11-24** | GitHub's native Dependency Graph can be exported as SPDX 2.3 without inventing a package manifest or build artifact. A scheduled/manual workflow requests generation, validates package/dependency relationships, and uploads a 30-day artifact. Scope is limited to dependencies represented in the GitHub Dependency Graph; it is not a full filesystem, container or binary SBOM. Verified by run [45329290238](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45329290238): valid SPDX 2.3 output, 9 package records and 8 `DEPENDS_ON` relationships; the artifact and checksum were uploaded |
+| GitHub Dependency Graph SBOM | **Verified — SPDX export and provenance attestation (2026-11-24)** | Latest run [45331157748](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331157748) validated SPDX 2.3 with 10 package records and 9 `DEPENDS_ON` relationships, generated and verified Sigstore-backed provenance attestations for the SBOM JSON and SHA-256 checksum, and uploaded the 30-day artifact. [Attestation record](https://github.com/ErTapanJatakia/ErTapanJatakia/attestations/71451141). Scope remains limited to dependencies represented in the GitHub Dependency Graph; it is not a full filesystem, container or binary SBOM. The first successful export [45329290238](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45329290238) recorded 9 packages and 8 relationships |
 | SLSA provenance | **Deferred / no build artifacts** | The signed-publish workflow signs a Git commit and opens a PR; it does not build a software artifact. Commit signing is not SLSA build provenance. Reassess when a build/release pipeline produces artifacts |
-| Artifact attestation | **Deferred / no built artifact** | No software artifact is currently built or released. Do not attest documentation commits as if they were release artifacts. Reassess when the repository produces a distributable artifact |
+| Artifact attestation | **Verified — SBOM JSON and checksum only (2026-11-24)** | The SBOM export workflow generated Sigstore-backed provenance attestations for the actual SPDX JSON and SHA-256 checksum files. Both passed `gh attestation verify` with the signer constrained to this repository's SBOM workflow; GitHub reported a public-good Sigstore certificate and Rekor transparency-log upload. [Run 45331157748](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331157748) · [Attestation record](https://github.com/ErTapanJatakia/ErTapanJatakia/attestations/71451141). This does not attest a software binary or release; no such artifact is produced | Preserve signer-identity verification and revalidate each scheduled SBOM export |
 | Signed releases | Not applicable | Reassess if versioned software releases are introduced |
 | CODEOWNERS | **Deferred / single maintainer** | A self-owned CODEOWNERS file would not create an independent reviewer or add meaningful review assurance. Reassess if genuine additional maintainers or component owners join |
 
@@ -106,9 +106,9 @@ This review prioritises the non-green and non-current badge states rather than r
 | Semgrep | Planned | Deferred: no maintained application source; generic workflow scanning would overlap CodeQL Actions and zizmor without a distinct validated ruleset | Add application source or identify a specific uncovered rule set |
 | DevSkim | Historical scan only | Retain historical-only status; no recurring current-main workflow exists | Reintroduce only with a scoped target, maintained rules and recurring CI |
 | Bearer | Historical scan only | Retain historical-only status; no application data-flow target exists | Add an application with meaningful data flows |
-| GitHub Dependency Graph SBOM | **Verified — first successful export (2026-11-24)** | Native GitHub SPDX 2.3 export completed successfully in [run 45329290238](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45329290238): 9 package records, 8 `DEPENDS_ON` relationships, and SBOM plus SHA-256 checksum artifact uploaded with 30-day retention. Scope is limited to dependencies represented in the GitHub Dependency Graph, not a complete filesystem, container or binary inventory | Continue scheduled/manual runs and review graph coverage as repository dependencies change |
+| GitHub Dependency Graph SBOM | **Verified — SPDX export and attestation (2026-11-24)** | Latest [run 45331157748](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331157748) validated SPDX 2.3 with 10 package records and 9 `DEPENDS_ON` relationships, attested the SBOM JSON and checksum, verified both attestations against the expected signer workflow, and uploaded the 30-day artifact. [Attestation record](https://github.com/ErTapanJatakia/ErTapanJatakia/attestations/71451141). Scope is limited to dependencies represented in GitHub's Dependency Graph, not a complete filesystem, container or binary inventory | Continue scheduled runs and review graph coverage as repository dependencies change |
 | SLSA provenance | Not implemented | Deferred: signed Git commits are not build provenance; no artifact build pipeline exists | Introduce a build/release pipeline |
-| Artifact attestation | Not implemented | Deferred: no software artifact is currently produced for attestation | Produce a distributable artifact |
+| Artifact attestation | **Verified — SBOM JSON and checksum only** | Provenance attestations are generated and verified for the actual SPDX JSON and companion SHA-256 checksum. No software binary or release artifact is produced, so software-build attestation remains out of scope | Reassess if a distributable software artifact is introduced |
 | CODEOWNERS | Not configured | Deferred: a self-only ownership file would not create independent review or meaningful approval assurance | Add genuine maintainers/component owners |
 | Prettier | Not configured | Deferred: existing Markdown lint, YAML parsing and actionlint cover current quality needs; no demonstrated formatting gap justifies another toolchain | Repeated formatting drift or a supported source-code formatting need |
 | EditorConfig | Not verified | Verified: root `.editorconfig` and required policy-key assertions passed in post-merge configuration run [45325182343](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45325182343) | Keep verified through the configuration workflow |
@@ -347,3 +347,23 @@ The first post-merge execution of the Dependency Graph SBOM workflow completed s
 The artifact contains the SPDX JSON report and its companion `.sha256` file. The workflow log confirms the checksum file was generated from the downloaded SBOM before upload. The archive digest above is GitHub's artifact ZIP digest; it is not the checksum of the raw SPDX JSON file.
 
 **Coverage interpretation:** this is a populated GitHub Dependency Graph snapshot with 9 package records and 8 dependency relationships. It is not a complete filesystem, container, binary or runtime inventory. The workflow badge may now be treated as a successfully executing workflow, while the roadmap continues to disclose the source and limits of its coverage. No claim is made that all software dependencies in every possible build/runtime context are represented.
+
+### PR #31 completion — SPDX SBOM artifacts attested — 2026-11-24
+
+**Main commit:** `f367bb68ca620223f27399e870a18d67b86743cf` (PR #31, merged).
+
+The first post-merge run with artifact attestations completed successfully:
+
+| Evidence | Result |
+|---|---|
+| Workflow run | [45331157748](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331157748) — success |
+| SPDX output | SPDX 2.3; structural validation passed |
+| Package records | **10** |
+| `DEPENDS_ON` relationships | **9** |
+| Attested subjects | SPDX JSON and companion SHA-256 checksum |
+| Attestation | [GitHub attestation record 71451141](https://github.com/ErTapanJatakia/ErTapanJatakia/attestations/71451141) |
+| Signature | Public-good Sigstore signing certificate; signature uploaded to the Rekor transparency log |
+| Verification | Both files passed `gh attestation verify` with signer constrained to `github.com/ErTapanJatakia/ErTapanJatakia/.github/workflows/repository-dependency-sbom.yml` |
+| SBOM artifact | [repository-dependency-sbom-45331157748](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331157748/artifacts/14892405876) — 30-day retention |
+
+**Scope:** these attestations establish provenance for the generated SBOM JSON and checksum files. They do not establish build provenance for a software binary, container or release. The underlying inventory remains limited to GitHub Dependency Graph data. The SLSA software-build provenance and signed-release badges therefore remain deferred/not applicable until a real software build or release artifact exists. No artificial package, build artifact, or release was introduced.
