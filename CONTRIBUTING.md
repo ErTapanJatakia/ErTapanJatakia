@@ -61,8 +61,8 @@ The resulting commit message must contain a trailer such as `Signed-off-by: Your
 
 ## Repository QA and security-sensitive changes
 
-This repository runs documentation and configuration checks rather than an application test suite. Contributors should read the [Repository Quality Assurance Policy](docs/REPOSITORY-QA-POLICY.md) for the exact CI triggers, local commands, interpretation of results and major-change test expectations.
+This repository runs documentation and configuration checks rather than an application test suite. Contributors should read the [Repository Quality Assurance Policy](docs/REPOSITORY-QA-POLICY.md) and [Build, Validation and Release Instructions](docs/BUILD-AND-TEST-INSTRUCTIONS.md) for the exact CI triggers, local commands, toolchain and major-change test expectations.
 
 Changes to workflows, permissions, credentials, dependency policy, release publication or security controls must include appropriate validation. Do not expose secrets to fork pull requests or unreviewed code, and do not weaken or bypass checks merely to obtain a passing result.
 
-Before proposing a release-related change, review the [Controlled Documentation Release Policy](docs/RELEASE-POLICY.md) and [Release Verification Instructions](docs/RELEASE-VERIFICATION.md). This repository currently distributes documentation/source-configuration snapshots only; it does not publish compiled application binaries.
+Before proposing a release-related change, review the [Controlled Documentation Release Policy](docs/RELEASE-POLICY.md), [Repository Automation Architecture](docs/REPOSITORY-AUTOMATION-ARCHITECTURE.md), [External Software Interfaces](docs/EXTERNAL-SOFTWARE-INTERFACES.md) and [Release Verification Instructions](docs/RELEASE-VERIFICATION.md). This repository currently distributes documentation/source-configuration snapshots only; it does not publish compiled application binaries.
