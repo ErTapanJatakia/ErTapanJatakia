@@ -164,7 +164,23 @@ jobs:
       - name: Test DCO validator positive and negative cases
         run: ruby tests/dco_validator_test.rb
 
+      - name: Determine whether DCO enforcement is active on the base branch
+        id: dco-policy
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git cat-file -e "$BASE_SHA:DCO" 2>/dev/null; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "DCO policy is present on the base branch; all pull-request commits must be signed off."
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "DCO adoption pull request: pre-policy commits are grandfathered. Enforcement begins after this policy is merged."
+          fi
+
       - name: Require a DCO sign-off on every pull-request commit
+        if: steps.dco-policy.outputs.enabled == 'true'
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
