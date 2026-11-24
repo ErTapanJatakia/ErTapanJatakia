@@ -367,3 +367,43 @@ The first post-merge run with artifact attestations completed successfully:
 | SBOM artifact | [repository-dependency-sbom-45331157748](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331157748/artifacts/14892405876) — 30-day retention |
 
 **Scope:** these attestations establish provenance for the generated SBOM JSON and checksum files. They do not establish build provenance for a software binary, container or release. The underlying inventory remains limited to GitHub Dependency Graph data. The SLSA software-build provenance and signed-release badges therefore remain deferred/not applicable until a real software build or release artifact exists. No artificial package, build artifact, or release was introduced.
+
+### Latest post-merge Scorecard and CI evidence — 2026-11-24
+
+**Main commit:** `4185abcd200d6b9a3b29ad1d559da58f53cca9ce` (PR #32, merged).
+
+All six post-merge workflow groups completed successfully:
+
+| Control | Run | Result |
+|---|---|---|
+| OpenSSF Scorecard | [45331495256](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331495256) | Passed; **6.9/10** |
+| CodeQL Actions analysis | [45331495316](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331495316) | Passed |
+| Repository Security Analysis (Gitleaks + zizmor) | [45331495318](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331495318) | Passed |
+| Repository Configuration Validation | [45331495532](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331495532) | Passed |
+| Repository Quality Assurance | [45331495425](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331495425) | All four advisory jobs passed |
+| GitVerse mirror | [45331495380](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331495380) | Passed |
+
+The Scorecard 6.9/10 result contains these check outcomes:
+
+| Check | Score | Evidence-based interpretation |
+|---|---:|---|
+| Maintained | 0 | Repository is younger than 90 days; time-based, not a defect to game |
+| Code-Review | 0 | 0/29 approved changesets detected; no independent reviewer is currently available |
+| Branch-Protection | 4 | PRs, status checks, up-to-date branches, deletion and force-push controls are active; approvals, CODEOWNERS review, stale-review dismissal and last-push approval are not required |
+| Fuzzing | 0 | No suitable application fuzzing target exists |
+| CII-Best-Practices | 0 | Optional OpenSSF Best Practices badge has not been pursued |
+| Contributors | 3 | One contributing institution detected; do not manufacture contributors |
+| Packaging | -1 | No software package/publishing workflow; not applicable to this documentation/profile repository |
+| Signed-Releases | -1 | No software releases or release assets; not applicable while no software is released |
+| Vulnerabilities | 10 | Zero existing vulnerabilities detected within Scorecard's checked scope |
+| Dangerous-Workflow | 10 | No dangerous workflow patterns detected |
+| Dependency-Update-Tool | 10 | Dependabot configuration detected |
+| Token-Permissions | 10 | Least-privilege workflow permissions detected; write permissions remain scoped to jobs that need them |
+| Pinned-Dependencies | 10 | 15/15 GitHub-owned and 5/5 third-party Actions dependencies pinned |
+| Security-Policy | 10 | Security policy detected |
+| Binary-Artifacts | 10 | No generated executable binaries found in the repository |
+| License | 10 | GPL-3.0 license detected |
+| SAST | 10 | All 25 checked commits covered by a SAST tool |
+| CI-Tests | 10 | All 25 checked merged PRs had CI checks |
+
+**Interpretation:** the score remains 6.9/10 because the remaining low scores reflect repository age, the lack of independent reviewers, the absence of a suitable fuzzing target and optional CII participation. Packaging and Signed-Releases are not applicable. Do not create a package, release, fake contributor, dummy fuzzer or self-approval process to alter these results. Reassess only when the repository's actual scope or maintainer structure changes.
