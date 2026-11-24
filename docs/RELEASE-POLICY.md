@@ -42,6 +42,7 @@ Before publishing:
 7. Verify the signed tag and detached signature.
 8. Generate and verify GitHub artifact attestations.
 9. Confirm no private data, credentials or unapproved personal-profile changes are included.
+10. The release workflow requires the owner to attest that the separate Malware alerts interface has no open alerts and that the dependency/license review is complete. These inputs are owner attestations, not automated malware or license scans.
 
 A Critical/High SCA or SAST finding, any unresolved malware alert, an exposed secret or a failed integrity check blocks publication.
 
