@@ -49,7 +49,6 @@ By participating, you agree to follow the repository's [Code of Conduct](CODE_OF
 
 Thank you for helping keep this profile repository accurate, accessible, and professional.
 
-
 ## Repository QA and security-sensitive changes
 
 This repository runs documentation and configuration checks rather than an application test suite. Contributors should read the [Repository Quality Assurance Policy](docs/REPOSITORY-QA-POLICY.md) for the exact CI triggers, local commands, interpretation of results and major-change test expectations.
