@@ -34,6 +34,14 @@ Current repository treatment:
 
 This is a separate proprietary workflow-tool license and must not be described as GPL-3.0 code or as an open-source dependency.
 
+## Owner approval and repository-wide license governance
+
+- **Owner decision:** On 2026-11-24, the repository owner confirmed review and acceptance of the Gitleaks Action EULA for this repository's current use.
+- **Approved scope:** The approval covers use of the exact pinned `gitleaks/gitleaks-action` commit listed in the inventory, under the current Personal Account ownership and workflow-scanning use described above.
+- **Repository standard:** This register is the authoritative record for third-party GitHub Actions license classification and owner review. Every direct external Action must be inventoried at its exact pinned commit; proprietary, custom, missing or changed license terms must be explicitly identified and reviewed before release.
+- **No blanket relicensing:** The approval does not change this repository's own GPL-3.0 license, relicense other source files, or extend the Gitleaks EULA to unrelated project content or dependencies.
+- **Reapproval triggers:** Obtain a fresh owner review if the Gitleaks Action commit or EULA changes, repository ownership changes to an Organization Account, or the intended use changes in a way that may engage additional EULA restrictions.
+
 ## Scope and refresh rules
 
 - This register covers direct Action repository license files at the exact pinned commits listed above.
