@@ -35,7 +35,7 @@ jobs:
           set -euo pipefail
           response="$RUNNER_TEMP/sbom-generation-response.json"
           curl --fail --silent --show-error \
-            --request POST \
+            --request GET \
             --header "Accept: application/vnd.github+json" \
             --header "Authorization: Bearer $GH_TOKEN" \
             --header "X-GitHub-Api-Version: 2026-03-10" \
@@ -71,7 +71,7 @@ jobs:
               download_url="$(awk 'tolower($1) == "location:" { sub(/\r$/, ""); $1=""; sub(/^ /, ""); print }' "$headers" | tail -n 1)"
               break
             fi
-            if [[ "$status" != "202" ]]; then
+            if [[ "$status" != "201" ]]; then
               echo "::error::Unexpected SBOM report response: HTTP $status"
               cat "$response"
               exit 1
