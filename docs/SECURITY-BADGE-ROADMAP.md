@@ -139,7 +139,7 @@ The PR check passed in [run 45337588468](https://github.com/ErTapanJatakia/ErTap
 | Repository Dependency Graph SBOM | [45337720169](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720169) | Passed |
 | OpenSSF Scorecard | [45337720078](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720078) | Assessment and SARIF upload passed |
 
-**Dashboard effect:** one deferred badge moved to configured. The inventory remains 55 entries: 3 live workflow badges, 37 configured/published controls, 2 unverified/not-enforced badges and 13 deferred/planned/unconfigured/unmeasured/not-applicable badges. Prettier remains advisory and is not a required branch-protection check.
+**Dashboard effect:** the deferred Prettier badge moved to configured, and the former “No application test suite” badge was replaced with an accurately scoped Repository QA badge backed by five advisory CI checks. The roadmap still explicitly records that no application test suite exists. The inventory remains 55 entries: 3 live workflow badges, 37 configured/published controls, 2 unverified/not-enforced badges and 13 deferred/planned/unconfigured/unmeasured/not-applicable badges. Prettier remains advisory and is not a required branch-protection check.
 
 ## Evidence and governance rules
 
