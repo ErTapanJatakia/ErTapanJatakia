@@ -44,6 +44,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Validate VEX register and exception documents
+        run: ruby scripts/validate-vex.rb
+
       - name: Verify every pinned Action is in the license register
         shell: bash
         run: |
