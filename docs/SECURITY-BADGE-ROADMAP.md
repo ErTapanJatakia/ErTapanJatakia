@@ -428,7 +428,6 @@ The Scorecard 6.9/10 result contains these check outcomes:
 
 **Interpretation at this checkpoint:** the score remains 6.9/10 because the remaining low scores reflect repository age, the lack of independent reviewers, the absence of a suitable fuzzing target and optional CII participation. Packaging remains not applicable. Scorecard does not yet detect a software release; the documentation snapshot workflow is configured but its first publication is pending. Do not create a software package, fake contributor, dummy fuzzer or self-approval process to alter these results. Reassess only when the repository's actual scope or maintainer structure changes.
 
-
 ### PR #38 completion — OpenSSF Baseline Level 3 hardening — 2026-11-24
 
 **Main commit:** `099708d2225f65e3ad31cbd4ac2fc44a8f17458c` (PR #38, merged).
