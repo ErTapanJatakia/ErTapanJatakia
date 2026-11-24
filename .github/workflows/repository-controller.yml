@@ -100,17 +100,17 @@ jobs:
             git -C "$workdir" switch -c "$automation_branch"
             attestation_dir="$workdir/.github/attestations"
             mkdir -p "$attestation_dir"
-            cat > "$attestation_dir/$source_sha.md" <<EOF
-# GPG signature attestation
-
-- Repository: $repo
-- Target branch: $branch
-- Target commit: $source_sha
-- Attestation created: $(date -u +%Y-%m-%dT%H:%M:%SZ)
-- Signing identity: configured repository-owner GPG key
-
-This record documents that the target commit was reviewed by the signing controller and that a separate attestation commit was signed with the configured personal GPG key. The attestation commit's signature is verified with git verify-commit.
-EOF
+            printf '%s\\n' \
+              '# GPG signature attestation' \
+              '' \
+              "- Repository: $repo" \
+              "- Target branch: $branch" \
+              "- Target commit: $source_sha" \
+              "- Attestation created: $(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+              '- Signing identity: configured repository-owner GPG key' \
+              '' \
+              'This record documents that the target commit was reviewed by the signing controller and that a separate attestation commit was signed with the configured personal GPG key. The attestation commit signature is verified with git verify-commit.' \
+              > "$attestation_dir/$source_sha.md"
             git -C "$workdir" add ".github/attestations/$source_sha.md"
             git -C "$workdir" commit -S -m "chore: add verified GPG attestation for $source_sha"
             git -C "$workdir" verify-commit HEAD
