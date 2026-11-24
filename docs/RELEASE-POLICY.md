@@ -33,6 +33,7 @@ At the end of the stated support window, the release is end-of-security-support 
 ## 6. Pre-release security review
 
 Before publishing:
+
 1. Confirm the source commit is on `main`.
 2. Review current required and advisory workflow results.
 3. Review open Dependabot and malware alerts.
