@@ -21,7 +21,8 @@
 
 Passing includes the repository/project basics, change control, reporting, quality, security and analysis criteria. This register keeps the profile's application scope explicit: repository QA is not described as application testing, and no application build or runtime is claimed.
 
-**Status rules**
+### Status rules
+
 - **Met:** current, relevant evidence supports the criterion.
 - **Partial:** some implementation exists, but a material part of the criterion is not demonstrated.
 - **Unmet:** the criterion is not currently satisfied, or the available evidence shows a gap.
