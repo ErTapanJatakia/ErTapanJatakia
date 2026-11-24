@@ -11,7 +11,7 @@
 
 > **Evidence-first status:** live workflow badges report GitHub Actions workflow state. Descriptive badges identify configured controls; they do not claim that every scan is clean or that no vulnerabilities exist. Deferred, historical-only, unverified and not-applicable controls are explicitly labelled below.
 >
-> **Implementation tracking:** the dashboard contains 55 displayed badge entries: 3 live workflow badges, 35 configured/published controls, 2 unverified/not-enforced badges and 15 deferred/planned/unconfigured/unmeasured/not-applicable badges. See the [Security Badge Implementation Roadmap](./docs/SECURITY-BADGE-ROADMAP.md) for the evidence-backed inventory, priorities, applicability decisions and verification criteria.
+> **Implementation tracking:** the dashboard contains 55 displayed badge entries: 3 live workflow badges, 36 configured/published controls, 2 unverified/not-enforced badges and 14 deferred/planned/unconfigured/unmeasured/not-applicable badges. See the [Security Badge Implementation Roadmap](./docs/SECURITY-BADGE-ROADMAP.md) for the evidence-backed inventory, priorities, applicability decisions and verification criteria.
 
 ## 1. Security scanning & detection
 
@@ -77,6 +77,7 @@ The active default-branch ruleset requires pull requests and the named security 
 <a href="https://github.com/DavidAnson/markdownlint"><img src="https://img.shields.io/badge/Documentation%20Lint-Markdownlint%20configured-2ea44f?style=flat-square" alt="Markdown Lint" height="30" /></a>
 <a href="https://www.ruby-lang.org/en/documentation/stdlib/yaml/"><img src="https://img.shields.io/badge/Configuration%20Validation-YAML%20syntax%20checks%20configured-2ea44f?style=flat-square" alt="YAML Validation" height="30" /></a>
 <a href="https://github.com/lycheeverse/lychee"><img src="https://img.shields.io/badge/Documentation%20Links-Internal%20link%20checks%20configured-2ea44f?style=flat-square" alt="Link Checker" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/repository-quality-assurance.yml"><img src="https://img.shields.io/badge/Formatting-Prettier%20configuration%20check%20configured-2ea44f?style=flat-square&logo=prettier" alt="Prettier configuration formatting" height="30" /></a>
 <a href="https://prettier.io/"><img src="https://img.shields.io/badge/Formatting-Prettier%20not%20configured-lightgrey?style=flat-square&logo=prettier" alt="Prettier" height="30" /></a>
 <a href="https://editorconfig.org/"><img src="https://img.shields.io/badge/Editor%20Consistency-EditorConfig%20configured-2ea44f?style=flat-square" alt="EditorConfig" height="30" /></a>
 <a href="https://www.sonarsource.com/products/sonarqube/"><img src="https://img.shields.io/badge/Quality%20Gate-SonarQube%20not%20applicable%20(no%20application%20source)-lightgrey?style=flat-square&logo=sonarqube" alt="SonarQube" height="30" /></a>
