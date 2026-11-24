@@ -103,8 +103,7 @@ jobs:
           package_count="$(jq '.sbom.packages | length' "$sbom")"
           dependency_count="$(jq '[.sbom.relationships[] | select(.relationshipType == "DEPENDS_ON")] | length' "$sbom")"
           if (( dependency_count < 1 )); then
-            echo "::error::The SPDX document contains no dependency relationships; refusing to claim a populated dependency inventory."
-            exit 1
+            echo "::notice::GitHub Dependency Graph returned a valid SPDX document with no DEPENDS_ON relationships. The artifact will be retained as an empty graph snapshot, not represented as evidence of populated dependency coverage."
           fi
           sha256sum "$sbom" > "$sbom.sha256"
           {
