@@ -19,6 +19,8 @@
 
 The official Baseline Level 2 set contains 19 controls. The assessment uses the current official criteria version shown above. The current 15 Met results include controls newly evidenced by repository automation and documentation. Three controls remain Partial pending exact collaborator role evidence and owner-side activation of private vulnerability reporting. The single N/A control is conditional on discovery of a vulnerability; no advisory is fabricated.
 
+**Level eligibility caveat:** OpenSSF describes Level 2 as intended for code projects with at least two maintainers and a small number of consistent users. The repository has an owner and an owner-confirmed collaborator, but the collaborator's maintainer responsibilities and the project's consistent-user profile have not been established in the evidence available for this assessment. This register assesses the 19 controls; it does not claim that the project has independently demonstrated Level 2 eligibility.
+
 ## Detailed control assessment
 
 | OpenSSF control | Current assessment | Evidence or remaining gap | Reason | Criterion |
