@@ -23,7 +23,7 @@ The security-analysis, CodeQL default setup, Scorecard and dependency-analysis w
 | Markdown lint | Maintained Markdown documentation; the HTML-heavy profile README is intentionally excluded | `npx --yes markdownlint-cli2@0.18.1 '**/*.md' '!README.md' '!LICENSE'` |
 | YAML syntax | YAML files and GitHub Action metadata parse successfully | `ruby -e 'require "yaml"; Dir.glob("{.github/**/*.yml,.github/**/*.yaml}").each { |f| YAML.parse_file(f); puts "Valid YAML: #{f}" }'` |
 | Markdown links | Internal/offline Markdown links and anchors | `lychee --offline --verbose --no-progress './**/*.md'` |
-| GitHub Actions lint | Workflow syntax and common GitHub Actions errors | Install actionlint 1.7.12, verify its published SHA-256, then run `actionlint -color .github/workflows/*.yml`; the CI workflow documents its narrow compatibility exception |
+| GitHub Actions lint | Workflow syntax and common GitHub Actions errors | Install actionlint 1.7.12, verify its published SHA-256, then run `actionlint -color -ignore 'specifying action .*setup-personal-gpg.* in invalid format because ref is missing' .github/workflows/*.yml`; the CI workflow documents its narrow compatibility exception |
 | Prettier | Maintained workflow and repository configuration formatting | `npx --yes prettier@3.6.2 --check ".github/workflows/*.yml" ".github/dependabot.yml" ".prettierrc.json"` |
 
 CI is authoritative for the exact pinned action versions and command lines. If a local tool version differs, use the workflow definition as the source of truth.
