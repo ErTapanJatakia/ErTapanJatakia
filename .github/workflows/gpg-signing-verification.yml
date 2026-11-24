@@ -34,7 +34,6 @@ jobs:
       - name: Create and verify an isolated signed test commit
         run: |
           set -euo pipefail
-          git switch --detach origin/main
           git commit --allow-empty -S -m "chore: verify reusable personal GPG signing action"
           git verify-commit HEAD
           echo "Reusable signing action created and verified an isolated test commit."
