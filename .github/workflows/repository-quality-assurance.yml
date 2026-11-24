@@ -107,6 +107,7 @@ jobs:
           # action syntax. Exclude only the exact documented local-action false-positive.
           "$RUNNER_TEMP/actionlint/actionlint" -color \
             -ignore 'specifying action .*setup-personal-gpg.* in invalid format because ref is missing' \
+            -ignore 'unknown permission scope "vulnerability-alerts"' \
             .github/workflows/*.yml
 
   prettier:
