@@ -24,7 +24,7 @@ class VexValidatorTest < Minitest::Test
   def valid_record
     {
       "ghsa_id" => "GHSA-abcd-1234-efgh",
-      "package_name" => "example-package",
+      "package_name" => "sample-package",
       "vex_document" => "docs/vex/statement.json",
       "status" => "not_affected",
       "expires_on" => "2026-12-24",
@@ -50,9 +50,9 @@ class VexValidatorTest < Minitest::Test
         "timestamp" => "2026-11-24T00:00:00Z",
         "component" => {
           "type" => "application",
-          "name" => "Example project",
+          "name" => "Sample project",
           "version" => "1.0.0",
-          "purl" => "pkg:generic/example-project@1.0.0"
+          "purl" => "pkg:generic/sample-project@1.0.0"
         }
       },
       "vulnerabilities" => [
@@ -63,7 +63,7 @@ class VexValidatorTest < Minitest::Test
             "justification" => "code_not_reachable",
             "detail" => "Evidence review confirmed this component path is not present in the scoped release."
           },
-          "affects" => [{ "ref" => "pkg:generic/example-package@1.2.3" }]
+          "affects" => [{ "ref" => "pkg:generic/sample-package@1.2.3" }]
         }
       ]
     }
