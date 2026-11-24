@@ -22,22 +22,22 @@
 
 **Securing Digital Frontiers | Engineering Resilience | Empowering Growth**
 
-<img src="https://img.shields.io/badge/STATUS-INDEPENDENT%20CONSULTANT-39FF88?style=for-the-badge&labelColor=05070A"/>
+<img src="https://img.shields.io/badge/STATUS-INDEPENDENT%20CONSULTANT-39FF88?style=for-the-badge&labelColor=05070A"/ height="42" />
 <br/>
-<img src="https://img.shields.io/badge/EXPERIENCE-11%2B%20YEARS-0879D1?style=for-the-badge&labelColor=05070A"/>
+<img src="https://img.shields.io/badge/EXPERIENCE-11%2B%20YEARS-0879D1?style=for-the-badge&labelColor=05070A"/ height="42" />
 <br/>
-<img src="https://img.shields.io/badge/DOMAIN-CYBER%20SECURITY-FF4141?style=for-the-badge&labelColor=05070A"/>
+<img src="https://img.shields.io/badge/DOMAIN-CYBER%20SECURITY-FF4141?style=for-the-badge&labelColor=05070A"/ height="42" />
 
 <br>
 <br/>
 
-[![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ertapanjatakia)
-[![Linktree](https://img.shields.io/badge/LINKTREE-39E09B?style=for-the-badge&logo=linktree&logoColor=black)](https://linktr.ee/ertapanjatakia)
-[![X](https://img.shields.io/badge/X(TWITTER)-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ertapanjatakia)
-[![Bluesky](https://img.shields.io/badge/BLUESKY-0285FF?style=for-the-badge&logo=bluesky&logoColor=white)](https://bsky.app/profile/er-tapan-jatakia.bsky.social)
-[![Topmate](https://img.shields.io/badge/TOPMATE-FF6B35?style=for-the-badge)](https://topmate.io/ertapanjatakia)
+<a href="https://www.linkedin.com/in/ertapanjatakia"><img src="https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" height="42" /></a>
+<a href="https://linktr.ee/ertapanjatakia"><img src="https://img.shields.io/badge/LINKTREE-39E09B?style=for-the-badge&logo=linktree&logoColor=black" alt="Linktree" height="42" /></a>
+[<img src="https://img.shields.io/badge/X(TWITTER" alt="X" height="30" />-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ertapanjatakia)
+<a href="https://bsky.app/profile/er-tapan-jatakia.bsky.social"><img src="https://img.shields.io/badge/BLUESKY-0285FF?style=for-the-badge&logo=bluesky&logoColor=white" alt="Bluesky" height="42" /></a>
+<a href="https://topmate.io/ertapanjatakia"><img src="https://img.shields.io/badge/TOPMATE-FF6B35?style=for-the-badge" alt="Topmate" height="42" /></a>
 
-[![Cyber Security Advisor Profile](https://img.shields.io/badge/CYBER%20SECURITY%20ADVISOR%20PROFILE-PDF-FF4141?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://tr.ee/aIEMTsiBKW)
+<a href="https://tr.ee/aIEMTsiBKW"><img src="https://img.shields.io/badge/CYBER%20SECURITY%20ADVISOR%20PROFILE-PDF-FF4141?style=for-the-badge&logo=adobeacrobatreader&logoColor=white" alt="Cyber Security Advisor Profile" height="42" /></a>
 
 </div>
 
@@ -106,29 +106,29 @@ My professional interests lie at the intersection of:
 
 ### SECURITY OPERATIONS & DEFENCE
 
-![Splunk](https://img.shields.io/badge/Splunk-000000?style=flat-square&logo=splunk&logoColor=white)
-![IBM QRadar](https://img.shields.io/badge/IBM%20QRadar-052FAD?style=flat-square&logo=ibm&logoColor=white)
-![CrowdStrike](https://img.shields.io/badge/CrowdStrike-E01F27?style=flat-square&logo=crowdstrike&logoColor=white)
-![Wireshark](https://img.shields.io/badge/Wireshark-1679A7?style=flat-square&logo=wireshark&logoColor=white)
-![Kali Linux](https://img.shields.io/badge/Kali%20Linux-557C94?style=flat-square&logo=kalilinux&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
-![Metasploit](https://img.shields.io/badge/Metasploit-2596CD?style=flat-square&logo=metasploit&logoColor=white)
+<img src="https://img.shields.io/badge/Splunk-000000?style=flat-square&logo=splunk&logoColor=white" alt="Splunk" height="30" />
+<img src="https://img.shields.io/badge/IBM%20QRadar-052FAD?style=flat-square&logo=ibm&logoColor=white" alt="IBM QRadar" height="30" />
+<img src="https://img.shields.io/badge/CrowdStrike-E01F27?style=flat-square&logo=crowdstrike&logoColor=white" alt="CrowdStrike" height="30" />
+<img src="https://img.shields.io/badge/Wireshark-1679A7?style=flat-square&logo=wireshark&logoColor=white" alt="Wireshark" height="30" />
+<img src="https://img.shields.io/badge/Kali%20Linux-557C94?style=flat-square&logo=kalilinux&logoColor=white" alt="Kali Linux" height="30" />
+<img src="https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black" alt="Linux" height="30" />
+<img src="https://img.shields.io/badge/Metasploit-2596CD?style=flat-square&logo=metasploit&logoColor=white" alt="Metasploit" height="30" />
 
 ### PROGRAMMING & AUTOMATION
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=flat-square&logo=powershell&logoColor=white)
-![Bash](https://img.shields.io/badge/Bash-121011?style=flat-square&logo=gnubash&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" height="30" />
+<img src="https://img.shields.io/badge/PowerShell-5391FE?style=flat-square&logo=powershell&logoColor=white" alt="PowerShell" height="30" />
+<img src="https://img.shields.io/badge/Bash-121011?style=flat-square&logo=gnubash&logoColor=white" alt="Bash" height="30" />
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" height="30" />
+<img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white" alt="Git" height="30" />
 
 ### GOVERNANCE & COMPLIANCE
 
-![ISO 27001](https://img.shields.io/badge/ISO%2027001-00599C?style=flat-square)
-![NIST](https://img.shields.io/badge/NIST-003366?style=flat-square)
-![OWASP](https://img.shields.io/badge/OWASP-000000?style=flat-square&logo=owasp&logoColor=white)
-![GDPR](https://img.shields.io/badge/GDPR-0066CC?style=flat-square)
-![DPDPA](https://img.shields.io/badge/DPDPA-00875A?style=flat-square)
+<img src="https://img.shields.io/badge/ISO%2027001-00599C?style=flat-square" alt="ISO 27001" height="30" />
+<img src="https://img.shields.io/badge/NIST-003366?style=flat-square" alt="NIST" height="30" />
+<img src="https://img.shields.io/badge/OWASP-000000?style=flat-square&logo=owasp&logoColor=white" alt="OWASP" height="30" />
+<img src="https://img.shields.io/badge/GDPR-0066CC?style=flat-square" alt="GDPR" height="30" />
+<img src="https://img.shields.io/badge/DPDPA-00875A?style=flat-square" alt="DPDPA" height="30" />
 
 ---
 
@@ -169,11 +169,11 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 <div align="center">
 
 <a href="https://github.com/ErTapanJatakia?tab=repositories">
-<img src="https://img.shields.io/badge/ACCESS%20ALL%20REPOSITORIES-39FF88?style=for-the-badge&logo=github&logoColor=black"/>
+<img src="https://img.shields.io/badge/ACCESS%20ALL%20REPOSITORIES-39FF88?style=for-the-badge&logo=github&logoColor=black"/ height="42" />
 </a>
 
 <a href="https://github.com/ErTapanJatakia?tab=stars">
-<img src="https://img.shields.io/badge/STARRED%20PROJECTS-0879D1?style=for-the-badge&logo=github&logoColor=white"/>
+<img src="https://img.shields.io/badge/STARRED%20PROJECTS-0879D1?style=for-the-badge&logo=github&logoColor=white"/ height="42" />
 </a>
 
 </div>
@@ -258,10 +258,10 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 
 <div align="center">
 
-[![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ertapanjatakia)
-[![Linktree](https://img.shields.io/badge/LINKTREE-39E09B?style=for-the-badge&logo=linktree&logoColor=black)](https://linktr.ee/ertapanjatakia)
-[![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ertapanjatakia)
-![Bluesky profile link pending](https://img.shields.io/badge/BLUESKY-0285FF?style=for-the-badge&logo=bluesky&logoColor=white)
+<a href="https://www.linkedin.com/in/ertapanjatakia"><img src="https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" height="42" /></a>
+<a href="https://linktr.ee/ertapanjatakia"><img src="https://img.shields.io/badge/LINKTREE-39E09B?style=for-the-badge&logo=linktree&logoColor=black" alt="Linktree" height="42" /></a>
+<a href="https://x.com/ertapanjatakia"><img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X" height="42" /></a>
+<img src="https://img.shields.io/badge/BLUESKY-0285FF?style=for-the-badge&logo=bluesky&logoColor=white" alt="Bluesky profile link pending" height="42" />
 
 </div>
 
@@ -269,9 +269,9 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 
 <div align="center">
 
-[![TopMate](https://img.shields.io/badge/TOPMATE-FF6B35?style=for-the-badge)](https://topmate.io/ertapanjatakia)
-[![CISO Platform](https://img.shields.io/badge/CISO%20PLATFORM-0879D1?style=for-the-badge)](https://www.cisoplatform.com/members/ErTapanJatakia)
-[![Crunchbase](https://img.shields.io/badge/CRUNCHBASE-0288D1?style=for-the-badge&logo=crunchbase&logoColor=white)](https://www.crunchbase.com/person/er-tapan-jatakia)
+<a href="https://topmate.io/ertapanjatakia"><img src="https://img.shields.io/badge/TOPMATE-FF6B35?style=for-the-badge" alt="TopMate" height="42" /></a>
+<a href="https://www.cisoplatform.com/members/ErTapanJatakia"><img src="https://img.shields.io/badge/CISO%20PLATFORM-0879D1?style=for-the-badge" alt="CISO Platform" height="42" /></a>
+<a href="https://www.crunchbase.com/person/er-tapan-jatakia"><img src="https://img.shields.io/badge/CRUNCHBASE-0288D1?style=for-the-badge&logo=crunchbase&logoColor=white" alt="Crunchbase" height="42" /></a>
 
 </div>
 
@@ -279,11 +279,11 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 
 <div align="center">
 
-[![Credly](https://img.shields.io/badge/CREDLY-FF6B00?style=for-the-badge&logo=credly&logoColor=white)](https://www.credly.com/users/ertapanjatakia/badges?sort=-state_updated_at&page=1)
-[![Coursera](https://img.shields.io/badge/COURSERA-0056D2?style=for-the-badge&logo=coursera&logoColor=white)](https://www.coursera.org/user/633a10263ba3549e1238d72cbca592eb)
-[![Udemy](https://img.shields.io/badge/UDEMY-A435F0?style=for-the-badge&logo=udemy&logoColor=white)](https://www.udemy.com/user/tapan-jatakia)
-[![HackerEarth](https://img.shields.io/badge/HACKEREARTH-2C3454?style=for-the-badge)](https://www.hackerearth.com/@ertapanjatakia)
-[![MERLOT](https://img.shields.io/badge/MERLOT-00875A?style=for-the-badge)](https://www.merlot.org/merlot/viewMember.htm?id=1444079)
+<a href="https://www.credly.com/users/ertapanjatakia/badges?sort=-state_updated_at&page=1"><img src="https://img.shields.io/badge/CREDLY-FF6B00?style=for-the-badge&logo=credly&logoColor=white" alt="Credly" height="42" /></a>
+<a href="https://www.coursera.org/user/633a10263ba3549e1238d72cbca592eb"><img src="https://img.shields.io/badge/COURSERA-0056D2?style=for-the-badge&logo=coursera&logoColor=white" alt="Coursera" height="42" /></a>
+<a href="https://www.udemy.com/user/tapan-jatakia"><img src="https://img.shields.io/badge/UDEMY-A435F0?style=for-the-badge&logo=udemy&logoColor=white" alt="Udemy" height="42" /></a>
+<a href="https://www.hackerearth.com/@ertapanjatakia"><img src="https://img.shields.io/badge/HACKEREARTH-2C3454?style=for-the-badge" alt="HackerEarth" height="42" /></a>
+<a href="https://www.merlot.org/merlot/viewMember.htm?id=1444079"><img src="https://img.shields.io/badge/MERLOT-00875A?style=for-the-badge" alt="MERLOT" height="42" /></a>
 
 </div>
 
@@ -291,9 +291,9 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 
 <div align="center">
 
-[![View Cyber Security Professional Profile PDF](https://img.shields.io/badge/CYBER%20SECURITY%20ADVISOR%20PROFILE-0879D1?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://tr.ee/aIEMTsiBKW) 
+<a href="https://tr.ee/aIEMTsiBKW"><img src="https://img.shields.io/badge/CYBER%20SECURITY%20ADVISOR%20PROFILE-0879D1?style=for-the-badge&logo=adobeacrobatreader&logoColor=white" alt="View Cyber Security Professional Profile PDF" height="42" /></a> 
 <br/>
-[![View Cyber Litigation Advisor Profile PDF](https://img.shields.io/badge/CYBER%20LITIIGATION%20ADVISOR%20PROFILE-39FF88?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://tr.ee/QfryrmfmFH)
+<a href="https://tr.ee/QfryrmfmFH"><img src="https://img.shields.io/badge/CYBER%20LITIIGATION%20ADVISOR%20PROFILE-39FF88?style=for-the-badge&logo=adobeacrobatreader&logoColor=white" alt="View Cyber Litigation Advisor Profile PDF" height="42" /></a>
 
 </div>
 

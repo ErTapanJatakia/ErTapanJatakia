@@ -1,61 +1,64 @@
 # Security & Quality Assurance
 
-[![Security Analysis](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml/badge.svg?branch=main)](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml)
-[![OpenSSF Scorecard workflow](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml/badge.svg?branch=main)](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml)
-[![Security Policy](https://img.shields.io/badge/Security%20Policy-Published-2ea44f?style=flat-square&logo=github)](./SECURITY.md)
-[![Protected Main](https://img.shields.io/badge/main-branch%20protected-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
-[![Pull Requests](https://img.shields.io/badge/Changes-Pull%20Request%20Required-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
+<!-- markdownlint-disable MD033 -->
+<!-- HTML image dimensions are required for 50% badge scaling. -->
 
-> **Evidence-first status:** live workflow badges report GitHub Actions workflow state. Descriptive badges identify configured controls; they do not claim that every scan is clean or that no vulnerabilities exist. Planned and unverified controls are explicitly labelled below.
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml/badge.svg?branch=main" alt="Security Analysis" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml/badge.svg?branch=main" alt="OpenSSF Scorecard workflow" height="30" /></a>
+<a href="./SECURITY.md"><img src="https://img.shields.io/badge/Security%20Policy-Published-2ea44f?style=flat-square&logo=github" alt="Security Policy" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/main-branch%20protected-2ea44f?style=flat-square&logo=github" alt="Protected Main" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Changes-Pull%20Request%20Required-2ea44f?style=flat-square&logo=github" alt="Pull Requests" height="30" /></a>
+
+> **Evidence-first status:** live workflow badges report GitHub Actions workflow state. Descriptive badges identify configured controls; they do not claim that every scan is clean or that no vulnerabilities exist. Deferred, historical-only, unverified and not-applicable controls are explicitly labelled below.
 >
-> **Implementation tracking:** the dashboard contains 55 displayed badge entries. See the [Security Badge Implementation Roadmap](./docs/SECURITY-BADGE-ROADMAP.md) for the evidence-backed inventory, priorities, applicability decisions and verification criteria.
+> **Implementation tracking:** the dashboard contains 55 displayed badge entries: 2 live workflow badges, 34 configured/published controls, 2 unverified/not-enforced badges and 17 deferred/planned/unconfigured/unmeasured/not-applicable badges. See the [Security Badge Implementation Roadmap](./docs/SECURITY-BADGE-ROADMAP.md) for the evidence-backed inventory, priorities, applicability decisions and verification criteria.
 
 ## 1. Security scanning & detection
 
 ### Configured security controls
 
-[![Gitleaks](https://img.shields.io/badge/Secret%20Detection-Gitleaks%20configured-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml)
-[![zizmor](https://img.shields.io/badge/GitHub%20Actions%20Audit-zizmor%20configured-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml)
-[![OpenSSF Scorecard](https://img.shields.io/badge/Supply%20Chain-OpenSSF%20Scorecard%20configured-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml)
-[![CodeQL](https://img.shields.io/badge/Static%20Analysis-CodeQL%20Actions%20analysis-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/security/code-scanning)
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml"><img src="https://img.shields.io/badge/Secret%20Detection-Gitleaks%20configured-2ea44f?style=flat-square" alt="Gitleaks" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml"><img src="https://img.shields.io/badge/GitHub%20Actions%20Audit-zizmor%20configured-2ea44f?style=flat-square" alt="zizmor" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml"><img src="https://img.shields.io/badge/Supply%20Chain-OpenSSF%20Scorecard%20configured-2ea44f?style=flat-square" alt="OpenSSF Scorecard" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/security/code-scanning"><img src="https://img.shields.io/badge/Static%20Analysis-CodeQL%20Actions%20analysis-2ea44f?style=flat-square&logo=github" alt="CodeQL" height="30" /></a>
 
 ### Additional scanners and platform controls — applicability/status shown per badge
 
-[![Trivy](https://img.shields.io/badge/Scanner-Trivy%20planned-lightgrey?style=flat-square&logo=aqua)](https://trivy.dev/)
-[![Semgrep](https://img.shields.io/badge/SAST-Semgrep%20planned-lightgrey?style=flat-square)](https://semgrep.dev/)
-[![DevSkim](https://img.shields.io/badge/Secure%20Development-DevSkim%20historical%20scan%20only-lightgrey?style=flat-square)](https://github.com/microsoft/DevSkim)
-[![Bearer](https://img.shields.io/badge/Data%20Security-Bearer%20historical%20scan%20only-lightgrey?style=flat-square)](https://docs.bearer.com/)
-[![GitHub Secret Scanning](https://img.shields.io/badge/GitHub%20Secret%20Scanning-Enabled%20(owner--confirmed)-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/security_analysis)
-[![Dependabot Alerts](https://img.shields.io/badge/Dependabot%20Alerts-Enabled%20(owner--confirmed)-2ea44f?style=flat-square&logo=dependabot)](https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot)
-[![Bandit](https://img.shields.io/badge/Python%20SAST-Bandit%20not%20applicable-lightgrey?style=flat-square)](#scope-and-applicability)
-[![npm audit](https://img.shields.io/badge/Node%20Dependency%20Audit-npm%20audit%20not%20applicable-lightgrey?style=flat-square&logo=npm)](#scope-and-applicability)
-[![OWASP ZAP](https://img.shields.io/badge/DAST-OWASP%20ZAP%20not%20applicable-lightgrey?style=flat-square&logo=owasp)](#scope-and-applicability)
+<a href="https://trivy.dev/"><img src="https://img.shields.io/badge/Scanner-Trivy%20deferred%20(no%20supported%20target)-lightgrey?style=flat-square&logo=aqua" alt="Trivy" height="30" /></a>
+<a href="https://semgrep.dev/"><img src="https://img.shields.io/badge/SAST-Semgrep%20deferred%20(no%20application%20source)-lightgrey?style=flat-square" alt="Semgrep" height="30" /></a>
+<a href="https://github.com/microsoft/DevSkim"><img src="https://img.shields.io/badge/Secure%20Development-DevSkim%20historical%20scan%20only-lightgrey?style=flat-square" alt="DevSkim" height="30" /></a>
+<a href="https://docs.bearer.com/"><img src="https://img.shields.io/badge/Data%20Security-Bearer%20historical%20scan%20only-lightgrey?style=flat-square" alt="Bearer" height="30" /></a>
+[<img src="https://img.shields.io/badge/GitHub%20Secret%20Scanning-Enabled%20(owner--confirmed" alt="GitHub Secret Scanning" height="30" />-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/security_analysis)
+[<img src="https://img.shields.io/badge/Dependabot%20Alerts-Enabled%20(owner--confirmed" alt="Dependabot Alerts" height="30" />-2ea44f?style=flat-square&logo=dependabot)](https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot)
+<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Python%20SAST-Bandit%20not%20applicable-lightgrey?style=flat-square" alt="Bandit" height="30" /></a>
+<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Node%20Dependency%20Audit-npm%20audit%20not%20applicable-lightgrey?style=flat-square&logo=npm" alt="npm audit" height="30" /></a>
+<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/DAST-OWASP%20ZAP%20not%20applicable-lightgrey?style=flat-square&logo=owasp" alt="OWASP ZAP" height="30" /></a>
 
 ## 2. Supply-chain & dependency assurance
 
-[![Dependabot Updates](https://img.shields.io/badge/Dependency%20Updates-Dependabot%20configured-2ea44f?style=flat-square&logo=dependabot)](./.github/dependabot.yml)
-[![Pinned Actions](https://img.shields.io/badge/GitHub%20Actions-Immutable%20SHA%20pinning%20in%20use-2ea44f?style=flat-square&logo=githubactions)](./.github/workflows/)
-[![GPG Verification](https://img.shields.io/badge/GPG%20Signing-GPG%20verification%20workflow%20configured-2ea44f?style=flat-square&logo=gnupg)](./.github/workflows/gpg-signing-verification.yml)
-[![Signed Publisher](https://img.shields.io/badge/Publishing-Signed%20publisher%20workflow%20configured-2ea44f?style=flat-square)](./.github/workflows/signed-publish.yml)
-[![Signed Commits](https://img.shields.io/badge/All%20Commits-Signing%20not%20enforced-yellow?style=flat-square&logo=gnupg)](#governance-transparency)
-[![SBOM](https://img.shields.io/badge/SBOM-Not%20generated-lightgrey?style=flat-square)](#scope-and-applicability)
-[![SLSA Provenance](https://img.shields.io/badge/SLSA%20Provenance-Not%20implemented-lightgrey?style=flat-square)](#scope-and-applicability)
-[![Artifact Attestation](https://img.shields.io/badge/Artifact%20Attestation-Not%20implemented-lightgrey?style=flat-square)](#scope-and-applicability)
-[![Signed Releases](https://img.shields.io/badge/Signed%20Releases-Not%20applicable-lightgrey?style=flat-square)](#scope-and-applicability)
+<a href="./.github/dependabot.yml"><img src="https://img.shields.io/badge/Dependency%20Updates-Dependabot%20configured-2ea44f?style=flat-square&logo=dependabot" alt="Dependabot Updates" height="30" /></a>
+<a href="./.github/workflows/"><img src="https://img.shields.io/badge/GitHub%20Actions-Immutable%20SHA%20pinning%20in%20use-2ea44f?style=flat-square&logo=githubactions" alt="Pinned Actions" height="30" /></a>
+<a href="./.github/workflows/gpg-signing-verification.yml"><img src="https://img.shields.io/badge/GPG%20Signing-GPG%20verification%20workflow%20configured-2ea44f?style=flat-square&logo=gnupg" alt="GPG Verification" height="30" /></a>
+<a href="./.github/workflows/signed-publish.yml"><img src="https://img.shields.io/badge/Publishing-Signed%20publisher%20workflow%20configured-2ea44f?style=flat-square" alt="Signed Publisher" height="30" /></a>
+<a href="#governance-transparency"><img src="https://img.shields.io/badge/All%20Commits-Signing%20not%20enforced-yellow?style=flat-square&logo=gnupg" alt="Signed Commits" height="30" /></a>
+<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/SBOM-Deferred%20(no%20package%20or%20artifact%20inventory)-lightgrey?style=flat-square" alt="SBOM" height="30" /></a>
+<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/SLSA%20Provenance-Deferred%20(no%20build%20artifacts)-lightgrey?style=flat-square" alt="SLSA Provenance" height="30" /></a>
+<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Artifact%20Attestation-Deferred%20(no%20built%20artifact)-lightgrey?style=flat-square" alt="Artifact Attestation" height="30" /></a>
+<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Signed%20Releases-Not%20applicable-lightgrey?style=flat-square" alt="Signed Releases" height="30" /></a>
 
 ## 3. Repository governance & access control
 
-[![Protected Default Branch](https://img.shields.io/badge/Default%20Branch-Protected-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
-[![Pull Request Required](https://img.shields.io/badge/Merge%20Policy-PR%20required-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
-[![Required Status Checks](https://img.shields.io/badge/Merge%20Gate-Required%20security%20checks-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
-[![Conversation Resolution](https://img.shields.io/badge/Review%20Hygiene-Conversation%20resolution%20required-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
-[![Squash Only](https://img.shields.io/badge/History-Squash%20merge%20only-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
-[![Linear History](https://img.shields.io/badge/History-Linear%20history-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
-[![Force Push Protection](https://img.shields.io/badge/Branch%20Safety-Force%20pushes%20blocked-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
-[![Deletion Protection](https://img.shields.io/badge/Branch%20Safety-Deletion%20restricted-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
-[![No Bypass Actors](https://img.shields.io/badge/Ruleset-Bypass%20list%20empty-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules)
-[![Code Owners](https://img.shields.io/badge/CODEOWNERS-Not%20configured-lightgrey?style=flat-square)](#scope-and-applicability)
-[![Human Approval](https://img.shields.io/badge/Independent%20PR%20Approval-Not%20required-yellow?style=flat-square)](#governance-transparency)
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Default%20Branch-Protected-2ea44f?style=flat-square&logo=github" alt="Protected Default Branch" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Merge%20Policy-PR%20required-2ea44f?style=flat-square" alt="Pull Request Required" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Merge%20Gate-Required%20security%20checks-2ea44f?style=flat-square" alt="Required Status Checks" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Review%20Hygiene-Conversation%20resolution%20required-2ea44f?style=flat-square" alt="Conversation Resolution" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/History-Squash%20merge%20only-2ea44f?style=flat-square" alt="Squash Only" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/History-Linear%20history-2ea44f?style=flat-square" alt="Linear History" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Branch%20Safety-Force%20pushes%20blocked-2ea44f?style=flat-square" alt="Force Push Protection" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Branch%20Safety-Deletion%20restricted-2ea44f?style=flat-square" alt="Deletion Protection" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Ruleset-Bypass%20list%20empty-2ea44f?style=flat-square" alt="No Bypass Actors" height="30" /></a>
+<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/CODEOWNERS-Deferred%20(single%20maintainer)-lightgrey?style=flat-square" alt="Code Owners" height="30" /></a>
+<a href="#governance-transparency"><img src="https://img.shields.io/badge/Independent%20PR%20Approval-Not%20required-yellow?style=flat-square" alt="Human Approval" height="30" /></a>
 
 ### Governance transparency
 
@@ -65,29 +68,31 @@ The active default-branch ruleset requires pull requests and the named security 
 
 ### Current automated analysis
 
-[![CodeQL Actions](https://img.shields.io/badge/CodeQL-Actions%20analysis%20configured-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/security/code-scanning)
-[![Workflow Audit](https://img.shields.io/badge/Workflow%20Security-zizmor%20audit%20configured-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml)
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/security/code-scanning"><img src="https://img.shields.io/badge/CodeQL-Actions%20analysis%20configured-2ea44f?style=flat-square&logo=github" alt="CodeQL Actions" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml"><img src="https://img.shields.io/badge/Workflow%20Security-zizmor%20audit%20configured-2ea44f?style=flat-square" alt="Workflow Audit" height="30" /></a>
 
 ### Quality gates — implemented (advisory)
 
-[![actionlint](https://img.shields.io/badge/Workflow%20Lint-actionlint%20configured-2ea44f?style=flat-square)](https://github.com/rhysd/actionlint)
-[![Markdown Lint](https://img.shields.io/badge/Documentation%20Lint-Markdownlint%20configured-2ea44f?style=flat-square)](https://github.com/DavidAnson/markdownlint)
-[![YAML Validation](https://img.shields.io/badge/Configuration%20Validation-YAML%20syntax%20checks%20configured-2ea44f?style=flat-square)](https://www.ruby-lang.org/en/documentation/stdlib/yaml/)
-[![Link Checker](https://img.shields.io/badge/Documentation%20Links-Internal%20link%20checks%20configured-2ea44f?style=flat-square)](https://github.com/lycheeverse/lychee)
-[![Prettier](https://img.shields.io/badge/Formatting-Prettier%20not%20configured-lightgrey?style=flat-square&logo=prettier)](https://prettier.io/)
-[![EditorConfig](https://img.shields.io/badge/Editor%20Consistency-EditorConfig%20not%20verified-lightgrey?style=flat-square)](https://editorconfig.org/)
-[![SonarQube](https://img.shields.io/badge/Quality%20Gate-SonarQube%20not%20configured-lightgrey?style=flat-square&logo=sonarqube)](https://www.sonarsource.com/products/sonarqube/)
-[![Maintainability](https://img.shields.io/badge/Maintainability-Metric%20not%20measured-lightgrey?style=flat-square)](#scope-and-applicability)
-[![Test Coverage](https://img.shields.io/badge/Test%20Coverage-Not%20measured-lightgrey?style=flat-square)](#scope-and-applicability)
-[![Automated Tests](https://img.shields.io/badge/Automated%20Tests-No%20application%20test%20suite-lightgrey?style=flat-square)](#scope-and-applicability)
+<a href="https://github.com/rhysd/actionlint"><img src="https://img.shields.io/badge/Workflow%20Lint-actionlint%20configured-2ea44f?style=flat-square" alt="actionlint" height="30" /></a>
+<a href="https://github.com/DavidAnson/markdownlint"><img src="https://img.shields.io/badge/Documentation%20Lint-Markdownlint%20configured-2ea44f?style=flat-square" alt="Markdown Lint" height="30" /></a>
+<a href="https://www.ruby-lang.org/en/documentation/stdlib/yaml/"><img src="https://img.shields.io/badge/Configuration%20Validation-YAML%20syntax%20checks%20configured-2ea44f?style=flat-square" alt="YAML Validation" height="30" /></a>
+<a href="https://github.com/lycheeverse/lychee"><img src="https://img.shields.io/badge/Documentation%20Links-Internal%20link%20checks%20configured-2ea44f?style=flat-square" alt="Link Checker" height="30" /></a>
+<a href="https://prettier.io/"><img src="https://img.shields.io/badge/Formatting-Prettier%20not%20configured-lightgrey?style=flat-square&logo=prettier" alt="Prettier" height="30" /></a>
+<a href="https://editorconfig.org/"><img src="https://img.shields.io/badge/Editor%20Consistency-EditorConfig%20configured-2ea44f?style=flat-square" alt="EditorConfig" height="30" /></a>
+<a href="https://www.sonarsource.com/products/sonarqube/"><img src="https://img.shields.io/badge/Quality%20Gate-SonarQube%20not%20applicable%20(no%20application%20source)-lightgrey?style=flat-square&logo=sonarqube" alt="SonarQube" height="30" /></a>
+<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Maintainability-Not%20applicable%20(no%20application%20source)-lightgrey?style=flat-square" alt="Maintainability" height="30" /></a>
+<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Test%20Coverage-Not%20applicable%20(no%20application%20test%20target)-lightgrey?style=flat-square" alt="Test Coverage" height="30" /></a>
+<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Automated%20Tests-No%20application%20test%20suite-lightgrey?style=flat-square" alt="Automated Tests" height="30" /></a>
 
 ## 5. Policy, disclosure & transparency
 
-[![Security Policy](https://img.shields.io/badge/Vulnerability%20Reporting-Policy%20published-2ea44f?style=flat-square)](./SECURITY.md)
-[![Responsible Disclosure](https://img.shields.io/badge/Coordinated%20Disclosure-Guidance%20published-2ea44f?style=flat-square)](./SECURITY.md)
-[![Contributing](https://img.shields.io/badge/Contribution%20Guidance-Published-2ea44f?style=flat-square)](./CONTRIBUTING.md)
-[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Published-2ea44f?style=flat-square)](./CODE_OF_CONDUCT.md)
-[![Dependabot Policy](https://img.shields.io/badge/Dependency%20Policy-Configuration%20published-2ea44f?style=flat-square)](./.github/dependabot.yml)
+<a href="./SECURITY.md"><img src="https://img.shields.io/badge/Vulnerability%20Reporting-Policy%20published-2ea44f?style=flat-square" alt="Security Policy" height="30" /></a>
+<a href="./SECURITY.md"><img src="https://img.shields.io/badge/Coordinated%20Disclosure-Guidance%20published-2ea44f?style=flat-square" alt="Responsible Disclosure" height="30" /></a>
+<a href="./CONTRIBUTING.md"><img src="https://img.shields.io/badge/Contribution%20Guidance-Published-2ea44f?style=flat-square" alt="Contributing" height="30" /></a>
+<a href="./CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Code%20of%20Conduct-Published-2ea44f?style=flat-square" alt="Code of Conduct" height="30" /></a>
+<a href="./.github/dependabot.yml"><img src="https://img.shields.io/badge/Dependency%20Policy-Configuration%20published-2ea44f?style=flat-square" alt="Dependabot Policy" height="30" /></a>
+
+<!-- markdownlint-enable MD033 -->
 
 ## Scope and applicability
 
