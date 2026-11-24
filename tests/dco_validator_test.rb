@@ -36,6 +36,17 @@ class DcoValidatorTest < Minitest::Test
     end
   end
 
+  def test_accepts_committer_signoff_when_author_differs
+    with_git_repository do |base_sha, _head_sha|
+      create_commit(
+        "contribution by original author",
+        "Signed-off-by: Test Author <test@example.com>",
+        author: "Original Author <original@example.com>"
+      )
+      assert_empty DcoValidator.validate_range(base_sha, git!("rev-parse", "HEAD"))
+    end
+  end
+
   def test_rejects_commit_range_without_signoff
     with_git_repository do |base_sha, _head_sha|
       create_commit("change without sign-off", nil)
