@@ -454,12 +454,12 @@ The Scorecard run now reports CI-Tests **10** (30/30 merged PRs checked by CI) a
 
 **Remaining platform actions:** the active main ruleset still requires only Gitleaks and zizmor. Add the successful PR check names `Dependency Review`, `Dependabot alert gate`, `Analyze (actions)` and `SAST policy gate` as required checks. The non-author approval control remains unmet until a genuine independent reviewer is available. Compiled-asset SBOM and multi-repository subproject controls remain not applicable.
 
-
 ### PR #39 completion — dashboard and enforcement hardening — 2026-11-24
 
 **Main commit:** `88e1d16a13c7fc72fdaaacbbb995bd320070f8b8` (PR #39, merged).
 
 PR #39 added two live workflow badges, replaced the grey software Signed Releases badge with a blue documentation-release workflow status, refreshed the 21-control evidence register and added two enforcement safeguards:
+
 - Dependabot alert policy queries `classification=general` and `classification=malware` separately. General vulnerability alerts may be excepted only by a current, evidence-backed VEX entry; malware alerts cannot be excepted.
 - SAST policy gate waits for the matching `Analyze (actions)` check on the same commit to complete before querying CodeQL Critical/High findings.
 
