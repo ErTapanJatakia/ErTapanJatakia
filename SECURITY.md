@@ -8,6 +8,8 @@
 
 > **Evidence-first status:** live workflow badges report GitHub Actions workflow state. Descriptive badges identify configured controls; they do not claim that every scan is clean or that no vulnerabilities exist. Planned and unverified controls are explicitly labelled below.
 
+> **Implementation tracking:** the dashboard contains 55 displayed badge entries. See the [Security Badge Implementation Roadmap](./docs/SECURITY-BADGE-ROADMAP.md) for the evidence-backed inventory, priorities, applicability decisions and verification criteria.
+
 ## 1. Security scanning & detection
 
 ### Configured security controls
@@ -55,7 +57,9 @@
 [![Code Owners](https://img.shields.io/badge/CODEOWNERS-Not%20configured-lightgrey?style=flat-square)](#scope-and-applicability)
 [![Human Approval](https://img.shields.io/badge/Independent%20PR%20Approval-Not%20required-yellow?style=flat-square)](#governance-transparency)
 
-**Governance transparency:** the active default-branch ruleset requires pull requests and the named security status checks, enforces conversation resolution and linear/squash history, blocks force pushes, restricts deletion, and has an empty bypass list. It currently requires **zero approving reviews**. Therefore, this page does not claim that independent human approval is mandatory.
+### Governance transparency
+
+The active default-branch ruleset requires pull requests and the named security status checks, enforces conversation resolution and linear/squash history, blocks force pushes, restricts deletion, and has an empty bypass list. It currently requires **zero approving reviews**. Therefore, this page does not claim that independent human approval is mandatory.
 
 ## 4. Code, workflow & documentation quality
 
@@ -85,7 +89,7 @@
 [![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Published-2ea44f?style=flat-square)](./CODE_OF_CONDUCT.md)
 [![Dependabot Policy](https://img.shields.io/badge/Dependency%20Policy-Configuration%20published-2ea44f?style=flat-square)](./.github/dependabot.yml)
 
-## 6. Scope and applicability
+## Scope and applicability
 
 This repository primarily hosts a GitHub profile README, documentation, repository configuration, and GitHub Actions workflows. It is not a conventional application repository with a package manifest, deployable service, or application runtime.
 
