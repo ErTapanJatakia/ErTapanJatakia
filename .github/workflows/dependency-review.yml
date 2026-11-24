@@ -44,6 +44,28 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Verify every pinned Action is in the license register
+        shell: bash
+        run: |
+          set -euo pipefail
+          register="docs/DEPENDENCY-LICENSE-REGISTER.md"
+          while IFS= read -r action_ref; do
+            [[ "$action_ref" == *@* ]] || continue
+            action_spec="${action_ref%@*}"
+            action_sha="${action_ref##*@}"
+            [[ "$action_spec" == docker://* ]] && continue
+            owner_repo="$(cut -d '/' -f 1-2 <<< "$action_spec")"
+            if ! grep -F "$owner_repo" "$register" | grep -Fq "$action_sha"; then
+              echo "::error::Pinned Action is missing from the license register: $action_ref"
+              exit 1
+            fi
+          done < <(
+            grep -hE '^[[:space:]]*uses:[[:space:]]*[^[:space:]#]+' \
+              .github/workflows/*.yml .github/actions/*/action.yml \
+              | sed -E 's/^[[:space:]]*uses:[[:space:]]*([^[:space:]#]+).*/\1/'
+          )
+          echo "Every external pinned Action reference is represented in the license register."
+
       - name: Fail on unresolved Dependabot alerts
         env:
           GH_TOKEN: ${{ github.token }}
