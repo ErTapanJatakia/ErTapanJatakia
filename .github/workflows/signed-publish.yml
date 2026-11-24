@@ -54,8 +54,12 @@ jobs:
             exit 1
           fi
 
-          if [[ -z "${COMMIT_MESSAGE//[[:space:]]/}" ]] || [[ ${#COMMIT_MESSAGE} -gt 200 ]]; then
-            echo "::error::Commit message must be non-empty and no longer than 200 characters."
+          if [[ -z "${COMMIT_MESSAGE//[[:space:]]/}" ]] ||
+             [[ ${#COMMIT_MESSAGE} -gt 200 ]] ||
+             [[ "$COMMIT_MESSAGE" =~ [[:cntrl:]] ]] ||
+             [[ "$COMMIT_MESSAGE" == [[:space:]]* ]] ||
+             [[ "$COMMIT_MESSAGE" == *[[:space:]] ]]; then
+            echo "::error::Commit message must be a single-line printable value, 1–200 characters, without leading or trailing whitespace."
             exit 1
           fi
 
