@@ -3,21 +3,21 @@
 **Assessment date:** 2026-11-24  
 **Criteria version:** `v2026.08.28` (official OpenSSF Best Practices Baseline)  
 **Repository:** `ErTapanJatakia/ErTapanJatakia`  
-**Scope:** Evidence-led assessment of all 19 Baseline Level 2 controls against the repository's current documentation-only release model and GitHub Actions automation.  
+**Scope:** Evidence-led assessment of all 19 Baseline Level 2 controls against the repository's profile/documentation, Ruby validation utilities and GitHub Actions automation; no end-user application runtime or compiled binary is released.  
 **Assessment limitation:** This is an internal implementation assessment, not an OpenSSF badge award, independent audit, or certification. Platform settings not exposed to the connected GitHub integration are marked **Unverified**.
 
 ## Assessment summary
 
 | Current assessment | Count |
 |---|---:|
-| Met | 14 |
+| Met | 15 |
 | Partial | 3 |
 | Unmet | 0 |
 | Not applicable (N/A) | 1 |
 | Unverified | 0 |
 | **Total** | **19** |
 
-The official Baseline Level 2 set contains 19 controls. The assessment uses the current official criteria version shown above. The current 14 Met results include controls newly evidenced by repository automation and documentation. Three controls remain Partial pending exact collaborator role evidence and owner-side activation of private vulnerability reporting. The single N/A control is conditional on discovery of a vulnerability; no advisory is fabricated.
+The official Baseline Level 2 set contains 19 controls. The assessment uses the current official criteria version shown above. The current 15 Met results include controls newly evidenced by repository automation and documentation. Three controls remain Partial pending exact collaborator role evidence and owner-side activation of private vulnerability reporting. The single N/A control is conditional on discovery of a vulnerability; no advisory is fabricated.
 
 ## Detailed control assessment
 
