@@ -25,8 +25,8 @@
 [![Semgrep](https://img.shields.io/badge/SAST-Semgrep%20planned-lightgrey?style=flat-square)](https://semgrep.dev/)
 [![DevSkim](https://img.shields.io/badge/Secure%20Development-DevSkim%20historical%20scan%20only-lightgrey?style=flat-square)](https://github.com/microsoft/DevSkim)
 [![Bearer](https://img.shields.io/badge/Data%20Security-Bearer%20historical%20scan%20only-lightgrey?style=flat-square)](https://docs.bearer.com/)
-[![GitHub Secret Scanning](https://img.shields.io/badge/GitHub%20Secret%20Scanning-Platform%20status%20unverified-yellow?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/security_analysis)
-[![Dependabot Alerts](https://img.shields.io/badge/Dependabot%20Alerts-Platform%20status%20unverified-yellow?style=flat-square&logo=dependabot)](https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot)
+[![GitHub Secret Scanning](https://img.shields.io/badge/GitHub%20Secret%20Scanning-Enabled%20(owner--confirmed)-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/security_analysis)
+[![Dependabot Alerts](https://img.shields.io/badge/Dependabot%20Alerts-Enabled%20(owner--confirmed)-2ea44f?style=flat-square&logo=dependabot)](https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot)
 [![Bandit](https://img.shields.io/badge/Python%20SAST-Bandit%20not%20applicable-lightgrey?style=flat-square)](#scope-and-applicability)
 [![npm audit](https://img.shields.io/badge/Node%20Dependency%20Audit-npm%20audit%20not%20applicable-lightgrey?style=flat-square&logo=npm)](#scope-and-applicability)
 [![OWASP ZAP](https://img.shields.io/badge/DAST-OWASP%20ZAP%20not%20applicable-lightgrey?style=flat-square&logo=owasp)](#scope-and-applicability)
@@ -96,7 +96,7 @@ This repository primarily hosts a GitHub profile README, documentation, reposito
 Accordingly:
 
 - **Relevant now:** secret scanning, workflow security auditing, Scorecard, Actions static analysis, dependency-update configuration, branch governance, signed-commit workflow validation, Markdown/YAML/workflow linting, and link checking.
-- **Requires platform verification:** GitHub-native secret-scanning alerts, Dependabot vulnerability alerts, code-scanning alert inventory, and the current published Scorecard result.
+- **Owner-confirmed platform controls (2026-11-24):** GitHub Secret Scanning and Dependabot alerts are enabled. The owner also observed no open Malware alerts, no open Dependabot alerts, and no auto-dismissed Dependabot alerts at that time. These are time-bounded UI observations, not an assertion that alerts never existed or that every dependency is vulnerability-free. Code Scanning findings and the published Scorecard report remain separate evidence sources.
 - **Not currently evidenced:** SBOM generation, SLSA build provenance, artifact attestations, signed software releases, application test coverage, and runtime DAST. These must not be represented as implemented.
 - **Not automatically useful:** language-specific scanners such as Bandit or npm audit unless corresponding Python or Node.js application/dependency manifests are introduced.
 
@@ -104,7 +104,7 @@ Accordingly:
 
 The workflow badges above link to their authoritative GitHub Actions pages. For an audit, inspect the latest run on the current `main` commit and the associated job results. A green workflow badge means the workflow completed successfully; it does **not** prove that every security finding is absent.
 
-DevSkim and Bearer were used in historical remediation work but are not configured as recurring scans on the current `main` branch. Their historical pass must not be read as current coverage. GitHub-native Secret Scanning and Dependabot alert inventories remain separate platform-verification items; no clean platform alert posture is claimed.
+DevSkim and Bearer were used in historical remediation work but are not configured as recurring scans on the current `main` branch. Their historical pass must not be read as current coverage. GitHub-native Secret Scanning and Dependabot alerts are owner-confirmed enabled as of 2026-11-24. At that observation, the owner saw no open Malware alerts, no open Dependabot alerts, and no auto-dismissed Dependabot alerts. These inventory observations are point-in-time evidence and do not replace Code Scanning review or prove universal dependency cleanliness.
 
 ---
 
