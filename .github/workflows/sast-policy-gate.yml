@@ -56,9 +56,9 @@ jobs:
 
           echo "CodeQL analysis completed successfully for $SOURCE_SHA; evaluating its alert inventory now."
 
-          gh api --paginate --slurp \
+          gh api --paginate \
             "repos/$GH_REPOSITORY/code-scanning/alerts?state=open&tool_name=CodeQL&per_page=100" \
-            | jq 'add' > "$RUNNER_TEMP/open-codeql-alerts.json"
+            | jq -s 'add // []' > "$RUNNER_TEMP/open-codeql-alerts.json"
 
           jq -r '
             .[]
