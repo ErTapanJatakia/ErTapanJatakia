@@ -100,7 +100,7 @@ jobs:
             git -C "$workdir" switch -c "$automation_branch"
             attestation_dir="$workdir/.github/attestations"
             mkdir -p "$attestation_dir"
-            printf '%s\\n' \
+            printf '%s\n' \
               '# GPG signature attestation' \
               '' \
               "- Repository: $repo" \
