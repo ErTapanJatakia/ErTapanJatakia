@@ -73,3 +73,33 @@ jobs:
         with:
           args: --verbose --no-progress --exclude-mail --accept 200,206,429 './**/*.md'
           lycheeVersion: v0.24.2
+
+  actionlint:
+    name: GitHub Actions static analysis (advisory)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install verified actionlint release
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="$RUNNER_TEMP/actionlint_1.7.12_linux_amd64.tar.gz"
+          curl --fail --silent --show-error --location \
+            https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_linux_amd64.tar.gz \
+            --output "$archive"
+          echo "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8  $archive" | sha256sum --check
+          mkdir -p "$RUNNER_TEMP/actionlint"
+          tar -xzf "$archive" -C "$RUNNER_TEMP/actionlint"
+          "$RUNNER_TEMP/actionlint/actionlint" -version
+
+      - name: Analyze GitHub Actions workflows
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/actionlint/actionlint" -color .github/workflows/*.yml
