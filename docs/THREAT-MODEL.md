@@ -53,7 +53,7 @@ Security objectives are confidentiality of signing/mirroring credentials, integr
 ## 5. Critical workflows and security gates
 
 1. **Pull-request validation:** untrusted proposed changes are checked without access to signing secrets.
-2. **Major-change QA:** security-sensitive workflow, policy, release, VEX and threat-model changes are identified; relevant YAML, actionlint, Markdown, link, formatting and VEX tests must pass. The check must be added to the active ruleset before it is treated as an enforced merge gate.
+2. **Required pull-request QA and DCO:** the active required `Major change validation` check fails unless the VEX regression suite succeeds and, after DCO adoption, every pull-request commit carries an author-matching `Signed-off-by` trailer. For major/security-sensitive paths, relevant YAML, actionlint, Markdown, link, formatting and VEX checks must also pass. The one-time DCO adoption PR and pre-policy history are grandfathered.
 3. **Signed publication:** accepts only a validated staging branch descended from current `main`; signs a publication commit and opens a PR.
 4. **Repository controller:** operates only on the explicitly configured repository registry and removes temporary signing material.
 5. **Dependency alert gate:** validates VEX exceptions, blocks unresolved general alerts and blocks every malware alert.
