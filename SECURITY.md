@@ -89,7 +89,7 @@ The active default-branch ruleset requires pull requests and the named security 
 [![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Published-2ea44f?style=flat-square)](./CODE_OF_CONDUCT.md)
 [![Dependabot Policy](https://img.shields.io/badge/Dependency%20Policy-Configuration%20published-2ea44f?style=flat-square)](./.github/dependabot.yml)
 
-## 6. Scope and applicability
+## Scope and applicability
 
 This repository primarily hosts a GitHub profile README, documentation, repository configuration, and GitHub Actions workflows. It is not a conventional application repository with a package manifest, deployable service, or application runtime.
 
