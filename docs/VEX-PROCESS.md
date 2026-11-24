@@ -11,6 +11,7 @@ No real non-exploitable vulnerability statement is asserted by this document. Th
 ## 3. Required statement fields
 
 Each VEX statement must identify:
+
 - A unique statement/document identifier and creation timestamp.
 - The project and affected release or commit.
 - The component using a stable package URL (purl) or other unambiguous identifier.
