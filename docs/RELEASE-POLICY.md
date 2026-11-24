@@ -38,7 +38,7 @@ Before publishing:
 2. Review current required and advisory workflow results.
 3. Review open Dependabot and malware alerts.
 4. Review CodeQL findings and the latest security analysis.
-5. Review license and third-party action changes.
+5. Review [the pinned GitHub Actions license register](DEPENDENCY-LICENSE-REGISTER.md), any changed action license terms and the direct/transitive dependency scope. Confirm that proprietary EULAs remain applicable and that no action source is included in the release archive.
 6. Generate and validate the release manifest and checksums.
 7. Verify the signed tag and detached signature.
 8. Generate and verify GitHub artifact attestations.
