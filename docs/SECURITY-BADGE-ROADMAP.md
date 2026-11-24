@@ -23,7 +23,7 @@ A direct count of Markdown badge elements in `SECURITY.md` at the baseline commi
 
 The count is of rendered badge entries, not unique products, scanners, or independent controls. For example, CodeQL, zizmor, branch protection and security policy are represented more than once.
 
-**Current dashboard after P1 implementation and historical-scanner reconciliation:** 55 entries remain: 2 live workflow badges, 31 configured/published controls, 4 unverified/not-enforced badges, and 18 planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification. The DevSkim and Bearer badges are now explicitly historical-only/not currently configured, moving those two entries out of the unverified group; this is a status correction, not a claim that their historical findings were all resolved.
+**Current dashboard after P1 implementation and historical-scanner reconciliation:** 55 entries remain: 2 live workflow badges, 33 configured/published controls, 2 unverified/not-enforced badges, and 18 planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification. The DevSkim and Bearer badges are now explicitly historical-only/not currently configured, moving those two entries out of the unverified group; this is a status correction, not a claim that their historical findings were all resolved.
 
 ## Priority roadmap
 
@@ -31,14 +31,14 @@ The count is of rendered badge entries, not unique products, scanners, or indepe
 
 | Work item | Current badge(s) | Required evidence | Exit condition |
 |---|---|---|---|
-| GitHub Secret Scanning | Platform status unverified | Inspect repository security settings and secret-scanning alert inventory; confirm feature eligibility and enablement separately | Badge accurately says enabled, disabled, unavailable, or not eligible; alert status is reported separately |
-| Dependabot vulnerability alerts | Platform status unverified | Inspect repository Dependabot security settings and alert inventory | Setting and open-alert count are recorded; no claim that alerts are clear without evidence |
+| GitHub Secret Scanning | **Enabled (owner-confirmed 2026-11-24)** | Owner inspected Settings → Security & analysis and confirmed the control enabled; no open Malware alerts were displayed at the observation | Badge identifies owner-confirmed enablement; keep alert inventory time-bounded and distinct from the toggle |
+| Dependabot vulnerability alerts | **Enabled (owner-confirmed 2026-11-24)** | Owner confirmed the setting enabled; no open Dependabot alerts and no auto-dismissed Dependabot alerts were displayed at the observation | Badge identifies owner-confirmed enablement; keep open and auto-dismissed inventory observations time-bounded |
 | DevSkim | Historical scan only; not configured on current `main` | No recurring workflow is present. Treat earlier remediation run as historical evidence only; obtain a fresh, deliberately scoped scan only if a meaningful target and maintenance plan are established | Do not display as current coverage; preserve any historical alert disposition separately |
 | Bearer | Historical scan only; not configured on current `main` | No recurring workflow is present. Treat earlier remediation run as historical evidence only; obtain a fresh, deliberately scoped scan only if a meaningful target and maintenance plan are established | Do not display as current coverage; preserve any historical alert disposition separately |
 | Commit signing | Signing not enforced | Inspect repository rules and actual commit verification coverage | Keep badge transparent unless signing is enforced for the intended commit scope |
 | Independent PR approval | Not required | Reconfirm active ruleset and reviewer availability | Keep the zero-approval policy explicit while no independent human reviewer is available; never manufacture approvals |
 
-**P0 guardrail:** DevSkim and Bearer are historical-only, not current recurring controls. Bandit remains not applicable because maintained Python source is absent. The five currently reported Code Scanning alerts are Scorecard posture findings; retain them pending genuine posture changes or evidence-based disposition. Do not describe historical scanner findings as clean/current without fresh scan evidence.
+**P0 guardrail:** DevSkim and Bearer are historical-only, not current recurring controls. Bandit remains not applicable because maintained Python source is absent. GitHub Secret Scanning and Dependabot alerts are owner-confirmed enabled; their inventories showed no open Malware alerts, no open Dependabot alerts, and no auto-dismissed Dependabot alerts on 2026-11-24. These are point-in-time observations. The five currently reported Code Scanning alerts are Scorecard posture findings; retain them pending genuine posture changes or evidence-based disposition. Do not describe historical scanner findings as clean/current without fresh scan evidence.
 
 ### P1 — Add low-risk quality checks suited to this repository
 
@@ -192,7 +192,7 @@ The owner also confirmed the GitHub-managed auto-triage presets: **Enabled** —
 
 The enabled development-scoped rule can remove qualifying alerts from the open inventory without fixing the underlying dependency. The owner separately confirmed that the auto-dismissed Dependabot inventory was also empty at the 2026-11-24 observation. These are point-in-time inventory observations, not proof that no alerts were ever generated or that all dependencies are vulnerability-free. The malware-dismissal preset being disabled means that particular rule is not configured to dismiss package-malware alerts; it does not establish the absence of every other possible dismissal mechanism.
 
-**Setting-state distinction:** the owner-observed empty alert views do not, by themselves, prove whether the Dependabot alerts feature toggle and dependency graph are enabled. Those platform enablement states remain unverified until their settings are explicitly inspected. No repository settings were changed as part of this documentation update.
+**Setting-state distinction:** the owner separately inspected Settings → Security & analysis and confirmed Dependency Graph, automatic dependency submission, Dependabot alerts, Malware alerts, Dependabot security updates, grouped security updates, Dependabot version updates, CodeQL default setup, Secret Scanning/push protection and private vulnerability reporting enabled. This remains owner-confirmed UI evidence rather than an independent API read-back. No platform settings were changed as part of the documentation updates.
 
 ### Native GitHub security settings — owner-confirmed, 2026-11-24
 
@@ -213,7 +213,7 @@ The repository owner inspected **Settings → Security & analysis** and confirme
 
 The settings page also displayed AI Scan for repositories, AI Scan for pull requests, Scan for AI applications, Copilot Autofix and Agentic Autofix as available capabilities. Their display on the page is **not** evidence that those optional capabilities are enabled or used; no status is claimed for them.
 
-The Dependabot alert views separately showed dependency files checked approximately one hour before the owner's observation and **no open alerts** in either the Malware alerts or Dependabot alerts inventory. The auto-dismissed filter remains a separate inventory and should be reviewed independently. The GitHub-managed auto-triage preset “Dismiss low-impact alerts for development-scoped dependencies” is enabled; “Dismiss package malware alerts” is disabled. These settings do not establish that previously auto-dismissed alerts were remediated.
+The owner separately confirmed that dependency files had been checked approximately one hour before the 2026-11-24 observation and that the open Malware alerts, open Dependabot alerts, and auto-dismissed Dependabot inventory were all empty. The GitHub-managed auto-triage preset “Dismiss low-impact alerts for development-scoped dependencies” is enabled; “Dismiss package malware alerts” is disabled. These are point-in-time inventory observations; they do not establish that alerts never existed or that every dependency is vulnerability-free.
 
 The connected integration still cannot independently read the native security-setting toggles or enumerate the Code Scanning alert endpoint. Accordingly, the above is explicitly labelled owner-confirmed; it is not represented as an API-verified state. No native settings or alert dispositions were changed during this documentation update.
 
@@ -257,3 +257,47 @@ The repository owner confirmed that, as of 2026-11-24, all three inspected inven
 The owner also confirmed the native GitHub security controls listed in the preceding section as enabled. Those platform settings remain labelled owner-confirmed rather than independently API-verified. No alert disposition or repository security setting was changed during this triage.
 
 **Outcome:** the remaining five Scorecard alerts are understood and have evidence-based dispositions. Four are deferred/retained for explicit applicability or governance reasons; one is time-based. None warrants a cosmetic dismissal or a fabricated implementation. Revisit only when the underlying repository conditions change.
+
+
+### PR #18 completion and latest Scorecard evidence — 2026-11-24
+
+**Main commit:** `f120a413136b14415be65581362cd3bb594e7cfc` (PR #18, merged).
+
+All six post-merge workflows completed successfully on this commit:
+
+| Control | Run | Result |
+|---|---|---|
+| Repository Security Analysis (Gitleaks + zizmor) | [45320723881](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45320723881) | Passed |
+| Repository Configuration Validation | [45320723836](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45320723836) | Passed |
+| Repository Quality Assurance (four advisory jobs) | [45320724001](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45320724001) | All four jobs passed |
+| GitVerse mirror | [45320723882](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45320723882) | Passed |
+| CodeQL Actions analysis | [45320724060](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45320724060) | Passed; analysis processing completed |
+| OpenSSF Scorecard | [45320723853](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45320723853) | Passed; SARIF uploaded and processing completed |
+
+The latest Scorecard job log reports an overall score of **6.9/10**. The following details are from that run's generated report:
+
+| Scorecard check | Score | Current interpretation |
+|---|---:|---|
+| Maintained | 0 | Repository was created within the last 90 days; time-based |
+| Code-Review | 0 | No approved changesets detected; no independent human approval is required |
+| Branch-Protection | 4 | PRs, status checks, up-to-date branch, deletion and force-push controls detected; review-dependent controls remain absent |
+| Fuzzing | 0 | No fuzzer integration; no suitable application fuzzing target currently exists |
+| CII-Best-Practices | 0 | No optional OpenSSF Best Practices badge application detected |
+| Contributors | 3 | Score normalized from contributions by one detected organization; do not manufacture contributors |
+| Packaging | -1 | No packaging workflow detected; not applicable to this documentation/profile repository |
+| Signed-Releases | -1 | No releases found; not applicable while no software release artifacts are published |
+| Vulnerabilities | 10 | Zero existing vulnerabilities detected within Scorecard's checked scope |
+| Dangerous-Workflow | 10 | No dangerous workflow patterns detected |
+| Token-Permissions | 10 | Workflow token permissions scored least-privilege overall; two jobs intentionally require `contents: write` and `pull-requests: write` to push signed branches and open review PRs |
+| Pinned-Dependencies | 10 | All 13 GitHub-owned and all 5 third-party Actions dependencies pinned |
+| Security-Policy | 10 | Security policy detected |
+| SAST | 10 | All 12 checked commits covered by a SAST tool |
+| CI-Tests | 10 | All 12 checked merged PRs had CI tests |
+
+Packaging and Signed-Releases at -1 are applicability results, not security failures or additional Code Scanning alerts. Contributors is a community-diversity metric and must not be gamed. The five retained Code Scanning findings remain the five posture items described above; no finding was dismissed or marked fixed.
+
+**SARIF note:** the Scorecard upload succeeded and GitHub completed processing. The upload log emitted warnings that several Scorecard results used the placeholder location text “no file associated with this alert” rather than a source-file URI. This is consistent with repository-level posture findings and does not indicate a failed upload. Do not invent file locations to silence the warning.
+
+**Permission review:** Scorecard identifies `contents: write` in `.github/workflows/repository-controller.yml` and `.github/workflows/signed-publish.yml`. Inspection confirms these jobs create and push signed attestation/publication branches and open pull requests. The write permissions are scoped to those jobs; top-level workflow permissions remain empty. No narrower permission can support those operations, so retain the current job-level permissions and continue auditing the scripts and target validation.
+
+**Current badge count after native-setting confirmation:** 55 displayed entries — 2 live workflow badges, 33 configured/published controls, 2 unverified/not-enforced badges, and 18 planned/unconfigured/unmeasured/not-applicable badges. The Secret Scanning and Dependabot Alerts badges now say “Enabled (owner-confirmed)” rather than “Platform status unverified”; the evidence source is explicitly disclosed in the badge text and this roadmap.
