@@ -1,0 +1,58 @@
+name: SAST Policy Gate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: sast-policy-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  codeql-policy:
+    name: SAST policy gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: read
+    steps:
+      - name: Enforce CodeQL Critical and High remediation threshold
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api --paginate --slurp \
+            "repos/$GH_REPOSITORY/code-scanning/alerts?state=open&tool_name=CodeQL&per_page=100" \
+            | jq 'add' > "$RUNNER_TEMP/open-codeql-alerts.json"
+
+          jq -r '
+            .[]
+            | select(
+                ((.rule.security_severity_level // .rule.severity // "") | ascii_downcase)
+                | IN("critical", "high")
+              )
+            | [
+                .number,
+                .rule.id,
+                (.rule.security_severity_level // .rule.severity),
+                .most_recent_instance.location.path,
+                .html_url
+              ]
+            | @tsv
+          ' "$RUNNER_TEMP/open-codeql-alerts.json" > "$RUNNER_TEMP/blocking-codeql-alerts.tsv"
+
+          if [[ -s "$RUNNER_TEMP/blocking-codeql-alerts.tsv" ]]; then
+            echo "::error::Open Critical/High CodeQL findings violate the repository SAST policy."
+            cat "$RUNNER_TEMP/blocking-codeql-alerts.tsv"
+            exit 1
+          fi
+
+          echo "No open Critical/High CodeQL findings were returned by the repository API."
+          echo "The separate 'Analyze (actions)' CodeQL check must also be required by the main branch ruleset to ensure PR analysis completes before merge."
