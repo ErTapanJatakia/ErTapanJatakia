@@ -69,7 +69,7 @@ Do not add overlapping scanners merely to increase badge count. Select a tool on
 
 | Work item | Current status | Applicability decision |
 |---|---|---|
-| GitHub Dependency Graph SBOM | **Workflow added; first generation pending** | GitHub's native Dependency Graph can be exported as SPDX 2.3 without inventing a package manifest or build artifact. A scheduled/manual workflow requests generation, validates package/dependency relationships, and uploads a 30-day artifact. Scope is limited to dependencies represented in the GitHub Dependency Graph; it is not a full filesystem, container or binary SBOM. Verification requires a successful run with non-empty dependency relationships and valid SPDX output |
+| GitHub Dependency Graph SBOM | **Verified — first successful generation 2026-11-24** | GitHub's native Dependency Graph can be exported as SPDX 2.3 without inventing a package manifest or build artifact. A scheduled/manual workflow requests generation, validates package/dependency relationships, and uploads a 30-day artifact. Scope is limited to dependencies represented in the GitHub Dependency Graph; it is not a full filesystem, container or binary SBOM. Verified by run [45329290238](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45329290238): valid SPDX 2.3 output, 9 package records and 8 `DEPENDS_ON` relationships; the artifact and checksum were uploaded |
 | SLSA provenance | **Deferred / no build artifacts** | The signed-publish workflow signs a Git commit and opens a PR; it does not build a software artifact. Commit signing is not SLSA build provenance. Reassess when a build/release pipeline produces artifacts |
 | Artifact attestation | **Deferred / no built artifact** | No software artifact is currently built or released. Do not attest documentation commits as if they were release artifacts. Reassess when the repository produces a distributable artifact |
 | Signed releases | Not applicable | Reassess if versioned software releases are introduced |
@@ -106,7 +106,7 @@ This review prioritises the non-green and non-current badge states rather than r
 | Semgrep | Planned | Deferred: no maintained application source; generic workflow scanning would overlap CodeQL Actions and zizmor without a distinct validated ruleset | Add application source or identify a specific uncovered rule set |
 | DevSkim | Historical scan only | Retain historical-only status; no recurring current-main workflow exists | Reintroduce only with a scoped target, maintained rules and recurring CI |
 | Bearer | Historical scan only | Retain historical-only status; no application data-flow target exists | Add an application with meaningful data flows |
-| GitHub Dependency Graph SBOM | Not generated | A native GitHub SPDX 2.3 export workflow is now implemented; first successful generation and artifact validation are pending. Scope is limited to dependencies represented in the GitHub Dependency Graph, not a complete filesystem or binary inventory | Successful workflow run with non-empty dependency relationships and valid SPDX output |
+| GitHub Dependency Graph SBOM | Not generated | A native GitHub SPDX 2.3 export workflow is implemented and verified; run [45329290238](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45329290238) validated 9 package records and 8 `DEPENDS_ON` relationships and uploaded the SBOM plus checksum. Scope is limited to dependencies represented in the GitHub Dependency Graph, not a complete filesystem or binary inventory | Continue scheduled/manual runs and review graph coverage as repository dependencies change |
 | SLSA provenance | Not implemented | Deferred: signed Git commits are not build provenance; no artifact build pipeline exists | Introduce a build/release pipeline |
 | Artifact attestation | Not implemented | Deferred: no software artifact is currently produced for attestation | Produce a distributable artifact |
 | CODEOWNERS | Not configured | Deferred: a self-only ownership file would not create independent review or meaningful approval assurance | Add genuine maintainers/component owners |
@@ -117,7 +117,7 @@ This review prioritises the non-green and non-current badge states rather than r
 | Test coverage | Not measured | Not applicable: no application test target or coverage instrumentation | Add application tests and coverage instrumentation |
 | Automated application tests | No application test suite | Retain explicit wording: configuration and workflow CI checks exist, but they are not application tests | Add a maintained application runtime/test suite |
 
-**Interpretation:** “deferred” is an active scope decision, not an implemented control. “Not applicable” is not a green security result. Historical scanner passes are not current coverage. The new SBOM workflow is pending first-run output validation and must not be described as a complete software inventory. No artificial package, build artifact, source code, test suite, fuzzer or reviewer has been created to improve badge counts.
+**Interpretation:** “deferred” is an active scope decision, not an implemented control. “Not applicable” is not a green security result. Historical scanner passes are not current coverage. The SBOM workflow's first run succeeded; it must still not be described as a complete software inventory. No artificial package, build artifact, source code, test suite, fuzzer or reviewer has been created to improve badge counts.
 
 **Badge presentation:** all badge images in `README.md` and `SECURITY.md` are being resized to 150% of their previous rendered height. For Shields.io `for-the-badge` images, the target height is 42 px; for standard/flat-square and GitHub workflow badges, it is 30 px. Image scaling enlarges the embedded badge text proportionally. This is a presentation change only and does not change the underlying control status.
 
@@ -325,3 +325,26 @@ Packaging and Signed-Releases at -1 are applicability results, not security fail
 **Permission review:** Scorecard identifies `contents: write` in `.github/workflows/repository-controller.yml` and `.github/workflows/signed-publish.yml`. Inspection confirms these jobs create and push signed attestation/publication branches and open pull requests. The write permissions are scoped to those jobs; top-level workflow permissions remain empty. No narrower permission can support those operations, so retain the current job-level permissions and continue auditing the scripts and target validation.
 
 **Historical badge count after native-setting confirmation and EditorConfig implementation (before SBOM workflow):** 55 displayed entries — 2 live workflow badges, 34 configured/published controls, 2 unverified/not-enforced badges, and 17 deferred/planned/unconfigured/unmeasured/not-applicable badges. The Secret Scanning and Dependabot Alerts badges now say “Enabled (owner-confirmed)” rather than “Platform status unverified”; the evidence source is explicitly disclosed in the badge text and this roadmap.
+
+
+### PR #25 completion — SPDX SBOM successfully generated — 2026-11-24
+
+**Main commit:** `2181183ac9c57d7f995b81268c91a5b06d061c3b` (PR #25, merged).
+
+PR #25 corrected SPDX validation to accept both the legacy API wrapper (`.sbom`) and a direct SPDX JSON document root, while retaining strict checks for `SPDXRef-DOCUMENT`, SPDX 2.3, and array-valued `packages` and `relationships`.
+
+The first post-merge execution of the Dependency Graph SBOM workflow completed successfully:
+
+| Evidence | Result |
+|---|---|
+| Workflow run | [45329290238](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45329290238) — success |
+| SPDX format | SPDX 2.3; structural validation passed |
+| Package records | **9** |
+| `DEPENDS_ON` relationships | **8** |
+| Checksum | SHA-256 checksum file generated and included in the artifact |
+| Artifact | [repository-dependency-sbom-45329290238](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45329290238/artifacts/14891280949) — uploaded successfully; 30-day retention |
+| Uploaded archive digest | `sha256:ec67ac78be3df4179d1c17f95191526c8d4cab2bae4bf9bbee763182b636b47b` |
+
+The artifact contains the SPDX JSON report and its companion `.sha256` file. The workflow log confirms the checksum file was generated from the downloaded SBOM before upload. The archive digest above is GitHub's artifact ZIP digest; it is not the checksum of the raw SPDX JSON file.
+
+**Coverage interpretation:** this is a populated GitHub Dependency Graph snapshot with 9 package records and 8 dependency relationships. It is not a complete filesystem, container, binary or runtime inventory. The workflow badge may now be treated as a successfully executing workflow, while the roadmap continues to disclose the source and limits of its coverage. No claim is made that all software dependencies in every possible build/runtime context are represented.
