@@ -24,9 +24,9 @@
 | OSPS-VM-04.02 | VEX for non-affecting vulnerabilities | `VEX-PROCESS.md` defines evidence requirements and an explicitly illustrative placeholder; no real non-exploitable advisory is fabricated. | Process/template implemented; actual statement only when a real case exists |
 | OSPS-VM-05.01 | SCA remediation thresholds | `SCA-AND-DEPENDENCY-POLICY.md` defines vulnerability severity and license decision thresholds. | Policy implemented |
 | OSPS-VM-05.02 | Address SCA violations before release | Release policy requires current Dependabot, Dependency Review, license and SBOM review; Critical/High and malware block publication. | Policy and release preflight implemented; first documentation release pending |
-| OSPS-VM-05.03 | Automatically evaluate dependencies and block violations | Dependency Review and Dependabot-alert policy workflow evaluate PRs; required branch-ruleset enforcement must be verified after the new checks run. | Workflow validated on PR #38 and main; required branch-ruleset update still pending |
+| OSPS-VM-05.03 | Automatically evaluate dependencies and block violations | Dependency Review evaluates PR dependency changes; the alert gate queries both general and malware classifications. General alerts require a current VEX exception; malware alerts always block. GitHub's malware-alert limitation for SHA-pinned Actions remains a manual release review. | Extended gate passed on PR #39 (45347826556) and main (45348018077); required branch-ruleset update still pending |
 | OSPS-VM-06.01 | SAST remediation thresholds | `SAST-POLICY.md` defines severity-based triage and remediation deadlines. | Policy implemented |
-| OSPS-VM-06.02 | Automatically evaluate and block SAST violations | CodeQL default setup analyzes GitHub Actions. PR #39 adds a wait for the matching `Analyze (actions)` check on the same commit to finish before evaluating Critical/High alerts; this race-prevention change is pending validation. The earlier CodeQL and policy-gate versions passed on PR #38 and main (CodeQL run 45347044354; policy gate run 45347044217). The CodeQL and policy-gate checks must be required by the main ruleset for merge enforcement. | Prior workflow passed; PR #39 adds CodeQL-completion sequencing, pending validation and branch-ruleset update |
+| OSPS-VM-06.02 | Automatically evaluate and block SAST violations | CodeQL default setup analyzes GitHub Actions. The SAST policy gate waits for the matching `Analyze (actions)` check on the same commit to finish before evaluating Critical/High alerts. | Sequenced gate passed on PR #39 (45347826559) and main (45348017876); CodeQL passed on main (45348018299); required branch-ruleset update still pending |
 
 ## Assessment guardrails
 
@@ -49,3 +49,15 @@ PR [#38](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) was merged as
 - [Repository Configuration Validation](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044245), [Dependency Graph SBOM](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044206), [OpenSSF Scorecard](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044243) and [GitVerse mirror](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044193): passed.
 
 The active main ruleset still requires only Gitleaks and zizmor. Add `Dependency Review`, `Dependabot alert gate`, `Analyze (actions)` and `SAST policy gate` as required checks after verifying the successful PR #38 results. The controlled documentation-release workflow is configured, but the first public release has not been created. The tag ruleset and first release require owner-side GitHub settings/dispatch actions.
+
+
+## Latest verified evidence — PR #39 and main — 2026-11-24
+
+PR [#39](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/39) was merged as commit `88e1d16a13c7fc72fdaaacbbb995bd320070f8b8`.
+
+- Dependency and malware alert gate passed on PR #39 (45347826556) and main (45348018077); no open general or malware Dependabot alerts were returned.
+- SAST policy gate passed on PR #39 (45347826559) and main (45348017876), after the matching CodeQL analysis completed. Main CodeQL run: 45348018299.
+- Repository Security Analysis (45348017923), Repository QA (45348017809), Configuration Validation (45348017942), SBOM (45348017820), Scorecard (45348017963) and GitVerse mirror (45348017956) passed.
+- The latest Scorecard remains 6.9/10. Token Permissions, Pinned Dependencies, SAST and CI-Tests each score 10. Branch-Protection remains 4 because no independent reviewer/approval is available. Packaging and Signed-Releases remain -1 because no software package or release has been published.
+- The main ruleset still needs four additional required checks: `Dependency Review`, `Dependabot alert gate`, `Analyze (actions)` and `SAST policy gate`.
+- The controlled documentation release is configured but not yet published. The first release still requires the owner-side tag ruleset and malware/Actions dependency/license review.
