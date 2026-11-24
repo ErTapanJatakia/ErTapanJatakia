@@ -50,6 +50,7 @@ A valid GPG signature proves that the checksum manifest was signed by the corres
 ## 4. Verify the manifest
 
 Inspect the JSON manifest and confirm:
+
 - The tag matches the release page.
 - The source commit is the commit associated with the signed tag.
 - The archive filename and SHA-256 digest match the checksum file.
