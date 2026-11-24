@@ -14,6 +14,7 @@ The release workflow must state this limitation in the release title/notes and m
 - Generate GitHub artifact attestations for the archive, manifest and checksum file.
 - Never overwrite or reuse a published version identifier.
 - A release must be created from the protected `main` branch by the controlled release workflow.
+- Configure a GitHub tag ruleset for `profile-docs-*` that prevents tag updates and deletion. The workflow refuses to replace an existing tag, but that workflow check alone does not prevent an administrator from deleting a tag outside the workflow.
 
 ## 3. Release contents and change log
 
