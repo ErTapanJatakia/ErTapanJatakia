@@ -21,7 +21,8 @@
 
 Gold is cumulative: the project must first achieve Silver. Its contributor-diversity, bus-factor, two-person review, 2FA enforcement, per-file metadata, coverage and dynamic-analysis requirements are assessed separately; owner-attested MFA is not treated as repository-wide enforcement.
 
-**Status rules**
+### Status rules
+
 - **Met:** current, relevant evidence supports the criterion.
 - **Partial:** some implementation exists, but a material part of the criterion is not demonstrated.
 - **Unmet:** the criterion is not currently satisfied, or the available evidence shows a gap.
