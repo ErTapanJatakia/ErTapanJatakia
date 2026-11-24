@@ -221,7 +221,6 @@ Historical DevSkim and Bearer remediation was tested in the earlier PR #272 post
 
 **Next checkpoint:** retain the five Scorecard posture findings with the applicability decisions below; revisit only when repository ownership, age, code scope or governance capacity materially changes. Do not dismiss alerts solely to improve the dashboard score.
 
-
 ### PR #17 completion and current posture triage — 2026-11-24
 
 **Main commit:** `2a4bc7e7f582b6d4e6a7b02787424e569e938d38` (PR #17, merged).
