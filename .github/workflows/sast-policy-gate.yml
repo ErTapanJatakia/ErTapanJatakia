@@ -35,7 +35,7 @@ jobs:
           deadline=$((SECONDS + 900))
           while true; do
             codeql_check="$(gh api "repos/$GH_REPOSITORY/commits/$SOURCE_SHA/check-runs?per_page=100" \
-              --jq '[.check_runs[] | select(.name == "Analyze (actions")] | sort_by(.completed_at // .started_at) | last // empty')"
+              --jq '[.check_runs[] | select(.name == "Analyze (actions)")] | sort_by(.completed_at // .started_at) | last // empty')"
             if [[ -n "$codeql_check" ]]; then
               codeql_status="$(jq -r '.status // ""' <<< "$codeql_check")"
               codeql_conclusion="$(jq -r '.conclusion // ""' <<< "$codeql_check")"
