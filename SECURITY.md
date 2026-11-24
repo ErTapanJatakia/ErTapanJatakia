@@ -25,12 +25,17 @@
 [![Bearer](https://img.shields.io/badge/Data%20Security-Bearer%20status%20to%20verify-yellow?style=flat-square)](https://docs.bearer.com/)
 [![GitHub Secret Scanning](https://img.shields.io/badge/GitHub%20Secret%20Scanning-Platform%20status%20unverified-yellow?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/security_analysis)
 [![Dependabot Alerts](https://img.shields.io/badge/Dependabot%20Alerts-Platform%20status%20unverified-yellow?style=flat-square&logo=dependabot)](https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot)
+[![Bandit](https://img.shields.io/badge/Python%20SAST-Bandit%20not%20applicable-lightgrey?style=flat-square)](#scope-and-applicability)
+[![npm audit](https://img.shields.io/badge/Node%20Dependency%20Audit-npm%20audit%20not%20applicable-lightgrey?style=flat-square&logo=npm)](#scope-and-applicability)
+[![OWASP ZAP](https://img.shields.io/badge/DAST-OWASP%20ZAP%20not%20applicable-lightgrey?style=flat-square&logo=owasp)](#scope-and-applicability)
 
 ## 2. Supply-chain & dependency assurance
 
 [![Dependabot Updates](https://img.shields.io/badge/Dependency%20Updates-Dependabot%20configured-2ea44f?style=flat-square&logo=dependabot)](./.github/dependabot.yml)
 [![Pinned Actions](https://img.shields.io/badge/GitHub%20Actions-Immutable%20SHA%20pinning%20in%20use-2ea44f?style=flat-square&logo=githubactions)](./.github/workflows/)
-[![GPG Verification](https://img.shields.io/badge/Commit%20Signing-GPG%20verification%20workflow%20configured-2ea44f?style=flat-square&logo=gnupg)](./.github/workflows/gpg-signing-verification.yml)
+[![GPG Verification](https://img.shields.io/badge/GPG%20Signing-GPG%20verification%20workflow%20configured-2ea44f?style=flat-square&logo=gnupg)](./.github/workflows/gpg-signing-verification.yml)
+[![Signed Publisher](https://img.shields.io/badge/Publishing-Signed%20publisher%20workflow%20configured-2ea44f?style=flat-square)](./.github/workflows/signed-publish.yml)
+[![Signed Commits](https://img.shields.io/badge/All%20Commits-Signing%20not%20enforced-yellow?style=flat-square&logo=gnupg)](#governance-transparency)
 [![SBOM](https://img.shields.io/badge/SBOM-Not%20generated-lightgrey?style=flat-square)](#scope-and-applicability)
 [![SLSA Provenance](https://img.shields.io/badge/SLSA%20Provenance-Not%20implemented-lightgrey?style=flat-square)](#scope-and-applicability)
 [![Artifact Attestation](https://img.shields.io/badge/Artifact%20Attestation-Not%20implemented-lightgrey?style=flat-square)](#scope-and-applicability)
@@ -68,6 +73,7 @@
 [![Prettier](https://img.shields.io/badge/Formatting-Prettier%20not%20configured-lightgrey?style=flat-square&logo=prettier)](https://prettier.io/)
 [![EditorConfig](https://img.shields.io/badge/Editor%20Consistency-EditorConfig%20not%20verified-lightgrey?style=flat-square)](https://editorconfig.org/)
 [![SonarQube](https://img.shields.io/badge/Quality%20Gate-SonarQube%20not%20configured-lightgrey?style=flat-square&logo=sonarqube)](https://www.sonarsource.com/products/sonarqube/)
+[![Maintainability](https://img.shields.io/badge/Maintainability-Metric%20not%20measured-lightgrey?style=flat-square)](#scope-and-applicability)
 [![Test Coverage](https://img.shields.io/badge/Test%20Coverage-Not%20measured-lightgrey?style=flat-square)](#scope-and-applicability)
 [![Automated Tests](https://img.shields.io/badge/Automated%20Tests-No%20application%20test%20suite-lightgrey?style=flat-square)](#scope-and-applicability)
 
