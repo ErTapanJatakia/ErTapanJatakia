@@ -188,12 +188,7 @@ The repository owner inspected both GitHub Security alert views. Each reported d
 | Dependabot alerts | No open alerts | No currently open Dependabot vulnerability alerts were displayed |
 | Auto-dismissed alerts | Separate filter available: [resolution:auto-dismissed](https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot?q=is%3Aopen+resolution%3Aauto-dismissed) | Auto-dismissed items must be reviewed separately; they are not equivalent to remediated findings |
 
-The owner also confirmed the GitHub-managed auto-triage presets:
-
-
-- **Enabled:** “Dismiss low-impact alerts for development-scoped dependencies”.
-- **Disabled:** “Dismiss package malware alerts” (match: `malware:package`).
-
+The owner also confirmed the GitHub-managed auto-triage presets: **Enabled** — “Dismiss low-impact alerts for development-scoped dependencies”; **Disabled** — “Dismiss package malware alerts” (match: `malware:package`).
 
 The enabled development-scoped rule can remove qualifying alerts from the open inventory without fixing the underlying dependency. Therefore, “no open alerts” is a point-in-time open-queue observation, not proof that no alerts were ever generated, that auto-dismissed alerts are absent, or that all dependencies are vulnerability-free. The malware-dismissal preset being disabled means that particular rule is not configured to dismiss package-malware alerts; it does not establish the absence of every other possible dismissal mechanism.
 
