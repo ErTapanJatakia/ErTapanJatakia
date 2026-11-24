@@ -85,13 +85,13 @@ jobs:
             ' "$vex_path" >/dev/null || { echo "::error::VEX document does not contain a matching evidence-backed not_affected statement: $ghsa"; exit 1; }
           done < <(jq -c '.exceptions[]?' "$register")
 
-          gh api --paginate --slurp \
+          gh api --paginate \
             "repos/$GH_REPOSITORY/dependabot/alerts?state=open&classification=general&per_page=100" \
-            | jq 'add' > "$RUNNER_TEMP/open-general-dependabot-alerts.json"
+            | jq -s 'add // []' > "$RUNNER_TEMP/open-general-dependabot-alerts.json"
 
-          gh api --paginate --slurp \
+          gh api --paginate \
             "repos/$GH_REPOSITORY/dependabot/alerts?state=open&classification=malware&per_page=100" \
-            | jq 'add' > "$RUNNER_TEMP/open-malware-alerts.json"
+            | jq -s 'add // []' > "$RUNNER_TEMP/open-malware-alerts.json"
 
           malware_count="$(jq 'length' "$RUNNER_TEMP/open-malware-alerts.json")"
           if (( malware_count > 0 )); then
