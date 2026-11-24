@@ -136,8 +136,9 @@ jobs:
           set -euo pipefail
           verify_subject() {
             local subject="$1"
-            local result="$RUNNER_TEMP/attestation-$(basename "$subject").json"
-            local error="$RUNNER_TEMP/attestation-$(basename "$subject").err"
+            local result error
+            result="$RUNNER_TEMP/attestation-$(basename "$subject").json"
+            error="$RUNNER_TEMP/attestation-$(basename "$subject").err"
             for attempt in {1..6}; do
               if gh attestation verify "$subject" \
                 --repo "$GITHUB_REPOSITORY" \
