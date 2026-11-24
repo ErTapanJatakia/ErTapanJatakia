@@ -261,7 +261,7 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ertapanjatakia)
 [![Linktree](https://img.shields.io/badge/LINKTREE-39E09B?style=for-the-badge&logo=linktree&logoColor=black)](https://linktr.ee/ertapanjatakia)
 [![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ertapanjatakia)
-[![Bluesky](https://img.shields.io/badge/BLUESKY-0285FF?style=for-the-badge&logo=bluesky&logoColor=white)](YOUR_BLUESKY_PROFILE_URL)
+![Bluesky profile link pending](https://img.shields.io/badge/BLUESKY-0285FF?style=for-the-badge&logo=bluesky&logoColor=white)
 
 </div>
 
