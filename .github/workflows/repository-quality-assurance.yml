@@ -108,3 +108,24 @@ jobs:
           "$RUNNER_TEMP/actionlint/actionlint" -color \
             -ignore 'specifying action .*setup-personal-gpg.* in invalid format because ref is missing' \
             .github/workflows/*.yml
+
+  prettier:
+    name: Prettier configuration formatting (advisory)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check repository configuration formatting
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes prettier@3.6.2 --check \
+            ".github/**/*.yml" \
+            ".github/**/*.yaml" \
+            ".github/**/*.json" \
+            ".prettierrc.json"
