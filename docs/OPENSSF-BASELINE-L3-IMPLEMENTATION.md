@@ -1,0 +1,39 @@
+# OpenSSF OSPS Baseline Level 3 — Implementation Register
+
+**Assessment version:** 2026.08.28  
+**Repository:** `ErTapanJatakia/ErTapanJatakia`  
+**Purpose:** Track evidence and gaps for the 21 Level 3 controls. This register is not a claim of OpenSSF badge award or independent certification.
+
+| Control | Requirement summary | Repository evidence / action | Status |
+|---|---|---|---|
+| OSPS-AC-04.02 | Minimum CI/CD job permissions | Workflow-level permissions are empty; jobs grant only the permissions needed for their work. | Existing evidence; revalidate on workflow changes |
+| OSPS-BR-01.04 | Validate trusted collaborator workflow input | Signed-publish workflow validates branch syntax/ref patterns, commit-message length and ancestry from main. | Existing evidence |
+| OSPS-BR-02.02 | Identify each official release asset | Controlled documentation release names each asset with the immutable release tag and records asset hashes in a manifest. | Prospective until first release |
+| OSPS-BR-07.02 | Secrets and credentials policy | `SECRETS-AND-CREDENTIALS-POLICY.md` defines storage, access, rotation and incident response. | Policy implemented |
+| OSPS-DO-03.01 | Release integrity/authenticity verification instructions | `RELEASE-VERIFICATION.md` documents GPG, SHA-256, GitHub attestation and signed-tag verification. | Documentation implemented; first release pending |
+| OSPS-DO-03.02 | Verify expected release author identity | Instructions constrain GitHub attestation to this repository's release workflow and require independent GPG fingerprint confirmation. | Documentation implemented; first release pending |
+| OSPS-DO-04.01 | Support scope and duration for each release | `RELEASE-POLICY.md` defines a 90-day security/integrity support window and release-specific end date. | Policy implemented; first release pending |
+| OSPS-DO-05.01 | State when a release stops receiving security updates | Release policy and manifest specify the end-of-security-support date. | Policy implemented; first release pending |
+| OSPS-GV-04.01 | Review collaborators before elevated permissions | `ACCESS-GOVERNANCE.md` defines identity, need, privilege, record and periodic-review requirements. | Policy implemented; future access event needed to evidence operation |
+| OSPS-QA-02.02 | SBOM with compiled released software assets | No compiled software assets are produced. The documentation archive is not a compiled binary; the Dependency Graph SBOM is not misrepresented as a binary SBOM. | Not applicable to current release scope |
+| OSPS-QA-04.02 | Subprojects enforce primary security requirements | Only one source repository is declared; GitVerse is a mirror, not a subproject. Future multi-repository release requirements are documented. | Not applicable to current structure |
+| OSPS-QA-06.02 | Document when/how tests are run | `REPOSITORY-QA-POLICY.md` documents triggers, local commands, CI checks and limitations. | Documentation implemented |
+| OSPS-QA-06.03 | Require tests for major changes | QA policy defines major changes and requires appropriate automated checks; future executable code must add suitable tests. | Policy implemented |
+| OSPS-QA-07.01 | Require non-author human approval | Current ruleset requires PRs but has zero required approvals; no independent reviewer is available. | Not met; blocked on genuine independent reviewer and ruleset change |
+| OSPS-SA-03.02 | Threat model released software attack surfaces | `THREAT-MODEL.md` models repository automation, signing, dependency and release attack paths. No application software is released. | Repository automation threat model implemented; software-specific applicability limited |
+| OSPS-VM-04.02 | VEX for non-affecting vulnerabilities | `VEX-PROCESS.md` defines evidence requirements and an explicitly illustrative placeholder; no real non-exploitable advisory is fabricated. | Process/template implemented; actual statement only when a real case exists |
+| OSPS-VM-05.01 | SCA remediation thresholds | `SCA-AND-DEPENDENCY-POLICY.md` defines vulnerability severity and license decision thresholds. | Policy implemented |
+| OSPS-VM-05.02 | Address SCA violations before release | Release policy requires current Dependabot, Dependency Review, license and SBOM review; Critical/High and malware block publication. | Policy implemented; first release pending |
+| OSPS-VM-05.03 | Automatically evaluate dependencies and block violations | Dependency Review and Dependabot-alert policy workflow evaluate PRs; required branch-ruleset enforcement must be verified after the new checks run. | Workflow implementation pending validation and ruleset update |
+| OSPS-VM-06.01 | SAST remediation thresholds | `SAST-POLICY.md` defines severity-based triage and remediation deadlines. | Policy implemented |
+| OSPS-VM-06.02 | Automatically evaluate and block SAST violations | CodeQL default setup analyzes GitHub Actions; policy gate checks CodeQL findings. The CodeQL and policy-gate checks must be required by the main ruleset for merge enforcement. | Workflow/policy implementation pending validation and ruleset update |
+
+## Assessment guardrails
+
+- A documentation release is not a compiled software release.
+- A policy is not evidence that a control has operated; operational controls need workflow runs, platform configuration or a real access/release event.
+- The Dependency Graph SBOM is not a full filesystem/container/binary SBOM.
+- A VEX template is not a VEX statement for a real advisory.
+- A threat model for repository automation does not establish an application threat model.
+- A self-review or automated bot review does not satisfy non-author human approval.
+- The Level 3 assessment must be updated only after the evidence above is verified.
