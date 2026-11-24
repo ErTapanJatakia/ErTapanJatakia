@@ -71,7 +71,7 @@ jobs:
               download_url="$(awk 'tolower($1) == "location:" { sub(/\r$/, ""); $1=""; sub(/^ /, ""); print }' "$headers" | tail -n 1)"
               break
             fi
-            if [[ "$status" != "201" ]]; then
+            if [[ "$status" != "202" ]]; then
               echo "::error::Unexpected SBOM report response: HTTP $status"
               cat "$response"
               exit 1
