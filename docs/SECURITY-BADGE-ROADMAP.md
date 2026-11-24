@@ -121,7 +121,6 @@ This review prioritises the non-green and non-current badge states rather than r
 
 **Badge presentation:** all badge images in `README.md` and `SECURITY.md` are being resized to 150% of their previous rendered height. For Shields.io `for-the-badge` images, the target height is 42 px; for standard/flat-square and GitHub workflow badges, it is 30 px. Image scaling enlarges the embedded badge text proportionally. This is a presentation change only and does not change the underlying control status.
 
-
 ### PR #34 completion — Prettier configuration formatting check — 2026-11-24
 
 **Main commit:** `408af53c32b155b83c3a0be7ef0cd8014446a245` (PR #34, merged).
