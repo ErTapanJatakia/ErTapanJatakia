@@ -129,3 +129,79 @@ jobs:
             ".github/workflows/*.yml" \
             ".github/dependabot.yml" \
             ".prettierrc.json"
+
+  vex-validation:
+    name: VEX register validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Validate VEX exceptions and CycloneDX statements
+        run: ruby scripts/validate-vex.rb
+
+      - name: Test VEX validator positive and negative cases
+        run: ruby tests/vex_validator_test.rb
+
+  major-change-validation:
+    name: Major change validation
+    if: always()
+    needs:
+      - markdown-lint
+      - yaml-validation
+      - link-validation
+      - actionlint
+      - prettier
+      - vex-validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out pull request history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Enforce QA completion for major changes
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" != "pull_request" ]]; then
+            echo "No pull-request change classification is required for this event."
+            exit 0
+          fi
+
+          git diff --name-only "$BASE_SHA...$HEAD_SHA" > "$RUNNER_TEMP/changed-files.txt"
+          major_change=false
+          while IFS= read -r path; do
+            case "$path" in
+              .github/workflows/*|.github/actions/*|.github/dependabot-vex-exceptions.json|config/*|docs/*POLICY*|docs/ACCESS-GOVERNANCE.md|docs/THREAT-MODEL.md|docs/VEX-PROCESS.md|docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md|docs/RELEASE-*|docs/DEPENDENCY-*|docs/vex/*|docs/access-reviews/*|scripts/*|tests/*|.editorconfig)
+                major_change=true
+                ;;
+            esac
+          done < "$RUNNER_TEMP/changed-files.txt"
+
+          if [[ "$major_change" != "true" ]]; then
+            echo "No security-sensitive or major-change paths were modified."
+            exit 0
+          fi
+
+          echo "Major/security-sensitive change detected; verifying all relevant QA jobs."
+          for job in markdown-lint yaml-validation link-validation actionlint prettier vex-validation; do
+            if ! jq -e --arg name "$job" '.[$name].result == "success"' <<< "$NEEDS_JSON" >/dev/null; then
+              echo "::error::Required QA job did not succeed for this major change: $job"
+              jq -r --arg name "$job" '.[$name].result // "missing"' <<< "$NEEDS_JSON"
+              exit 1
+            fi
+          done
+          echo "All required repository QA and VEX tests passed for this major change."
