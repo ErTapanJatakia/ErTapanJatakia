@@ -6,13 +6,14 @@ require "open3"
 module DcoValidator
   SIGNOFF_PREFIX = "Signed-off-by:"
 
-  def self.valid_signoff?(message, author_name, author_email)
-    expected = "#{SIGNOFF_PREFIX} #{author_name} <#{author_email}>"
+  def self.valid_signoff?(message, identity_name, identity_email)
+    expected = "#{SIGNOFF_PREFIX} #{identity_name} <#{identity_email}>"
     message.each_line.any? { |line| line.chomp == expected }
   end
 
   def self.valid_commit_signoff?(message, author_name, author_email, committer_name, committer_email)
-    valid_signoff?(message, author_name, author_email) || valid_signoff?(message, committer_name, committer_email)
+    valid_signoff?(message, author_name, author_email) ||
+      valid_signoff?(message, committer_name, committer_email)
   end
 
   def self.validate_range(base_sha, head_sha)
@@ -25,15 +26,17 @@ module DcoValidator
     errors = []
     commit_ids.each do |commit|
       author_data, author_status = Open3.capture2("git", "show", "-s", "--format=%an%x00%ae", commit)
+      committer_data, committer_status = Open3.capture2("git", "show", "-s", "--format=%cn%x00%ce", commit)
       message, message_status = Open3.capture2("git", "show", "-s", "--format=%B", commit)
-      unless author_status.success? && message_status.success?
+      unless author_status.success? && committer_status.success? && message_status.success?
         errors << "#{commit}: unable to read commit metadata"
         next
       end
 
       author_name, author_email = author_data.chomp.split("\0", 2)
-      unless author_name && author_email && valid_signoff?(message, author_name, author_email)
-        errors << "#{commit}: missing exact DCO sign-off for #{author_name} <#{author_email}>"
+      committer_name, committer_email = committer_data.chomp.split("\0", 2)
+      unless valid_commit_signoff?(message, author_name, author_email, committer_name, committer_email)
+        errors << "#{commit}: missing exact DCO sign-off matching the commit author or committer identity"
       end
     end
 
@@ -50,7 +53,7 @@ if $PROGRAM_NAME == __FILE__
   unless errors.empty?
     warn "DCO validation failed:"
     errors.each { |error| warn " - #{error}" }
-    warn "Add a Signed-off-by trailer matching each commit author's Git identity (for example, git commit -s)."
+    warn "Add a Signed-off-by trailer matching the commit author or committer identity (for example, git commit -s)."
     exit 1
   end
 
