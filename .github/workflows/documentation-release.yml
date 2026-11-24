@@ -60,6 +60,11 @@ jobs:
             echo "::error::Version must use YYYY.MM.DD.N format, for example 2026.11.24.1."
             exit 1
           fi
+          IFS='.' read -r year month day sequence <<< "$VERSION"
+          if [[ "$(date -u -d "$year-$month-$day" '+%Y.%m.%d' 2>/dev/null || true)" != "$year.$month.$day" ]]; then
+            echo "::error::The date portion of the version is not a valid calendar date."
+            exit 1
+          fi
           if [[ "$CONFIRMATION" != "PUBLISH" ]]; then
             echo "::error::Confirmation must be exactly PUBLISH."
             exit 1
