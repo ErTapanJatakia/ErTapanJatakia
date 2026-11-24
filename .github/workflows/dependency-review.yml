@@ -55,13 +55,24 @@ jobs:
           today="$(date -u '+%Y-%m-%d')"
           jq -e '.schemaVersion == 1 and (.exceptions | type == "array")' "$register" >/dev/null
 
-          # Every declared exception must be current, evidence-backed and linked to a real VEX document.
-          while IFS=
+          # Every exception must be current, evidence-backed and linked to a real CycloneDX VEX document.
+          while IFS= read -r exception; do
+            vex_path="$(jq -r '.vex_document // ""' <<< "$exception")"
+            ghsa="$(jq -r '.ghsa_id // ""' <<< "$exception")"
+            package_name="$(jq -r '.package_name // ""' <<< "$exception")"
+            expires="$(jq -r '.expires_on // ""' <<< "$exception")"
+            status="$(jq -r '.status // ""' <<< "$exception")"
+            evidence="$(jq -r '.evidence_summary // ""' <<< "$exception")"
+
             [[ "$vex_path" == docs/vex/*.json ]] || { echo "::error::Invalid VEX document path."; exit 1; }
             [[ -f "$vex_path" ]] || { echo "::error::VEX document is missing: $vex_path"; exit 1; }
+            [[ "$ghsa" =~ ^GHSA-[A-Za-z0-9-]+$ ]] || { echo "::error::Invalid GHSA identifier in VEX exception."; exit 1; }
+            [[ -n "$package_name" ]] || { echo "::error::VEX exception package name is missing."; exit 1; }
+            [[ "$expires" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || { echo "::error::VEX expiry must use YYYY-MM-DD."; exit 1; }
             [[ "$expires" > "$today" || "$expires" == "$today" ]] || { echo "::error::VEX exception expired: $ghsa"; exit 1; }
             [[ "$status" == "not_affected" ]] || { echo "::error::Only evidence-backed not_affected VEX statements may suppress an alert."; exit 1; }
             [[ ${#evidence} -ge 20 ]] || { echo "::error::VEX exception evidence summary is too short: $ghsa"; exit 1; }
+
             jq -e --arg ghsa "$ghsa" '
               .bomFormat == "CycloneDX" and
               .specVersion == "1.6" and
@@ -72,56 +83,7 @@ jobs:
                 (.analysis.detail | type == "string" and length > 20)
               )
             ' "$vex_path" >/dev/null || { echo "::error::VEX document does not contain a matching evidence-backed not_affected statement: $ghsa"; exit 1; }
-          done < <(jq -r '.exceptions[]? | [.vex_document, .ghsa_id, .expires_on, .status, .evidence_summary] | @tsv' "$register")
-
-          gh api --paginate --slurp \
-            "repos/$GH_REPOSITORY/dependabot/alerts?state=open&per_page=100" \
-            | jq 'add' > "$RUNNER_TEMP/open-dependabot-alerts.json"
-
-          jq --slurpfile vex "$register" --arg today "$today" '
-            [
-              .[] as $alert
-              | select(
-                  ([
-                    $vex[0].exceptions[]?
-                    | select(
-                        .ghsa_id == $alert.security_advisory.ghsa_id and
-                        .package_name == $alert.dependency.package.name and
-                        .status == "not_affected" and
-                        .expires_on >= $today
-                      )
-                  ] | length) == 0
-                )
-            ]
-          ' "$RUNNER_TEMP/open-dependabot-alerts.json" > "$RUNNER_TEMP/blocking-dependabot-alerts.json"
-
-          count="$(jq 'length' "$RUNNER_TEMP/blocking-dependabot-alerts.json")"
-          if (( count > 0 )); then
-            echo "::error::$count unresolved Dependabot alert(s) remain without a current, evidence-backed VEX exception."
-            jq -r '.[] | [.dependency.package.ecosystem, .dependency.package.name, .security_advisory.ghsa_id, .security_advisory.severity, .html_url] | @tsv' \
-              "$RUNNER_TEMP/blocking-dependabot-alerts.json"
-            exit 1
-          fi
-
-          echo "No unresolved Dependabot alerts remain outside the validated VEX exception register."
-          echo "The separate GitHub Malware alerts interface is not exposed by this Dependabot API query and must be reviewed manually before each release."
-\t' read -r vex_path ghsa expires status evidence; do
-            [[ "$vex_path" == docs/vex/*.json ]] || { echo "::error::Invalid VEX document path."; exit 1; }
-            [[ -f "$vex_path" ]] || { echo "::error::VEX document is missing: $vex_path"; exit 1; }
-            [[ "$expires" > "$today" || "$expires" == "$today" ]] || { echo "::error::VEX exception expired: $ghsa"; exit 1; }
-            [[ "$status" == "not_affected" ]] || { echo "::error::Only evidence-backed not_affected VEX statements may suppress an alert."; exit 1; }
-            [[ ${#evidence} -ge 20 ]] || { echo "::error::VEX exception evidence summary is too short: $ghsa"; exit 1; }
-            jq -e --arg ghsa "$ghsa" '
-              .bomFormat == "CycloneDX" and
-              .specVersion == "1.6" and
-              any(.vulnerabilities[]?;
-                .id == $ghsa and
-                .analysis.state == "not_affected" and
-                (.analysis.justification | type == "string" and length > 0) and
-                (.analysis.detail | type == "string" and length > 20)
-              )
-            ' "$vex_path" >/dev/null || { echo "::error::VEX document does not contain a matching evidence-backed not_affected statement: $ghsa"; exit 1; }
-          done < <(jq -r '.exceptions[]? | [.vex_document, .ghsa_id, .package_name, .expires_on, .status, .evidence_summary] | @tsv' "$register")
+          done < <(jq -c '.exceptions[]?' "$register")
 
           gh api --paginate --slurp \
             "repos/$GH_REPOSITORY/dependabot/alerts?state=open&per_page=100" \
