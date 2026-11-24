@@ -45,7 +45,7 @@ For a pull request, the DCO range validator is invoked by CI with the exact base
 BASE_SHA=<base-commit-sha> HEAD_SHA=<head-commit-sha> ruby scripts/validate-dco.rb
 ```
 
-Every commit added after DCO policy adoption must contain a `Signed-off-by` trailer matching its author name and email. Create commits with:
+Every commit added after DCO policy adoption must contain a `Signed-off-by` trailer matching its author or committer name and email. Create commits with:
 
 ```bash
 git commit -s -m "type: describe the change"
