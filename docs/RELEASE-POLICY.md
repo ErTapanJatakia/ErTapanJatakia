@@ -4,7 +4,7 @@
 
 This repository may publish a **documentation and source-configuration snapshot** of its public profile, policies, Markdown content, configuration and GitHub Actions definitions. Such a release is not an application, compiled binary, deployable service or software package.
 
-The release workflow must state this limitation in the release title/notes and manifest. It must not imply that a software product, application test suite or binary build exists.
+The release workflow must state this limitation in the release title/notes and manifest. It must not imply that a software product, application test suite or binary build exists. Reproducible validation/toolchain instructions are maintained in [BUILD-AND-TEST-INSTRUCTIONS.md](BUILD-AND-TEST-INSTRUCTIONS.md); system design and external integration boundaries are documented in [REPOSITORY-AUTOMATION-ARCHITECTURE.md](REPOSITORY-AUTOMATION-ARCHITECTURE.md) and [EXTERNAL-SOFTWARE-INTERFACES.md](EXTERNAL-SOFTWARE-INTERFACES.md).
 
 ## 2. Versioning and assets
 
