@@ -70,10 +70,10 @@ The active default-branch ruleset requires pull requests and the named security 
 
 ### Quality gates — proposed
 
-[![actionlint](https://img.shields.io/badge/Workflow%20Lint-actionlint%20planned-lightgrey?style=flat-square)](https://github.com/rhysd/actionlint)
-[![Markdown Lint](https://img.shields.io/badge/Documentation%20Lint-Markdownlint%20planned-lightgrey?style=flat-square)](https://github.com/DavidAnson/markdownlint)
-[![YAML Lint](https://img.shields.io/badge/Configuration%20Lint-YAML%20lint%20planned-lightgrey?style=flat-square)](https://github.com/adrienverge/yamllint)
-[![Link Checker](https://img.shields.io/badge/Documentation%20Links-Link%20check%20planned-lightgrey?style=flat-square)](https://github.com/lycheeverse/lychee)
+[![actionlint](https://img.shields.io/badge/Workflow%20Lint-actionlint%20configured-2ea44f?style=flat-square)](https://github.com/rhysd/actionlint)
+[![Markdown Lint](https://img.shields.io/badge/Documentation%20Lint-Markdownlint%20configured-2ea44f?style=flat-square)](https://github.com/DavidAnson/markdownlint)
+[![YAML Validation](https://img.shields.io/badge/Configuration%20Validation-YAML%20syntax%20checks%20configured-2ea44f?style=flat-square)](https://www.ruby-lang.org/en/documentation/stdlib/yaml/)
+[![Link Checker](https://img.shields.io/badge/Documentation%20Links-Internal%20link%20checks%20configured-2ea44f?style=flat-square)](https://github.com/lycheeverse/lychee)
 [![Prettier](https://img.shields.io/badge/Formatting-Prettier%20not%20configured-lightgrey?style=flat-square&logo=prettier)](https://prettier.io/)
 [![EditorConfig](https://img.shields.io/badge/Editor%20Consistency-EditorConfig%20not%20verified-lightgrey?style=flat-square)](https://editorconfig.org/)
 [![SonarQube](https://img.shields.io/badge/Quality%20Gate-SonarQube%20not%20configured-lightgrey?style=flat-square&logo=sonarqube)](https://www.sonarsource.com/products/sonarqube/)
