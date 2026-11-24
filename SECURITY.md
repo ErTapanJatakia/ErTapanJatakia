@@ -1,6 +1,7 @@
 # Security & Quality Assurance
 
-<!-- markdownlint-disable MD033: HTML image dimensions are required for 50% badge scaling. -->
+<!-- markdownlint-disable MD033 -->
+<!-- HTML image dimensions are required for 50% badge scaling. -->
 
 <a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml/badge.svg?branch=main" alt="Security Analysis" height="30" /></a>
 <a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml/badge.svg?branch=main" alt="OpenSSF Scorecard workflow" height="30" /></a>
@@ -77,7 +78,7 @@ The active default-branch ruleset requires pull requests and the named security 
 <a href="https://www.ruby-lang.org/en/documentation/stdlib/yaml/"><img src="https://img.shields.io/badge/Configuration%20Validation-YAML%20syntax%20checks%20configured-2ea44f?style=flat-square" alt="YAML Validation" height="30" /></a>
 <a href="https://github.com/lycheeverse/lychee"><img src="https://img.shields.io/badge/Documentation%20Links-Internal%20link%20checks%20configured-2ea44f?style=flat-square" alt="Link Checker" height="30" /></a>
 <a href="https://prettier.io/"><img src="https://img.shields.io/badge/Formatting-Prettier%20not%20configured-lightgrey?style=flat-square&logo=prettier" alt="Prettier" height="30" /></a>
-<a href="https://editorconfig.org/"><img src="https://img.shields.io/badge/Editor%20Consistency-EditorConfig%20configured%20and%20validated-2ea44f?style=flat-square" alt="EditorConfig" height="30" /></a>
+<a href="https://editorconfig.org/"><img src="https://img.shields.io/badge/Editor%20Consistency-EditorConfig%20configured-2ea44f?style=flat-square" alt="EditorConfig" height="30" /></a>
 <a href="https://www.sonarsource.com/products/sonarqube/"><img src="https://img.shields.io/badge/Quality%20Gate-SonarQube%20not%20applicable%20(no%20application%20source)-lightgrey?style=flat-square&logo=sonarqube" alt="SonarQube" height="30" /></a>
 <a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Maintainability-Not%20applicable%20(no%20application%20source)-lightgrey?style=flat-square" alt="Maintainability" height="30" /></a>
 <a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Test%20Coverage-Not%20applicable%20(no%20application%20test%20target)-lightgrey?style=flat-square" alt="Test Coverage" height="30" /></a>
