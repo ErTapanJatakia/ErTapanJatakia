@@ -22,18 +22,18 @@
 
 **Securing Digital Frontiers | Engineering Resilience | Empowering Growth**
 
-<img src="https://img.shields.io/badge/STATUS-INDEPENDENT%20CONSULTANT-39FF88?style=for-the-badge&labelColor=05070A"/ height="42" />
+<img src="https://img.shields.io/badge/STATUS-INDEPENDENT%20CONSULTANT-39FF88?style=for-the-badge&labelColor=05070A" alt="Status: Independent Consultant" height="42" />
 <br/>
-<img src="https://img.shields.io/badge/EXPERIENCE-11%2B%20YEARS-0879D1?style=for-the-badge&labelColor=05070A"/ height="42" />
+<img src="https://img.shields.io/badge/EXPERIENCE-11%2B%20YEARS-0879D1?style=for-the-badge&labelColor=05070A" alt="Experience: 11+ Years" height="42" />
 <br/>
-<img src="https://img.shields.io/badge/DOMAIN-CYBER%20SECURITY-FF4141?style=for-the-badge&labelColor=05070A"/ height="42" />
+<img src="https://img.shields.io/badge/DOMAIN-CYBER%20SECURITY-FF4141?style=for-the-badge&labelColor=05070A" alt="Domain: Cyber Security" height="42" />
 
 <br>
 <br/>
 
 <a href="https://www.linkedin.com/in/ertapanjatakia"><img src="https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" height="42" /></a>
 <a href="https://linktr.ee/ertapanjatakia"><img src="https://img.shields.io/badge/LINKTREE-39E09B?style=for-the-badge&logo=linktree&logoColor=black" alt="Linktree" height="42" /></a>
-[<img src="https://img.shields.io/badge/X(TWITTER" alt="X" height="30" />-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ertapanjatakia)
+<a href="https://x.com/ertapanjatakia"><img src="https://img.shields.io/badge/X%20%28TWITTER%29-000000?style=for-the-badge&logo=x&logoColor=white" alt="X (Twitter)" height="42" /></a>
 <a href="https://bsky.app/profile/er-tapan-jatakia.bsky.social"><img src="https://img.shields.io/badge/BLUESKY-0285FF?style=for-the-badge&logo=bluesky&logoColor=white" alt="Bluesky" height="42" /></a>
 <a href="https://topmate.io/ertapanjatakia"><img src="https://img.shields.io/badge/TOPMATE-FF6B35?style=for-the-badge" alt="Topmate" height="42" /></a>
 
@@ -169,11 +169,11 @@ Explore my repositories for cybersecurity experiments, automation, research prot
 <div align="center">
 
 <a href="https://github.com/ErTapanJatakia?tab=repositories">
-<img src="https://img.shields.io/badge/ACCESS%20ALL%20REPOSITORIES-39FF88?style=for-the-badge&logo=github&logoColor=black"/ height="42" />
+<img src="https://img.shields.io/badge/ACCESS%20ALL%20REPOSITORIES-39FF88?style=for-the-badge&logo=github&logoColor=black" alt="Access all repositories" height="42" />
 </a>
 
 <a href="https://github.com/ErTapanJatakia?tab=stars">
-<img src="https://img.shields.io/badge/STARRED%20PROJECTS-0879D1?style=for-the-badge&logo=github&logoColor=white"/ height="42" />
+<img src="https://img.shields.io/badge/STARRED%20PROJECTS-0879D1?style=for-the-badge&logo=github&logoColor=white" alt="Starred projects" height="42" />
 </a>
 
 </div>
