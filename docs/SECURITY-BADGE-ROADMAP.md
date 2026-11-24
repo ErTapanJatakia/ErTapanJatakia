@@ -326,7 +326,6 @@ Packaging and Signed-Releases at -1 are applicability results, not security fail
 
 **Historical badge count after native-setting confirmation and EditorConfig implementation (before SBOM workflow):** 55 displayed entries — 2 live workflow badges, 34 configured/published controls, 2 unverified/not-enforced badges, and 17 deferred/planned/unconfigured/unmeasured/not-applicable badges. The Secret Scanning and Dependabot Alerts badges now say “Enabled (owner-confirmed)” rather than “Platform status unverified”; the evidence source is explicitly disclosed in the badge text and this roadmap.
 
-
 ### PR #25 completion — SPDX SBOM successfully generated — 2026-11-24
 
 **Main commit:** `2181183ac9c57d7f995b81268c91a5b06d061c3b` (PR #25, merged).
