@@ -51,7 +51,7 @@ Thank you for helping keep this profile repository accurate, accessible, and pro
 
 ## Developer Certificate of Origin (DCO)
 
-After this policy is merged, every commit in each new pull request must include a DCO sign-off matching that commit's author identity. Use Git's sign-off option when creating each commit:
+After this policy is merged, every commit in each new pull request must include a DCO sign-off matching that commit's author or committer identity. Use Git's sign-off option when creating each commit:
 
 ```bash
 git commit -s -m "type: describe the change"
