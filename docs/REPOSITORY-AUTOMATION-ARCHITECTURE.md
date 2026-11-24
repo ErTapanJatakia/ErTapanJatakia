@@ -17,7 +17,7 @@ The system's principal outcomes are:
 | Actor | Type | Actions and permissions |
 |---|---|---|
 | Repository owner `@ErTapanJatakia` | Human / administrator | Maintains policies, reviews access, accepts changes, manages secrets, authorizes releases and handles security reports |
-| Collaborator | Human / contributor | Proposes changes within the exact repository role assigned by the owner; must not assume access to secrets, signing keys or release administration |
+| Collaborator `@`| Human / contributor | Proposes changes within the exact repository role assigned by the owner; must not assume access to secrets, signing keys or release administration |
 | External contributor / pull-request author | Human / untrusted input source until reviewed | Submits issues and pull requests; supplies commit metadata and DCO sign-offs; cannot access privileged publication secrets through pull-request QA |
 | GitHub platform | External system / trust anchor | Stores Git history, enforces the main ruleset, runs Actions, hosts security advisories and release assets, provides Dependency Graph and artifact attestation services |
 | GitHub Actions runner | Execution environment | Executes isolated workflow jobs with only the permissions and secrets granted to each job |
