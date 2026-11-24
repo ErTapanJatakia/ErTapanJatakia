@@ -23,7 +23,7 @@ A direct count of Markdown badge elements in `SECURITY.md` at the baseline commi
 
 The count is of rendered badge entries, not unique products, scanners, or independent controls. For example, CodeQL, zizmor, branch protection and security policy are represented more than once.
 
-**Current dashboard after P1 implementation, historical-scanner reconciliation, EditorConfig and Prettier implementation:** 55 entries remain: 3 live workflow badges, 36 configured/published controls, 2 unverified/not-enforced badges, and 14 deferred/planned/unconfigured/unmeasured/not-applicable badges. The four P1 quality controls moved from planned to configured after successful advisory CI verification. Prettier is now configured as an additional advisory check for maintained GitHub YAML/JSON configuration. The DevSkim and Bearer badges are explicitly historical-only/not currently configured; this is a status correction, not a claim that their historical findings were all resolved.
+**Current dashboard after P1 implementation, historical-scanner reconciliation, EditorConfig and Prettier implementation:** 55 entries remain: 3 live workflow badges, 37 configured/published controls, 2 unverified/not-enforced badges, and 13 deferred/planned/unconfigured/unmeasured/not-applicable badges. The four P1 quality controls moved from planned to configured after successful advisory CI verification. Prettier is now configured as an additional advisory check for maintained GitHub YAML/JSON configuration. The DevSkim and Bearer badges are explicitly historical-only/not currently configured; this is a status correction, not a claim that their historical findings were all resolved.
 
 ## Priority roadmap
 
@@ -87,6 +87,7 @@ No artificial package, release, build artifact, or provenance workflow should be
 | Maintainability metric | **Not applicable** | No maintained application code exists for a meaningful code maintainability metric. Keep this distinct from documentation quality checks |
 | Test coverage | **Not applicable** | There is no application test target or coverage instrumentation. Configuration/workflow validation must not be presented as application code coverage |
 | Automated application tests | **No application test suite** | Existing workflow, YAML, Markdown and configuration checks are real CI checks, but this repository has no application runtime or application-level test suite |
+| Repository QA aggregate badge | **Configured — five advisory CI checks** | The dashboard badge now represents Markdown lint, YAML syntax validation, internal link checking, actionlint and Prettier configuration formatting. It is not an application test-suite or code-coverage claim |
 
 ## Recommended execution sequence
 
@@ -138,7 +139,7 @@ The PR check passed in [run 45337588468](https://github.com/ErTapanJatakia/ErTap
 | Repository Dependency Graph SBOM | [45337720169](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720169) | Passed |
 | OpenSSF Scorecard | [45337720078](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337720078) | Assessment and SARIF upload passed |
 
-**Dashboard effect:** one deferred badge moved to configured. The inventory remains 55 entries: 3 live workflow badges, 36 configured/published controls, 2 unverified/not-enforced badges and 14 deferred/planned/unconfigured/unmeasured/not-applicable badges. Prettier remains advisory and is not a required branch-protection check.
+**Dashboard effect:** one deferred badge moved to configured. The inventory remains 55 entries: 3 live workflow badges, 37 configured/published controls, 2 unverified/not-enforced badges and 13 deferred/planned/unconfigured/unmeasured/not-applicable badges. Prettier remains advisory and is not a required branch-protection check.
 
 ## Evidence and governance rules
 
