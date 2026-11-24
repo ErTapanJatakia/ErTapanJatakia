@@ -71,7 +71,7 @@ jobs:
       - name: Check Markdown links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          args: --verbose --no-progress --exclude-mail --accept 200,206,429 './**/*.md'
+          args: --verbose --no-progress --accept 200,206,429 './**/*.md'
           lycheeVersion: v0.24.2
 
   actionlint:
@@ -102,4 +102,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          "$RUNNER_TEMP/actionlint/actionlint" -color .github/workflows/*.yml
+          # actionlint v1.7.12 predates GitHub's July 2026 $/ self-repository
+          # action-reference syntax. Ignore only its known parser false-positive
+          # for this exact documented reference; retain all other action checks.
+          "$RUNNER_TEMP/actionlint/actionlint" -color \
+            -ignore 'specifying action "\\$/.github/actions/setup-personal-gpg" in invalid format because ref is missing' \
+            .github/workflows/*.yml
