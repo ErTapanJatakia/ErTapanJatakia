@@ -36,4 +36,20 @@ The intended policy is at least one approval by a human other than the change au
 
 The active ruleset is named **Protect main - Security & PR Governance**. It protects the default branch, blocks deletion and force-push, requires pull requests, resolves review conversations, permits squash merges only, and requires the Gitleaks and zizmor checks. Its current required approving review count is zero. This document does not claim otherwise.
 
+## 7. Required status-check hardening
+
+After the new workflows have completed successfully on a pull request, update the active main-branch ruleset to require these additional check names:
+
+- `Dependency Review`
+- `Dependabot alert gate`
+- `Analyze (actions)`
+- `SAST policy gate`
+
+Retain the existing required checks:
+
+- `Gitleaks secret detection`
+- `zizmor GitHub Actions audit`
+
+The current ruleset has not yet been changed to include the additional checks. A check appearing in Actions is not a merge gate until it is explicitly required by the ruleset. Do not add a check before it has produced a successful run on a pull request.
+
 Review the ruleset whenever a maintainer is added or repository permissions change.
