@@ -9,6 +9,7 @@ No multi-repository software release or independently versioned subproject is cu
 ## 2. Policy if subprojects are introduced
 
 Before a release includes multiple source-code repositories:
+
 1. Publish an inventory of every source repository, owner, purpose, primary branch and release relationship.
 2. Assign a responsible maintainer for each subproject.
 3. Require each subproject to enforce security requirements at least as strict as the primary repository, including branch protection, least-privilege CI/CD permissions, secret handling, dependency analysis, SAST where source languages are supported, vulnerability reporting and release integrity.
