@@ -60,7 +60,8 @@ jobs:
             echo "::error::Version must use YYYY.MM.DD.N format, for example 2026.11.24.1."
             exit 1
           fi
-          IFS='.' read -r year month day sequence <<< "$VERSION"
+          date_part="${VERSION%.*}"
+          IFS='.' read -r year month day <<< "$date_part"
           if [[ "$(date -u -d "$year-$month-$day" '+%Y.%m.%d' 2>/dev/null || true)" != "$year.$month.$day" ]]; then
             echo "::error::The date portion of the version is not a valid calendar date."
             exit 1
@@ -242,10 +243,12 @@ jobs:
           Follow [release verification instructions](https://github.com/$GITHUB_REPOSITORY/blob/main/docs/RELEASE-VERIFICATION.md) before use.
           EOF
 
-          echo "archive=$archive" >> "$GITHUB_OUTPUT"
-          echo "manifest=$manifest" >> "$GITHUB_OUTPUT"
-          echo "checksums=$checksums" >> "$GITHUB_OUTPUT"
-          echo "signature=$signature" >> "$GITHUB_OUTPUT"
+          {
+            echo "archive=$archive"
+            echo "manifest=$manifest"
+            echo "checksums=$checksums"
+            echo "signature=$signature"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Generate GitHub artifact attestations
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
