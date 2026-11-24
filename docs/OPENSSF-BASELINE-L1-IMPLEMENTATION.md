@@ -60,6 +60,10 @@ The status **Unverified** is used for controls whose truth depends on account/re
 - The GitHub Release object is not API-reported as immutable. The signed tag is verified and protected; those are separate properties.
 - Unverified controls must not be represented as Met in an external badge submission.
 
+## Cross-level evidence alignment
+
+The repository's common evidence set is maintained across the [Level 2](OPENSSF-BASELINE-L2-IMPLEMENTATION.md) and [Level 3](OPENSSF-BASELINE-L3-IMPLEMENTATION.md) registers. The Level 2 remediation adds DCO enforcement, per-PR automated regression testing, documented build/toolchain instructions, repository automation design/interface inventories and coordinated vulnerability disclosure response targets. These additions do not change Level 1 applicability where its own criterion is conditional on an application runtime or package-management system.
+
 ## Reassessment triggers
 
 Reassess when MFA/account-security evidence becomes available, collaborator invitation defaults or roster change, new workflows/inputs are introduced, new official domains/distribution channels are added, software functionality or package manifests are introduced, or the official OpenSSF criteria version changes.
