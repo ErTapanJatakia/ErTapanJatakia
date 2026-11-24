@@ -23,7 +23,7 @@ A direct count of Markdown badge elements in `SECURITY.md` at the baseline commi
 
 The count is of rendered badge entries, not unique products, scanners, or independent controls. For example, CodeQL, zizmor, branch protection and security policy are represented more than once.
 
-**Current dashboard after P1 implementation, historical-scanner reconciliation, EditorConfig and Prettier implementation:** 55 entries remain: 3 live workflow badges, 37 configured/published controls, 2 unverified/not-enforced badges, and 13 deferred/planned/unconfigured/unmeasured/not-applicable badges. The four P1 quality controls moved from planned to configured after successful advisory CI verification. Prettier is now configured as an additional advisory check for maintained GitHub YAML/JSON configuration. The DevSkim and Bearer badges are explicitly historical-only/not currently configured; this is a status correction, not a claim that their historical findings were all resolved.
+**Current dashboard after PR #38 OpenSSF Baseline Level 3 hardening:** 57 entries: 5 live workflow badges, 38 configured/published controls, 2 unverified/not-enforced badges, and 12 deferred/planned/unconfigured/unmeasured/not-applicable badges. The Dependency Review/Dependabot alert gate and SAST policy gate are now recurring workflows; the controlled documentation-release workflow is configured but its first release is pending. The former grey Signed Releases badge now describes the documentation-release workflow, while compiled software releases remain out of scope. The four P1 quality controls moved from planned to configured after successful advisory CI verification. Prettier is now configured as an additional advisory check for maintained GitHub YAML/JSON configuration. The DevSkim and Bearer badges are explicitly historical-only/not currently configured; this is a status correction, not a claim that their historical findings were all resolved.
 
 ## Priority roadmap
 
@@ -72,7 +72,7 @@ Do not add overlapping scanners merely to increase badge count. Select a tool on
 | GitHub Dependency Graph SBOM | **Verified — SPDX export and provenance attestation (2026-11-24)** | Latest run [45331157748](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331157748) validated SPDX 2.3 with 10 package records and 9 `DEPENDS_ON` relationships, generated and verified Sigstore-backed provenance attestations for the SBOM JSON and SHA-256 checksum, and uploaded the 30-day artifact. [Attestation record](https://github.com/ErTapanJatakia/ErTapanJatakia/attestations/71451141). Scope remains limited to dependencies represented in the GitHub Dependency Graph; it is not a full filesystem, container or binary SBOM. The first successful export [45329290238](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45329290238) recorded 9 packages and 8 relationships |
 | SLSA provenance | **Deferred / no build artifacts** | The signed-publish workflow signs a Git commit and opens a PR; it does not build a software artifact. Commit signing is not SLSA build provenance. Reassess when a build/release pipeline produces artifacts |
 | Artifact attestation | **Verified — SBOM JSON and checksum only (2026-11-24)** | The SBOM export workflow generated Sigstore-backed provenance attestations for the actual SPDX JSON and SHA-256 checksum files. Both passed `gh attestation verify` with the signer constrained to this repository's SBOM workflow; GitHub reported a public-good Sigstore certificate and Rekor transparency-log upload. [Run 45331157748](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331157748) · [Attestation record](https://github.com/ErTapanJatakia/ErTapanJatakia/attestations/71451141). This does not attest a software binary or release; no such artifact is produced. Preserve signer-identity verification and revalidate each scheduled SBOM export |
-| Signed releases | Not applicable | Reassess if versioned software releases are introduced |
+| Documentation snapshot releases | **Workflow configured; first release pending** | A main-only workflow creates a signed source/documentation archive, SHA-256 manifest/signature and GitHub artifact attestations. This is not a compiled software release or package; first publication requires owner review and a protected tag pattern |
 | CODEOWNERS | **Deferred / single maintainer** | A self-owned CODEOWNERS file would not create an independent reviewer or add meaningful review assurance. Reassess if genuine additional maintainers or component owners join |
 
 No artificial package, release, build artifact, or provenance workflow should be created to improve a score.
@@ -386,7 +386,7 @@ The first post-merge run with artifact attestations completed successfully:
 | Verification | Both files passed `gh attestation verify` with signer constrained to `github.com/ErTapanJatakia/ErTapanJatakia/.github/workflows/repository-dependency-sbom.yml` |
 | SBOM artifact | [repository-dependency-sbom-45331157748](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45331157748/artifacts/14892405876) — 30-day retention |
 
-**Scope:** these attestations establish provenance for the generated SBOM JSON and checksum files. They do not establish build provenance for a software binary, container or release. The underlying inventory remains limited to GitHub Dependency Graph data. The SLSA software-build provenance and signed-release badges therefore remain deferred/not applicable until a real software build or release artifact exists. No artificial package, build artifact, or release was introduced.
+**Scope:** these attestations establish provenance for the generated SBOM JSON and checksum files. They do not establish build provenance for a software binary, container or release. The underlying inventory remains limited to GitHub Dependency Graph data. SLSA software-build provenance remains deferred/not applicable until a real software build artifact exists. At the time of this historical entry, no release was introduced; PR #38 subsequently configured a separate documentation/source-configuration snapshot release workflow, but the first release has not yet been published.
 
 ### Latest post-merge Scorecard and CI evidence — 2026-11-24
 
@@ -414,7 +414,7 @@ The Scorecard 6.9/10 result contains these check outcomes:
 | CII-Best-Practices | 0 | Optional OpenSSF Best Practices badge has not been pursued |
 | Contributors | 3 | One contributing institution detected; do not manufacture contributors |
 | Packaging | -1 | No software package/publishing workflow; not applicable to this documentation/profile repository |
-| Signed-Releases | -1 | No software releases or release assets; not applicable while no software is released |
+| Signed-Releases | -1 | No software release is detected; the new documentation snapshot workflow is configured but not yet published and does not create a compiled software release |
 | Vulnerabilities | 10 | Zero existing vulnerabilities detected within Scorecard's checked scope |
 | Dangerous-Workflow | 10 | No dangerous workflow patterns detected |
 | Dependency-Update-Tool | 10 | Dependabot configuration detected |
@@ -426,4 +426,31 @@ The Scorecard 6.9/10 result contains these check outcomes:
 | SAST | 10 | All 25 checked commits covered by a SAST tool |
 | CI-Tests | 10 | All 25 checked merged PRs had CI checks |
 
-**Interpretation:** the score remains 6.9/10 because the remaining low scores reflect repository age, the lack of independent reviewers, the absence of a suitable fuzzing target and optional CII participation. Packaging and Signed-Releases are not applicable. Do not create a package, release, fake contributor, dummy fuzzer or self-approval process to alter these results. Reassess only when the repository's actual scope or maintainer structure changes.
+**Interpretation at this checkpoint:** the score remains 6.9/10 because the remaining low scores reflect repository age, the lack of independent reviewers, the absence of a suitable fuzzing target and optional CII participation. Packaging remains not applicable. Scorecard does not yet detect a software release; the documentation snapshot workflow is configured but its first publication is pending. Do not create a software package, fake contributor, dummy fuzzer or self-approval process to alter these results. Reassess only when the repository's actual scope or maintainer structure changes.
+
+
+### PR #38 completion — OpenSSF Baseline Level 3 hardening — 2026-11-24
+
+**Main commit:** `099708d2225f65e3ad31cbd4ac2fc44a8f17458c` (PR #38, merged).
+
+The PR added repository-scoped governance and security policies for secrets, collaborator access, repository QA, SCA, SAST, VEX, threat modelling, release support/EOL, release verification and future subproject governance. It also added Dependency Review, a Dependabot alert gate with evidence-backed VEX exception validation, a CodeQL SAST policy gate and a manual controlled documentation-release workflow.
+
+| Evidence | Result |
+|---|---|
+| PR #38 | [Merged](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) |
+| Repository Security Analysis | [45347044175](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044175) — Gitleaks and zizmor passed |
+| Dependency and Malware Alert Policy | [45347044223](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044223) — Dependabot alert gate passed; no unresolved Dependabot alerts returned |
+| Dependency Review | [45346939758](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45346939758) — PR #38 dependency review passed |
+| SAST Policy Gate | [45347044217](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044217) — passed |
+| CodeQL Actions analysis | [45347044354](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044354) — passed |
+| Repository Quality Assurance | [45347044201](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044201) — all five advisory checks passed |
+| Repository Configuration Validation | [45347044245](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044245) — passed |
+| Dependency Graph SBOM | [45347044206](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044206) — passed |
+| OpenSSF Scorecard | [45347044243](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044243) — passed; score remains **6.9/10** |
+| GitVerse mirror | [45347044193](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347044193) — passed |
+
+The Scorecard run now reports CI-Tests **10** (30/30 merged PRs checked by CI) and SAST **10** (30 commits checked). Branch-Protection remains **4** because independent approvals, CODEOWNERS review and related review controls are not enabled. The repository still has one maintainer; no artificial reviewer was added.
+
+**Release scope:** the new workflow publishes only a versioned source/documentation/configuration snapshot, not compiled software. It creates a signed tag, archive, SHA-256 checksum manifest and detached GPG signature, release manifest and GitHub artifact attestations. The workflow is configured and validated by repository QA, but no public release has been published yet. First publication requires owner dispatch, a current Malware-alert review, license review and a GitHub tag ruleset for `profile-docs-*`.
+
+**Remaining platform actions:** the active main ruleset still requires only Gitleaks and zizmor. Add the successful PR check names `Dependency Review`, `Dependabot alert gate`, `Analyze (actions)` and `SAST policy gate` as required checks. The non-author approval control remains unmet until a genuine independent reviewer is available. Compiled-asset SBOM and multi-repository subproject controls remain not applicable.
