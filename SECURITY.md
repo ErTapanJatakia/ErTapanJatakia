@@ -154,7 +154,11 @@ Please report third-party issues to the relevant service provider through its ow
 
 Thank you for helping keep this repository and its visitors safe.
 
-## OpenSSF Baseline implementation
+## OpenSSF Baseline status and implementation
+
+[![OpenSSF Baseline](https://www.bestpractices.dev/projects/17059/baseline)](https://www.bestpractices.dev/projects/17059)
+
+The badge links to the project's public OpenSSF Best Practices profile and displays its published Baseline status. It is distinct from the repository's internal implementation assessments; consult the Level 1, Level 2 and Level 3 registers below for control-by-control evidence and applicability decisions. The badge alone does not represent independent certification or an audit.
 
 The repository's assessment registers are maintained in [Baseline Level 1](docs/OPENSSF-BASELINE-L1-IMPLEMENTATION.md), [Baseline Level 2](docs/OPENSSF-BASELINE-L2-IMPLEMENTATION.md) and [Baseline Level 3](docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md). PR [#38](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) introduced the governance/security policies and controlled documentation-release workflow. PR [#39](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/39) refreshed the dashboard and hardened the malware and SAST gates.
 
