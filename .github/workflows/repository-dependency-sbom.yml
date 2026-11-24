@@ -95,13 +95,14 @@ jobs:
           set -euo pipefail
           sbom="dist/repository-dependency-sbom.spdx.json"
           jq --exit-status '
-            .sbom.SPDXID == "SPDXRef-DOCUMENT" and
-            .sbom.spdxVersion == "SPDX-2.3" and
-            (.sbom.packages | type == "array") and
-            (.sbom.relationships | type == "array")
+            (.sbom // .) as $document |
+            $document.SPDXID == "SPDXRef-DOCUMENT" and
+            $document.spdxVersion == "SPDX-2.3" and
+            ($document.packages | type == "array") and
+            ($document.relationships | type == "array")
           ' "$sbom" >/dev/null
-          package_count="$(jq '.sbom.packages | length' "$sbom")"
-          dependency_count="$(jq '[.sbom.relationships[] | select(.relationshipType == "DEPENDS_ON")] | length' "$sbom")"
+          package_count="$(jq '(.sbom // .).packages | length' "$sbom")"
+          dependency_count="$(jq '[((.sbom // .).relationships)[] | select(.relationshipType == "DEPENDS_ON")] | length' "$sbom")"
           if (( dependency_count < 1 )); then
             echo "::notice::GitHub Dependency Graph returned a valid SPDX document with no DEPENDS_ON relationships. The artifact will be retained as an empty graph snapshot, not represented as evidence of populated dependency coverage."
           fi
