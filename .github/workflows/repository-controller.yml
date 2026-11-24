@@ -98,12 +98,30 @@ jobs:
             git -C "$workdir" config gpg.program "$RUNNER_TEMP/personal-gpg-wrapper"
 
             git -C "$workdir" switch -c "$automation_branch"
-            git -C "$workdir" commit --allow-empty -S               -m "chore: attest signed publication of $source_sha"
+            attestation_dir="$workdir/.github/attestations"
+            mkdir -p "$attestation_dir"
+            cat > "$attestation_dir/$source_sha.md" <<EOF
+# GPG signature attestation
+
+- Repository: $repo
+- Target branch: $branch
+- Target commit: $source_sha
+- Attestation created: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+- Signing identity: configured repository-owner GPG key
+
+This record documents that the target commit was reviewed by the signing controller and that a separate attestation commit was signed with the configured personal GPG key. The attestation commit's signature is verified with git verify-commit.
+EOF
+            git -C "$workdir" add ".github/attestations/$source_sha.md"
+            git -C "$workdir" commit -S -m "chore: add verified GPG attestation for $source_sha"
             git -C "$workdir" verify-commit HEAD
 
-            git -C "$workdir" -c http.extraheader="AUTHORIZATION: basic $AUTH_HEADER"               push origin "HEAD:refs/heads/$automation_branch"
+            git -C "$workdir" -c http.extraheader="AUTHORIZATION: basic $AUTH_HEADER" push origin "HEAD:refs/heads/$automation_branch"
 
-            gh api --method POST "repos/$repo/pulls"               -f title="chore: add verified GPG signature attestation"               -f head="$automation_branch"               -f base="$branch"               -f body="## Signed attestation\n\nThis automation branch contains an empty attestation commit signed with the configured personal GPG key. The signature was verified with `git verify-commit`. No existing source files or application behavior were changed.\n\nPlease review and merge through the repository's pull-request process. The GitVerse mirror is handled after the merge to the target branch."
+            gh api --method POST "repos/$repo/pulls" \
+              -f title="chore: add verified GPG attestation for $source_sha" \
+              -f head="$automation_branch" \
+              -f base="$branch" \
+              -f body="$(printf '%s\\n' '## Signed attestation' '' "This pull request adds a transparent attestation record for commit $source_sha." '' 'The attestation commit is signed with the configured personal GPG key and verified with git verify-commit. It does not alter application source code.' '' 'Please review and merge through the repository pull-request process. The GitVerse mirror runs after the merge to the target branch.')"
 
             echo "Created signed attestation PR for $repo:$branch."
             printf '::endgroup::\n'
