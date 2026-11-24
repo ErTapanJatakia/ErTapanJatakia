@@ -66,6 +66,14 @@ jobs:
           while IFS= read -r entry; do
             repo="$(jq -r '.github' <<<"$entry")"
             branch="$(jq -r '.branch' <<<"$entry")"
+            if [[ ! "$branch" =~ ^[A-Za-z0-9][A-Za-z0-9._/-]*$ ]] ||
+               [[ "$branch" == *".."* || "$branch" == *"//"* ||
+                  "$branch" == */ || "$branch" == *".lock" ||
+                  "$branch" == *"@{"* ]] ||
+               ! git check-ref-format "refs/heads/$branch"; then
+              echo "::error::Registry branch is not a valid, permitted Git branch name: $branch"
+              exit 1
+            fi
             printf '::group::Checking %s (%s)\n' "$repo" "$branch"
 
             open_pr_count="$(gh pr list --repo "$repo" --state open --json headRefName               --jq '[.[] | select(.headRefName | startswith("automation/signed-attestation-"))] | length')"
