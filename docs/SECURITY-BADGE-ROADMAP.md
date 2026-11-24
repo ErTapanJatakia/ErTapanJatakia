@@ -190,8 +190,10 @@ The repository owner inspected both GitHub Security alert views. Each reported d
 
 The owner also confirmed the GitHub-managed auto-triage presets:
 
+
 - **Enabled:** “Dismiss low-impact alerts for development-scoped dependencies”.
 - **Disabled:** “Dismiss package malware alerts” (match: `malware:package`).
+
 
 The enabled development-scoped rule can remove qualifying alerts from the open inventory without fixing the underlying dependency. Therefore, “no open alerts” is a point-in-time open-queue observation, not proof that no alerts were ever generated, that auto-dismissed alerts are absent, or that all dependencies are vulnerability-free. The malware-dismissal preset being disabled means that particular rule is not configured to dismiss package-malware alerts; it does not establish the absence of every other possible dismissal mechanism.
 
