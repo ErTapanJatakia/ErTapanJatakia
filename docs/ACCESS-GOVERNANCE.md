@@ -6,7 +6,7 @@ Sensitive resources include repository administration, branch/ruleset settings, 
 
 ## 2. Current operating model
 
-The repository is currently maintained by one owner. No independent maintainer or reviewer is represented as available. The owner retains administrative responsibility and reviews proposed access changes.
+The repository is operated as a single-maintainer personal repository. The owner retains administrative responsibility. An independent maintainer or reviewer is not currently available; this limitation is recorded rather than represented as an approval control.
 
 ## 3. Collaborator vetting before elevated access
 
@@ -26,30 +26,38 @@ Do not publish personal vetting records, identity documents or confidential refe
 
 Elevated permissions require an explicit owner decision. A pull request, successful CI run or prior contribution does not itself authorize an access escalation. Secret access must be separately reviewed under the [Secrets and Credentials Management Policy](SECRETS-AND-CREDENTIALS-POLICY.md).
 
-## 5. Change approval
+## 5. Change approval and sole-maintainer limitation
 
-The repository requires pull requests, conversation resolution, linear history and the configured security checks. The current ruleset does **not** require a non-author approval because the repository has one maintainer and no eligible independent reviewer is currently available.
+The repository requires pull requests, conversation resolution, linear history and the configured security checks. The current ruleset does **not** require a non-author approval because no eligible independent reviewer is currently available.
 
-The intended policy is at least one approval by a human other than the change author before a second maintainer is allowed to merge changes. This control becomes operational only after a genuine independent reviewer is available and the ruleset is changed to require that approval. Self-approval, bot approval and fabricated reviewer identities are not acceptable substitutes.
+The intended policy is at least one approval by a human other than the change author when a genuine independent reviewer becomes available. Until then, the repository must retain the explicit single-maintainer limitation. Self-approval, bot approval and fabricated reviewer identities are not acceptable substitutes. The owner must reassess this limitation before adding another maintainer or granting elevated access.
 
 ## 6. Current platform configuration
 
-The active ruleset is named **Protect main - Security & PR Governance**. It protects the default branch, blocks deletion and force-push, requires pull requests, resolves review conversations, permits squash merges only, and requires the Gitleaks and zizmor checks. Its current required approving review count is zero. This document does not claim otherwise.
+The active ruleset is **Protect main - Security & PR Governance** (ID `27948154`), targets the default branch and is active. Its verified configuration:
 
-## 7. Required status-check hardening
+- Requires pull requests and review-thread resolution.
+- Requires these six status checks: `Gitleaks secret detection`, `zizmor GitHub Actions audit`, `Dependency Review`, `Dependabot alert gate`, `Analyze (actions)` and `SAST policy gate`.
+- Requires linear history and permits squash merges only.
+- Blocks branch deletion and non-fast-forward updates.
+- Has no bypass actors.
+- Requires zero approving reviews.
 
-After the new workflows have completed successfully on a pull request, update the active main-branch ruleset to require these additional check names:
+The connected GitHub permission check confirmed the repository owner's `admin` permission. The dated [access review record](access-reviews/2026-11-24.md) records the scope and the limits of the available evidence.
 
-- `Dependency Review`
-- `Dependabot alert gate`
-- `Analyze (actions)`
-- `SAST policy gate`
+## 7. Pre-grant access decision record
 
-Retain the existing required checks:
+Before any new collaborator is invited or any role is elevated, complete a private access decision record containing:
 
-- `Gitleaks secret detection`
-- `zizmor GitHub Actions audit`
+- GitHub account and verified identity channel.
+- Current and requested permission level.
+- Specific business/technical need and requested resources.
+- Contribution/security review performed and its outcome.
+- Secret and release access decision, separately from repository write access.
+- Approver, decision date, rationale, expiry/review date and revocation trigger.
 
-The current ruleset has not yet been changed to include the additional checks. A check appearing in Actions is not a merge gate until it is explicitly required by the ruleset. Do not add a check before it has produced a successful run on a pull request.
+If the identity, need, least-privilege role, or review evidence is incomplete, do not grant the access. Never place sensitive vetting material in this public repository.
 
-Review the ruleset whenever a maintainer is added or repository permissions change.
+## 8. Review cadence and triggers
+
+Review the collaborator/team access list and effective permissions at least annually and before each elevated-access grant. Repeat the review after a maintainer change, security incident, ownership change, ruleset change or permission/secret-scope change. Record the outcome without publishing personal data. A policy or owner statement is not a substitute for checking the live GitHub access list.
