@@ -37,8 +37,8 @@ A shorter deadline applies when exploitation is known, the dependency is reachab
 ## 5. Pull-request and release enforcement
 
 - Dependency Review runs on pull requests and fails on High or Critical dependency vulnerabilities.
-- A separate policy job queries open Dependabot alerts and fails closed if an unresolved alert remains. This intentionally applies a zero-open-alert gate to this small repository, including malware alerts.
-- Dependabot alerts and malware detection remain enabled in GitHub.
+- A separate policy job queries open Dependabot alerts and fails closed if an unresolved alert remains, unless a current, evidence-backed VEX exception is registered.
+- Dependabot alerts and malware detection remain enabled in GitHub. The separate GitHub Malware alerts interface is not queried by the Dependabot API job; the release workflow therefore requires an explicit owner review confirmation. Any open malware alert blocks publication.
 - Before any official release, review the current Dependabot alert inventory, Dependency Review result, license information and the latest Dependency Graph SBOM. No unresolved Critical/High or malware finding may be included in a release.
 - Moderate/Low findings may be released only if the applicable remediation deadline is still met and the risk is recorded; a documented VEX exception is required when asserting that a vulnerability does not affect the project.
 
