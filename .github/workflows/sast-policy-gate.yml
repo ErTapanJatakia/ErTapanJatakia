@@ -19,15 +19,43 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      checks: read
       security-events: read
     steps:
       - name: Enforce CodeQL Critical and High remediation threshold
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPOSITORY: ${{ github.repository }}
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         shell: bash
         run: |
           set -euo pipefail
+
+          # Do not inspect repository-wide CodeQL alerts until this commit's CodeQL analysis has completed.
+          deadline=$((SECONDS + 900))
+          while true; do
+            codeql_check="$(gh api "repos/$GH_REPOSITORY/commits/$SOURCE_SHA/check-runs?per_page=100" \
+              --jq '[.check_runs[] | select(.name == "Analyze (actions")] | sort_by(.completed_at // .started_at) | last // empty')"
+            if [[ -n "$codeql_check" ]]; then
+              codeql_status="$(jq -r '.status // ""' <<< "$codeql_check")"
+              codeql_conclusion="$(jq -r '.conclusion // ""' <<< "$codeql_check")"
+              if [[ "$codeql_status" == "completed" ]]; then
+                if [[ "$codeql_conclusion" != "success" ]]; then
+                  echo "::error::CodeQL analysis did not succeed for $SOURCE_SHA ($codeql_conclusion)."
+                  exit 1
+                fi
+                break
+              fi
+            fi
+            if (( SECONDS >= deadline )); then
+              echo "::error::Timed out waiting for CodeQL Analyze (actions) to complete for $SOURCE_SHA."
+              exit 1
+            fi
+            sleep 15
+          done
+
+          echo "CodeQL analysis completed successfully for $SOURCE_SHA; evaluating its alert inventory now."
+
           gh api --paginate --slurp \
             "repos/$GH_REPOSITORY/code-scanning/alerts?state=open&tool_name=CodeQL&per_page=100" \
             | jq 'add' > "$RUNNER_TEMP/open-codeql-alerts.json"
