@@ -68,7 +68,7 @@ The active default-branch ruleset requires pull requests and the named security 
 [![CodeQL Actions](https://img.shields.io/badge/CodeQL-Actions%20analysis%20configured-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/security/code-scanning)
 [![Workflow Audit](https://img.shields.io/badge/Workflow%20Security-zizmor%20audit%20configured-2ea44f?style=flat-square)](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml)
 
-### Quality gates — proposed
+### Quality gates — implemented (advisory)
 
 [![actionlint](https://img.shields.io/badge/Workflow%20Lint-actionlint%20configured-2ea44f?style=flat-square)](https://github.com/rhysd/actionlint)
 [![Markdown Lint](https://img.shields.io/badge/Documentation%20Lint-Markdownlint%20configured-2ea44f?style=flat-square)](https://github.com/DavidAnson/markdownlint)
