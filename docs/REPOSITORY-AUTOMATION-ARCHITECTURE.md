@@ -17,7 +17,7 @@ The system's principal outcomes are:
 | Actor | Type | Actions and permissions |
 |---|---|---|
 | Repository owner `@ErTapanJatakia` | Human / administrator | Maintains policies, reviews access, accepts changes, manages secrets, authorizes releases and handles security reports |
-| Collaborator | Human / contributor | Proposes changes within the exact repository role assigned by the owner; must not assume access to secrets, signing keys or release administration |
+| Collaborator `@ShaikhDanish04` | Human / contributor | Proposes changes within the exact repository role assigned by the owner; must not assume access to secrets, signing keys or release administration |
 | External contributor / pull-request author | Human / untrusted input source until reviewed | Submits issues and pull requests; supplies commit metadata and DCO sign-offs; cannot access privileged publication secrets through pull-request QA |
 | GitHub platform | External system / trust anchor | Stores Git history, enforces the main ruleset, runs Actions, hosts security advisories and release assets, provides Dependency Graph and artifact attestation services |
 | GitHub Actions runner | Execution environment | Executes isolated workflow jobs with only the permissions and secrets granted to each job |
@@ -25,7 +25,7 @@ The system's principal outcomes are:
 | OpenSSF Scorecard, CodeQL, Gitleaks and zizmor | Security-analysis tools | Evaluate repository/workflow posture and report findings to the configured GitHub checks/security interfaces |
 | GitVerse | External mirror service | Receives protected `main` history and tags over SSH; it is a mirror, not the authoritative source |
 | Downstream reader / release consumer | External user | Reads the profile/documentation and verifies a published archive, checksums, GPG signature and attestations |
-| Security researcher | External reporter | Submits a suspected vulnerability through the configured private reporting channel and coordinates disclosure |
+| Security Researcher | External reporter | Submits a suspected vulnerability through the configured private reporting channel and coordinates disclosure |
 
 The exact collaborator account identifier and effective role remain recorded in the owner's private access register; the public access policy does not infer them.
 
