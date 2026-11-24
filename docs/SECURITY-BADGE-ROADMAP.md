@@ -178,6 +178,22 @@ The ruleset requires pull requests, conversation resolution, squash-only merging
 
 Dependabot configuration is present for **GitHub Actions** only, on a weekly Monday schedule at 04:00 Asia/Kolkata, with a seven-day cooldown and a five-PR limit. This confirms update configuration; it does **not** establish whether GitHub Dependabot vulnerability alerts are enabled.
 
+### Dependabot alert inventory — owner-observed, 2026-11-24
+
+The repository owner inspected both GitHub Security alert views. Each reported dependency files checked approximately one hour before the observation and **no open alerts**:
+
+| Inventory | Owner-observed state | Interpretation |
+|---|---|---|
+| Malware alerts | No open alerts | No currently open package-malware alerts were displayed |
+| Dependabot alerts | No open alerts | No currently open Dependabot vulnerability alerts were displayed |
+| Auto-dismissed alerts | Separate filter available: [resolution:auto-dismissed](https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot?q=is%3Aopen+resolution%3Aauto-dismissed) | Auto-dismissed items must be reviewed separately; they are not equivalent to remediated findings |
+
+The owner also confirmed the GitHub-managed auto-triage presets: **Enabled** — “Dismiss low-impact alerts for development-scoped dependencies”; **Disabled** — “Dismiss package malware alerts” (match: `malware:package`).
+
+The enabled development-scoped rule can remove qualifying alerts from the open inventory without fixing the underlying dependency. Therefore, “no open alerts” is a point-in-time open-queue observation, not proof that no alerts were ever generated, that auto-dismissed alerts are absent, or that all dependencies are vulnerability-free. The malware-dismissal preset being disabled means that particular rule is not configured to dismiss package-malware alerts; it does not establish the absence of every other possible dismissal mechanism.
+
+**Setting-state distinction:** the owner-observed empty alert views do not, by themselves, prove whether the Dependabot alerts feature toggle and dependency graph are enabled. Those platform enablement states remain unverified until their settings are explicitly inspected. No repository settings were changed as part of this documentation update.
+
 ### P0 evidence still outstanding
 
 The connected GitHub integration can read the active ruleset and repository files, but it cannot access the repository's Code Scanning alert endpoint or the branch-protection endpoint (the latter returned HTTP 403). It also does not expose the repository's native Secret Scanning / Dependabot security-setting state. Therefore:
