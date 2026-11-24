@@ -1,0 +1,129 @@
+name: Repository Dependency Graph SBOM
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 3 1 * *"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/**"
+      - ".github/dependabot.yml"
+      - "config/**"
+
+permissions: {}
+
+concurrency:
+  group: repository-dependency-sbom
+  cancel-in-progress: false
+
+jobs:
+  export-sbom:
+    name: Export and validate SPDX dependency inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Request GitHub Dependency Graph SBOM generation
+        id: request
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          response="$RUNNER_TEMP/sbom-generation-response.json"
+          curl --fail --silent --show-error \
+            --request POST \
+            --header "Accept: application/vnd.github+json" \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header "X-GitHub-Api-Version: 2026-03-10" \
+            "https://api.github.com/repos/$GH_REPOSITORY/dependency-graph/sbom/generate-report" \
+            --output "$response"
+          sbom_url="$(jq --exit-status --raw-output '.sbom_url' "$response")"
+          if [[ "$sbom_url" != https://api.github.com/repos/*/dependency-graph/sbom/fetch-report/* ]]; then
+            echo "::error::GitHub returned an unexpected SBOM report URL."
+            exit 1
+          fi
+          echo "sbom_url=$sbom_url" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for SPDX report and download it
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SBOM_URL: ${{ steps.request.outputs.sbom_url }}
+        run: |
+          set -euo pipefail
+          headers="$RUNNER_TEMP/sbom-response-headers.txt"
+          response="$RUNNER_TEMP/sbom-response-body.json"
+          download_url=""
+          for attempt in {1..18}; do
+            status="$(curl --silent --show-error \
+              --dump-header "$headers" \
+              --output "$response" \
+              --write-out '%{http_code}' \
+              --header "Accept: application/vnd.github+json" \
+              --header "Authorization: Bearer $GH_TOKEN" \
+              --header "X-GitHub-Api-Version: 2026-03-10" \
+              "$SBOM_URL")"
+            if [[ "$status" == "302" ]]; then
+              download_url="$(awk 'tolower($1) == "location:" { sub(/\r$/, ""); $1=""; sub(/^ /, ""); print }' "$headers" | tail -n 1)"
+              break
+            fi
+            if [[ "$status" != "202" ]]; then
+              echo "::error::Unexpected SBOM report response: HTTP $status"
+              cat "$response"
+              exit 1
+            fi
+            echo "SBOM report is still processing (attempt $attempt/18)."
+            sleep 10
+          done
+          if [[ -z "$download_url" ]]; then
+            echo "::error::SBOM report did not become ready within three minutes."
+            exit 1
+          fi
+          mkdir -p dist
+          # The signed temporary download URL is separate from the authenticated API endpoint.
+          curl --fail --silent --show-error --location "$download_url" \
+            --output dist/repository-dependency-sbom.spdx.json
+
+      - name: Validate SPDX document and dependency coverage
+        id: validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          sbom="dist/repository-dependency-sbom.spdx.json"
+          jq --exit-status '
+            .sbom.SPDXID == "SPDXRef-DOCUMENT" and
+            .sbom.spdxVersion == "SPDX-2.3" and
+            (.sbom.packages | type == "array") and
+            (.sbom.relationships | type == "array")
+          ' "$sbom" >/dev/null
+          package_count="$(jq '.sbom.packages | length' "$sbom")"
+          dependency_count="$(jq '[.sbom.relationships[] | select(.relationshipType == "DEPENDS_ON")] | length' "$sbom")"
+          if (( dependency_count < 1 )); then
+            echo "::error::The SPDX document contains no dependency relationships; refusing to claim a populated dependency inventory."
+            exit 1
+          fi
+          sha256sum "$sbom" > "$sbom.sha256"
+          {
+            echo "## Repository Dependency Graph SBOM"
+            echo
+            echo "- Format: SPDX 2.3"
+            echo "- Package records: $package_count"
+            echo "- Dependency relationships: $dependency_count"
+            echo "- Scope: GitHub Dependency Graph only; this is not a full filesystem, container or binary inventory."
+            echo "- SHA-256: $(cut -d ' ' -f 1 "$sbom.sha256")"
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "Validated SPDX 2.3 SBOM with $package_count package records and $dependency_count dependency relationships."
+
+      - name: Upload SPDX SBOM artifact
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: repository-dependency-sbom-${{ github.run_id }}
+          path: |
+            dist/repository-dependency-sbom.spdx.json
+            dist/repository-dependency-sbom.spdx.json.sha256
+          if-no-files-found: error
+          retention-days: 30

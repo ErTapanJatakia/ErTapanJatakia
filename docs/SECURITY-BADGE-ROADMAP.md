@@ -23,7 +23,7 @@ A direct count of Markdown badge elements in `SECURITY.md` at the baseline commi
 
 The count is of rendered badge entries, not unique products, scanners, or independent controls. For example, CodeQL, zizmor, branch protection and security policy are represented more than once.
 
-**Current dashboard after P1 implementation, historical-scanner reconciliation and EditorConfig implementation:** 55 entries remain: 2 live workflow badges, 34 configured/published controls, 2 unverified/not-enforced badges, and 17 deferred/planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification. The DevSkim and Bearer badges are now explicitly historical-only/not currently configured, moving those two entries out of the unverified group; this is a status correction, not a claim that their historical findings were all resolved.
+**Current dashboard after P1 implementation, historical-scanner reconciliation and EditorConfig implementation:** 55 entries remain: 3 live workflow badges, 34 configured/published controls, 2 unverified/not-enforced badges, and 16 deferred/planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification. The DevSkim and Bearer badges are now explicitly historical-only/not currently configured, moving those two entries out of the unverified group; this is a status correction, not a claim that their historical findings were all resolved.
 
 ## Priority roadmap
 
@@ -69,7 +69,7 @@ Do not add overlapping scanners merely to increase badge count. Select a tool on
 
 | Work item | Current status | Applicability decision |
 |---|---|---|
-| SBOM | **Deferred / no meaningful inventory target** | No package manifests, application dependencies or built software artifacts exist to inventory. Do not generate a source-tree SBOM solely to obtain a badge. Reassess when a distributable artifact or meaningful dependency graph exists |
+| GitHub Dependency Graph SBOM | **Workflow added; first generation pending** | GitHub's native Dependency Graph can be exported as SPDX 2.3 without inventing a package manifest or build artifact. A scheduled/manual workflow requests generation, validates package/dependency relationships, and uploads a 30-day artifact. Scope is limited to dependencies represented in the GitHub Dependency Graph; it is not a full filesystem, container or binary SBOM. Verification requires a successful run with non-empty dependency relationships and valid SPDX output |
 | SLSA provenance | **Deferred / no build artifacts** | The signed-publish workflow signs a Git commit and opens a PR; it does not build a software artifact. Commit signing is not SLSA build provenance. Reassess when a build/release pipeline produces artifacts |
 | Artifact attestation | **Deferred / no built artifact** | No software artifact is currently built or released. Do not attest documentation commits as if they were release artifacts. Reassess when the repository produces a distributable artifact |
 | Signed releases | Not applicable | Reassess if versioned software releases are introduced |
@@ -82,7 +82,7 @@ No artificial package, release, build artifact, or provenance workflow should be
 | Work item | Current status | Applicability decision |
 |---|---|---|
 | Prettier | **Deferred / no demonstrated gap** | Existing Markdown lint, YAML parsing and actionlint provide format/syntax assurance. Avoid introducing a package/toolchain solely for a badge; reconsider if formatting drift becomes a real maintenance issue |
-| EditorConfig | **Implemented; CI verification pending** | Root `.editorconfig` now defines UTF-8, LF, final newlines, two-space indentation and Markdown trailing-space preservation. Repository configuration validation checks the required policy keys |
+| EditorConfig | **Verified** | Root `.editorconfig` defines UTF-8, LF, final newlines, two-space indentation and Markdown trailing-space preservation. The repository configuration validation passed after adding explicit assertions for these settings in post-merge run [45325182343](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45325182343) on commit `0967983192f472845d0e95c06774a41138f85a02`. Keep verified through the configuration workflow |
 | SonarQube | **Not applicable** | No maintained application source or build target exists. Reassess only if the repository gains meaningful source code and a supported analysis scope |
 | Maintainability metric | **Not applicable** | No maintained application code exists for a meaningful code maintainability metric. Keep this distinct from documentation quality checks |
 | Test coverage | **Not applicable** | There is no application test target or coverage instrumentation. Configuration/workflow validation must not be presented as application code coverage |
@@ -90,10 +90,10 @@ No artificial package, release, build artifact, or provenance workflow should be
 
 ## Recommended execution sequence
 
-1. **Close the P0 evidence gaps**: inspect native GitHub alert settings and alert inventories; retain transparent signing and approval statements. DevSkim/Bearer are historical-only, not current P0 scans.
+1. **Maintain P0 evidence**: native GitHub security settings and alert inventories were owner-confirmed on 2026-11-24; retain the time-bounded evidence and transparent signing/approval statements. DevSkim/Bearer remain historical-only, not current scans.
 2. **P1 checks are now implemented in advisory mode**: Markdown lint, YAML syntax validation, internal/offline link checking and actionlint all passed together in run 45309272770.
 3. **Retain advisory status initially**: gather repeatable results before considering any new required status checks; do not modify branch rules as part of this PR.
-4. **Close the P0 evidence gaps** before changing alert-status badges or claiming a clean platform alert inventory.
+4. **Refresh platform evidence only when warranted**; do not ask the owner to recheck unchanged alert inventories or claim a universal clean bill from point-in-time observations.
 5. **Reassess P2–P4 when repository scope changes**: do not implement controls whose prerequisites do not exist.
 
 ### Status-focused badge audit and implementation — 2026-11-24
@@ -106,18 +106,18 @@ This review prioritises the non-green and non-current badge states rather than r
 | Semgrep | Planned | Deferred: no maintained application source; generic workflow scanning would overlap CodeQL Actions and zizmor without a distinct validated ruleset | Add application source or identify a specific uncovered rule set |
 | DevSkim | Historical scan only | Retain historical-only status; no recurring current-main workflow exists | Reintroduce only with a scoped target, maintained rules and recurring CI |
 | Bearer | Historical scan only | Retain historical-only status; no application data-flow target exists | Add an application with meaningful data flows |
-| SBOM | Not generated | Deferred: no package manifest, software dependency inventory or built artifact for a useful SBOM | Introduce a distributable artifact or meaningful dependency graph |
+| GitHub Dependency Graph SBOM | Not generated | A native GitHub SPDX 2.3 export workflow is now implemented; first successful generation and artifact validation are pending. Scope is limited to dependencies represented in the GitHub Dependency Graph, not a complete filesystem or binary inventory | Successful workflow run with non-empty dependency relationships and valid SPDX output |
 | SLSA provenance | Not implemented | Deferred: signed Git commits are not build provenance; no artifact build pipeline exists | Introduce a build/release pipeline |
 | Artifact attestation | Not implemented | Deferred: no software artifact is currently produced for attestation | Produce a distributable artifact |
 | CODEOWNERS | Not configured | Deferred: a self-only ownership file would not create independent review or meaningful approval assurance | Add genuine maintainers/component owners |
 | Prettier | Not configured | Deferred: existing Markdown lint, YAML parsing and actionlint cover current quality needs; no demonstrated formatting gap justifies another toolchain | Repeated formatting drift or a supported source-code formatting need |
-| EditorConfig | Not verified | Implemented: root `.editorconfig` added; repository configuration workflow now validates required settings. Badge changes to configured/validated after CI passes | Keep verified through the configuration workflow |
+| EditorConfig | Not verified | Verified: root `.editorconfig` and required policy-key assertions passed in post-merge configuration run [45325182343](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45325182343) | Keep verified through the configuration workflow |
 | SonarQube | Not configured | Not applicable: no maintained application source or build target | Add meaningful source code and an analysis scope |
 | Maintainability metric | Not measured | Not applicable: no application codebase for a meaningful code maintainability metric | Add maintained application source |
 | Test coverage | Not measured | Not applicable: no application test target or coverage instrumentation | Add application tests and coverage instrumentation |
 | Automated application tests | No application test suite | Retain explicit wording: configuration and workflow CI checks exist, but they are not application tests | Add a maintained application runtime/test suite |
 
-**Interpretation:** “deferred” is an active scope decision, not an implemented control. “Not applicable” is not a green security result. Historical scanner passes are not current coverage. No artificial package, build artifact, source code, test suite, fuzzer or reviewer has been created to improve badge counts.
+**Interpretation:** “deferred” is an active scope decision, not an implemented control. “Not applicable” is not a green security result. Historical scanner passes are not current coverage. The new SBOM workflow is pending first-run output validation and must not be described as a complete software inventory. No artificial package, build artifact, source code, test suite, fuzzer or reviewer has been created to improve badge counts.
 
 **Badge presentation:** all badge images in `README.md` and `SECURITY.md` are being resized to 150% of their previous rendered height. For Shields.io `for-the-badge` images, the target height is 42 px; for standard/flat-square and GitHub workflow badges, it is 30 px. Image scaling enlarges the embedded badge text proportionally. This is a presentation change only and does not change the underlying control status.
 
@@ -324,4 +324,4 @@ Packaging and Signed-Releases at -1 are applicability results, not security fail
 
 **Permission review:** Scorecard identifies `contents: write` in `.github/workflows/repository-controller.yml` and `.github/workflows/signed-publish.yml`. Inspection confirms these jobs create and push signed attestation/publication branches and open pull requests. The write permissions are scoped to those jobs; top-level workflow permissions remain empty. No narrower permission can support those operations, so retain the current job-level permissions and continue auditing the scripts and target validation.
 
-**Current badge count after native-setting confirmation and EditorConfig implementation:** 55 displayed entries — 2 live workflow badges, 34 configured/published controls, 2 unverified/not-enforced badges, and 17 deferred/planned/unconfigured/unmeasured/not-applicable badges. The Secret Scanning and Dependabot Alerts badges now say “Enabled (owner-confirmed)” rather than “Platform status unverified”; the evidence source is explicitly disclosed in the badge text and this roadmap.
+**Historical badge count after native-setting confirmation and EditorConfig implementation (before SBOM workflow):** 55 displayed entries — 2 live workflow badges, 34 configured/published controls, 2 unverified/not-enforced badges, and 17 deferred/planned/unconfigured/unmeasured/not-applicable badges. The Secret Scanning and Dependabot Alerts badges now say “Enabled (owner-confirmed)” rather than “Platform status unverified”; the evidence source is explicitly disclosed in the badge text and this roadmap.

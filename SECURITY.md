@@ -11,7 +11,7 @@
 
 > **Evidence-first status:** live workflow badges report GitHub Actions workflow state. Descriptive badges identify configured controls; they do not claim that every scan is clean or that no vulnerabilities exist. Deferred, historical-only, unverified and not-applicable controls are explicitly labelled below.
 >
-> **Implementation tracking:** the dashboard contains 55 displayed badge entries: 2 live workflow badges, 34 configured/published controls, 2 unverified/not-enforced badges and 17 deferred/planned/unconfigured/unmeasured/not-applicable badges. See the [Security Badge Implementation Roadmap](./docs/SECURITY-BADGE-ROADMAP.md) for the evidence-backed inventory, priorities, applicability decisions and verification criteria.
+> **Implementation tracking:** the dashboard contains 55 displayed badge entries: 3 live workflow badges, 34 configured/published controls, 2 unverified/not-enforced badges and 16 deferred/planned/unconfigured/unmeasured/not-applicable badges. See the [Security Badge Implementation Roadmap](./docs/SECURITY-BADGE-ROADMAP.md) for the evidence-backed inventory, priorities, applicability decisions and verification criteria.
 
 ## 1. Security scanning & detection
 
@@ -28,8 +28,8 @@
 <a href="https://semgrep.dev/"><img src="https://img.shields.io/badge/SAST-Semgrep%20deferred%20(no%20application%20source)-lightgrey?style=flat-square" alt="Semgrep" height="30" /></a>
 <a href="https://github.com/microsoft/DevSkim"><img src="https://img.shields.io/badge/Secure%20Development-DevSkim%20historical%20scan%20only-lightgrey?style=flat-square" alt="DevSkim" height="30" /></a>
 <a href="https://docs.bearer.com/"><img src="https://img.shields.io/badge/Data%20Security-Bearer%20historical%20scan%20only-lightgrey?style=flat-square" alt="Bearer" height="30" /></a>
-[<img src="https://img.shields.io/badge/GitHub%20Secret%20Scanning-Enabled%20(owner--confirmed" alt="GitHub Secret Scanning" height="30" />-2ea44f?style=flat-square&logo=github)](https://github.com/ErTapanJatakia/ErTapanJatakia/settings/security_analysis)
-[<img src="https://img.shields.io/badge/Dependabot%20Alerts-Enabled%20(owner--confirmed" alt="Dependabot Alerts" height="30" />-2ea44f?style=flat-square&logo=dependabot)](https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot)
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/security_analysis"><img src="https://img.shields.io/badge/GitHub%20Secret%20Scanning-Enabled%20%28owner--confirmed%29-2ea44f?style=flat-square&logo=github" alt="GitHub Secret Scanning" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot"><img src="https://img.shields.io/badge/Dependabot%20Alerts-Enabled%20%28owner--confirmed%29-2ea44f?style=flat-square&logo=dependabot" alt="Dependabot Alerts" height="30" /></a>
 <a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Python%20SAST-Bandit%20not%20applicable-lightgrey?style=flat-square" alt="Bandit" height="30" /></a>
 <a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Node%20Dependency%20Audit-npm%20audit%20not%20applicable-lightgrey?style=flat-square&logo=npm" alt="npm audit" height="30" /></a>
 <a href="#scope-and-applicability"><img src="https://img.shields.io/badge/DAST-OWASP%20ZAP%20not%20applicable-lightgrey?style=flat-square&logo=owasp" alt="OWASP ZAP" height="30" /></a>
@@ -41,7 +41,7 @@
 <a href="./.github/workflows/gpg-signing-verification.yml"><img src="https://img.shields.io/badge/GPG%20Signing-GPG%20verification%20workflow%20configured-2ea44f?style=flat-square&logo=gnupg" alt="GPG Verification" height="30" /></a>
 <a href="./.github/workflows/signed-publish.yml"><img src="https://img.shields.io/badge/Publishing-Signed%20publisher%20workflow%20configured-2ea44f?style=flat-square" alt="Signed Publisher" height="30" /></a>
 <a href="#governance-transparency"><img src="https://img.shields.io/badge/All%20Commits-Signing%20not%20enforced-yellow?style=flat-square&logo=gnupg" alt="Signed Commits" height="30" /></a>
-<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/SBOM-Deferred%20(no%20package%20or%20artifact%20inventory)-lightgrey?style=flat-square" alt="SBOM" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/repository-dependency-sbom.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/repository-dependency-sbom.yml/badge.svg?branch=main" alt="Repository dependency-graph SPDX SBOM export" height="30" /></a>
 <a href="#scope-and-applicability"><img src="https://img.shields.io/badge/SLSA%20Provenance-Deferred%20(no%20build%20artifacts)-lightgrey?style=flat-square" alt="SLSA Provenance" height="30" /></a>
 <a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Artifact%20Attestation-Deferred%20(no%20built%20artifact)-lightgrey?style=flat-square" alt="Artifact Attestation" height="30" /></a>
 <a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Signed%20Releases-Not%20applicable-lightgrey?style=flat-square" alt="Signed Releases" height="30" /></a>
@@ -102,7 +102,7 @@ Accordingly:
 
 - **Relevant now:** secret scanning, workflow security auditing, Scorecard, Actions static analysis, dependency-update configuration, branch governance, signed-commit workflow validation, Markdown/YAML/workflow linting, and link checking.
 - **Owner-confirmed platform controls (2026-11-24):** GitHub Secret Scanning and Dependabot alerts are enabled. The owner also observed no open Malware alerts, no open Dependabot alerts, and no auto-dismissed Dependabot alerts at that time. These are time-bounded UI observations, not an assertion that alerts never existed or that every dependency is vulnerability-free. Code Scanning findings and the published Scorecard report remain separate evidence sources.
-- **Not currently evidenced:** SBOM generation, SLSA build provenance, artifact attestations, signed software releases, application test coverage, and runtime DAST. These must not be represented as implemented.
+- **Supply-chain scope:** an SPDX SBOM export workflow now targets GitHub's Dependency Graph. Its first successful generation and artifact validation are pending; it inventories only dependencies represented in that graph, not every file, container or binary. SLSA build provenance, artifact attestations and signed software releases remain deferred because no software build/release artifacts are produced. Application test coverage and runtime DAST remain not applicable.
 - **Not automatically useful:** language-specific scanners such as Bandit or npm audit unless corresponding Python or Node.js application/dependency manifests are introduced.
 
 ## 7. Verification record
