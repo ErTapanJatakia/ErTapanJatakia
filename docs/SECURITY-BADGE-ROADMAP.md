@@ -23,7 +23,7 @@ A direct count of Markdown badge elements in `SECURITY.md` at the baseline commi
 
 The count is of rendered badge entries, not unique products, scanners, or independent controls. For example, CodeQL, zizmor, branch protection and security policy are represented more than once.
 
-**Current dashboard after P1 implementation, historical-scanner reconciliation and EditorConfig implementation:** 55 entries remain: 3 live workflow badges, 35 configured/published controls, 2 unverified/not-enforced badges, and 15 deferred/planned/unconfigured/unmeasured/not-applicable badges. Four P1 quality controls moved from planned to configured after successful advisory CI verification. The DevSkim and Bearer badges are now explicitly historical-only/not currently configured, moving those two entries out of the unverified group; this is a status correction, not a claim that their historical findings were all resolved.
+**Current dashboard after P1 implementation, historical-scanner reconciliation, EditorConfig and Prettier implementation:** 55 entries remain: 3 live workflow badges, 36 configured/published controls, 2 unverified/not-enforced badges, and 14 deferred/planned/unconfigured/unmeasured/not-applicable badges. The four P1 quality controls moved from planned to configured after successful advisory CI verification. Prettier is now configured as an additional advisory check for maintained GitHub YAML/JSON configuration. The DevSkim and Bearer badges are explicitly historical-only/not currently configured; this is a status correction, not a claim that their historical findings were all resolved.
 
 ## Priority roadmap
 
@@ -81,7 +81,7 @@ No artificial package, release, build artifact, or provenance workflow should be
 
 | Work item | Current status | Applicability decision |
 |---|---|---|
-| Prettier | **Deferred / no demonstrated gap** | Existing Markdown lint, YAML parsing and actionlint provide format/syntax assurance. Avoid introducing a package/toolchain solely for a badge; reconsider if formatting drift becomes a real maintenance issue |
+| Prettier | **Configured — repository configuration formatting check** | Exact Prettier version 3.6.2 checks `.github/workflows/*.yml`, `.github/dependabot.yml` and `.prettierrc.json` in advisory QA. This is configuration-format enforcement, not application-source formatting |
 | EditorConfig | **Verified** | Root `.editorconfig` defines UTF-8, LF, final newlines, two-space indentation and Markdown trailing-space preservation. The repository configuration validation passed after adding explicit assertions for these settings in post-merge run [45325182343](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45325182343) on commit `0967983192f472845d0e95c06774a41138f85a02`. Keep verified through the configuration workflow |
 | SonarQube | **Not applicable** | No maintained application source or build target exists. Reassess only if the repository gains meaningful source code and a supported analysis scope |
 | Maintainability metric | **Not applicable** | No maintained application code exists for a meaningful code maintainability metric. Keep this distinct from documentation quality checks |
@@ -110,7 +110,7 @@ This review prioritises the non-green and non-current badge states rather than r
 | SLSA provenance | Not implemented | Deferred: signed Git commits are not build provenance; no artifact build pipeline exists | Introduce a build/release pipeline |
 | Artifact attestation | **Verified — SBOM JSON and checksum only** | Provenance attestations are generated and verified for the actual SPDX JSON and companion SHA-256 checksum. No software binary or release artifact is produced, so software-build attestation remains out of scope | Reassess if a distributable software artifact is introduced |
 | CODEOWNERS | Not configured | Deferred: a self-only ownership file would not create independent review or meaningful approval assurance | Add genuine maintainers/component owners |
-| Prettier | Not configured | Deferred: existing Markdown lint, YAML parsing and actionlint cover current quality needs; no demonstrated formatting gap justifies another toolchain | Repeated formatting drift or a supported source-code formatting need |
+| Prettier | Not configured | Implemented: explicit `.prettierrc.json` and a recurring advisory QA job run Prettier 3.6.2 against maintained GitHub YAML/JSON configuration. The first successful PR check is recorded in [run 45337456552](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45337456552); post-merge evidence will be added after merge | Keep the pinned version current and retain successful QA runs |
 | EditorConfig | Not verified | Verified: root `.editorconfig` and required policy-key assertions passed in post-merge configuration run [45325182343](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45325182343) | Keep verified through the configuration workflow |
 | SonarQube | Not configured | Not applicable: no maintained application source or build target | Add meaningful source code and an analysis scope |
 | Maintainability metric | Not measured | Not applicable: no application codebase for a meaningful code maintainability metric | Add maintained application source |
