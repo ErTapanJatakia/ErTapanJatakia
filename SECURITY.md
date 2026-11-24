@@ -11,7 +11,7 @@
 
 > **Evidence-first status:** live workflow badges report GitHub Actions workflow state. Descriptive badges identify configured controls; they do not claim that every scan is clean or that no vulnerabilities exist. Deferred, historical-only, unverified and not-applicable controls are explicitly labelled below.
 >
-> **Implementation tracking:** the dashboard contains 55 displayed badge entries: 3 live workflow badges, 36 configured/published controls, 2 unverified/not-enforced badges and 14 deferred/planned/unconfigured/unmeasured/not-applicable badges. See the [Security Badge Implementation Roadmap](./docs/SECURITY-BADGE-ROADMAP.md) for the evidence-backed inventory, priorities, applicability decisions and verification criteria.
+> **Implementation tracking:** the dashboard contains 55 displayed badge entries: 3 live workflow badges, 37 configured/published controls, 2 unverified/not-enforced badges and 13 deferred/planned/unconfigured/unmeasured/not-applicable badges. See the [Security Badge Implementation Roadmap](./docs/SECURITY-BADGE-ROADMAP.md) for the evidence-backed inventory, priorities, applicability decisions and verification criteria.
 
 ## 1. Security scanning & detection
 
@@ -82,7 +82,7 @@ The active default-branch ruleset requires pull requests and the named security 
 <a href="https://www.sonarsource.com/products/sonarqube/"><img src="https://img.shields.io/badge/Quality%20Gate-SonarQube%20not%20applicable%20(no%20application%20source)-lightgrey?style=flat-square&logo=sonarqube" alt="SonarQube" height="30" /></a>
 <a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Maintainability-Not%20applicable%20(no%20application%20source)-lightgrey?style=flat-square" alt="Maintainability" height="30" /></a>
 <a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Test%20Coverage-Not%20applicable%20(no%20application%20test%20target)-lightgrey?style=flat-square" alt="Test Coverage" height="30" /></a>
-<a href="#scope-and-applicability"><img src="https://img.shields.io/badge/Automated%20Tests-No%20application%20test%20suite-lightgrey?style=flat-square" alt="Automated Tests" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/repository-quality-assurance.yml"><img src="https://img.shields.io/badge/Repository%20QA-Five%20advisory%20CI%20checks%20configured-2ea44f?style=flat-square" alt="Repository QA: five advisory CI checks; not an application test suite" height="30" /></a>
 
 ## 5. Policy, disclosure & transparency
 
