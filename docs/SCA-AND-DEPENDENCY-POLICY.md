@@ -10,7 +10,7 @@ This policy applies to dependencies represented by the Dependency Graph, GitHub 
 
 - Prefer maintained upstream projects and official actions.
 - Pin GitHub Actions to full commit SHAs; include a human-readable version comment.
-- Use Dependabot for scheduled GitHub Actions update proposals.
+- Use GitHub Actions' native `uses:` dependency mechanism for workflow actions and Dependabot's standardized `github-actions` ecosystem to discover and propose updates weekly. Keep external Actions pinned to full commit SHAs and retain the readable upstream version comment. The controlled release pipeline uses this same native mechanism for `actions/checkout` and `actions/attest`; the release itself packages the Git tree and does not resolve application packages.
 - Review the source repository, maintainer activity, license, release history, provenance and known security advisories before introducing a new dependency.
 - Do not add a package, lockfile, container or runtime merely to create a scanner target or badge.
 - Do not introduce dependencies with unknown or incompatible licensing without review.
