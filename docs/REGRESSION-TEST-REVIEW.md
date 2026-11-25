@@ -23,7 +23,7 @@ Reviewed merged pull requests with explicit bug-fix intent in the available repo
 
 ## Result
 
-Five of the nine identified bug-fix pull requests (55.56%) now have automated regression coverage. The SBOM response/document validation and local composite-action path checks run in the repository QA/configuration workflows. The Ruby regression suite is included in the measured 80% statement- and branch-coverage gate.
+Five of the nine identified bug-fix pull requests (55.56%) now have automated regression coverage. The SBOM response/document validation and local composite-action path checks run in the repository QA/configuration workflows. PR #68 QA run [45560738278](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45560738278) passed all 63 Ruby regression tests (143 assertions); the four-utility suite measured 88.00% statement coverage and 87.13% branch coverage, above the 80% Silver gates. The separate GitHub Actions static-analysis check had a ShellCheck warning in the newly added network-policy validation step; that issue is being corrected and does not change the successful Ruby regression result.
 
 The four remaining items are tracked above as test-coverage gaps. Add tests when those areas are materially changed again; do not claim that the historic fixes had tests at the time they were merged.
 
