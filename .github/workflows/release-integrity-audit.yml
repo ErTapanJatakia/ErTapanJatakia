@@ -168,7 +168,7 @@ jobs:
           {
             echo "## Release integrity audit passed"
             echo
-            echo "- Release: `$TAG`"
+            echo "- Release: $TAG"
             echo "- GitHub artifact attestations: verified for archive, checksum manifest and release manifest"
             echo "- SHA-256 checksums and manifest identity: verified"
             echo "- Archive path and entry-type validation: passed"
