@@ -29,7 +29,7 @@ This inventory documents the external software interfaces used by the released r
 
 ## 3. Network transport and certificate verification
 
-- Maintained curl calls to GitHub APIs, GitHub release downloads and temporary SBOM downloads explicitly use HTTPS-only protocol selection and require TLS 1.2 or later.
+- Maintained curl calls to GitHub APIs, GitHub release downloads and temporary SBOM downloads explicitly use HTTPS-only protocol selection, require TLS 1.2 or later, and restrict redirects to HTTPS.
 - curl/libcurl peer and hostname certificate verification remains enabled; no insecure option is used.
 - Git and GitHub CLI use their standard TLS-capable clients with certificate verification enabled by default. The project does not configure certificate verification bypasses.
 - npm/npx uses the standard Node.js TLS client and default certificate verification; no strict-ssl=false setting is configured.
