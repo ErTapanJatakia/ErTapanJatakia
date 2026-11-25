@@ -12,9 +12,9 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 26 |
+| Met | 27 |
 | Partial | 3 |
-| Unmet | 4 |
+| Unmet | 3 |
 | Not applicable (N/A) | 16 |
 | Unverified | 6 |
 | **Total** | **55** |
@@ -84,7 +84,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | `interfaces_current` | Avoid deprecated APIs where alternatives exist (should) | **Unverified** | A systematic audit for deprecated/obsolete APIs across all maintained workflow and Ruby interfaces was not evidenced. |
 | `automated_integration_testing` | Run automated tests on every shared-repository check-in | **Met** | Repository QA runs on every pull request and every push to main and reports check outcomes. |
 | `regression_tests_added50` | Add regression tests for at least 50% of recent bugs | **Unverified** | The number of bugs fixed in the preceding six months and the proportion with regression tests were not audited. |
-| `test_statement_coverage80` | Achieve at least 80% statement coverage | **Unmet** | No FLOSS coverage report demonstrating at least 80% statement coverage exists; the repository explicitly does not claim application code coverage. |
+| `test_statement_coverage80` | Achieve at least 80% statement coverage | **Met** | The Ruby standard-library Coverage tool measures executable source lines in both maintained Ruby validators. The CI gate requires at least 80% statement coverage and 80% branch coverage. PR #68 run [45559085834](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45559085834) passed with 107/124 statements (86.29%) and 64/74 branches (86.49%); 43 tests and 82 assertions passed. This is coverage of the two maintained validators, not an application-wide coverage claim. |
 | `test_policy_mandated` | Formally require tests for major new functionality | **Met** | REPOSITORY-QA-POLICY.md is a formal written policy requiring tests for major changes where meaningful test targets exist. |
 | `tests_documented_added` | Document test-addition policy (suggested) | **Met** | CONTRIBUTING.md and REPOSITORY-QA-POLICY.md communicate the test-addition policy to change proposers. |
 | `warnings_strict` | Use maximally strict warnings where practical | **Met** | The repository applies strict formatting/lint/workflow checks in CI. |
