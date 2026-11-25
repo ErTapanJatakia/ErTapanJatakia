@@ -16,7 +16,7 @@ COVERED_SOURCE_FILES = %w[
   scripts/validate-network-transport.rb
 ].map { |path| File.expand_path(path, ROOT) }.freeze
 MINIMUM_BRANCH_COVERAGE = 80.0
-MINIMUM_STATEMENT_COVERAGE = 80.0
+MINIMUM_STATEMENT_COVERAGE = 90.0
 
 Coverage.start(:all)
 
