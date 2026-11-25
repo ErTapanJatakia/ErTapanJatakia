@@ -116,9 +116,11 @@ jobs:
           required_checks=(
             "Gitleaks secret detection"
             "zizmor GitHub Actions audit"
-            "Analyze (actions)"
-            "SAST policy gate"
+            "Validate repository configuration"
+            "Ruby validator, VEX and branch-coverage validation"
             "Dependabot alert gate"
+            "SAST policy gate"
+            "Dependency Review"
           )
           for check_name in "${required_checks[@]}"; do
             record="$(jq -c --arg name "$check_name" '
@@ -143,7 +145,7 @@ jobs:
           echo "The workflow dispatch inputs separately attest that the owner reviewed the Malware alerts interface and license inventory."
 
       - name: Configure personal GPG signing
-        uses: $/.github/actions/setup-personal-gpg
+        uses: ./.github/actions/setup-personal-gpg
         with:
           private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
@@ -250,6 +252,37 @@ jobs:
             echo "signature=$signature"
           } >> "$GITHUB_OUTPUT"
 
+      - name: Validate archive structure and scan release payload
+        env:
+          ARCHIVE: ${{ steps.package.outputs.archive }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - "$ARCHIVE" <<'PY'
+          import pathlib
+          import sys
+          import tarfile
+
+          with tarfile.open(pathlib.Path(sys.argv[1]), "r:gz") as tf:
+              members = tf.getmembers()
+              if not members:
+                  raise SystemExit("Release archive is empty")
+              for member in members:
+                  path = pathlib.PurePosixPath(member.name)
+                  if path.is_absolute() or ".." in path.parts:
+                      raise SystemExit(f"Unsafe archive path: {member.name}")
+                  if member.issym() or member.islnk():
+                      target = pathlib.PurePosixPath(member.linkname)
+                      if target.is_absolute() or ".." in target.parts:
+                          raise SystemExit(f"Unsafe archive link: {member.name} -> {member.linkname}")
+                  if not (member.isfile() or member.isdir() or member.issym() or member.islnk()):
+                      raise SystemExit(f"Unsupported archive entry: {member.name}")
+              print(f"Archive structure validated: {len(members)} entries")
+          PY
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y clamav clamav-freshclam
+          sudo freshclam
+          clamscan --infected --no-summary "$ARCHIVE"
       - name: Generate GitHub artifact attestations
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
         with:
