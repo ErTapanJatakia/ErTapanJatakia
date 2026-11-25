@@ -1,7 +1,7 @@
 # Network Transport and Certificate Verification Review
 
 **Review date:** 2026-11-25  
-**Scope:** Network calls made by repository-maintained automation and source/configuration tooling. All four maintained Ruby utilities (VEX, DCO, SPDX SBOM and SBOM response classification) operate on local inputs and do not make network requests.
+**Scope:** Network calls made by repository-maintained automation and source/configuration tooling. All five maintained Ruby utilities (VEX, DCO, SPDX SBOM, SBOM response classification and network transport validation) operate on local inputs and do not make network requests.
 
 ## Network interface inventory
 
@@ -20,7 +20,7 @@
 - curl's default peer and hostname verification is retained.
 - Git, GitHub CLI and Node.js use their standard TLS implementations and certificate-verification defaults; the repository does not disable those checks.
 - Private authorization headers are sent only through the established TLS/HTTPS client path; the TLS handshake and certificate verification occur before HTTP request headers are transmitted.
-- The workflow configuration validation checks that every maintained curl invocation retains HTTPS-only/TLS 1.2 options and rejects known certificate-verification bypass settings.
+- The Ruby network transport validator checks that every maintained curl invocation retains HTTPS-only/TLS 1.2 options, restricts redirects to HTTPS and rejects known certificate-verification bypass settings.
 - The SBOM workflow additionally validates the downloaded SPDX document and checks its checksum; the actionlint archive is checked against a pinned SHA-256 digest.
 - GitVerse uses SSH with strict host-key checking rather than TLS.
 
