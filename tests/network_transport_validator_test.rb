@@ -87,21 +87,10 @@ class NetworkTransportValidatorTest < Minitest::Test
         "curl --proto '=https' --tlsv1.2 https://example.test\\n"
       )
       script = File.expand_path("../scripts/validate-network-transport.rb", __dir__)
-      original_program_name = $PROGRAM_NAME
-      original_argv = ARGV.dup
-      begin
-        $PROGRAM_NAME = script
-        ARGV.replace([directory])
-        output, error = capture_io do
-          success = assert_raises(SystemExit) { load script }
-          assert_equal 0, success.status
-        end
-        assert_includes output, "Validated 1 curl request"
-        assert_empty error
-      ensure
-        $PROGRAM_NAME = original_program_name
-        ARGV.replace(original_argv)
-      end
+      output, error, status = Open3.capture3("ruby", script, directory)
+      assert status.success?, error
+      assert_includes output, "Validated 1 curl request"
+      assert_empty error
     end
   end
 
