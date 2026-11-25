@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
+# Copyright (C) 2026 Er. Tapan Jatakia
+# SPDX-License-Identifier: GPL-3.0-only
 
 module NetworkTransportValidator
   module_function
