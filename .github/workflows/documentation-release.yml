@@ -281,6 +281,7 @@ jobs:
           PY
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y clamav clamav-freshclam
+          sudo systemctl stop clamav-freshclam || true
           sudo freshclam
           clamscan --infected --no-summary "$ARCHIVE"
       - name: Generate GitHub artifact attestations
@@ -290,6 +291,16 @@ jobs:
             ${{ steps.package.outputs.archive }}
             ${{ steps.package.outputs.manifest }}
             ${{ steps.package.outputs.checksums }}
+
+      - name: Require patched GitHub CLI for attestation verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(gh version | head -n1 | awk '{print $3}')"
+          if ! dpkg --compare-versions "$version" ge "2.102.0"; then
+            echo "::error::GitHub CLI 2.102.0 or newer is required for exact signer-workflow verification. Found: $version"
+            exit 1
+          fi
 
       - name: Verify release artifact attestations
         env:
