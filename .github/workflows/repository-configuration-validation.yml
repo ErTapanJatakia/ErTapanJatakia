@@ -87,7 +87,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl_count="$(grep -RhoE --exclude=repository-configuration-validation.yml '^[[:space:]]*curl[[:space:]]|\\$\\([[:space:]]*curl[[:space:]]' .github/workflows | wc -l)"
+          curl_count="$(grep -RhoE --exclude=repository-configuration-validation.yml 'curl[[:space:]]+--' .github/workflows | wc -l)"
           tls_count="$(grep -Rho --exclude=repository-configuration-validation.yml -- '--tlsv1.2' .github/workflows | wc -l)"
           https_count="$(grep -Rho --exclude=repository-configuration-validation.yml -- "--proto '=https'" .github/workflows | wc -l)"
           redirect_count="$(grep -Rho --exclude=repository-configuration-validation.yml -- "--location" .github/workflows | wc -l)"
