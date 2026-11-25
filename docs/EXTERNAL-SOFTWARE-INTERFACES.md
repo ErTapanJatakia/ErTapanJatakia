@@ -22,7 +22,8 @@ This inventory documents the external software interfaces used by the released r
 | DCO range validator command-line interface | Requires `BASE_SHA` and `HEAD_SHA`; enumerates the Git commit range and checks exact author/committer sign-off trailers; emits findings and exits 0 or 1 | Git history, environment variables and Git subprocess output; no network calls or credentials | `scripts/validate-dco.rb`; regression tests in `tests/dco_validator_test.rb` |
 | SPDX SBOM validator CLI | Validates direct or API-wrapped SPDX 2.3 JSON documents, package/relationship arrays and dependency relationship counts; fails closed on malformed input | Local JSON file; no network calls or credentials | `scripts/validate-sbom.rb`; `tests/sbom_validator_test.rb` |
 | SBOM polling-response classifier CLI | Classifies HTTP 302 as ready, 202 as pending and all other response codes as unexpected | HTTP status string supplied by the workflow; no network calls or credentials | `scripts/classify-sbom-response.rb`; `tests/sbom_validator_test.rb` |
-| Ruby interpreter, standard library Coverage and Minitest | Executes all four Ruby utility regression suites and measures statement and branch coverage | Local source/test files and runtime counters; no network calls or credentials | `scripts/check-branch-coverage.rb`, `tests/*.rb` |
+| Network transport policy validator CLI | Inspects maintained GitHub Actions workflow commands and rejects curl requests without HTTPS/TLS 1.2+, unsafe redirects or known certificate-verification bypasses | Local workflow YAML files; no network calls or credentials | `scripts/validate-network-transport.rb`; `tests/network_transport_validator_test.rb` |
+| Ruby interpreter, standard library Coverage and Minitest | Executes all five Ruby utility regression suites and measures statement and branch coverage | Local source/test files and runtime counters; no network calls or credentials | `scripts/check-branch-coverage.rb`, `tests/*.rb` |
 | OpenPGP/GnuPG interface | Signs and verifies release tags and checksum files | OpenPGP key material, signature and digest; private key/passphrase supplied through protected Actions secrets | `.github/actions/setup-personal-gpg` and controlled release workflows |
 | GitVerse SSH Git endpoint | Receives the protected main branch and tags as a secondary mirror | Git refs and objects over SSH; dedicated private key and pinned host key | `mirror-gitverse.yml` |
 | Public external profile/resource links | Readers navigate from README badges and profile links to external websites | HTTPS URLs and ordinary browser navigation; no credentials are sent by repository automation | `README.md` and referenced badge/image URLs |
@@ -47,7 +48,7 @@ See [Network Transport and Certificate Verification Review](NETWORK-CRYPTOGRAPHY
 - Release attestations are scoped to the exact archive, manifest and checksum file digests.
 - GitVerse receives a mirror of Git history; it is not authoritative and no force-push is used.
 - Security reports are intended to be private. Public issues, PRs and README links are not vulnerability-reporting channels.
-- The four Ruby command-line utilities are local repository-maintenance tools, not public network APIs or end-user application interfaces.
+- The five Ruby command-line utilities are local repository-maintenance tools, not public network APIs or end-user application interfaces.
 - The VEX validator fails closed on malformed, expired, placeholder or mismatched exception evidence; the DCO validator fails closed when commit metadata or sign-off evidence is unavailable.
 - No external application API is exposed by the repository itself.
 
