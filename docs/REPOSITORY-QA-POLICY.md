@@ -30,7 +30,7 @@ The security-analysis, CodeQL default setup, Scorecard and dependency-analysis w
 | Ruby validator branch coverage | Ruby standard-library Coverage measures executed branch paths across all five maintained Ruby utilities; CI requires at least 80% | Included in `ruby scripts/check-branch-coverage.rb` |
 | Ruby validator statement coverage | Ruby standard-library Coverage measures executable source lines across all five maintained Ruby utilities; CI requires at least 80% statement coverage | Included in `ruby scripts/check-branch-coverage.rb` |
 | Network transport policy validation | Checks every maintained curl command for HTTPS, TLS 1.2+, HTTPS-only redirects and rejects known certificate-verification bypass settings | `ruby scripts/validate-network-transport.rb .github/workflows` |
-| DCO commit validation | Checks every commit in the pull-request range for an exact sign-off matching its author or committer identity | `BASE_SHA=<base> HEAD_SHA=<head> ruby scripts/validate-dco.rb` |
+| DCO commit validation utility | Optional manual diagnostic; it is not invoked as a required pull-request or merge gate | `BASE_SHA=<base> HEAD_SHA=<head> ruby scripts/validate-dco.rb` |
 
 CI is authoritative for the exact pinned action versions and command lines. If a local tool version differs, use the workflow definition as the source of truth.
 
@@ -46,14 +46,14 @@ A major change is any change that materially alters:
 
 For major changes, contributors must add or update automated checks that exercise the changed behavior where a meaningful test target exists. The pull request must run the relevant YAML, actionlint, Markdown, link, formatting, VEX-validation and targeted regression checks. Workflow behavior changes must include safe validation of input constraints and permission scope. Security-policy changes must include validation of machine-readable policy files where possible.
 
-The `Major change validation` job is an active required main-branch status check. On every pull request it fails closed unless the VEX regression test suite succeeds and the DCO validator succeeds within the same required job. The DCO sign-off check is activated when the pull request's base branch already contains the root `DCO` policy; the one-time policy-adoption pull request and pre-policy history are grandfathered. From the first commit based on the merged policy, every commit in a pull request must carry an exact `Signed-off-by` trailer matching its author or committer identity. For changes to major/security-sensitive paths, it additionally requires Markdown lint, YAML validation, link validation, actionlint, Prettier and VEX validation to succeed. This makes an automated regression suite a pre-acceptance gate for every pull request, while preserving broader targeted validation for major changes.
+The `Major change validation` job is an active required main-branch status check. On every pull request it fails closed unless the VEX regression test suite succeeds. DCO sign-off is not required and the DCO range validator is not invoked by CI; the standalone validator remains available for optional manual diagnostics and regression testing. For changes to major/security-sensitive paths, the job additionally requires Markdown lint, YAML validation, link validation, actionlint, Prettier and VEX validation to succeed. This makes the automated regression suite a pre-acceptance gate for every pull request, while preserving broader targeted validation for major changes.
 
 The Ruby validators are maintained executable code, so changes to them require targeted positive/negative regression tests and must preserve both the 80% minimum branch-coverage gate and 80% minimum statement-coverage gate. The repository still has no end-user application, application runtime or application-level coverage claim. If an application or additional executable component is introduced, its author must add suitable unit/integration tests and document their local and CI execution before that code is treated as production-ready.
 
 ## 5. Pull request acceptance
 
 - All applicable required checks must pass before merge.
-- Every pull request must pass the required Major change validation gate, including the automated regression test suite and DCO validation.
+- Every pull request must pass the required Major change validation gate, including the automated regression test suite; no DCO sign-off is required.
 - Advisory checks must be reviewed and any failure disposition documented.
 - Security-sensitive workflow changes must be reviewed for least privilege, pinned actions, untrusted input handling and secret exposure.
 - A check must not be disabled, weakened or bypassed merely to make a pull request green.
