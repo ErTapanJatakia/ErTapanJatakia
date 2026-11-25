@@ -56,6 +56,20 @@ class DcoValidatorTest < Minitest::Test
     end
   end
 
+  def test_rejects_unavailable_commit_range
+    error = assert_raises(RuntimeError) do
+      DcoValidator.validate_range("not-a-real-base", "not-a-real-head")
+    end
+    assert_equal "Unable to enumerate pull-request commits", error.message
+  end
+
+  def test_rejects_empty_commit_range
+    with_git_repository do |base_sha|
+      error = assert_raises(RuntimeError) { DcoValidator.validate_range(base_sha, base_sha) }
+      assert_equal "No commits found in the pull-request range", error.message
+    end
+  end
+
   private
 
   def with_git_repository

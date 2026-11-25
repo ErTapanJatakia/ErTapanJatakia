@@ -18,7 +18,9 @@ This inventory documents the external software interfaces used by the released r
 | GitHub Marketplace Actions | Workflows invoke external actions for checkout, linting, dependency review, attestation, artifact upload and security analysis | Action inputs/outputs and runner environment; each external Action is pinned to a full commit SHA | Workflow `uses:` declarations and `DEPENDENCY-LICENSE-REGISTER.md` |
 | npm package registry via npm/npx | QA jobs obtain pinned Markdown lint and Prettier command-line packages | Package names and exact versions; public package registry HTTPS | `repository-quality-assurance.yml` and local QA instructions |
 | actionlint release distribution | QA workflow downloads the versioned actionlint archive | HTTPS archive and a pinned SHA-256 digest checked before extraction | `repository-quality-assurance.yml` |
-| Ruby interpreter and standard library | Executes VEX/DCO validators and regression tests | Local files, environment variables, Git subprocess output and exit codes; no network API | `scripts/validate-vex.rb`, `scripts/validate-dco.rb` and `tests/*.rb` |
+| VEX validator command-line interface | Reads the JSON exception register and referenced CycloneDX VEX documents; emits validation results and exits 0 on success or 1 on invalid/missing evidence | Local repository files; no network calls or credentials | `scripts/validate-vex.rb`; regression tests in `tests/vex_validator_test.rb` |
+| DCO range validator command-line interface | Requires `BASE_SHA` and `HEAD_SHA`; enumerates the Git commit range and checks exact author/committer sign-off trailers; emits findings and exits 0 or 1 | Git history, environment variables and Git subprocess output; no network calls or credentials | `scripts/validate-dco.rb`; regression tests in `tests/dco_validator_test.rb` |
+| Ruby interpreter, standard library Coverage and Minitest | Executes both validators' regression tests and measures branch execution for the maintained Ruby scripts | Local source/test files and runtime counters; no network calls or credentials | `scripts/check-branch-coverage.rb`, `tests/*.rb` |
 | OpenPGP/GnuPG interface | Signs and verifies release tags and checksum files | OpenPGP key material, signature and digest; private key/passphrase supplied through protected Actions secrets | `.github/actions/setup-personal-gpg` and controlled release workflows |
 | GitVerse SSH Git endpoint | Receives the protected main branch and tags as a secondary mirror | Git refs and objects over SSH; dedicated private key and pinned host key | `mirror-gitverse.yml` |
 | Public external profile/resource links | Readers navigate from README badges and profile links to external websites | HTTPS URLs and ordinary browser navigation; no credentials are sent by repository automation | `README.md` and referenced badge/image URLs |
@@ -31,6 +33,8 @@ This inventory documents the external software interfaces used by the released r
 - Release attestations are scoped to the exact archive, manifest and checksum file digests.
 - GitVerse receives a mirror of Git history; it is not authoritative and no force-push is used.
 - Security reports are intended to be private. Public issues, PRs and README links are not vulnerability-reporting channels.
+- The two Ruby command-line interfaces are local repository-maintenance tools, not public network APIs or end-user application interfaces.
+- The VEX validator fails closed on malformed, expired, placeholder or mismatched exception evidence; the DCO validator fails closed when commit metadata or sign-off evidence is unavailable.
 - No external application API is exposed by the repository itself.
 
 ## 4. Interface maintenance

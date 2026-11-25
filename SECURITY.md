@@ -70,7 +70,7 @@ The active default-branch ruleset requires pull requests and the named security 
 
 ### Current automated analysis
 
-<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/security/code-scanning"><img src="https://img.shields.io/badge/CodeQL-Actions%20analysis%20configured-2ea44f?style=flat-square&logo=github" alt="CodeQL Actions" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/security/code-scanning"><img src="https://img.shields.io/badge/CodeQL-Ruby%20%2B%20Actions%20analysis%20configured-2ea44f?style=flat-square&logo=github" alt="CodeQL Ruby and Actions" height="30" /></a>
 <a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml"><img src="https://img.shields.io/badge/Workflow%20Security-zizmor%20audit%20configured-2ea44f?style=flat-square" alt="Workflow Audit" height="30" /></a>
 
 ### Quality gates — implemented (advisory)
@@ -129,12 +129,12 @@ Please include a concise impact description, affected file or workflow, safe rep
 
 The repository is maintained by an individual owner and is not a staffed security-response service. The following response targets apply to reports received through a monitored private channel:
 
-- **Initial acknowledgement:** within 5 business days of receipt.
-- **Initial triage and status:** within 10 business days of receipt, including whether the report is reproducible, needs more information, or is being investigated.
+- **Initial response:** within 7 calendar days of receipt and never later than 14 calendar days. The first response may acknowledge receipt, establish a private contact channel and provide an initial status; it need not contain a completed fix.
+- **Initial triage and status:** target within 10 business days of receipt, including whether the report is reproducible, needs more information, or is being investigated.
 - **Progress updates:** at least every 10 business days while an accepted report remains open, or sooner when a material change occurs.
 - **Missed target:** if circumstances prevent a target from being met, the owner will send a status update and a revised estimate rather than silently allowing the target to lapse.
 
-These are response and communication targets, not a guarantee that a fix will be delivered within a particular period. Remediation timing depends on severity, reproducibility, affected scope, available mitigation and the nature of the issue. There is no bug-bounty programme.
+The 7-calendar-day initial-response target is deliberately stricter than the OpenSSF Best Practices Passing criterion's 14-calendar-day maximum. It is a prospective policy commitment; it does not by itself prove that reports received during a historical six-month assessment window were answered within the target. These are response and communication targets, not a guarantee that a fix will be delivered within a particular period. Remediation timing depends on severity, reproducibility, affected scope, available mitigation and the nature of the issue. There is no bug-bounty programme.
 
 ## Coordinated disclosure and public advisories
 
@@ -161,6 +161,8 @@ Thank you for helping keep this repository and its visitors safe.
 The badge links to the project's public OpenSSF Best Practices profile and displays its published Baseline status. It is distinct from the repository's internal implementation assessments; consult the Level 1, Level 2 and Level 3 registers below for control-by-control evidence and applicability decisions. The badge alone does not represent independent certification or an audit.
 
 The repository's assessment registers are maintained in [Baseline Level 1](docs/OPENSSF-BASELINE-L1-IMPLEMENTATION.md), [Baseline Level 2](docs/OPENSSF-BASELINE-L2-IMPLEMENTATION.md) and [Baseline Level 3](docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md). PR [#38](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) introduced the governance/security policies and controlled documentation-release workflow. PR [#39](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/39) refreshed the dashboard and hardened the malware and SAST gates.
+
+The separate **OpenSSF Best Practices Badge** assessments are maintained in [Passing](docs/OPENSSF-BEST-PRACTICES-PASSING-IMPLEMENTATION.md), [Silver](docs/OPENSSF-BEST-PRACTICES-SILVER-IMPLEMENTATION.md) and [Gold](docs/OPENSSF-BEST-PRACTICES-GOLD-IMPLEMENTATION.md). These are internal evidence registers for the BadgeApp project profile, not OpenSSF OSPS Baseline assessments and not a claim that any Best Practices badge level has been awarded.
 
 ### PR #39 validation
 

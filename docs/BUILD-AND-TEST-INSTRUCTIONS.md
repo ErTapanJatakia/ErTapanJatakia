@@ -6,14 +6,14 @@ This repository contains a public profile README, documentation and policy recor
 
 There is therefore **no compilation or application build step**. The maintained Ruby utilities are interpreted directly by Ruby. The controlled release process creates a source-and-documentation archive using Git; it does not compile software or resolve application packages.
 
-These instructions describe how to reproduce the repository's validation and documentation-release preparation without implying that an application binary exists.
+These instructions describe how to reproduce the repository's validation and documentation-release preparation without implying that an application binary exists. The Ruby validators are small maintained command-line utilities and are tested as software components; their branch coverage is measured separately from any application-coverage claim.
 
 ## 2. Required toolchain
 
 | Tool | Purpose | Version / dependency handling |
 |---|---|---|
 | Git | Clone, inspect history, validate commits and create source archives | Current supported Git release |
-| Ruby | Run repository validators and regression tests | Ruby 3.x; validator scripts use the Ruby standard library |
+| Ruby | Run repository validators, regression tests and branch coverage | Ruby 3.x; validator scripts and branch-coverage measurement use the Ruby standard library |
 | Minitest | Positive/negative tests for the Ruby validators | Ruby's Minitest gem; no application gem bundle or Gemfile is maintained |
 | Bash, jq, coreutils, gzip, tar | Workflow validation, JSON processing, checksums and source archive packaging | Provided by the GitHub-hosted Ubuntu runner |
 | Node.js and npm/npx | Run Markdown lint and Prettier checks | Tool versions are explicitly pinned in workflow commands; no application package manifest is used |
@@ -35,8 +35,7 @@ Run the Ruby validators and regression suites:
 
 ```bash
 ruby scripts/validate-vex.rb
-ruby tests/vex_validator_test.rb
-ruby tests/dco_validator_test.rb
+ruby scripts/check-branch-coverage.rb
 ```
 
 For a pull request, the DCO range validator is invoked by CI with the exact base and head commit SHAs:

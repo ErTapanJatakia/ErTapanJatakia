@@ -2,7 +2,7 @@
 
 This guide explains how to use the public profile repository, find authoritative information, contribute changes, report concerns, and verify published documentation snapshots. It is written for profile visitors, contributors, security researchers and release consumers.
 
-> **Scope:** This repository publishes a professional profile, documentation, policies, configuration and repository automation. It is not an end-user application. There is no application runtime, installable product, compiled binary or application feature set to operate. The procedures below cover the repository's actual user-facing and maintainer-facing workflows; they do not imply otherwise.
+> **Scope:** This repository publishes a professional profile, documentation, policies, configuration, GitHub Actions automation and two small Ruby command-line validation utilities. It is not an end-user application and has no application runtime, installable end-user product or compiled binary. The procedures below cover the repository's actual user-facing and maintainer-facing workflows, including the validators; they do not imply otherwise.
 
 ## 1. Understand the repository
 
@@ -89,15 +89,17 @@ For a broken link, typo, inaccurate description, inaccessible content or other n
 
 ## 7. Validate repository changes locally
 
-This is a documentation/configuration repository, not an application build. There is no application to compile, install or run.
+This is a documentation/configuration repository, not an application build. There is no end-user application to compile, install or run. The two Ruby validators are executable command-line utilities and can be run directly with Ruby.
 
 Contributors who need local validation should:
 
 1. Install the tools and versions listed in [Build, Validation and Release Instructions](BUILD-AND-TEST-INSTRUCTIONS.md).
 2. Clone the repository using Git.
-3. Run the applicable Ruby validators, regression tests and documentation/configuration checks documented there.
-4. Compare local tool versions and commands with the authoritative workflow definitions.
-5. Review the pull request's required and advisory check results.
+3. Run `ruby scripts/validate-vex.rb` to validate the current VEX exception register.
+4. Run `ruby scripts/check-branch-coverage.rb` to execute both Ruby validator regression suites and enforce the minimum branch-coverage threshold.
+5. Run the applicable documentation/configuration checks documented in the build instructions.
+6. Compare local tool versions and commands with the authoritative workflow definitions.
+7. Review the pull request's required and advisory check results.
 
 **Expected result:** Repository content, policy data and automation changes pass the relevant repository QA checks. A successful run does not establish application correctness or runtime security.
 

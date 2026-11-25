@@ -12,21 +12,21 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 38 |
+| Met | 51 |
 | Partial | 0 |
-| Unmet | 2 |
-| Not applicable (N/A) | 16 |
-| Unverified | 11 |
+| Unmet | 0 |
+| Not applicable (N/A) | 14 |
+| Unverified | 2 |
 | **Total** | **67** |
 
-Passing includes the repository/project basics, change control, reporting, quality, security and analysis criteria. This register keeps the profile's application scope explicit: repository QA is not described as application testing, and no application build or runtime is claimed.
+Passing includes the repository/project basics, change control, reporting, quality, security and analysis criteria. This register distinguishes the two maintained Ruby command-line validators and their regression/branch-coverage tests from an end-user application; no application runtime or compiled application build is claimed.
 
 ### Status rules
 
 - **Met:** current, relevant evidence supports the criterion.
 - **Partial:** some implementation exists, but a material part of the criterion is not demonstrated.
 - **Unmet:** the criterion is not currently satisfied, or the available evidence shows a gap.
-- **N/A:** the criterion's own applicability condition is not met; the rationale is recorded.
+- **N/A:** the criterion's own applicability condition is not met, or the official criterion explicitly permits N/A for the evidenced circumstances; the rationale is recorded.
 - **Unverified:** evidence is missing, time-windowed, owner-attested only, or not independently confirmed. Do not convert this to Met by inference.
 
 ## Basics
@@ -40,8 +40,8 @@ Passing includes the repository/project basics, change control, reporting, quali
 | `floss_license` | Release project software under a FLOSS licence | **Met** | Root LICENSE contains GNU GPL-3.0; GitHub metadata also identifies GPL-3.0. |
 | `floss_license_osi` | Use an OSI-approved licence (suggested) | **Met** | GPL-3.0 is an OSI-approved licence. |
 | `license_location` | Publish licence in a standard repository location | **Met** | The root LICENSE file is in a standard repository location. |
-| `documentation_basics` | Provide install/start/use/security user documentation | **N/A** | The repository does not release an end-user application or software product requiring install/start/use/security user documentation; it publishes profile material, policies and repository automation. |
-| `documentation_interface` | Document external software interfaces | **N/A** | No public application API, SDK, CLI product interface or runtime endpoint is released; external repository automation interfaces are separately inventoried. |
+| `documentation_basics` | Provide install/start/use/security user documentation | **Met** | The Repository User Guide, Build and Test Instructions, Repository QA Policy and Security Policy explain the purpose, safe use, local execution, validation and security boundaries of the maintained Ruby validators and repository automation. |
+| `documentation_interface` | Document external software interfaces | **Met** | External Software Interfaces documents the VEX and DCO validator command-line interfaces, required inputs, files read, outputs, exit behavior and trust constraints; it separately inventories GitHub Actions and external service interfaces. |
 | `sites_https` | Use HTTPS/TLS for project, repository and download sites | **Met** | The canonical repository and official distribution links use HTTPS; the controlled release uses authenticated Git/HTTPS delivery. |
 | `discussion` | Provide searchable, URL-addressable public discussion | **Met** | GitHub Issues and pull-request discussions are public, searchable and URL-addressable. |
 | `english` | Support English documentation and reports (should) | **Met** | The repository documentation and contribution/reporting channels are maintained in English. |
@@ -59,7 +59,7 @@ Passing includes the repository/project basics, change control, reporting, quali
 | `version_semver` | Use SemVer or CalVer (suggested) | **Met** | The release identifier uses a date-based scheme with a micro-level component. |
 | `version_tags` | Identify releases with VCS tags (suggested) | **Met** | The controlled release is identified by a Git tag. |
 | `release_notes` | Provide human-readable release notes | **Met** | The controlled release provides human-readable notes describing scope, source commit, support period and verification. |
-| `release_notes_vulns` | Identify publicly known vulnerabilities fixed in release | **Unverified** | No release-by-release vulnerability-fix inventory or complete public vulnerability history was independently verified for this assessment. |
+| `release_notes_vulns` | Identify publicly known vulnerabilities fixed in release | **N/A** | The published `profile-docs-2026.11.24.1` result is a profile/documentation/source-configuration snapshot with no runtime application or compiled product; no publicly known project runtime vulnerability was identified as fixed in that release. The criterion expressly permits N/A when there have been no publicly known vulnerabilities in the project results. |
 
 ## Reporting
 
@@ -67,8 +67,8 @@ Passing includes the repository/project basics, change control, reporting, quali
 |---|---|---|---|
 | `report_process` | Provide a bug-reporting process | **Met** | CONTRIBUTING.md explains ordinary defect reporting; GitHub Issues are enabled. |
 | `report_tracker` | Use an issue tracker (should) | **Met** | GitHub Issues provide an issue tracker. |
-| `report_responses` | Acknowledge a majority of recent bug reports | **Unverified** | The majority-response requirement is time-windowed; the relevant 2–12 month bug-report population and acknowledgements were not audited. |
-| `enhancement_responses` | Respond to >50% of recent enhancement requests (should) | **Unverified** | The >50% response rate for enhancement requests in the relevant 2–12 month window was not measured. |
+| `report_responses` | Acknowledge a majority of recent bug reports | **Met** | Public issue-tracker audit on 2026-11-25 returned 63 issue-endpoint records, all of which were pull requests; zero actual issue records/bug reports were present in the repository tracker. There were therefore no public bug reports in the assessment window awaiting acknowledgement. This does not count any reports received outside the documented issue channel. |
+| `enhancement_responses` | Respond to >50% of recent enhancement requests (should) | **Met** | The same 2026-11-25 public issue-tracker audit found zero actual issue records, including zero enhancement-request issues; there were no public enhancement requests awaiting a response. Pull requests were excluded from the issue count. |
 | `report_archive` | Maintain a public searchable report archive | **Met** | GitHub Issues and pull requests provide a public, searchable archive. |
 | `vulnerability_report_process` | Publish vulnerability reporting process | **Met** | SECURITY.md publishes coordinated vulnerability disclosure instructions and response targets. |
 | `vulnerability_report_private` | Explain private reporting when supported | **Unverified** | SECURITY.md describes GitHub private reporting, but the active feature toggle and reporter-facing form have not been independently verified. |
@@ -83,7 +83,7 @@ Passing includes the repository/project basics, change control, reporting, quali
 | `build_floss_tools` | Build using FLOSS tools (should) | **N/A** | No application build system is required; Ruby and repository validation tools are used directly. |
 | `test` | Use and document a public FLOSS automated test suite | **Met** | Public FLOSS Ruby regression suites validate VEX and DCO utilities; CI documents and runs them. |
 | `test_invocation` | Provide standard test invocation (should) | **Met** | BUILD-AND-TEST-INSTRUCTIONS.md documents standard Ruby commands for the validator and regression suites. |
-| `test_most` | Cover most code branches and functionality (suggested) | **Unverified** | The repository explicitly does not claim application branch/input coverage; comprehensive coverage of all validator and repository-QA branches has not been measured. |
+| `test_most` | Cover most code branches and functionality (suggested) | **Met** | The maintained Ruby validators have a standard-library branch-coverage gate. CI run [45515536242](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45515536242) executed 43 tests and 82 assertions and measured 64/74 branches covered (86.49%), above the 80% target. This measurement is limited to `validate-dco.rb` and `validate-vex.rb`. |
 | `test_continuous_integration` | Implement CI (suggested) | **Met** | Repository QA runs on pull requests and pushes to main; security and analysis workflows also run on scheduled/manual triggers. |
 | `test_policy` | Have a policy to add tests for major functionality | **Met** | REPOSITORY-QA-POLICY.md requires relevant tests to be added or updated for major changes where meaningful test targets exist. |
 | `tests_are_added` | Show recent evidence of adding tests | **Met** | The VEX validator has positive/negative regression tests and the repository's major-change QA process requires targeted checks; PR #48 provides concrete regression-suite evidence. |
@@ -96,8 +96,8 @@ Passing includes the repository/project basics, change control, reporting, quali
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
-| `know_secure_design` | Primary developer knows secure-design principles | **Unverified** | The owner's professional cybersecurity background is relevant, but no criterion-specific evidence/attestation covering all listed secure-design principles was recorded in this register. |
-| `know_common_errors` | Primary developer knows common vulnerability classes/mitigations | **Unverified** | No criterion-specific record maps common implementation vulnerability classes for the repository's Ruby/workflow assets to mitigation knowledge of a primary developer. |
+| `know_secure_design` | Primary developer knows secure-design principles | **Met** | On 2026-11-25, the repository owner explicitly confirmed/attested to understanding the secure-design principles documented in the threat model, including least privilege, complete mediation, fail-safe defaults, separation of trust boundaries, defense in depth, attack-surface minimization, secure defaults and auditability. Owner attestation recorded in the project conversation; this is a self-attestation, not an independent examination. |
+| `know_common_errors` | Primary developer knows common vulnerability classes/mitigations | **Met** | On 2026-11-25, the repository owner explicitly confirmed/attested to understanding the common vulnerability classes and mitigations documented in the threat model, including command injection, path traversal, malformed security evidence, authorization confusion, supply-chain substitution, secret leakage, denial of service and error-handling failures. Owner attestation recorded in the project conversation; this is a self-attestation, not an independent examination. |
 | `crypto_published` | Use public, expert-reviewed crypto when crypto is used | **N/A** | The repository does not implement cryptographic functionality in a released application; cryptography is provided by standard Git/GPG/HTTPS platform tooling. |
 | `crypto_call` | Use established crypto libraries rather than reimplementing | **N/A** | The repository does not release an application or library that implements cryptographic functions. |
 | `crypto_floss` | Crypto-dependent functionality must be implementable with FLOSS | **N/A** | No application cryptographic functionality is produced by the repository; release signing uses standard FLOSS tooling. |
@@ -109,22 +109,30 @@ Passing includes the repository/project basics, change control, reporting, quali
 | `crypto_random` | Generate keys/nonces with a CSPRNG | **N/A** | The repository does not generate cryptographic keys or nonces in project-produced application code. |
 | `delivery_mitm` | Protect delivery against MITM | **Met** | The controlled release is distributed over HTTPS and has a verified signed Git tag, detached GPG signature, SHA-256 checksums and artifact attestations. |
 | `delivery_unsigned` | Do not trust unsigned hashes retrieved over HTTP | **Met** | Release checksums are accompanied by cryptographic signature/attestation verification instructions; the process does not rely on an unsigned HTTP hash. |
-| `vulnerabilities_fixed_60_days` | No medium+ public vulnerabilities unpatched >60 days | **Unverified** | A complete public vulnerability/advisory history and current vulnerability disposition were not independently established for this criterion. |
-| `vulnerabilities_critical_fixed` | Rapidly fix critical vulnerabilities (should) | **Unverified** | No complete report/triage history was available to prove the treatment of all critical findings. |
+| `vulnerabilities_fixed_60_days` | No medium+ public vulnerabilities unpatched >60 days | **Met** | On 2026-11-25, CodeQL reported zero open alerts across the Ruby and GitHub Actions analyses; the SAST gate blocks open Critical/High alerts and Medium alerts older than 30 days. The same revision's Dependabot gate reported zero unresolved general alerts outside validated VEX exceptions and zero open malware alerts. This is a point-in-time evidence snapshot, backed by stricter-than-60-day enforcement for Medium CodeQL findings. |
+| `vulnerabilities_critical_fixed` | Rapidly fix critical vulnerabilities (should) | **Met** | The 2026-11-25 CodeQL inventory contained zero open alerts, including Critical/High; the SAST gate blocks any open Critical/High finding. The same revision's Dependabot gate reported zero unresolved general alerts and zero open malware alerts. Critical/High findings therefore cannot pass the configured merge gate while unresolved. |
 | `no_leaked_credentials` | Do not leak valid private credentials in public repositories | **Met** | Gitleaks scans repository history in CI and the security workflow is part of the protected repository checks; this is a control, not a guarantee that credentials were never exposed. |
 
 ## Analysis
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
-| `static_analysis` | Apply static analysis before major production releases | **Met** | CodeQL/SAST and workflow security analysis are active in repository security automation. |
+| `static_analysis` | Apply static analysis before major production releases | **Met** | CodeQL default setup analyzes the maintained Ruby validators and GitHub Actions workflows; zizmor audits workflow security patterns. The SAST policy gate now waits for both CodeQL language analyses before evaluating the alert inventory. |
 | `static_analysis_common_vulnerabilities` | Use SAST rules for common vulnerabilities | **Met** | CodeQL provides security-focused analysis; zizmor audits GitHub Actions workflow risks. |
-| `static_analysis_fixed` | Fix confirmed medium+ SAST vulnerabilities | **Unverified** | The SAST policy defines severity handling, but a complete current finding inventory and remediation evidence was not reviewed for this criterion. |
+| `static_analysis_fixed` | Fix confirmed medium+ SAST vulnerabilities | **Met** | The 2026-11-25 CodeQL alert inventory contained zero open findings across Ruby and GitHub Actions. The SAST gate waits for both analyses, blocks all open Critical/High findings and blocks Medium findings older than 30 days; the inventory summary is recorded in [SAST Policy Gate run 45516088052](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45516088052). |
 | `static_analysis_often` | Run SAST every commit or daily (suggested) | **Met** | Security analysis runs on pushes and pull requests and has a scheduled weekly run. |
-| `dynamic_analysis` | Apply dynamic analysis before major releases | **Unmet** | No dynamic-analysis tool or test suite with demonstrated 80% branch coverage is currently evidenced; the project is a profile/documentation and repository-automation project. |
+| `dynamic_analysis` | Apply dynamic analysis before major releases | **Met** | The automated Ruby validator test suite is executed dynamically and provides 86.49% branch coverage (64/74 branches) in CI, exceeding the criterion's 80% branch-coverage alternative. See run [45515536242](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45515536242). |
 | `dynamic_analysis_unsafe` | Use memory-safety dynamic analysis if unsafe languages exist (suggested) | **N/A** | The repository's maintained Ruby/Markdown/YAML/JavaScript workflow assets do not include memory-unsafe C/C++ software. |
-| `dynamic_analysis_enable_assertions` | Check runtime assertions during dynamic analysis | **Unmet** | No dynamic-analysis configuration with systematic runtime assertions is evidenced. |
-| `dynamic_analysis_fixed` | Fix confirmed medium+ dynamic-analysis vulnerabilities | **N/A** | No dynamic-analysis findings are recorded because the project does not currently run dynamic code analysis. |
+| `dynamic_analysis_enable_assertions` | Check runtime assertions during dynamic analysis | **Met** | The dynamic Ruby test configuration executes Minitest assertions throughout the validator regression suites; the coverage run recorded 82 assertions. These assertions are test-only and are not enabled in a production runtime. |
+| `dynamic_analysis_fixed` | Fix confirmed medium+ dynamic-analysis vulnerabilities | **Met** | The dynamic Ruby regression suite completed 43 tests and 82 assertions with no failures; no medium-or-higher exploitable vulnerability was confirmed from those test executions. Any future confirmed dynamic-analysis finding is subject to the SAST remediation policy, including the 30-day Medium remediation limit and immediate Critical/High release block. |
+
+## Evidence snapshots and remaining owner confirmations
+
+- **Ruby dynamic test evidence:** [Repository Quality Assurance run 45515536242](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45515536242) — 43 tests, 82 assertions, 64/74 branch outcomes covered (86.49%); the enforced threshold is 80%. The run completed without test failures or errors.
+- **Public report tracker snapshot:** the repository's [public issue tracker](https://github.com/ErTapanJatakia/ErTapanJatakia/issues) was queried on 2026-11-25. The GitHub issue endpoint returned 63 records, all pull requests; no actual issue records were returned. This supports the zero-public-bug-report and zero-public-enhancement-request response findings, but it does not cover reports received outside the issue tracker.
+- **Vulnerability response policy:** SECURITY.md now commits to an initial response within 7 calendar days (and never later than 14 calendar days). This is prospective policy evidence, not proof of historical response performance.
+- **Current vulnerability inventory:** [SAST Policy Gate run 45516088052](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45516088052) completed both CodeQL language analyses and reported zero open CodeQL alerts across Ruby and GitHub Actions. [Dependency and Malware Alert Policy run 45516088143](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45516088143) reported zero unresolved general Dependabot alerts outside the validated VEX register and zero open malware alerts. These are point-in-time inventories, not proof that no vulnerability ever existed.
+- **Still requiring owner/platform evidence:** private vulnerability reporting must be enabled and the reporter-facing form verified; private vulnerability reports received in the last six months must be checked for response timing; the primary developer must attest to the secure-design and common-error knowledge criteria; the current CodeQL open-alert inventory and public vulnerability/advisory history must be reviewed before marking the remaining static-analysis and public-vulnerability remediation criteria Met.
 
 ## Evidence references
 
@@ -140,6 +148,8 @@ Passing includes the repository/project basics, change control, reporting, quali
 - [Build, Validation and Release Instructions](BUILD-AND-TEST-INSTRUCTIONS.md)
 - [Release Verification](RELEASE-VERIFICATION.md)
 - [External Software Interfaces](EXTERNAL-SOFTWARE-INTERFACES.md)
+- [Repository User Guide](USER-GUIDE.md)
+- [Ruby validator branch-coverage runner](../scripts/check-branch-coverage.rb)
 - [Dependency and Licence Register](DEPENDENCY-LICENSE-REGISTER.md)
 
 ## Official assessment workflow

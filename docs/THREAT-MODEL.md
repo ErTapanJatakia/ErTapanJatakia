@@ -34,7 +34,35 @@ Security objectives are confidentiality of signing/mirroring credentials, integr
 | GitVerse mirror | Separate distribution destination; credentials and commit identity must be protected |
 | Public reader / downloader | May receive a modified, incomplete or impersonated release from an untrusted source |
 
-## 4. Threat scenarios and safeguards
+## 4. Secure design principles and common implementation weaknesses
+
+The repository's automation and validator design applies the following principles:
+
+| Secure-design principle | Application in this repository |
+|---|---|
+| Least privilege | Workflow-level permissions default to none or read-only; privileged jobs receive narrowly scoped permissions. |
+| Complete mediation | Pull-request and release workflows validate the relevant commit, ref, input and policy state before privileged operations. |
+| Fail-safe defaults | Validators reject missing, malformed, expired, placeholder or mismatched security records; release workflows stop on failed checks. |
+| Separation of duties and trust boundaries | Untrusted pull-request jobs do not receive signing or mirror credentials; release signing is isolated to controlled workflows. |
+| Defense in depth | GitHub rulesets, regression tests, CodeQL, zizmor, Gitleaks, dependency checks, signed tags, checksums and attestations provide distinct controls. |
+| Minimize attack surface | No public application service, database, authentication endpoint or runtime API is operated by this repository. |
+| Secure defaults and explicit exceptions | Exceptions require scoped evidence, reviewer identity, review date and expiry; exceptions are not treated as blanket suppression. |
+| Auditability | Git history, pull requests, workflow runs, release manifests and signatures preserve traceable change and publication evidence. |
+
+Common implementation weaknesses relevant to the maintained Ruby and workflow assets are mapped to mitigations below:
+
+| Weakness / error class | Potential impact | Mitigation in maintained assets |
+|---|---|---|
+| Command injection and unsafe shell interpolation | Untrusted PR metadata or inputs alter privileged commands | Ruby validators use argument-array subprocess calls; workflows validate and quote constrained inputs and avoid passing signing secrets to untrusted jobs. |
+| Path traversal and arbitrary file access | VEX records reference files outside the approved evidence directory | VEX validator requires the `docs/vex/` relative-path prefix, rejects `..` segments and excludes the template path; it also checks file existence and JSON validity. |
+| Trusting malformed or placeholder security evidence | False VEX exception suppresses a real dependency alert | Fail-closed schema, identity, date, expiry, evidence, advisory and package-reference validation. |
+| Authentication/authorization confusion | A forged sign-off or overprivileged workflow can authorize a change | DCO validator requires an exact sign-off matching author or committer identity; workflows use least-privilege tokens and protected secrets. |
+| Supply-chain substitution | A compromised action or release asset changes repository output | Full-SHA action pinning, dependency review, GPG signatures, SHA-256 checksums and artifact attestations. |
+| Secret leakage | Signing or mirror credentials become public | Gitleaks scans full history; secrets are isolated to trusted jobs and temporary key material is cleaned up. |
+| Denial of service through unbounded input/work | Oversized or malformed records consume runner resources | Validators read repository-local JSON files and fail on invalid structure; CI uses concurrency controls to limit overlapping runs. |
+| Inadequate error handling | A failed check is treated as success | Validators return nonzero status on invalid evidence; required QA gates fail closed. |
+
+## 5. Threat scenarios and safeguards
 
 | Threat | Abuse case | Existing safeguards | Residual risk / required response |
 |---|---|---|---|
@@ -50,7 +78,7 @@ Security objectives are confidentiality of signing/mirroring credentials, integr
 | Availability loss | Repository or release assets become unavailable | Git history, controlled mirror and retained release artifacts | No availability SLA or independent disaster-recovery service is promised |
 | Profile integrity abuse | Unauthorized edits alter credentials or personal claims | PR workflow, protected main, owner review of professional claims and required security checks | Owner account remains the principal trust anchor |
 
-## 5. Critical workflows and security gates
+## 6. Critical workflows and security gates
 
 1. **Pull-request validation:** untrusted proposed changes are checked without access to signing secrets.
 2. **Required pull-request QA and DCO:** the active required `Major change validation` check fails unless the VEX regression suite succeeds and, after DCO adoption, every pull-request commit carries an author-matching `Signed-off-by` trailer. For major/security-sensitive paths, relevant YAML, actionlint, Markdown, link, formatting and VEX checks must also pass. The one-time DCO adoption PR and pre-policy history are grandfathered.
@@ -60,7 +88,7 @@ Security objectives are confidentiality of signing/mirroring credentials, integr
 6. **Dependency SBOM:** exports Dependency Graph data, validates SPDX structure, computes SHA-256 and attests the SBOM/checksum.
 7. **Documentation release:** accepts a constrained version input on `main`, creates a signed tag, builds a source/documentation archive, signs its checksum manifest and generates GitHub artifact attestations.
 
-## 6. Residual risk and scope limits
+## 7. Residual risk and scope limits
 
 - The owner is the sole maintainer; independent human approval is not currently available.
 - GitHub account compromise can affect repository settings and publication workflows.
@@ -69,6 +97,6 @@ Security objectives are confidentiality of signing/mirroring credentials, integr
 - The GitHub Release object is not platform-enforced immutable even though the signed tag is protected and verified.
 - This model covers repository automation and documentation distribution, not application software, runtime infrastructure or a production service.
 
-## 7. Review triggers and ownership
+## 8. Review triggers and ownership
 
 The repository owner maintains this model. Review it at least annually and whenever a trigger in Section 1 occurs. For each review, record the date, changed assets/workflows, newly introduced trust boundaries, changed safeguards and accepted residual risks. A material change must include updated threat scenarios and relevant automated tests in its pull request.

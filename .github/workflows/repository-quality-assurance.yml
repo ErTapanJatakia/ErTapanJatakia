@@ -131,7 +131,7 @@ jobs:
             ".prettierrc.json"
 
   vex-validation:
-    name: VEX register validation
+    name: Ruby validator, VEX and branch-coverage validation
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -144,8 +144,8 @@ jobs:
       - name: Validate VEX exceptions and CycloneDX statements
         run: ruby scripts/validate-vex.rb
 
-      - name: Test VEX validator positive and negative cases
-        run: ruby tests/vex_validator_test.rb
+      - name: Test Ruby validators and enforce branch coverage
+        run: ruby scripts/check-branch-coverage.rb
 
   major-change-validation:
     name: Major change validation
