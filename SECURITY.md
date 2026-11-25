@@ -129,12 +129,12 @@ Please include a concise impact description, affected file or workflow, safe rep
 
 The repository is maintained by an individual owner and is not a staffed security-response service. The following response targets apply to reports received through a monitored private channel:
 
-- **Initial acknowledgement:** within 5 business days of receipt.
-- **Initial triage and status:** within 10 business days of receipt, including whether the report is reproducible, needs more information, or is being investigated.
+- **Initial response:** within 7 calendar days of receipt and never later than 14 calendar days. The first response may acknowledge receipt, establish a private contact channel and provide an initial status; it need not contain a completed fix.
+- **Initial triage and status:** target within 10 business days of receipt, including whether the report is reproducible, needs more information, or is being investigated.
 - **Progress updates:** at least every 10 business days while an accepted report remains open, or sooner when a material change occurs.
 - **Missed target:** if circumstances prevent a target from being met, the owner will send a status update and a revised estimate rather than silently allowing the target to lapse.
 
-These are response and communication targets, not a guarantee that a fix will be delivered within a particular period. Remediation timing depends on severity, reproducibility, affected scope, available mitigation and the nature of the issue. There is no bug-bounty programme.
+The 7-calendar-day initial-response target is deliberately stricter than the OpenSSF Best Practices Passing criterion's 14-calendar-day maximum. It is a prospective policy commitment; it does not by itself prove that reports received during a historical six-month assessment window were answered within the target. These are response and communication targets, not a guarantee that a fix will be delivered within a particular period. Remediation timing depends on severity, reproducibility, affected scope, available mitigation and the nature of the issue. There is no bug-bounty programme.
 
 ## Coordinated disclosure and public advisories
 
