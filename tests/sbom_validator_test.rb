@@ -157,41 +157,19 @@ class SbomValidatorTest < Minitest::Test
       file.write(JSON.generate(valid_document))
       file.flush
       script = File.expand_path("../scripts/validate-sbom.rb", __dir__)
-      original_program_name = $PROGRAM_NAME
-      original_argv = ARGV.dup
-      begin
-        $PROGRAM_NAME = script
-        ARGV.replace([file.path])
-        output, error = capture_io do
-          success = assert_raises(SystemExit) { load script }
-          assert_equal 0, success.status
-        end
-        assert_includes output, "SPDX 2.3 document validated"
-        assert_empty error
-      ensure
-        $PROGRAM_NAME = original_program_name
-        ARGV.replace(original_argv)
-      end
+      output, error, status = Open3.capture3("ruby", script, file.path)
+      assert status.success?, error
+      assert_includes output, "SPDX 2.3 document validated"
+      assert_empty error
     end
   end
 
   def test_sbom_classifier_cli_reports_ready
     script = File.expand_path("../scripts/classify-sbom-response.rb", __dir__)
-    original_program_name = $PROGRAM_NAME
-    original_argv = ARGV.dup
-    begin
-      $PROGRAM_NAME = script
-      ARGV.replace(["302"])
-      output, error = capture_io do
-        success = assert_raises(SystemExit) { load script }
-        assert_equal 0, success.status
-      end
-      assert_equal "ready\n", output
-      assert_empty error
-    ensure
-      $PROGRAM_NAME = original_program_name
-      ARGV.replace(original_argv)
-    end
+    output, error, status = Open3.capture3("ruby", script, "302")
+    assert status.success?, error
+    assert_equal "ready\\n", output
+    assert_empty error
   end
 
   def test_local_gpg_action_reference_resolves
