@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+require_command() {
+  local command_name="$1"
+  if ! command -v "$command_name" >/dev/null 2>&1; then
+    echo "Missing required command: $command_name" >&2
+    exit 1
+  fi
+}
+
+require_command git
+require_command ruby
+require_command gem
+
+ruby -e '
+  require "rubygems/version"
+  minimum = Gem::Version.new("3.2.0")
+  current = Gem::Version.new(RUBY_VERSION)
+  abort "Ruby 3.2 or later is required (found #{RUBY_VERSION})." if current < minimum
+'
+
+if ! ruby -e 'require "minitest"' >/dev/null 2>&1; then
+  echo "Minitest is missing; installing it into the current user's gem directory."
+  gem install --user-install minitest
+fi
+
+ruby -e 'require "minitest"; puts "Minitest #{Minitest::VERSION} is available."'
+echo "Git: $(git --version)"
+echo "Ruby: $(ruby --version)"
+
+if command -v node >/dev/null 2>&1 && command -v npm >/dev/null 2>&1; then
+  echo "Node.js: $(node --version)"
+  echo "npm: $(npm --version)"
+  echo "Node.js/npm are available for the pinned Markdown lint and Prettier commands."
+else
+  echo "Node.js/npm are optional for Ruby validation but required for local Markdown lint and Prettier checks."
+fi
+
+cat <<'NOTICE'
+Bootstrap complete.
+No application package installation, database, container runtime, paid service,
+or secret is required. Run the documented Ruby validation commands next.
+NOTICE
