@@ -9,7 +9,7 @@ module NetworkTransportValidator
     "curl insecure option" => /--insecure\b/,
     "curl proxy insecure option" => /--proxy-insecure\b/,
     "Git TLS verification disabled" => /GIT_SSL_NO_VERIFY/,
-    "Node TLS verification disabled" => /NODE_TLS_REJECT_UNAUTHORIZED\s*=\s*0/,
+    "Node TLS verification disabled" => /NODE_TLS_REJECT_UNAUTHORIZED\s*[:=]\s*0/,
     "npm TLS verification disabled" => /strict-ssl\s*=\s*false/i,
     "Git HTTP certificate verification disabled" => /sslVerify\s*=\s*false/i
   }.freeze
