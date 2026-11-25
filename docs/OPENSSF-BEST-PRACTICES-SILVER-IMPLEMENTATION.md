@@ -12,11 +12,11 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 34 |
+| Met | 35 |
 | Partial | 0 |
 | Unmet | 3 |
 | Not applicable (N/A) | 16 |
-| Unverified | 2 |
+| Unverified | 1 |
 | **Total** | **55** |
 
 Silver is cumulative: the project must first achieve Passing. The current single-maintainer model, incomplete continuity arrangement and missing independent review evidence are material constraints; automated CI does not substitute for human review.
@@ -45,7 +45,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | `documentation_architecture` | Document software architecture | **Met** | REPOSITORY-AUTOMATION-ARCHITECTURE.md documents the released repository assets, actors, components and workflows; the repository does not claim an application runtime. |
 | `documentation_security` | Document software security requirements | **Met** | SECURITY.md, THREAT-MODEL.md and SECURITY-ASSURANCE-CASE.md document the repository security objectives, trust boundaries, secure-design controls, release integrity controls, reporting process and residual limitations for the actual maintained outputs. |
 | `documentation_quick_start` | Provide a quick-start guide | **Met** | BUILD-AND-TEST-INSTRUCTIONS.md and the repository user guide provide clone, validation and contribution entry points for the actual repository outputs. |
-| `documentation_current` | Keep documentation consistent with current results | **Unverified** | Individual documents have recent updates, but a complete cross-document consistency audit against the current repository state has not been completed. |
+| `documentation_current` | Keep documentation consistent with current results | **Met** | DOCUMENTATION-MAINTENANCE.md records a 2026-11-25 cross-document reconciliation of all 40 Markdown files against current workflow definitions, access/security evidence, repository settings observations and the Passing/Silver/Gold/OSPS assessment registers. The review corrected private-reporting enablement, collaborator role, DCO enforcement, Ruby utility/coverage scope, network TLS, developer setup, accessibility and regression-test evidence inconsistencies. Reassess after material changes and at least quarterly. |
 | `documentation_achievements` | Link achievements from repository front page within 48h | **N/A** | No Passing/Silver/Gold OpenSSF Best Practices achievement has been publicly recognized yet; reassess within 48 hours if an achievement is awarded. |
 | `accessibility_best_practices` | Follow accessibility best practices (should) | **Met** | ACCESSIBILITY-REVIEW.md records a 2026-11-25 source-level review. The README heading hierarchy was corrected; all 53 README images have descriptive alt text; status badges include text alternatives; tables use simple header structures; and no custom interactive controls were found. Repository configuration CI enforces image alternatives and sequential heading levels. Screen-reader testing of GitHub's rendered page/external embeds is explicitly not claimed. |
 | `internationalization` | Internationalize user-facing software where applicable (should) | **N/A** | The repository does not produce end-user software with localized human-readable UI; its outputs are professional profile and repository documentation. |
@@ -84,7 +84,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | `interfaces_current` | Avoid deprecated APIs where alternatives exist (should) | **Met** | INTERFACE-CURRENCY-REVIEW.md records a dated review of the maintained Ruby APIs, workflows and external interfaces. The review found no legacy GitHub Actions workflow commands or node16 runtime declarations and no deprecated Ruby APIs; actionlint and zizmor passed on the current PR validation. Reassess after toolchain or interface changes. |
 | `automated_integration_testing` | Run automated tests on every shared-repository check-in | **Met** | Repository QA runs on every pull request and every push to main and reports check outcomes. |
 | `regression_tests_added50` | Add regression tests for at least 50% of recent bugs | **Unverified** | The number of bugs fixed in the preceding six months and the proportion with regression tests were not audited. |
-| `test_statement_coverage80` | Achieve at least 80% statement coverage | **Met** | The Ruby standard-library Coverage tool measures executable source lines in both maintained Ruby validators. The CI gate requires at least 80% statement coverage and 80% branch coverage. PR #68 run [45559085834](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45559085834) passed with 107/124 statements (86.29%) and 64/74 branches (86.49%); 43 tests and 82 assertions passed. This is coverage of the two maintained validators, not an application-wide coverage claim. |
+| `test_statement_coverage80` | Achieve at least 80% statement coverage | **Met** | The Ruby standard-library Coverage tool measures executable source lines in all four maintained Ruby utilities: the DCO validator, VEX validator, SPDX SBOM validator and SBOM response classifier. The CI gate requires at least 80% statement coverage and 80% branch coverage. PR #68's earlier successful run measured 107/124 statements (86.29%) and 64/74 branches (86.49%) for the original two validators; the expanded four-utility suite is awaiting its current PR CI run. This is repository utility coverage, not an application-wide coverage claim. |
 | `test_policy_mandated` | Formally require tests for major new functionality | **Met** | REPOSITORY-QA-POLICY.md is a formal written policy requiring tests for major changes where meaningful test targets exist. |
 | `tests_documented_added` | Document test-addition policy (suggested) | **Met** | CONTRIBUTING.md and REPOSITORY-QA-POLICY.md communicate the test-addition policy to change proposers. |
 | `warnings_strict` | Use maximally strict warnings where practical | **Met** | The repository applies strict formatting/lint/workflow checks in CI. |
