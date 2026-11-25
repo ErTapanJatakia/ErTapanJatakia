@@ -59,6 +59,10 @@ git commit -s -m "type: describe the change"
 
 The resulting commit message must contain a trailer such as `Signed-off-by: Your Name <your-verified-email@example.com>`. The sign-off is a legal assertion under the [Developer Certificate of Origin](DCO), not a cryptographic signature. GPG signing and DCO sign-off are separate controls; use both when the repository's signing process requires them. If you amend or recreate a commit, preserve or add its sign-off again. The required `Major change validation` check rejects a pull request if any new commit lacks the matching sign-off. Historical commits before this policy's adoption are not retroactively rewritten.
 
+## Developer setup
+
+After cloning the repository, run `bash script/setup` to verify the local Git/Ruby toolchain and ensure Minitest is available. The [Build, Validation and Release Instructions](docs/BUILD-AND-TEST-INSTRUCTIONS.md) document the complete local toolchain and validation commands.
+
 ## Coding standards and project direction
 
 Contributors MUST follow the language-specific requirements in [Coding and Documentation Standards](docs/CODING-STANDARDS.md). The current project scope and planned work are published in the [twelve-month roadmap](ROADMAP.md). Security-sensitive changes must be consistent with the [Repository Security Assurance Case](docs/SECURITY-ASSURANCE-CASE.md).
