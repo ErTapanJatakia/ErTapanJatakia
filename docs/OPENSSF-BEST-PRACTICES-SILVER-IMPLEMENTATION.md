@@ -12,9 +12,9 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 19 |
-| Partial | 8 |
-| Unmet | 6 |
+| Met | 26 |
+| Partial | 3 |
+| Unmet | 4 |
 | Not applicable (N/A) | 15 |
 | Unverified | 7 |
 | **Total** | **55** |
@@ -35,15 +35,15 @@ Silver is cumulative: the project must first achieve Passing. The current single
 |---|---|---|---|
 | `achieve_passing` | Prerequisite: achieve Passing | **Unmet** | The public BadgeApp profile currently reports in_progress and 0/13 Basics, 0/9 Change Control, 0/8 Reporting, 0/13 Quality, 0/16 Security and 0/8 Analysis; Passing has not been awarded. |
 | `contribution_requirements` | State acceptable contribution requirements | **Met** | CONTRIBUTING.md defines acceptable contributions, licensing, review and QA requirements. |
-| `dco` | Use a legal contribution authorization mechanism (should) | **Partial** | DCO and sign-off expectations remain documented, and web-based commit sign-off is enabled per owner confirmation; repository-wide automated DCO enforcement was explicitly removed, so coverage of every developer/commit path is not established. |
-| `governance` | Document the project governance/decision model | **Partial** | ACCESS-GOVERNANCE.md documents owner decision authority and access governance, but the complete public project decision-making/governance model is not yet defined. |
+| `dco` | Use a legal contribution authorization mechanism (should) | **Met** | CONTRIBUTING.md defines the DCO legal assertion and sign-off procedure; the DCO validator checks every post-adoption commit in a pull-request range against the author or committer identity, and the required Major change validation gate fails if DCO validation fails. Pre-policy history is explicitly grandfathered. |
+| `governance` | Document the project governance/decision model | **Met** | PROJECT-GOVERNANCE.md defines the owner-governed model, decision categories, contribution/acceptance process, emergency decisions, dispute handling, roles and transparency boundaries; ACCESS-GOVERNANCE.md complements it with sensitive-resource controls. |
 | `code_of_conduct` | Adopt a published code of conduct | **Met** | CODE_OF_CONDUCT.md is published at the repository root. |
 | `roles_responsibilities` | Document key roles and responsibilities | **Partial** | The owner and collaborator roles are documented in ACCESS-GOVERNANCE.md; the collaborator's exact effective permissions and fully mapped responsibilities remain incomplete. |
 | `access_continuity` | Continue core project operations if one person is lost | **Unmet** | The owner is the sole maintainer with administrative/release responsibility; the collaborator is not evidenced as able to accept changes and release within one week if the owner becomes unavailable. |
 | `bus_factor` | Maintain a bus factor of at least two (should at Silver) | **Unmet** | The current operating model identifies one maintainer; the collaborator is not established as a second maintainer. |
-| `documentation_roadmap` | Publish a roadmap for at least one year | **Unmet** | No public roadmap defining what the project will and will not do for at least the next year was evidenced. |
+| `documentation_roadmap` | Publish a roadmap for at least one year | **Met** | The root ROADMAP.md defines the 2026-11-25 to 2027-11-24 planning horizon, intended work, ongoing commitments, explicit out-of-scope items and governance for changes. |
 | `documentation_architecture` | Document software architecture | **Met** | REPOSITORY-AUTOMATION-ARCHITECTURE.md documents the released repository assets, actors, components and workflows; the repository does not claim an application runtime. |
-| `documentation_security` | Document software security requirements | **Partial** | SECURITY.md, THREAT-MODEL.md and the security policies describe reporting and repository-automation safeguards, but a consolidated user-facing statement of security guarantees and limitations for each released asset is incomplete. |
+| `documentation_security` | Document software security requirements | **Met** | SECURITY.md, THREAT-MODEL.md and SECURITY-ASSURANCE-CASE.md document the repository security objectives, trust boundaries, secure-design controls, release integrity controls, reporting process and residual limitations for the actual maintained outputs. |
 | `documentation_quick_start` | Provide a quick-start guide | **Met** | BUILD-AND-TEST-INSTRUCTIONS.md and the repository user guide provide clone, validation and contribution entry points for the actual repository outputs. |
 | `documentation_current` | Keep documentation consistent with current results | **Unverified** | Individual documents have recent updates, but a complete cross-document consistency audit against the current repository state has not been completed. |
 | `documentation_achievements` | Link achievements from repository front page within 48h | **N/A** | No Passing/Silver/Gold OpenSSF Best Practices achievement has been publicly recognized yet; reassess within 48 hours if an achievement is awarded. |
@@ -69,7 +69,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
-| `coding_standards` | Identify and require language-specific coding standards | **Unmet** | CONTRIBUTING.md sets general quality expectations but does not identify specific style guides for each primary language and require compliance with them. |
+| `coding_standards` | Identify and require language-specific coding standards | **Met** | CODING-STANDARDS.md identifies required standards for Markdown, YAML/GitHub Actions, Ruby, JSON, shell and configuration; CONTRIBUTING.md requires contributors to follow the applicable standard. |
 | `coding_standards_enforced` | Automatically enforce coding standards | **Met** | CI automatically enforces Markdown lint, YAML parsing, Prettier and actionlint where applicable. |
 | `build_standard_variables` | Honor compiler/linker environment variables | **N/A** | No native binary build system is maintained. |
 | `build_preserve_debug` | Preserve debugging information when requested (should) | **N/A** | No build/installation system exists that emits native binaries or handles debug-symbol flags. |
@@ -93,7 +93,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
-| `implement_secure_design` | Implement applicable secure-design principles | **Partial** | The threat model and architecture document least-privilege boundaries, untrusted inputs, credential isolation and validation; a criterion-by-criterion implementation argument for all applicable secure-design principles is not yet complete. |
+| `implement_secure_design` | Implement applicable secure-design principles | **Met** | THREAT-MODEL.md maps least privilege, complete mediation, fail-safe defaults, separation of duties, defense in depth, attack-surface minimization, secure defaults and auditability to repository controls; SECURITY-ASSURANCE-CASE.md links these controls to requirements, verification and residual risks. |
 | `crypto_weaknesses` | Avoid algorithms/modes with serious weaknesses (should) | **N/A** | No project-produced application cryptographic mechanism is present. |
 | `crypto_algorithm_agility` | Support multiple cryptographic algorithms (should) | **N/A** | The repository does not expose configurable cryptographic algorithms to application users. |
 | `crypto_credential_agility` | Separate credentials/keys from config and allow replacement | **N/A** | The repository does not provide an end-user application that stores and rotates user credentials/private keys; CI signing credentials are managed as protected platform secrets. |
@@ -105,7 +105,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | `version_tags_signed` | Sign important release tags (suggested) | **Met** | The controlled release tag is cryptographically signed and verifiable. |
 | `input_validation` | Validate untrusted inputs with allowlists | **Met** | Ruby VEX/DCO validators and privileged workflow input checks validate structured data, refs, branch names and bounded metadata before use. |
 | `hardening` | Use software hardening mechanisms (should) | **N/A** | The repository does not produce an end-user application/runtime to which application hardening mechanisms can be applied. |
-| `assurance_case` | Provide a structured security assurance case | **Partial** | THREAT-MODEL.md documents assets, actors, trust boundaries, abuse cases and safeguards, but it does not yet provide the full structured assurance argument linking requirements, threat model, design principles and mitigations. |
+| `assurance_case` | Provide a structured security assurance case | **Met** | SECURITY-ASSURANCE-CASE.md provides a top-level claim, context/assumptions, decomposed subclaims, control-to-evidence mapping, verification plan and explicit residual limitations. |
 
 ## Analysis
 
@@ -122,6 +122,12 @@ Silver is cumulative: the project must first achieve Passing. The current single
 - [LICENSE](../LICENSE)
 - [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md)
 - [Access and Collaborator Governance](ACCESS-GOVERNANCE.md)
+- [Project Governance](PROJECT-GOVERNANCE.md)
+- [Twelve-month Roadmap](../ROADMAP.md)
+- [Coding and Documentation Standards](CODING-STANDARDS.md)
+- [Repository Security Assurance Case](SECURITY-ASSURANCE-CASE.md)
+- [Accessibility Review](ACCESSIBILITY-REVIEW.md)
+- [Documentation Maintenance](DOCUMENTATION-MAINTENANCE.md)
 - [Repository Automation Architecture](REPOSITORY-AUTOMATION-ARCHITECTURE.md)
 - [Repository Automation Threat Model](THREAT-MODEL.md)
 - [Repository Quality Assurance Policy](REPOSITORY-QA-POLICY.md)
