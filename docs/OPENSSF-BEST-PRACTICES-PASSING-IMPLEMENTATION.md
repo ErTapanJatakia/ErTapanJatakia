@@ -29,6 +29,21 @@ Passing includes the repository/project basics, change control, reporting, quali
 - **N/A:** the criterion's own applicability condition is not met, or the official criterion explicitly permits N/A for the evidenced circumstances; the rationale is recorded.
 - **Unverified:** evidence is missing, time-windowed, owner-attested only, or not independently confirmed. Do not convert this to Met by inference.
 
+## N/A re-evaluation — 2026-11-25
+
+All 15 criteria previously marked **N/A** were re-reviewed against their individual official applicability provisions and the repository's current scope. The review found no evidence-based basis to convert any of them to **Met**. N/A is retained where the criterion explicitly permits it or where the relevant capability/software type is not part of this repository; changing those statuses without changing the project scope or producing the required evidence would overstate conformance.
+
+| Criterion group | Criteria | Count | Re-evaluation outcome |
+|---|---|---:|---|
+| Release vulnerability notes | `release_notes_vulns` | 1 | No publicly known project-runtime vulnerability was identified as fixed in the assessed documentation/source-configuration release; the criterion permits N/A in the absence of publicly known vulnerabilities. |
+| Vulnerability response timing | `vulnerability_report_response` | 1 | The repository owner confirmed that no vulnerability reports had been received through GitHub Advisories, email or another private channel since repository creation on 2026-10-31. The official criterion permits N/A when no reports were received in the preceding six months. |
+| Application build system | `build`, `build_common_tools`, `build_floss_tools` | 3 | The repository's current deliverables are profile/documentation content and interpreted Ruby validation utilities; no application compilation/build system is required. |
+| Application cryptography | `crypto_published`, `crypto_call`, `crypto_floss`, `crypto_keylength`, `crypto_working`, `crypto_weaknesses`, `crypto_pfs`, `crypto_password_storage`, `crypto_random` | 9 | The repository does not produce an application implementing cryptographic functions, key agreement, password storage or cryptographic key/nonce generation. Standard Git/GPG/HTTPS platform tooling is not a project-produced application cryptography feature. |
+| Memory-unsafe language analysis | `dynamic_analysis_unsafe` | 1 | The maintained project assets do not include memory-unsafe C/C++ software to which this criterion applies. |
+| **Total retained N/A** | | **15** | **No status changes; all 15 remain justified N/A.** |
+
+This review did not add artificial product functionality, weaken criteria, or treat prospective controls as proof of historical performance. The assessment tally therefore remains **52 Met, 15 N/A, 0 Partial, 0 Unmet and 0 Unverified (67 total)**. These are internal assessment results, not an official OpenSSF badge award.
+
 ## Basics
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
