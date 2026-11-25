@@ -2,7 +2,7 @@
 
 This guide explains how to use the public profile repository, find authoritative information, contribute changes, report concerns, and verify published documentation snapshots. It is written for profile visitors, contributors, security researchers and release consumers.
 
-> **Scope:** This repository publishes a professional profile, documentation, policies, configuration, GitHub Actions automation and two small Ruby command-line validation utilities. It is not an end-user application and has no application runtime, installable end-user product or compiled binary. The procedures below cover the repository's actual user-facing and maintainer-facing workflows, including the validators; they do not imply otherwise.
+> **Scope:** This repository publishes a professional profile, documentation, policies, configuration, GitHub Actions automation and five small Ruby command-line utilities. It is not an end-user application and has no application runtime, installable end-user product or compiled binary. The procedures below cover the repository's actual user-facing and maintainer-facing workflows, including the validators; they do not imply otherwise.
 
 ## 1. Understand the repository
 
@@ -89,7 +89,7 @@ For a broken link, typo, inaccurate description, inaccessible content or other n
 
 ## 7. Validate repository changes locally
 
-This is a documentation/configuration repository, not an application build. There is no end-user application to compile, install or run. The four Ruby utilities (DCO and VEX validators, SPDX SBOM validator and SBOM response classifier) are executable command-line tools and can be run directly with Ruby.
+This is a documentation/configuration repository, not an application build. There is no end-user application to compile, install or run. The five Ruby utilities (DCO and VEX validators, SPDX SBOM validator, SBOM response classifier and network transport validator) are executable command-line tools and can be run directly with Ruby.
 
 Contributors who need local validation should:
 
