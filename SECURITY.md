@@ -5,7 +5,6 @@
 
 <a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml/badge.svg?branch=main" alt="Security Analysis" height="30" /></a>
 <a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml/badge.svg?branch=main" alt="OpenSSF Scorecard workflow" height="30" /></a>
-<a href="https://www.bestpractices.dev/projects/17059"><img src="https://www.bestpractices.dev/projects/17059/badge" alt="OpenSSF Best Practices badge status" height="30" /></a>
 <a href="./SECURITY.md"><img src="https://img.shields.io/badge/Security%20Policy-Published-2ea44f?style=flat-square&logo=github" alt="Security Policy" height="30" /></a>
 <a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/main-branch%20protected-2ea44f?style=flat-square&logo=github" alt="Protected Main" height="30" /></a>
 <a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Changes-Pull%20Request%20Required-2ea44f?style=flat-square&logo=github" alt="Pull Requests" height="30" /></a>
@@ -158,6 +157,7 @@ Thank you for helping keep this repository and its visitors safe.
 ## OpenSSF Baseline status and implementation
 
 [![OpenSSF Baseline](https://www.bestpractices.dev/projects/17059/baseline)](https://www.bestpractices.dev/projects/17059)
+<a href="https://www.bestpractices.dev/projects/17059"><img src="https://www.bestpractices.dev/projects/17059/badge" alt="OpenSSF Best Practices badge status" height="30" /></a>
 
 The badge links to the project's public OpenSSF Best Practices profile and displays its published Baseline status. It is distinct from the repository's internal implementation assessments; consult the Level 1, Level 2 and Level 3 registers below for control-by-control evidence and applicability decisions. The badge alone does not represent independent certification or an audit.
 
