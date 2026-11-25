@@ -1,7 +1,7 @@
 # Network Transport and Certificate Verification Review
 
 **Review date:** 2026-11-25  
-**Scope:** Network calls made by repository-maintained automation and source/configuration tooling. The Ruby VEX and DCO validators themselves do not make network requests.
+**Scope:** Network calls made by repository-maintained automation and source/configuration tooling. All four maintained Ruby utilities (VEX, DCO, SPDX SBOM and SBOM response classification) operate on local inputs and do not make network requests.
 
 ## Network interface inventory
 
