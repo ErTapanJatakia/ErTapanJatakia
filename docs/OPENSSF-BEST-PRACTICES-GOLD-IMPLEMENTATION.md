@@ -19,7 +19,7 @@
 | Unverified | 2 |
 | **Total** | **23** |
 
-Gold is cumulative: the project must first achieve an official Silver badge. This repository has completed an internal Silver register but the public BadgeApp profile remains in_progress and does not show an awarded Silver badge. The contributor-diversity, operational bus-factor, two-person review, 2FA enforcement, coverage and site-header requirements remain evidence-gated. Per-file metadata and contributor documentation were remediated in the 2026-11-26 Gold remediation branch. The DCO policy remains documented as enabled for contributors while automated CI enforcement remains disabled.
+Gold is cumulative: the project must first achieve an official Silver badge. This repository has completed an internal Silver register but the public BadgeApp profile remains in_progress and does not show an awarded Silver badge. The contributor-diversity, operational bus-factor, two-person review, 2FA enforcement and site-header requirements remain evidence-gated. Statement and branch coverage now exceed the Gold thresholds (93.72% and 91.60%, respectively). Per-file metadata and contributor documentation were remediated in the 2026-11-26 Gold remediation branch. The DCO policy remains documented as enabled for contributors while automated CI enforcement remains disabled.
 
 ### Status rules
 
