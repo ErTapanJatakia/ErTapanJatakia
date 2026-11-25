@@ -21,7 +21,7 @@ The repository is owner-governed. The repository owner is accountable for projec
 | Role | Responsibilities | Authority boundary |
 |---|---|---|
 | Repository owner / project lead | Scope, roadmap, final decisions, repository administration, access, secrets, security response, release authorization and policy maintenance | Holds owner/admin authority; remains the sole evidenced maintainer until a second maintainer is formally designated |
-| Collaborator | Work explicitly assigned by the owner; propose changes, perform agreed reviews or maintenance tasks, report risks and keep assigned documentation current | Effective GitHub permissions and access to secrets/releases must be checked in the live repository before any privileged responsibility is assigned; this document does not assert admin or release authority |
+| Collaborator (effective repository role: read) | Read-only inspection/clone, review public changes, report defects and provide feedback; may propose code changes through an authorized pull request | GitHub collaborator-permission lookup verified `read` on 2026-11-25. No repository write, merge, ruleset administration, Actions-secret, signing-key or release-publication authority is implied; reassess before any role change |
 | External contributor | Propose focused changes, report defects, follow contribution/security requirements and provide tests/evidence | No repository write, administrative, secret, signing or release authority is implied |
 | Automated CI services | Execute configured validation, analysis and policy checks and publish machine-readable results | Automation does not exercise project governance judgment or substitute for independent human review |
 
