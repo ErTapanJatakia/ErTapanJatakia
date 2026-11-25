@@ -47,7 +47,7 @@ See [Network Transport and Certificate Verification Review](NETWORK-CRYPTOGRAPHY
 - Release attestations are scoped to the exact archive, manifest and checksum file digests.
 - GitVerse receives a mirror of Git history; it is not authoritative and no force-push is used.
 - Security reports are intended to be private. Public issues, PRs and README links are not vulnerability-reporting channels.
-- The two Ruby command-line interfaces are local repository-maintenance tools, not public network APIs or end-user application interfaces.
+- The four Ruby command-line utilities are local repository-maintenance tools, not public network APIs or end-user application interfaces.
 - The VEX validator fails closed on malformed, expired, placeholder or mismatched exception evidence; the DCO validator fails closed when commit metadata or sign-off evidence is unavailable.
 - No external application API is exposed by the repository itself.
 
