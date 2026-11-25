@@ -168,7 +168,7 @@ class SbomValidatorTest < Minitest::Test
     script = File.expand_path("../scripts/classify-sbom-response.rb", __dir__)
     output, error, status = Open3.capture3("ruby", script, "302")
     assert status.success?, error
-    assert_equal "ready\\n", output
+    assert_equal "ready\n", output
     assert_empty error
   end
 
