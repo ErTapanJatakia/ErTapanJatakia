@@ -40,6 +40,7 @@ A green advisory check does not make it a required merge gate. The active branch
 ## Contribution requirements
 
 The applicable standard MUST be followed for each modified file type. If a change introduces a new language, build system, dependency ecosystem or executable component, the contributor MUST propose:
+
 1. The applicable language/style guide.
 2. A pinned or reproducible validation tool where practical.
 3. Local setup and execution instructions.
