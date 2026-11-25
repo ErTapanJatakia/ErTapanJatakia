@@ -12,8 +12,8 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 31 |
-| Partial | 3 |
+| Met | 34 |
+| Partial | 0 |
 | Unmet | 3 |
 | Not applicable (N/A) | 16 |
 | Unverified | 2 |
@@ -38,7 +38,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | `dco` | Use a legal contribution authorization mechanism (should) | **Met** | CONTRIBUTING.md defines the DCO legal assertion and sign-off procedure; the DCO validator checks every post-adoption commit in a pull-request range against the author or committer identity, and the required Major change validation gate fails if DCO validation fails. Pre-policy history is explicitly grandfathered. |
 | `governance` | Document the project governance/decision model | **Met** | PROJECT-GOVERNANCE.md defines the owner-governed model, decision categories, contribution/acceptance process, emergency decisions, dispute handling, roles and transparency boundaries; ACCESS-GOVERNANCE.md complements it with sensitive-resource controls. |
 | `code_of_conduct` | Adopt a published code of conduct | **Met** | CODE_OF_CONDUCT.md is published at the repository root. |
-| `roles_responsibilities` | Document key roles and responsibilities | **Partial** | The owner and collaborator roles are documented in ACCESS-GOVERNANCE.md; the collaborator's exact effective permissions and fully mapped responsibilities remain incomplete. |
+| `roles_responsibilities` | Document key roles and responsibilities | **Met** | PROJECT-GOVERNANCE.md and ACCESS-GOVERNANCE.md define owner/admin and collaborator responsibilities. A GitHub collaborator-permission lookup verified the sole collaborator's effective `read` role on 2026-11-25; the public-safe access record explains the read-only boundaries and responsibilities without exposing the account identifier. |
 | `access_continuity` | Continue core project operations if one person is lost | **Unmet** | The owner is the sole maintainer with administrative/release responsibility; the collaborator is not evidenced as able to accept changes and release within one week if the owner becomes unavailable. |
 | `bus_factor` | Maintain a bus factor of at least two (should at Silver) | **Unmet** | The current operating model identifies one maintainer; the collaborator is not established as a second maintainer. |
 | `documentation_roadmap` | Publish a roadmap for at least one year | **Met** | The root ROADMAP.md defines the 2026-11-25 to 2027-11-24 planning horizon, intended work, ongoing commitments, explicit out-of-scope items and governance for changes. |
@@ -47,7 +47,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | `documentation_quick_start` | Provide a quick-start guide | **Met** | BUILD-AND-TEST-INSTRUCTIONS.md and the repository user guide provide clone, validation and contribution entry points for the actual repository outputs. |
 | `documentation_current` | Keep documentation consistent with current results | **Unverified** | Individual documents have recent updates, but a complete cross-document consistency audit against the current repository state has not been completed. |
 | `documentation_achievements` | Link achievements from repository front page within 48h | **N/A** | No Passing/Silver/Gold OpenSSF Best Practices achievement has been publicly recognized yet; reassess within 48 hours if an achievement is awarded. |
-| `accessibility_best_practices` | Follow accessibility best practices (should) | **Partial** | CONTRIBUTING.md asks for descriptive alt text and readable structure, but a documented accessibility review of both repository pages and all relevant project results is not evidenced. |
+| `accessibility_best_practices` | Follow accessibility best practices (should) | **Met** | ACCESSIBILITY-REVIEW.md records a 2026-11-25 source-level review. The README heading hierarchy was corrected; all 53 README images have descriptive alt text; status badges include text alternatives; tables use simple header structures; and no custom interactive controls were found. Repository configuration CI enforces image alternatives and sequential heading levels. Screen-reader testing of GitHub's rendered page/external embeds is explicitly not claimed. |
 | `internationalization` | Internationalize user-facing software where applicable (should) | **N/A** | The repository does not produce end-user software with localized human-readable UI; its outputs are professional profile and repository documentation. |
 | `sites_password_security` | Secure stored external-user passwords | **N/A** | The project does not operate a site that stores external users' authentication passwords; GitHub handles account authentication. |
 
@@ -77,7 +77,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | `build_repeatable` | Make build outputs bit-for-bit repeatable | **N/A** | No compilation/build-generation process is used for the repository's current outputs. |
 | `installation_common` | Provide conventional install/uninstall | **N/A** | The repository does not provide an installable end-user software product. |
 | `installation_standard_variables` | Honor standard install destination variables | **N/A** | There is no end-user installation system or install destination convention. |
-| `installation_development_quick` | Provide conventional developer setup/install | **Partial** | Clone and test commands are documented, but there is no single documented setup command that installs all development/test prerequisites using a standard project convention. |
+| `installation_development_quick` | Provide conventional developer setup/install | **Met** | The repository provides an idempotent `script/setup` bootstrap, invoked as `bash script/setup`, which checks Git and Ruby 3.2+, ensures Minitest is available in the user's gem directory, reports optional Node/npm availability, and is documented in BUILD-AND-TEST-INSTRUCTIONS.md and CONTRIBUTING.md. CI validates its shell syntax. |
 | `external_dependencies` | List external dependencies machine-readably | **Met** | GitHub Actions dependencies are declared in workflow YAML and npm/npx QA tools are version-pinned; the dependency inventory records external Action identities and licences. |
 | `dependency_monitoring` | Monitor dependencies for vulnerabilities | **Met** | Dependabot, dependency review and repository security workflows monitor dependencies and policy violations. |
 | `updateable_reused_components` | Make reused components easy to update | **Met** | Actions are pinned to full commit SHAs and Dependabot proposes updates; standard system/runtime components are used where appropriate. |
@@ -131,6 +131,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 - [Documentation Maintenance](DOCUMENTATION-MAINTENANCE.md)
 - [External Interface Currency Review](INTERFACE-CURRENCY-REVIEW.md)
 - [Network Transport and Certificate Verification Review](NETWORK-CRYPTOGRAPHY-REVIEW.md)
+- [Recent Bug-Fix and Regression-Test Review](REGRESSION-TEST-REVIEW.md)
 - [Repository Automation Architecture](REPOSITORY-AUTOMATION-ARCHITECTURE.md)
 - [Repository Automation Threat Model](THREAT-MODEL.md)
 - [Repository Quality Assurance Policy](REPOSITORY-QA-POLICY.md)
