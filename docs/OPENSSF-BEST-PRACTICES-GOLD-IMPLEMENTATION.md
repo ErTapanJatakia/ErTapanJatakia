@@ -12,9 +12,9 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 11 |
+| Met | 12 |
 | Partial | 1 |
-| Unmet | 6 |
+| Unmet | 5 |
 | Not applicable (N/A) | 3 |
 | Unverified | 2 |
 | **Total** | **23** |
