@@ -44,13 +44,13 @@ ruby scripts/check-branch-coverage.rb
 
 The command runs the Ruby validator regression suite and reports both statement and branch coverage for `scripts/validate-dco.rb`, `scripts/validate-vex.rb`, `scripts/validate-sbom.rb`, `scripts/classify-sbom-response.rb` and `scripts/validate-network-transport.rb`. CI enforces a minimum of 80% for each metric.
 
-For a pull request, the DCO range validator is invoked by CI with the exact base and head commit SHAs:
+The DCO range validator remains available for optional manual diagnostics; CI does not invoke it and pull requests do not require DCO sign-off. To run it manually with explicit base and head commit SHAs:
 
 ```bash
 BASE_SHA=<base-commit-sha> HEAD_SHA=<head-commit-sha> ruby scripts/validate-dco.rb
 ```
 
-Every commit added after DCO policy adoption must contain a `Signed-off-by` trailer matching its author or committer name and email. Create commits with:
+If you choose to add a DCO sign-off voluntarily, Git supports the following command. This is not a repository requirement:
 
 ```bash
 git commit -s -m "type: describe the change"
