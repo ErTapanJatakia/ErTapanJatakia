@@ -2,9 +2,9 @@
 
 ## 1. Scope
 
-This repository publishes a professional profile, documentation, GitHub Actions automation and four small Ruby command-line validation utilities. It is not an end-user application and has no application runtime or application integration-test suite. The Ruby utilities are maintained software components and are covered by dedicated regression tests and measured branch coverage.
+This repository publishes a professional profile, documentation, GitHub Actions automation and five small Ruby command-line validation utilities. It is not an end-user application and has no application runtime or application integration-test suite. The Ruby utilities are maintained software components and are covered by dedicated regression tests and measured branch coverage.
 
-The automated checks validate repository content, policy data, automation configuration and the four maintained Ruby utilities. Contributors can bootstrap the local Ruby test environment with `bash script/setup`. Checks must be described accurately by target; repository-content checks are not application tests, while utility tests are executable software tests.
+The automated checks validate repository content, policy data, automation configuration and the five maintained Ruby utilities. Contributors can bootstrap the local Ruby test environment with `bash script/setup`. Checks must be described accurately by target; repository-content checks are not application tests, while utility tests are executable software tests.
 
 ## 2. When checks run
 
@@ -27,7 +27,7 @@ The security-analysis, CodeQL default setup, Scorecard and dependency-analysis w
 | Prettier | Maintained workflow and repository configuration formatting | `npx --yes prettier@3.6.2 --check ".github/workflows/*.yml" ".github/dependabot.yml" ".prettierrc.json"` |
 | VEX register validation | Machine-readable exception records, CycloneDX 1.6 statements, expiry, evidence and matching advisory/component references | `ruby scripts/validate-vex.rb` |
 | Ruby validator regression tests | Positive and negative cases for VEX exception validation, DCO commit-range validation, SPDX SBOM validation and GitHub SBOM polling-response classification | `ruby scripts/check-branch-coverage.rb` |
-| Ruby validator branch coverage | Ruby standard-library Coverage measures executed branch paths across all four maintained Ruby utilities; CI requires at least 80% | Included in `ruby scripts/check-branch-coverage.rb` |
+| Ruby validator branch coverage | Ruby standard-library Coverage measures executed branch paths across all five maintained Ruby utilities; CI requires at least 80% | Included in `ruby scripts/check-branch-coverage.rb` |
 | Ruby validator statement coverage | Ruby standard-library Coverage measures executable source lines across all four maintained Ruby utilities; CI requires at least 80% statement coverage | Included in `ruby scripts/check-branch-coverage.rb` |
 | DCO commit validation | Checks every commit in the pull-request range for an exact sign-off matching its author or committer identity | `BASE_SHA=<base> HEAD_SHA=<head> ruby scripts/validate-dco.rb` |
 
