@@ -70,7 +70,7 @@ The active default-branch ruleset requires pull requests and the named security 
 
 ### Current automated analysis
 
-<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/security/code-scanning"><img src="https://img.shields.io/badge/CodeQL-Actions%20analysis%20configured-2ea44f?style=flat-square&logo=github" alt="CodeQL Actions" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/security/code-scanning"><img src="https://img.shields.io/badge/CodeQL-Ruby%20%2B%20Actions%20analysis%20configured-2ea44f?style=flat-square&logo=github" alt="CodeQL Ruby and Actions" height="30" /></a>
 <a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml"><img src="https://img.shields.io/badge/Workflow%20Security-zizmor%20audit%20configured-2ea44f?style=flat-square" alt="Workflow Audit" height="30" /></a>
 
 ### Quality gates — implemented (advisory)
