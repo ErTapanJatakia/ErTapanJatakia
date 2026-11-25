@@ -151,7 +151,7 @@ class SbomValidatorTest < Minitest::Test
 
   def test_local_gpg_action_reference_resolves
     workflow = File.read(File.expand_path("../.github/workflows/documentation-release.yml", __dir__))
-    assert_includes workflow, "./.github/actions/setup-personal-gpg"
+    assert_includes workflow, "$/.github/actions/setup-personal-gpg"
     assert File.file?(File.expand_path("../.github/actions/setup-personal-gpg/action.yml", __dir__))
   end
 end
