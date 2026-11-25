@@ -6,7 +6,7 @@ This repository contains a public profile README, documentation and policy recor
 
 There is therefore **no compilation or application build step**. The maintained Ruby utilities are interpreted directly by Ruby. The controlled release process creates a source-and-documentation archive using Git; it does not compile software or resolve application packages.
 
-These instructions describe how to reproduce the repository's validation and documentation-release preparation without implying that an application binary exists. The Ruby validators are maintained command-line utilities and are tested as software components; their statement and branch coverage are measured separately from any application-coverage claim.
+These instructions describe how to reproduce the repository's validation and documentation-release preparation without implying that an application binary exists. The Ruby validators and SBOM helpers are maintained command-line utilities and are tested as software components; their statement and branch coverage are measured separately from any application-coverage claim.
 
 ## 2. Required toolchain
 
@@ -14,7 +14,7 @@ These instructions describe how to reproduce the repository's validation and doc
 |---|---|---|
 | Git | Clone, inspect history, validate commits and create source archives | Current supported Git release |
 | Ruby | Run repository validators, regression tests and branch coverage | Ruby 3.x; validator scripts and branch-coverage measurement use the Ruby standard library |
-| Minitest | Positive/negative tests for the Ruby validators | Ruby's Minitest gem; no application gem bundle or Gemfile is maintained |
+| Minitest | Positive/negative tests for the Ruby validators and SBOM helpers | Ruby's Minitest gem; no application gem bundle or Gemfile is maintained |
 | Bash, jq, coreutils, gzip, tar | Workflow validation, JSON processing, checksums and source archive packaging | Provided by the GitHub-hosted Ubuntu runner |
 | Node.js and npm/npx | Run Markdown lint and Prettier checks | Tool versions are explicitly pinned in workflow commands; no application package manifest is used |
 | actionlint | Static analysis of GitHub Actions workflow syntax | 1.7.12; downloaded over HTTPS and verified against a pinned SHA-256 digest in CI |
@@ -38,7 +38,7 @@ ruby scripts/validate-vex.rb
 ruby scripts/check-branch-coverage.rb
 ```
 
-The command runs the Ruby validator regression suite and reports both statement and branch coverage for `scripts/validate-dco.rb` and `scripts/validate-vex.rb`. CI enforces a minimum of 80% for each metric.
+The command runs the Ruby validator regression suite and reports both statement and branch coverage for `scripts/validate-dco.rb`, `scripts/validate-vex.rb`, `scripts/validate-sbom.rb` and `scripts/classify-sbom-response.rb`. CI enforces a minimum of 80% for each metric.
 
 For a pull request, the DCO range validator is invoked by CI with the exact base and head commit SHAs:
 
