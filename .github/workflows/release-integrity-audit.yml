@@ -36,6 +36,20 @@ jobs:
           fi
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
+      - name: Check out repository and fetch release tag
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Fetch and resolve immutable release tag
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "refs/tags/$TAG:refs/tags/$TAG"
+          echo "tag_commit=$(git rev-parse "$TAG^{commit}")" >> "$GITHUB_ENV"
       - name: Download exact release assets
         env:
           GH_TOKEN: ${{ github.token }}
@@ -71,7 +85,7 @@ jobs:
         working-directory: release
         run: |
           set -euo pipefail
-          signer="github.com/$GITHUB_REPOSITORY/.github/workflows/documentation-release.yml"
+          signer="$GITHUB_REPOSITORY/.github/workflows/documentation-release.yml"
           for subject in "$TAG.tar.gz" "$TAG-SHA256SUMS" "$TAG-release-manifest.json"; do
             gh attestation verify "$subject" --repo "$GITHUB_REPOSITORY" --signer-workflow "$signer"
           done
@@ -83,8 +97,9 @@ jobs:
         run: |
           set -euo pipefail
           sha256sum --check "$TAG-SHA256SUMS"
-          jq -e --arg tag "$TAG" --arg repo "$GITHUB_REPOSITORY" '
+          jq -e --arg tag "$TAG" --arg repo "$GITHUB_REPOSITORY" --arg commit "$tag_commit" '
             .releaseTag == $tag and
+            .sourceCommit == $commit and
             .project == $repo and
             .distributionType == "source-and-documentation-snapshot" and
             .compiledSoftwareAssetsIncluded == false and
