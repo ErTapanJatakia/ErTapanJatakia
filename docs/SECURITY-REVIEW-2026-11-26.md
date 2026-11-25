@@ -2,7 +2,7 @@
 
 **Review status:** Owner-approved internal review (2026-11-26)  
 **Review type:** AI-assisted internal source, workflow and security-boundary review  
-**Reviewer independence:** This is not an independent human review, penetration test, external audit or certification. The repository owner explicitly approved and authorized this review on 2026-11-26. This is an owner-approved AI-assisted internal review, not an independent human review, penetration test, external audit or certification.  
+**Reviewer independence:** This is an AI-assisted internal review approved by the repository owner. It is not an independent human review, penetration test, external audit or certification.  
 **Scope:** Public profile repository, six maintained Ruby scripts, Ruby regression tests, GitHub Actions workflow configuration, dependency controls, DCO policy/enforcement distinction, release integrity and repository access governance.
 
 ## 1. Review objective and method
