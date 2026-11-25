@@ -12,11 +12,11 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 51 |
+| Met | 52 |
 | Partial | 0 |
 | Unmet | 0 |
-| Not applicable (N/A) | 14 |
-| Unverified | 2 |
+| Not applicable (N/A) | 15 |
+| Unverified | 0 |
 | **Total** | **67** |
 
 Passing includes the repository/project basics, change control, reporting, quality, security and analysis criteria. This register distinguishes the two maintained Ruby command-line validators and their regression/branch-coverage tests from an end-user application; no application runtime or compiled application build is claimed.
@@ -71,8 +71,8 @@ Passing includes the repository/project basics, change control, reporting, quali
 | `enhancement_responses` | Respond to >50% of recent enhancement requests (should) | **Met** | The same 2026-11-25 public issue-tracker audit found zero actual issue records, including zero enhancement-request issues; there were no public enhancement requests awaiting a response. Pull requests were excluded from the issue count. |
 | `report_archive` | Maintain a public searchable report archive | **Met** | GitHub Issues and pull requests provide a public, searchable archive. |
 | `vulnerability_report_process` | Publish vulnerability reporting process | **Met** | SECURITY.md publishes coordinated vulnerability disclosure instructions and response targets. |
-| `vulnerability_report_private` | Explain private reporting when supported | **Unverified** | SECURITY.md describes GitHub private reporting, but the active feature toggle and reporter-facing form have not been independently verified. |
-| `vulnerability_report_response` | Respond to vulnerability reports within 14 days | **Unverified** | No complete record of vulnerability reports received in the preceding six months was available to establish the required response-time result or N/A. |
+| `vulnerability_report_private` | Explain private reporting when supported | **Met** | SECURITY.md identifies GitHub Private Vulnerability Reporting, links directly to the repository's GitHub Advisories page, explains the reporter-facing navigation/form, and instructs reporters not to disclose sensitive details publicly. This satisfies the criterion's documentation requirement. The GitHub feature toggle and live form availability remain an operational check and are not represented here as independently verified. |
+| `vulnerability_report_response` | Respond to vulnerability reports within 14 days | **N/A** | The repository owner confirmed on 2026-11-25 that no vulnerability reports had been received through GitHub Advisories, email or any other private channel since the repository was created on 2026-10-31. The official criterion permits N/A when no vulnerability reports were received in the preceding six months; no response-time history is therefore applicable. |
 
 ## Quality
 
@@ -130,9 +130,11 @@ Passing includes the repository/project basics, change control, reporting, quali
 
 - **Ruby dynamic test evidence:** [Repository Quality Assurance run 45515536242](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45515536242) — 43 tests, 82 assertions, 64/74 branch outcomes covered (86.49%); the enforced threshold is 80%. The run completed without test failures or errors.
 - **Public report tracker snapshot:** the repository's [public issue tracker](https://github.com/ErTapanJatakia/ErTapanJatakia/issues) was queried on 2026-11-25. The GitHub issue endpoint returned 63 records, all pull requests; no actual issue records were returned. This supports the zero-public-bug-report and zero-public-enhancement-request response findings, but it does not cover reports received outside the issue tracker.
-- **Vulnerability response policy:** SECURITY.md now commits to an initial response within 7 calendar days (and never later than 14 calendar days). This is prospective policy evidence, not proof of historical response performance.
+- **Vulnerability response history:** The repository owner confirmed on 2026-11-25 that no vulnerability reports had been received since repository creation on 2026-10-31. Accordingly, `vulnerability_report_response` is N/A under the criterion's explicit no-reports provision; the published 7-calendar-day initial-response target remains a prospective commitment for any future report.
 - **Current vulnerability inventory:** [SAST Policy Gate run 45516088052](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45516088052) completed both CodeQL language analyses and reported zero open CodeQL alerts across Ruby and GitHub Actions. [Dependency and Malware Alert Policy run 45516088143](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45516088143) reported zero unresolved general Dependabot alerts outside the validated VEX register and zero open malware alerts. These are point-in-time inventories, not proof that no vulnerability ever existed.
-- **Still requiring owner/platform evidence:** private vulnerability reporting must be enabled and the reporter-facing form verified; private vulnerability reports received in the last six months must be checked for response timing; the primary developer must attest to the secure-design and common-error knowledge criteria; the current CodeQL open-alert inventory and public vulnerability/advisory history must be reviewed before marking the remaining static-analysis and public-vulnerability remediation criteria Met.
+- **Operational follow-up (not an outstanding criterion status):** independently verify that GitHub Private Vulnerability Reporting is enabled and that the reporter-facing form is visible. The documentation criterion is assessed Met based on the published private-reporting instructions; this operational verification is deliberately not claimed.
+- **Owner confirmation recorded:** no vulnerability reports were received through any private channel since repository creation. The response criterion is therefore N/A, not Met, as expressly permitted by the official criteria.
+- **Other evidence controls:** retain the owner attestations for secure-design/common-error knowledge and refresh the CodeQL/dependency/advisory evidence snapshots before future BadgeApp submissions.
 
 ## Evidence references
 
