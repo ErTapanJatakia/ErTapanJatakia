@@ -18,7 +18,7 @@
 
 </div>
 
-#### `CHARTERED ENGINEER (C.ENG.) | CYBER SECURITY CONSULTANT / ADVISOR | CYBER LITIGATION ADVISOR`
+# `CHARTERED ENGINEER (C.ENG.) | CYBER SECURITY CONSULTANT / ADVISOR | CYBER LITIGATION ADVISOR`
 
 **Securing Digital Frontiers | Engineering Resilience | Empowering Growth**
 
@@ -225,17 +225,17 @@ For guidance on navigating the profile, contributing, reporting issues, running 
 
 ### PERSONNEL CONTRIBUTION STATISTICS
 
-<img width="49%" src="https://github-readme-stats.vercel.app/api?username=ErTapanJatakia&show_icons=true&count_private=true&include_all_commits=true&hide_border=true&bg_color=05070A&title_color=0879D1&icon_color=39FF88&text_color=FFFFFF"/>
+<img width="49%" src="https://github-readme-stats.vercel.app/api?username=ErTapanJatakia&show_icons=true&count_private=true&include_all_commits=true&hide_border=true&bg_color=05070A&title_color=0879D1&icon_color=39FF88&text_color=FFFFFF" alt="GitHub profile and contribution statistics"/>
 
-<img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ErTapanJatakia&layout=compact&langs_count=10&hide_border=true&bg_color=05070A&title_color=0879D1&text_color=FFFFFF"/>
+<img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ErTapanJatakia&layout=compact&langs_count=10&hide_border=true&bg_color=05070A&title_color=0879D1&text_color=FFFFFF" alt="Most used programming languages on GitHub"/>
 
 ### CONTRIBUTION STREAK
 
-<img width="95%" src="https://github-readme-streak-stats.herokuapp.com/?user=ErTapanJatakia&theme=dark&hide_border=true&background=05070A&ring=0879D1&fire=FF4141&currStreakLabel=39FF88"/>
+<img width="95%" src="https://github-readme-streak-stats.herokuapp.com/?user=ErTapanJatakia&theme=dark&hide_border=true&background=05070A&ring=0879D1&fire=FF4141&currStreakLabel=39FF88" alt="GitHub contribution streak"/>
 
 ### CONTRIBUTION ACTIVITY
 
-<img width="100%" src="https://github-readme-activity-graph.vercel.app/graph?username=ErTapanJatakia&bg_color=05070A&color=0879D1&line=39FF88&point=FF4141&area=true&hide_border=true&custom_title=CYBER%20OPERATIONS%20%7C%20CONTRIBUTION%20ACTIVITY"/>
+<img width="100%" src="https://github-readme-activity-graph.vercel.app/graph?username=ErTapanJatakia&bg_color=05070A&color=0879D1&line=39FF88&point=FF4141&area=true&hide_border=true&custom_title=CYBER%20OPERATIONS%20%7C%20CONTRIBUTION%20ACTIVITY" alt="GitHub contribution activity graph"/>
 
 </div>
 -->
