@@ -283,36 +283,19 @@ class VexValidatorTest < Minitest::Test
   def test_cli_reports_success_for_current_repository_register
     root = File.expand_path("..", __dir__)
     script = File.join(root, "scripts/validate-vex.rb")
-    original_program_name = $PROGRAM_NAME
-    begin
-      Dir.chdir(root) do
-        $PROGRAM_NAME = script
-        output, error = capture_io { load script }
-        assert_includes output, "VEX exception register validated"
-        assert_empty error
-      end
-    ensure
-      $PROGRAM_NAME = original_program_name
-    end
+    output, error, status = Open3.capture3("ruby", script, chdir: root)
+    assert status.success?, error
+    assert_includes output, "VEX exception register validated"
+    assert_empty error
   end
 
   def test_cli_fails_closed_when_register_is_missing
     Dir.mktmpdir("vex-cli") do |directory|
       script = File.expand_path("../scripts/validate-vex.rb", __dir__)
-      original_program_name = $PROGRAM_NAME
-      begin
-        Dir.chdir(directory) do
-          $PROGRAM_NAME = script
-          output, error = capture_io do
-            failure = assert_raises(SystemExit) { load script }
-            assert_equal 1, failure.status
-          end
-          assert_empty output
-          assert_match(/Missing VEX exception register/, error)
-        end
-      ensure
-        $PROGRAM_NAME = original_program_name
-      end
+      output, error, status = Open3.capture3("ruby", script, chdir: directory)
+      refute status.success?
+      assert_empty output
+      assert_match(/Missing VEX exception register/, error)
     end
   end
 
