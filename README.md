@@ -6,6 +6,37 @@
 
 <div align="center">
 
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/security-analysis.yml/badge.svg?branch=main" alt="Security Analysis" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/scorecard.yml/badge.svg?branch=main" alt="OpenSSF Scorecard workflow" height="30" /></a>
+<a href="./SECURITY.md"><img src="https://img.shields.io/badge/Security%20Policy-Published-2ea44f?style=flat-square&logo=github" alt="Security Policy" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/main-branch%20protected-2ea44f?style=flat-square&logo=github" alt="Protected Main" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/security/code-scanning"><img src="https://img.shields.io/badge/Static%20Analysis-CodeQL%20Actions%20analysis-2ea44f?style=flat-square&logo=github" alt="CodeQL" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/dependency-review.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/dependency-review.yml/badge.svg?branch=main" alt="Dependency Review and Dependabot alert gate" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/sast-policy-gate.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/sast-policy-gate.yml/badge.svg?branch=main" alt="SAST Policy Gate" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/security_analysis"><img src="https://img.shields.io/badge/GitHub%20Secret%20Scanning-Enabled%20%28owner--confirmed%29-2ea44f?style=flat-square&logo=github" alt="GitHub Secret Scanning" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/security/dependabot"><img src="https://img.shields.io/badge/Dependabot%20Alerts-Enabled%20%28owner--confirmed%29-2ea44f?style=flat-square&logo=dependabot" alt="Dependabot Alerts" height="30" /></a>
+<a href="./.github/workflows/"><img src="https://img.shields.io/badge/GitHub%20Actions-Immutable%20SHA%20pinning%20in%20use-2ea44f?style=flat-square&logo=githubactions" alt="Pinned Actions" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45312695775"><img src="https://img.shields.io/badge/GPG%20Signing-Cryptographic%20signature%20verified-2ea44f?style=flat-square&logo=gnupg" alt="GPG signing verification passed; see run 45312695775" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/repository-dependency-sbom.yml"><img src="https://github.com/ErTapanJatakia/ErTapanJatakia/actions/workflows/repository-dependency-sbom.yml/badge.svg?branch=main" alt="Repository dependency-graph SPDX SBOM export" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/attestations/71451141"><img src="https://img.shields.io/badge/SBOM%20Attestation-SBOM%20%2B%20checksum%20verified-2ea44f?style=flat-square&logo=sigstore" alt="SBOM and checksum provenance attestations generated and verified in run 45331157748" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Default%20Branch-Protected-2ea44f?style=flat-square&logo=github" alt="Protected Default Branch" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/History-Squash%20merge%20only-2ea44f?style=flat-square" alt="Squash Only" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/History-Linear%20history-2ea44f?style=flat-square" alt="Linear History" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Branch%20Safety-Force%20pushes%20blocked-2ea44f?style=flat-square" alt="Force Push Protection" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Branch%20Safety-Deletion%20restricted-2ea44f?style=flat-square" alt="Deletion Protection" height="30" /></a>
+<a href="https://github.com/ErTapanJatakia/ErTapanJatakia/settings/rules"><img src="https://img.shields.io/badge/Ruleset-Bypass%20list%20empty-2ea44f?style=flat-square" alt="No Bypass Actors" height="30" /></a>
+<a href="./SECURITY.md"><img src="https://img.shields.io/badge/Vulnerability%20Reporting-Policy%20published-2ea44f?style=flat-square" alt="Security Policy" height="30" /></a>
+<a href="./SECURITY.md"><img src="https://img.shields.io/badge/Coordinated%20Disclosure-Guidance%20published-2ea44f?style=flat-square" alt="Responsible Disclosure" height="30" /></a>
+<a href="./CONTRIBUTING.md"><img src="https://img.shields.io/badge/Contribution%20Guidance-Published-2ea44f?style=flat-square" alt="Contributing" height="30" /></a>
+<a href="./CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Code%20of%20Conduct-Published-2ea44f?style=flat-square" alt="Code of Conduct" height="30" /></a>
+<a href="./.github/dependabot.yml"><img src="https://img.shields.io/badge/Dependency%20Policy-Configuration%20published-2ea44f?style=flat-square" alt="Dependabot Policy" height="30" /></a>
+<a href="https://www.bestpractices.dev/projects/17059/baseline"><img src="https://www.bestpractices.dev/projects/17059/baseline" alt="OpenSSF Baseline" height="30" /></a>
+<a href="https://www.bestpractices.dev/projects/17059"><img src="https://www.bestpractices.dev/projects/17059/badge" alt="OpenSSF Best Practices" height="30" /></a>
+
+</div>
+
+<div align="center">
+
 <img src="https://i.pinimg.com/originals/d2/8a/5f/d28a5f14d97545a8075872485fe13fa2.gif" width="100%" alt="Cyber Operations Centre"/>
 
 <br/>
