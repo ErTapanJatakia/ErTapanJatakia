@@ -47,7 +47,7 @@ The assessment separates the control criterion from the evidence, the reason for
 ## Evidence and scope guardrails
 
 - The Level 2 remediation added reproducible build/toolchain instructions, a repository automation architecture and an external software interface inventory. These documents describe the actual released scripts and workflow configuration, not an application runtime.
-- DCO sign-off is not a required repository control; the standalone validator is retained for regression coverage and optional manual diagnostics.
+- DCO 1.1 sign-off remains enabled as a documented contributor-policy requirement and is described in CONTRIBUTING.md. Automated sign-off validation is de-enforced in practice: CI does not require or check trailers. The standalone validator remains available for regression coverage and optional manual diagnostics.
 
 - A documentation release is not a compiled software release; it does not satisfy compiled-binary SBOM or software build-provenance requirements.
 - A policy is not proof that a control operated. Operational controls require platform configuration, workflow runs or a real access/release event.
