@@ -134,7 +134,7 @@ jobs:
             fi
             status="$(jq -r '.status // ""' <<< "$record")"
             conclusion="$(jq -r '.conclusion // ""' <<< "$record")"
-            if [[ "$status" != "completed" || "$conclusion" != "success" ]]; then
+            if [[ "$conclusion" != "success" ]]; then
               echo "::error::Required release check did not complete successfully: $check_name ($status/$conclusion)"
               exit 1
             fi
