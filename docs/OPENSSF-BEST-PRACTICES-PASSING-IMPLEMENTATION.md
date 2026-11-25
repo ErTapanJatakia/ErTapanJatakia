@@ -12,11 +12,11 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 46 |
+| Met | 49 |
 | Partial | 0 |
 | Unmet | 0 |
 | Not applicable (N/A) | 14 |
-| Unverified | 7 |
+| Unverified | 4 |
 | **Total** | **67** |
 
 Passing includes the repository/project basics, change control, reporting, quality, security and analysis criteria. This register distinguishes the two maintained Ruby command-line validators and their regression/branch-coverage tests from an end-user application; no application runtime or compiled application build is claimed.
@@ -109,8 +109,8 @@ Passing includes the repository/project basics, change control, reporting, quali
 | `crypto_random` | Generate keys/nonces with a CSPRNG | **N/A** | The repository does not generate cryptographic keys or nonces in project-produced application code. |
 | `delivery_mitm` | Protect delivery against MITM | **Met** | The controlled release is distributed over HTTPS and has a verified signed Git tag, detached GPG signature, SHA-256 checksums and artifact attestations. |
 | `delivery_unsigned` | Do not trust unsigned hashes retrieved over HTTP | **Met** | Release checksums are accompanied by cryptographic signature/attestation verification instructions; the process does not rely on an unsigned HTTP hash. |
-| `vulnerabilities_fixed_60_days` | No medium+ public vulnerabilities unpatched >60 days | **Unverified** | A complete public vulnerability/advisory history and current vulnerability disposition were not independently established for this criterion. |
-| `vulnerabilities_critical_fixed` | Rapidly fix critical vulnerabilities (should) | **Unverified** | No complete report/triage history was available to prove the treatment of all critical findings. |
+| `vulnerabilities_fixed_60_days` | No medium+ public vulnerabilities unpatched >60 days | **Met** | On 2026-11-25, CodeQL reported zero open alerts across the Ruby and GitHub Actions analyses; the SAST gate blocks open Critical/High alerts and Medium alerts older than 30 days. The same revision's Dependabot gate reported zero unresolved general alerts outside validated VEX exceptions and zero open malware alerts. This is a point-in-time evidence snapshot, backed by stricter-than-60-day enforcement for Medium CodeQL findings. |
+| `vulnerabilities_critical_fixed` | Rapidly fix critical vulnerabilities (should) | **Met** | The 2026-11-25 CodeQL inventory contained zero open alerts, including Critical/High; the SAST gate blocks any open Critical/High finding. The same revision's Dependabot gate reported zero unresolved general alerts and zero open malware alerts. Critical/High findings therefore cannot pass the configured merge gate while unresolved. |
 | `no_leaked_credentials` | Do not leak valid private credentials in public repositories | **Met** | Gitleaks scans repository history in CI and the security workflow is part of the protected repository checks; this is a control, not a guarantee that credentials were never exposed. |
 
 ## Analysis
@@ -119,7 +119,7 @@ Passing includes the repository/project basics, change control, reporting, quali
 |---|---|---|---|
 | `static_analysis` | Apply static analysis before major production releases | **Met** | CodeQL default setup analyzes the maintained Ruby validators and GitHub Actions workflows; zizmor audits workflow security patterns. The SAST policy gate now waits for both CodeQL language analyses before evaluating the alert inventory. |
 | `static_analysis_common_vulnerabilities` | Use SAST rules for common vulnerabilities | **Met** | CodeQL provides security-focused analysis; zizmor audits GitHub Actions workflow risks. |
-| `static_analysis_fixed` | Fix confirmed medium+ SAST vulnerabilities | **Unverified** | The SAST policy defines severity handling, but a complete current finding inventory and remediation evidence was not reviewed for this criterion. |
+| `static_analysis_fixed` | Fix confirmed medium+ SAST vulnerabilities | **Met** | The 2026-11-25 CodeQL alert inventory contained zero open findings across Ruby and GitHub Actions. The SAST gate waits for both analyses, blocks all open Critical/High findings and blocks Medium findings older than 30 days; the inventory summary is recorded in [SAST Policy Gate run 45516088052](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45516088052). |
 | `static_analysis_often` | Run SAST every commit or daily (suggested) | **Met** | Security analysis runs on pushes and pull requests and has a scheduled weekly run. |
 | `dynamic_analysis` | Apply dynamic analysis before major releases | **Met** | The automated Ruby validator test suite is executed dynamically and provides 86.49% branch coverage (64/74 branches) in CI, exceeding the criterion's 80% branch-coverage alternative. See run [45515536242](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45515536242). |
 | `dynamic_analysis_unsafe` | Use memory-safety dynamic analysis if unsafe languages exist (suggested) | **N/A** | The repository's maintained Ruby/Markdown/YAML/JavaScript workflow assets do not include memory-unsafe C/C++ software. |
@@ -131,6 +131,7 @@ Passing includes the repository/project basics, change control, reporting, quali
 - **Ruby dynamic test evidence:** [Repository Quality Assurance run 45515536242](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45515536242) — 43 tests, 82 assertions, 64/74 branch outcomes covered (86.49%); the enforced threshold is 80%. The run completed without test failures or errors.
 - **Public report tracker snapshot:** the repository's [public issue tracker](https://github.com/ErTapanJatakia/ErTapanJatakia/issues) was queried on 2026-11-25. The GitHub issue endpoint returned 63 records, all pull requests; no actual issue records were returned. This supports the zero-public-bug-report and zero-public-enhancement-request response findings, but it does not cover reports received outside the issue tracker.
 - **Vulnerability response policy:** SECURITY.md now commits to an initial response within 7 calendar days (and never later than 14 calendar days). This is prospective policy evidence, not proof of historical response performance.
+- **Current vulnerability inventory:** [SAST Policy Gate run 45516088052](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45516088052) completed both CodeQL language analyses and reported zero open CodeQL alerts across Ruby and GitHub Actions. [Dependency and Malware Alert Policy run 45516088143](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45516088143) reported zero unresolved general Dependabot alerts outside the validated VEX register and zero open malware alerts. These are point-in-time inventories, not proof that no vulnerability ever existed.
 - **Still requiring owner/platform evidence:** private vulnerability reporting must be enabled and the reporter-facing form verified; private vulnerability reports received in the last six months must be checked for response timing; the primary developer must attest to the secure-design and common-error knowledge criteria; the current CodeQL open-alert inventory and public vulnerability/advisory history must be reviewed before marking the remaining static-analysis and public-vulnerability remediation criteria Met.
 
 ## Evidence references
