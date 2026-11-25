@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 require "minitest/autorun"
+require "open3"
 require "stringio"
 require "tempfile"
 require "tmpdir"
@@ -76,6 +77,20 @@ class NetworkTransportValidatorTest < Minitest::Test
       result = NetworkTransportValidator.validate_directory(directory)
       refute result[:valid]
       assert_match(/Unable to read workflow files/, result[:errors].first)
+    end
+  end
+
+  def test_command_line_entrypoint_validates_workflow_directory
+    Dir.mktmpdir do |directory|
+      File.write(
+        File.join(directory, "workflow.yml"),
+        "curl --proto '=https' --tlsv1.2 https://example.test\\n"
+      )
+      script = File.expand_path("../scripts/validate-network-transport.rb", __dir__)
+      output, error, status = Open3.capture3("ruby", script, directory)
+      assert status.success?, error
+      assert_includes output, "Validated 1 curl request"
+      assert_empty error
     end
   end
 
