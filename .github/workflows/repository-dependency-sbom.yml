@@ -37,7 +37,7 @@ jobs:
         run: |
           set -euo pipefail
           response="$RUNNER_TEMP/sbom-generation-response.json"
-          curl --fail --silent --show-error \
+          curl --fail --silent --show-error --proto '=https' --tlsv1.2 \
             --request GET \
             --header "Accept: application/vnd.github+json" \
             --header "Authorization: Bearer $GH_TOKEN" \
@@ -62,7 +62,7 @@ jobs:
           response="$RUNNER_TEMP/sbom-response-body.json"
           download_url=""
           for attempt in {1..18}; do
-            status="$(curl --silent --show-error \
+            status="$(curl --silent --show-error --proto '=https' --tlsv1.2 \
               --dump-header "$headers" \
               --output "$response" \
               --write-out '%{http_code}' \
@@ -70,11 +70,12 @@ jobs:
               --header "Authorization: Bearer $GH_TOKEN" \
               --header "X-GitHub-Api-Version: 2026-03-10" \
               "$SBOM_URL")"
-            if [[ "$status" == "302" ]]; then
+            response_state="$(ruby scripts/classify-sbom-response.rb "$status")"
+            if [[ "$response_state" == "ready" ]]; then
               download_url="$(awk 'tolower($1) == "location:" { sub(/\r$/, ""); $1=""; sub(/^ /, ""); print }' "$headers" | tail -n 1)"
               break
             fi
-            if [[ "$status" != "202" ]]; then
+            if [[ "$response_state" == "unexpected" ]]; then
               echo "::error::Unexpected SBOM report response: HTTP $status"
               cat "$response"
               exit 1
@@ -88,7 +89,7 @@ jobs:
           fi
           mkdir -p dist
           # The signed temporary download URL is separate from the authenticated API endpoint.
-          curl --fail --silent --show-error --location "$download_url" \
+          curl --fail --silent --show-error --proto '=https' --proto-redir '=https' --tlsv1.2 --location "$download_url" \
             --output dist/repository-dependency-sbom.spdx.json
 
       - name: Validate SPDX document and dependency coverage
@@ -97,13 +98,7 @@ jobs:
         run: |
           set -euo pipefail
           sbom="dist/repository-dependency-sbom.spdx.json"
-          jq --exit-status '
-            (.sbom // .) as $document |
-            $document.SPDXID == "SPDXRef-DOCUMENT" and
-            $document.spdxVersion == "SPDX-2.3" and
-            ($document.packages | type == "array") and
-            ($document.relationships | type == "array")
-          ' "$sbom" >/dev/null
+          ruby scripts/validate-sbom.rb "$sbom"
           package_count="$(jq '(.sbom // .).packages | length' "$sbom")"
           dependency_count="$(jq '[((.sbom // .).relationships)[] | select(.relationshipType == "DEPENDS_ON")] | length' "$sbom")"
           if (( dependency_count < 1 )); then

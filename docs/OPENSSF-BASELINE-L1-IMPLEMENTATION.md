@@ -56,7 +56,7 @@ Statuses reflect repository evidence plus explicitly identified owner attestatio
 - The repository is a profile/documentation and automation project. Do not invent application user guides, application dependency manifests, runtime tests, or software build evidence where no application exists.
 - A GPG-signed commit/tag is not the same as DCO sign-off or mandatory signed commits.
 - MFA and collaborator-count evidence are owner attestations; the effective collaborator permission (`read`) and ruleset configuration are independently confirmed through GitHub APIs. Reconfirm account MFA and access roster whenever repository access changes.
-- The repository's security contacts are documented, but the GitHub Private Vulnerability Reporting setting is not independently verified by the connected integration.
+- The repository owner confirmed GitHub Private Vulnerability Reporting enabled in Settings → Security & analysis on 2026-11-24; the connected integration cannot independently read back the setting.
 - The GitHub Release object is not API-reported as immutable. The signed tag is verified and protected; those are separate properties.
 - The three N/A controls are conditional and remain N/A because the repository does not currently release end-user software, use an application dependency manifest, or comprise multiple authoritative codebases.
 

@@ -52,6 +52,40 @@ jobs:
           grep -Fxq 'indent_size = 2' .editorconfig
           grep -Fxq 'trim_trailing_whitespace = false' .editorconfig
           echo "EditorConfig policy is present and contains the required repository settings."
+
+      - name: Validate local composite action references
+        shell: bash
+        run: |
+          set -euo pipefail
+          action_file=".github/actions/setup-personal-gpg/action.yml"
+          workflow_file=".github/workflows/documentation-release.yml"
+          test -f "$action_file"
+          grep -Fq "$/.github/actions/setup-personal-gpg" "$workflow_file"
+          test -f script/setup
+          bash -n script/setup
+          echo "The controlled release workflow references an existing local GPG setup action; developer bootstrap syntax is valid."
+
+      - name: Validate README accessibility structure
+        shell: bash
+        run: |
+          set -euo pipefail
+          ruby -e '
+            content = File.read("README.md")
+            images = content.scan(/<img\b[^>]*>/i)
+            missing_alt = images.reject { |tag| tag.match?(/\balt\s*=/i) }
+            abort "README contains images without alternative text." unless missing_alt.empty?
+            levels = content.lines.filter_map do |line|
+              match = line.match(/\A(#+)\s/)
+              match[1].length if match
+            end
+            skipped = levels.each_cons(2).any? { |previous, current| current > previous + 1 }
+            abort "README heading hierarchy skips a level." if skipped
+            puts "README accessibility source checks passed: #{images.length} images have alt text; heading hierarchy is sequential."
+          '
+
+      - name: Validate secure network transport defaults
+        shell: bash
+        run: ruby scripts/validate-network-transport.rb .github/workflows
       - name: Validate repository controller registry
         shell: bash
         run: |

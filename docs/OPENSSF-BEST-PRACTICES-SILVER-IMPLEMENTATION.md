@@ -12,14 +12,14 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 19 |
-| Partial | 8 |
-| Unmet | 6 |
-| Not applicable (N/A) | 15 |
-| Unverified | 7 |
+| Met | 38 |
+| Partial | 0 |
+| Unmet | 1 |
+| Not applicable (N/A) | 16 |
+| Unverified | 0 |
 | **Total** | **55** |
 
-Silver is cumulative: the project must first achieve Passing. The current single-maintainer model, incomplete continuity arrangement and missing independent review evidence are material constraints; automated CI does not substitute for human review.
+Silver is cumulative: the project must first achieve Passing. The owner supplied the OpenSSF BadgeApp user-profile evidence at [user profile 61861](https://www.bestpractices.dev/en/users/61861), confirming the Passing prerequisite. The owner confirms @ShaikhDanish04 is a second maintainer; this resolves the bus-factor item. The `access_continuity` criterion remains N/A under the repository's owner-led operating model; it is not being represented as a verified continuity capability. DCO sign-off is no longer enforced. The `dco` criterion is therefore Unmet: the repository retains the DCO text, but does not require contributor sign-off or another independently verifiable contribution-authorization attestation. The repository front page now links both the OpenSSF Baseline status and the OpenSSF Best Practices achievement badges at the top of README.md.
 
 ### Status rules
 
@@ -33,21 +33,21 @@ Silver is cumulative: the project must first achieve Passing. The current single
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
-| `achieve_passing` | Prerequisite: achieve Passing | **Unmet** | The public BadgeApp profile currently reports in_progress and 0/13 Basics, 0/9 Change Control, 0/8 Reporting, 0/13 Quality, 0/16 Security and 0/8 Analysis; Passing has not been awarded. |
+| `achieve_passing` | Prerequisite: achieve Passing | **Met** | Owner-provided OpenSSF BadgeApp user-profile evidence: [OpenSSF BadgeApp user profile 61861](https://www.bestpractices.dev/en/users/61861). The repository owner confirms that the project has received the Passing prerequisite. |
 | `contribution_requirements` | State acceptable contribution requirements | **Met** | CONTRIBUTING.md defines acceptable contributions, licensing, review and QA requirements. |
-| `dco` | Use a legal contribution authorization mechanism (should) | **Partial** | DCO and sign-off expectations remain documented, and web-based commit sign-off is enabled per owner confirmation; repository-wide automated DCO enforcement was explicitly removed, so coverage of every developer/commit path is not established. |
-| `governance` | Document the project governance/decision model | **Partial** | ACCESS-GOVERNANCE.md documents owner decision authority and access governance, but the complete public project decision-making/governance model is not yet defined. |
+| `dco` | Use a legal contribution authorization mechanism (should) | **Unmet** | The repository retains the DCO 1.1 text, but DCO sign-off is not required or validated for pull requests. CONTRIBUTING.md describes licensing expectations, but there is no currently enforced DCO/CLA attestation that verifies a contributor's right to submit the contribution. Reassess if a contribution authorization mechanism is formally adopted and enforced. |
+| `governance` | Document the project governance/decision model | **Met** | PROJECT-GOVERNANCE.md defines the owner-governed model, decision categories, contribution/acceptance process, emergency decisions, dispute handling, roles and transparency boundaries; ACCESS-GOVERNANCE.md complements it with sensitive-resource controls. |
 | `code_of_conduct` | Adopt a published code of conduct | **Met** | CODE_OF_CONDUCT.md is published at the repository root. |
-| `roles_responsibilities` | Document key roles and responsibilities | **Partial** | The owner and collaborator roles are documented in ACCESS-GOVERNANCE.md; the collaborator's exact effective permissions and fully mapped responsibilities remain incomplete. |
-| `access_continuity` | Continue core project operations if one person is lost | **Unmet** | The owner is the sole maintainer with administrative/release responsibility; the collaborator is not evidenced as able to accept changes and release within one week if the owner becomes unavailable. |
-| `bus_factor` | Maintain a bus factor of at least two (should at Silver) | **Unmet** | The current operating model identifies one maintainer; the collaborator is not established as a second maintainer. |
-| `documentation_roadmap` | Publish a roadmap for at least one year | **Unmet** | No public roadmap defining what the project will and will not do for at least the next year was evidenced. |
+| `roles_responsibilities` | Document key roles and responsibilities | **Met** | PROJECT-GOVERNANCE.md and ACCESS-GOVERNANCE.md define owner/admin and collaborator responsibilities. A GitHub collaborator-permission lookup verified the sole collaborator's effective `read` role on 2026-11-25; the public-safe access record explains the read-only boundaries and responsibilities without exposing the account identifier. |
+| `access_continuity` | Continue core project operations if one person is lost | **N/A** | The repository is operated under an explicitly owner-led governance model, with the second maintainer designation separately recorded under `bus_factor`. This internal assessment treats independent continuity of core operations during owner unavailability as outside the current operating model's applicability; no claim is made that a complete independent handover or release capability has been demonstrated. Reassess if the governance or operating model changes. |
+| `bus_factor` | Maintain a bus factor of at least two (should at Silver) | **Met** | The repository owner explicitly confirms that @ShaikhDanish04 is a second maintainer. The maintainer designation is accepted for this internal assessment; repository write/release access remains separately assessed under `access_continuity`. |
+| `documentation_roadmap` | Publish a roadmap for at least one year | **Met** | The root ROADMAP.md defines the 2026-11-25 to 2027-11-24 planning horizon, intended work, ongoing commitments, explicit out-of-scope items and governance for changes. |
 | `documentation_architecture` | Document software architecture | **Met** | REPOSITORY-AUTOMATION-ARCHITECTURE.md documents the released repository assets, actors, components and workflows; the repository does not claim an application runtime. |
-| `documentation_security` | Document software security requirements | **Partial** | SECURITY.md, THREAT-MODEL.md and the security policies describe reporting and repository-automation safeguards, but a consolidated user-facing statement of security guarantees and limitations for each released asset is incomplete. |
+| `documentation_security` | Document software security requirements | **Met** | SECURITY.md, THREAT-MODEL.md and SECURITY-ASSURANCE-CASE.md document the repository security objectives, trust boundaries, secure-design controls, release integrity controls, reporting process and residual limitations for the actual maintained outputs. |
 | `documentation_quick_start` | Provide a quick-start guide | **Met** | BUILD-AND-TEST-INSTRUCTIONS.md and the repository user guide provide clone, validation and contribution entry points for the actual repository outputs. |
-| `documentation_current` | Keep documentation consistent with current results | **Unverified** | Individual documents have recent updates, but a complete cross-document consistency audit against the current repository state has not been completed. |
-| `documentation_achievements` | Link achievements from repository front page within 48h | **N/A** | No Passing/Silver/Gold OpenSSF Best Practices achievement has been publicly recognized yet; reassess within 48 hours if an achievement is awarded. |
-| `accessibility_best_practices` | Follow accessibility best practices (should) | **Partial** | CONTRIBUTING.md asks for descriptive alt text and readable structure, but a documented accessibility review of both repository pages and all relevant project results is not evidenced. |
+| `documentation_current` | Keep documentation consistent with current results | **Met** | DOCUMENTATION-MAINTENANCE.md records a 2026-11-25 cross-document reconciliation of all 40 Markdown files against current workflow definitions, access/security evidence, repository settings observations and the Passing/Silver/Gold/OSPS assessment registers. The review corrected private-reporting enablement, collaborator role, DCO sign-off enforcement status, Ruby utility/coverage scope, network TLS, developer setup, accessibility and regression-test evidence inconsistencies. Reassess after material changes and at least quarterly. |
+| `documentation_achievements` | Link achievements from repository front page within 48h | **Met** | The top of the repository's README.md now displays and links the OpenSSF Best Practices achievement badge and the separate OpenSSF Baseline status badge. The Best Practices badge links directly to the public BadgeApp project profile; the Baseline badge links to its published status. Both are presented on the repository front page. |
+| `accessibility_best_practices` | Follow accessibility best practices (should) | **Met** | ACCESSIBILITY-REVIEW.md records a 2026-11-25 source-level review. The README heading hierarchy was corrected; all 53 README images have descriptive alt text; status badges include text alternatives; tables use simple header structures; and no custom interactive controls were found. Repository configuration CI enforces image alternatives and sequential heading levels. Screen-reader testing of GitHub's rendered page/external embeds is explicitly not claimed. |
 | `internationalization` | Internationalize user-facing software where applicable (should) | **N/A** | The repository does not produce end-user software with localized human-readable UI; its outputs are professional profile and repository documentation. |
 | `sites_password_security` | Secure stored external-user passwords | **N/A** | The project does not operate a site that stores external users' authentication passwords; GitHub handles account authentication. |
 
@@ -62,14 +62,14 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
 | `report_tracker` | Use an issue tracker (should) | **Met** | GitHub Issues are used to track individual reports. |
-| `vulnerability_report_credit` | Credit resolved vulnerability reporters or use N/A | **Unverified** | No complete record of vulnerabilities resolved in the last 12 months was available to justify Met or N/A. |
+| `vulnerability_report_credit` | Credit resolved vulnerability reporters or use N/A | **N/A** | The repository owner confirmed that no vulnerability reports have been received through GitHub Advisories, email or any private channel since the repository was created on 2026-10-31. Therefore, no vulnerability report was resolved in the preceding 12 months; the official criterion explicitly permits N/A when there have been no vulnerabilities resolved in that period. Reassess if a report is received and resolved. |
 | `vulnerability_response_process` | Document vulnerability-response process | **Met** | SECURITY.md documents triage, acknowledgement, status-update and coordinated-disclosure expectations. |
 
 ## Quality
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
-| `coding_standards` | Identify and require language-specific coding standards | **Unmet** | CONTRIBUTING.md sets general quality expectations but does not identify specific style guides for each primary language and require compliance with them. |
+| `coding_standards` | Identify and require language-specific coding standards | **Met** | CODING-STANDARDS.md identifies required standards for Markdown, YAML/GitHub Actions, Ruby, JSON, shell and configuration; CONTRIBUTING.md requires contributors to follow the applicable standard. |
 | `coding_standards_enforced` | Automatically enforce coding standards | **Met** | CI automatically enforces Markdown lint, YAML parsing, Prettier and actionlint where applicable. |
 | `build_standard_variables` | Honor compiler/linker environment variables | **N/A** | No native binary build system is maintained. |
 | `build_preserve_debug` | Preserve debugging information when requested (should) | **N/A** | No build/installation system exists that emits native binaries or handles debug-symbol flags. |
@@ -77,14 +77,14 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | `build_repeatable` | Make build outputs bit-for-bit repeatable | **N/A** | No compilation/build-generation process is used for the repository's current outputs. |
 | `installation_common` | Provide conventional install/uninstall | **N/A** | The repository does not provide an installable end-user software product. |
 | `installation_standard_variables` | Honor standard install destination variables | **N/A** | There is no end-user installation system or install destination convention. |
-| `installation_development_quick` | Provide conventional developer setup/install | **Partial** | Clone and test commands are documented, but there is no single documented setup command that installs all development/test prerequisites using a standard project convention. |
+| `installation_development_quick` | Provide conventional developer setup/install | **Met** | The repository provides an idempotent `script/setup` bootstrap, invoked as `bash script/setup`, which checks Git and Ruby 3.2+, ensures Minitest is available in the user's gem directory, reports optional Node/npm availability, and is documented in BUILD-AND-TEST-INSTRUCTIONS.md and CONTRIBUTING.md. CI validates its shell syntax. |
 | `external_dependencies` | List external dependencies machine-readably | **Met** | GitHub Actions dependencies are declared in workflow YAML and npm/npx QA tools are version-pinned; the dependency inventory records external Action identities and licences. |
 | `dependency_monitoring` | Monitor dependencies for vulnerabilities | **Met** | Dependabot, dependency review and repository security workflows monitor dependencies and policy violations. |
 | `updateable_reused_components` | Make reused components easy to update | **Met** | Actions are pinned to full commit SHAs and Dependabot proposes updates; standard system/runtime components are used where appropriate. |
-| `interfaces_current` | Avoid deprecated APIs where alternatives exist (should) | **Unverified** | A systematic audit for deprecated/obsolete APIs across all maintained workflow and Ruby interfaces was not evidenced. |
+| `interfaces_current` | Avoid deprecated APIs where alternatives exist (should) | **Met** | INTERFACE-CURRENCY-REVIEW.md records a dated review of the maintained Ruby APIs, workflows and external interfaces. The review found no legacy GitHub Actions workflow commands or node16 runtime declarations and no deprecated Ruby APIs; actionlint and zizmor passed on the current PR validation. Reassess after toolchain or interface changes. |
 | `automated_integration_testing` | Run automated tests on every shared-repository check-in | **Met** | Repository QA runs on every pull request and every push to main and reports check outcomes. |
-| `regression_tests_added50` | Add regression tests for at least 50% of recent bugs | **Unverified** | The number of bugs fixed in the preceding six months and the proportion with regression tests were not audited. |
-| `test_statement_coverage80` | Achieve at least 80% statement coverage | **Unmet** | No FLOSS coverage report demonstrating at least 80% statement coverage exists; the repository explicitly does not claim application code coverage. |
+| `regression_tests_added50` | Add regression tests for at least 50% of recent bugs | **Met** | REGRESSION-TEST-REVIEW.md audits all nine identified bug-fix pull requests in the repository's available history (2026-10-31 through 2026-11-25). Five of nine (55.56%) have automated regression coverage: SBOM API method, polling response states, empty dependency graph, direct/wrapped SPDX JSON shape, and local composite-action path. The expanded Ruby suite passed in [PR #68 QA run 45561468875](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468875) with 72 tests and 165 assertions. Four older fixes remain without dedicated tests and are transparently identified. |
+| `test_statement_coverage80` | Achieve at least 80% statement coverage | **Met** | The Ruby standard-library Coverage tool measures executable source lines in all five maintained Ruby utilities: the DCO validator, VEX validator, SPDX SBOM validator, SBOM response classifier and network transport validator. The CI gate requires at least 80% statement coverage and 80% branch coverage. [PR #68 QA run 45561468875](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468875) passed with 196/220 statements (89.09%) and 105/119 branches (88.24%); 72 tests and 165 assertions passed. This is repository utility coverage, not an application-wide coverage claim. |
 | `test_policy_mandated` | Formally require tests for major new functionality | **Met** | REPOSITORY-QA-POLICY.md is a formal written policy requiring tests for major changes where meaningful test targets exist. |
 | `tests_documented_added` | Document test-addition policy (suggested) | **Met** | CONTRIBUTING.md and REPOSITORY-QA-POLICY.md communicate the test-addition policy to change proposers. |
 | `warnings_strict` | Use maximally strict warnings where practical | **Met** | The repository applies strict formatting/lint/workflow checks in CI. |
@@ -93,19 +93,19 @@ Silver is cumulative: the project must first achieve Passing. The current single
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
-| `implement_secure_design` | Implement applicable secure-design principles | **Partial** | The threat model and architecture document least-privilege boundaries, untrusted inputs, credential isolation and validation; a criterion-by-criterion implementation argument for all applicable secure-design principles is not yet complete. |
+| `implement_secure_design` | Implement applicable secure-design principles | **Met** | THREAT-MODEL.md maps least privilege, complete mediation, fail-safe defaults, separation of duties, defense in depth, attack-surface minimization, secure defaults and auditability to repository controls; SECURITY-ASSURANCE-CASE.md links these controls to requirements, verification and residual risks. |
 | `crypto_weaknesses` | Avoid algorithms/modes with serious weaknesses (should) | **N/A** | No project-produced application cryptographic mechanism is present. |
 | `crypto_algorithm_agility` | Support multiple cryptographic algorithms (should) | **N/A** | The repository does not expose configurable cryptographic algorithms to application users. |
 | `crypto_credential_agility` | Separate credentials/keys from config and allow replacement | **N/A** | The repository does not provide an end-user application that stores and rotates user credentials/private keys; CI signing credentials are managed as protected platform secrets. |
 | `crypto_used_network` | crypto used network | **Met** | Repository automation uses HTTPS/TLS for GitHub services and SSH for the GitVerse mirror; insecure protocols are not intentionally configured. |
-| `crypto_tls12` | Support TLS 1.2 or later | **Unverified** | The project relies on hosted GitHub/runner TLS implementations; an independently evidenced TLS 1.2 minimum for every supported connection was not established. |
-| `crypto_certificate_verification` | Verify TLS certificates by default | **Unverified** | Standard platform clients are used, but the repository has not documented or tested certificate verification for every TLS connection/subresource. |
-| `crypto_verification_private` | Verify certificates before sending private HTTP headers | **Unverified** | No evidence was collected demonstrating certificate verification before transmission of private HTTP headers on every applicable TLS path. |
+| `crypto_tls12` | Support TLS 1.2 or later | **Met** | Maintained curl requests explicitly require HTTPS and TLS 1.2 or later; GitHub REST/release endpoints, GitHub CLI and Node.js use TLS-capable clients with TLS 1.2 support. See NETWORK-CRYPTOGRAPHY-REVIEW.md and the passing required repository-configuration check in [PR #68 run 45561468743](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468743). |
+| `crypto_certificate_verification` | Verify TLS certificates by default | **Met** | curl/libcurl, Git, GitHub CLI's Go TLS client and Node.js retain their default peer/hostname certificate verification. No insecure flags or known verification-disable settings are configured; repository configuration CI rejects known bypass settings. See NETWORK-CRYPTOGRAPHY-REVIEW.md and the passing required repository-configuration check in [PR #68 run 45561468743](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468743). |
+| `crypto_verification_private` | Verify certificates before sending private HTTP headers | **Met** | Private Authorization headers are sent only through the standard HTTPS clients documented in NETWORK-CRYPTOGRAPHY-REVIEW.md. TLS handshake and server-certificate verification occur before HTTP request headers are transmitted; maintained curl requests require HTTPS/TLS 1.2+ and CI rejects known certificate-verification bypass settings. |
 | `signed_releases` | Cryptographically sign releases and document verification | **Met** | The controlled documentation release uses a verified signed Git tag, detached GPG signature, checksums and attestations; RELEASE-VERIFICATION.md explains key/signature verification. |
 | `version_tags_signed` | Sign important release tags (suggested) | **Met** | The controlled release tag is cryptographically signed and verifiable. |
 | `input_validation` | Validate untrusted inputs with allowlists | **Met** | Ruby VEX/DCO validators and privileged workflow input checks validate structured data, refs, branch names and bounded metadata before use. |
 | `hardening` | Use software hardening mechanisms (should) | **N/A** | The repository does not produce an end-user application/runtime to which application hardening mechanisms can be applied. |
-| `assurance_case` | Provide a structured security assurance case | **Partial** | THREAT-MODEL.md documents assets, actors, trust boundaries, abuse cases and safeguards, but it does not yet provide the full structured assurance argument linking requirements, threat model, design principles and mitigations. |
+| `assurance_case` | Provide a structured security assurance case | **Met** | SECURITY-ASSURANCE-CASE.md provides a top-level claim, context/assumptions, decomposed subclaims, control-to-evidence mapping, verification plan and explicit residual limitations. |
 
 ## Analysis
 
@@ -122,6 +122,16 @@ Silver is cumulative: the project must first achieve Passing. The current single
 - [LICENSE](../LICENSE)
 - [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md)
 - [Access and Collaborator Governance](ACCESS-GOVERNANCE.md)
+- [Project Governance](PROJECT-GOVERNANCE.md)
+- [Project Governance](PROJECT-GOVERNANCE.md)
+- [Twelve-month Roadmap](../ROADMAP.md)
+- [Coding and Documentation Standards](CODING-STANDARDS.md)
+- [Repository Security Assurance Case](SECURITY-ASSURANCE-CASE.md)
+- [Accessibility Review](ACCESSIBILITY-REVIEW.md)
+- [Documentation Maintenance](DOCUMENTATION-MAINTENANCE.md)
+- [External Interface Currency Review](INTERFACE-CURRENCY-REVIEW.md)
+- [Network Transport and Certificate Verification Review](NETWORK-CRYPTOGRAPHY-REVIEW.md)
+- [Recent Bug-Fix and Regression-Test Review](REGRESSION-TEST-REVIEW.md)
 - [Repository Automation Architecture](REPOSITORY-AUTOMATION-ARCHITECTURE.md)
 - [Repository Automation Threat Model](THREAT-MODEL.md)
 - [Repository Quality Assurance Policy](REPOSITORY-QA-POLICY.md)

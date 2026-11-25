@@ -4,7 +4,7 @@
 **Badge project:** [Er. Tapan Jatakia - GitHub Profile](https://www.bestpractices.dev/en/projects/17059)  
 **Repository:** [ErTapanJatakia/ErTapanJatakia](https://github.com/ErTapanJatakia/ErTapanJatakia)  
 **Official criteria:** [Gold criteria](https://www.bestpractices.dev/en/criteria/2)  
-**Scope:** Evidence-led internal assessment of all 23 Gold criteria for this repository's profile, documentation, Ruby validation utilities and GitHub Actions automation. The repository does not release an end-user application, compiled binary or deployable service.
+**Scope:** Evidence-led internal assessment of all 23 Gold criteria for this repository's profile, documentation, Ruby validation utilities and GitHub Actions automation. The repository does not release an end-user application, compiled binary or deployable service; it maintains five Ruby utilities and their regression suites.
 
 > **Assessment limitation:** This is an internal implementation register, not an OpenSSF badge award, independent audit or certification. The public BadgeApp profile currently reports **in_progress**; its visible category counters are 0 and no Gold achievement is shown. Do not present this register as a badge award. The official BadgeApp uses Met, Unmet and N/A; **Partial** and **Unverified** are internal evidence states and must be resolved before submitting an official answer.
 
@@ -12,11 +12,11 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 4 |
+| Met | 6 |
 | Partial | 2 |
-| Unmet | 12 |
+| Unmet | 11 |
 | Not applicable (N/A) | 2 |
-| Unverified | 3 |
+| Unverified | 2 |
 | **Total** | **23** |
 
 Gold is cumulative: the project must first achieve Silver. Its contributor-diversity, bus-factor, two-person review, 2FA enforcement, per-file metadata, coverage and dynamic-analysis requirements are assessed separately; owner-attested MFA is not treated as repository-wide enforcement.
@@ -36,8 +36,8 @@ Gold is cumulative: the project must first achieve Silver. Its contributor-diver
 | `achieve_silver` | achieve silver | **Unmet** | The public BadgeApp profile is in_progress; Silver has not been achieved. |
 | `bus_factor` | Maintain a bus factor of at least two (should at Silver) | **Unmet** | The documented operating model identifies one maintainer. |
 | `contributors_unassociated` | contributors unassociated | **Unmet** | Two unassociated significant contributors are not evidenced; the current project has one maintainer and one collaborator whose significant independent contribution status is not established. |
-| `copyright_per_file` | Include copyright statement in every source file | **Unmet** | Inspection of all four maintained Ruby source/test files (`scripts/validate-dco.rb`, `scripts/validate-vex.rb`, `tests/dco_validator_test.rb` and `tests/vex_validator_test.rb`) found no copyright statement identifying the copyright holder. |
-| `license_per_file` | Include SPDX licence statement in every source file | **Unmet** | The root LICENSE exists, but inspection of all four maintained Ruby source/test files found no per-file `SPDX-License-Identifier` statement. |
+| `copyright_per_file` | Include copyright statement in every source file | **Unmet** | Inspection of all ten maintained Ruby source/test files (`scripts/check-branch-coverage.rb`, `scripts/classify-sbom-response.rb`, `scripts/validate-dco.rb`, `scripts/validate-network-transport.rb`, `scripts/validate-sbom.rb`, `scripts/validate-vex.rb`, `tests/dco_validator_test.rb`, `tests/network_transport_validator_test.rb`, `tests/sbom_validator_test.rb` and `tests/vex_validator_test.rb`) found no copyright statement identifying the copyright holder. |
+| `license_per_file` | Include SPDX licence statement in every source file | **Unmet** | The root LICENSE exists, but inspection of all ten maintained Ruby source/test files found no per-file `SPDX-License-Identifier` statement. |
 
 ## Change Control
 
@@ -57,15 +57,15 @@ Gold is cumulative: the project must first achieve Silver. Its contributor-diver
 | `build_reproducible` | Provide reproducible builds | **N/A** | No build/compilation step is required for the repository's current outputs. |
 | `test_invocation` | Provide standard test invocation (should) | **Met** | The Ruby validation and regression test commands are documented and invocable using standard Ruby commands. |
 | `test_continuous_integration` | Implement CI (suggested) | **Met** | Repository QA runs on pull requests and pushes to main and produces pass/fail workflow results. |
-| `test_statement_coverage90` | Achieve at least 90% statement coverage | **Unmet** | No coverage report demonstrates at least 90% statement coverage for the maintained Ruby validators; no application coverage is claimed. |
-| `test_branch_coverage80` | Achieve at least 80% branch coverage | **Unmet** | No coverage report demonstrates at least 80% branch coverage for the maintained Ruby validators. |
+| `test_statement_coverage90` | Achieve at least 90% statement coverage | **Unmet** | PR #68 QA run [45561468875](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468875) measured 196/220 statements (89.09%) across the five maintained Ruby utilities. This is below the Gold threshold of 90%; no application-wide coverage is claimed. |
+| `test_branch_coverage80` | Achieve at least 80% branch coverage | **Met** | PR #68 QA run [45561468875](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468875) measured 105/119 branches covered (88.24%) across the five maintained Ruby utilities, above the 80% Gold threshold. |
 
 ## Security
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
 | `crypto_used_network` | crypto used network | **Met** | Repository automation communicates with GitHub over HTTPS/TLS and mirrors protected history over SSH. |
-| `crypto_tls12` | Support TLS 1.2 or later | **Unverified** | The project relies on hosted platform/runtime TLS; the TLS minimum for every relevant connection has not been independently verified. |
+| `crypto_tls12` | Support TLS 1.2 or later | **Met** | Maintained curl requests explicitly require HTTPS and TLS 1.2 or later; redirects are HTTPS-only. The network transport validator and its regression tests enforce these settings and reject known certificate-verification bypasses. The required repository-configuration validation passed in [PR #68 run 45561468743](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468743). See NETWORK-CRYPTOGRAPHY-REVIEW.md. |
 | `hardened_site` | Use nonpermissive security headers on project sites | **Unverified** | No current header assessment was captured for the canonical project site/repository and any separate download endpoint. |
 | `security_review` | Perform a security review within the last five years | **Partial** | THREAT-MODEL.md and the Baseline implementation assessments document human security analysis, assets, trust boundaries and safeguards, but there is no distinct dated security-review record within the five-year window explicitly reviewing security requirements and boundaries. |
 | `hardening` | Use software hardening mechanisms (should) | **N/A** | The repository does not release an application or runtime to which software hardening mechanisms apply. |
