@@ -36,7 +36,7 @@ jobs:
             deadline=$((SECONDS + 900))
             while true; do
               codeql_check="$(gh api "repos/$GH_REPOSITORY/commits/$SOURCE_SHA/check-runs?per_page=100" \
-                --jq --arg check "$expected_check" '[.check_runs[] | select(.name == $check)] | sort_by(.completed_at // .started_at) | last // empty')"
+                | jq -c --arg check "$expected_check" '[.check_runs[] | select(.name == $check)] | sort_by(.completed_at // .started_at) | last // empty')"
               if [[ -n "$codeql_check" ]]; then
                 codeql_status="$(jq -r '.status // ""' <<< "$codeql_check")"
                 codeql_conclusion="$(jq -r '.conclusion // ""' <<< "$codeql_check")"
@@ -85,4 +85,4 @@ jobs:
           fi
 
           echo "No open Critical/High CodeQL findings were returned by the repository API."
-          echo "The separate 'Analyze (actions)' CodeQL analysis check must also be required by the main branch ruleset so the PR's analysis completes before merge."
+          The main-branch ruleset should require both CodeQL analysis checks and the SAST policy gate so analysis completes before merge.
