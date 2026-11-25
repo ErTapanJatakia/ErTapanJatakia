@@ -12,14 +12,14 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 15 |
+| Met | 16 |
 | Partial | 0 |
-| Unmet | 1 |
+| Unmet | 0 |
 | Not applicable (N/A) | 5 |
 | Unverified | 2 |
 | **Total** | **23** |
 
-Gold is cumulative: the project must first achieve Silver. The owner supplied BadgeApp profile and project Silver-page evidence, accepted here for `achieve_silver`. The owner also confirms @ShaikhDanish04 as the second maintainer; this owner attestation is accepted for `bus_factor`, while `access_continuity` remains separately N/A under the Silver register. Contributor diversity and two-person review are N/A for this repository's current profile/documentation-only scope and contributor model. Mandatory 2FA enforcement remains Unmet; cryptographic 2FA use by every developer remains Unverified. Statement and branch coverage exceed the Gold thresholds (93.39% and 91.60%, respectively). Per-file metadata and contributor documentation were remediated in the 2026-11-26 Gold remediation branch. The DCO policy remains documented as enabled for contributors while automated CI enforcement remains disabled.
+Gold is cumulative: the project must first achieve Silver. The owner supplied BadgeApp profile and project Silver-page evidence, accepted here for `achieve_silver`. The owner also confirms @ShaikhDanish04 as the second maintainer; this owner attestation is accepted for `bus_factor`, while `access_continuity` remains separately N/A under the Silver register. Contributor diversity and two-person review are N/A for this repository's current profile/documentation-only scope and contributor model. The access policy requires 2FA before privileged/sensitive access, and the owner confirms MFA is enabled on both current accounts; this supports `require_2FA` as Met. Cryptographic 2FA use by every developer remains Unverified. Statement and branch coverage exceed the Gold thresholds (93.39% and 91.60%, respectively). Per-file metadata and contributor documentation were remediated in the 2026-11-26 Gold remediation branch. The DCO policy remains documented as enabled for contributors while automated CI enforcement remains disabled.
 
 ### Status rules
 
@@ -45,8 +45,8 @@ Gold is cumulative: the project must first achieve Silver. The owner supplied Ba
 |---|---|---|---|
 | `repo_distributed` | Use distributed version control (suggested) | **Met** | The public repository uses Git. |
 | `small_tasks` | Identify small tasks for new/casual contributors | **Met** | CONTRIBUTING.md now has a dedicated, clearly labelled small-task table for documentation clarity, link checks, README accessibility, focused Ruby regression cases, error-message documentation and technical-reference refreshes, with validation guidance and access boundaries. |
-| `require_2FA` | Require 2FA for developers with repository/sensitive access | **Unmet** | ACCESS-GOVERNANCE.md now makes verified 2FA a precondition for any future write, maintain, admin or sensitive-data grant and prohibits privileged access without it. However, this personal repository has no organization-wide platform control that enforces 2FA for every eligible account. The policy is documented, but enforcement remains unverified/not platform-enforced; owner MFA attestation alone is insufficient. |
-| `secure_2FA` | Use cryptographic 2FA to prevent impersonation (should) | **Unverified** | The authentication factors used by each developer have not been verified as cryptographic anti-impersonation mechanisms; SMS alone would not satisfy this SHOULD criterion. |
+| `require_2FA` | Require 2FA for developers with repository/sensitive access | **Met** | ACCESS-GOVERNANCE.md requires confirmation of 2FA before any write, maintain, admin, private-vulnerability-report or other sensitive-data access, and prohibits granting/retaining such access without it. The access record states that the owner confirms MFA is enabled on both current accounts; the additional collaborator has only read access and no privileged or sensitive-data permissions. This satisfies the current access-scope requirement on the documented policy and owner attestation. The personal-repository configuration does not provide organization-wide enforcement for future accounts, so the control must be rechecked before any new privileged/sensitive access is granted. |
+| `secure_2FA` | Use cryptographic 2FA to prevent impersonation (should) | **Unverified** | Scope includes the owner and every developer/contributor/collaborator/maintainer with project access. ACCESS-GOVERNANCE.md prefers passkeys or FIDO2/WebAuthn and rejects SMS-only 2FA for privileged access, but the actual factor type has not been verified for every in-scope person. The current MFA attestation supports `require_2FA`; it does not prove cryptographic anti-impersonation authentication. |
 
 ## Quality
 
