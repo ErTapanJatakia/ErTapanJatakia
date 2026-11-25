@@ -70,6 +70,15 @@ class NetworkTransportValidatorTest < Minitest::Test
     assert_equal 1, result[:curl_count]
   end
 
+  def test_directory_validation_reports_file_read_errors
+    Dir.mktmpdir do |directory|
+      Dir.mkdir(File.join(directory, "not-a-workflow-file.yml"))
+      result = NetworkTransportValidator.validate_directory(directory)
+      refute result[:valid]
+      assert_match(/Unable to read workflow files/, result[:errors].first)
+    end
+  end
+
   def test_cli_reports_successful_validation
     Dir.mktmpdir do |directory|
       File.write(File.join(directory, "workflow.yml"), "curl --proto '=https' --tlsv1.2 https://example.test\n")
