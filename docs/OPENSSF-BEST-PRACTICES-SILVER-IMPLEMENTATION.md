@@ -12,14 +12,14 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 38 |
+| Met | 39 |
 | Partial | 0 |
-| Unmet | 2 |
+| Unmet | 1 |
 | Not applicable (N/A) | 15 |
 | Unverified | 0 |
 | **Total** | **55** |
 
-Silver is cumulative: the project must first achieve Passing. The owner supplied the OpenSSF BadgeApp user-profile evidence at https://www.bestpractices.dev/en/users/61861 confirming the Passing prerequisite. The owner also confirms @ShaikhDanish04 is a second maintainer; this resolves the bus-factor item. However, GitHub currently reports that collaborator's effective repository permission as `read`, so independent write/release access and operational continuity are not yet demonstrated. The repository front page also needs to link the recognized achievement.
+Silver is cumulative: the project must first achieve Passing. The owner supplied the OpenSSF BadgeApp user-profile evidence at https://www.bestpractices.dev/en/users/61861 confirming the Passing prerequisite. The owner also confirms @ShaikhDanish04 is a second maintainer; this resolves the bus-factor item. However, GitHub currently reports that collaborator's effective repository permission as `read`, so independent write/release access and operational continuity are not yet demonstrated. The repository front page now links both the OpenSSF Baseline status and the OpenSSF Best Practices achievement badges at the top of README.md.
 
 ### Status rules
 
@@ -46,7 +46,7 @@ Silver is cumulative: the project must first achieve Passing. The owner supplied
 | `documentation_security` | Document software security requirements | **Met** | SECURITY.md, THREAT-MODEL.md and SECURITY-ASSURANCE-CASE.md document the repository security objectives, trust boundaries, secure-design controls, release integrity controls, reporting process and residual limitations for the actual maintained outputs. |
 | `documentation_quick_start` | Provide a quick-start guide | **Met** | BUILD-AND-TEST-INSTRUCTIONS.md and the repository user guide provide clone, validation and contribution entry points for the actual repository outputs. |
 | `documentation_current` | Keep documentation consistent with current results | **Met** | DOCUMENTATION-MAINTENANCE.md records a 2026-11-25 cross-document reconciliation of all 40 Markdown files against current workflow definitions, access/security evidence, repository settings observations and the Passing/Silver/Gold/OSPS assessment registers. The review corrected private-reporting enablement, collaborator role, DCO enforcement, Ruby utility/coverage scope, network TLS, developer setup, accessibility and regression-test evidence inconsistencies. Reassess after material changes and at least quarterly. |
-| `documentation_achievements` | Link achievements from repository front page within 48h | **Unmet** | The owner has supplied evidence that Passing has been achieved, so this criterion is now applicable. The main README currently has no OpenSSF Best Practices achievement link. Add the badge and link to the repository front page, then reassess. |
+| `documentation_achievements` | Link achievements from repository front page within 48h | **Met** | The top of the repository's README.md now displays and links the OpenSSF Best Practices achievement badge and the separate OpenSSF Baseline status badge. The Best Practices badge links directly to the public BadgeApp project profile; the Baseline badge links to its published status. Both are presented on the repository front page. |
 | `accessibility_best_practices` | Follow accessibility best practices (should) | **Met** | ACCESSIBILITY-REVIEW.md records a 2026-11-25 source-level review. The README heading hierarchy was corrected; all 53 README images have descriptive alt text; status badges include text alternatives; tables use simple header structures; and no custom interactive controls were found. Repository configuration CI enforces image alternatives and sequential heading levels. Screen-reader testing of GitHub's rendered page/external embeds is explicitly not claimed. |
 | `internationalization` | Internationalize user-facing software where applicable (should) | **N/A** | The repository does not produce end-user software with localized human-readable UI; its outputs are professional profile and repository documentation. |
 | `sites_password_security` | Secure stored external-user passwords | **N/A** | The project does not operate a site that stores external users' authentication passwords; GitHub handles account authentication. |
