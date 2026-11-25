@@ -39,6 +39,7 @@ The project MUST make a reasonable, traceable effort to keep documentation consi
 ## Review triggers
 
 Review affected documents immediately after a material change to:
+
 - Main-branch rulesets, required checks, repository roles or collaborators.
 - GitHub Actions permissions, triggers, pinned action revisions or secrets.
 - Vulnerability reporting channels, response targets or actual vulnerability cases.
