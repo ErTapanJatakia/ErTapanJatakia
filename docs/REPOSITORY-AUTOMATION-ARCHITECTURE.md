@@ -7,7 +7,7 @@ This document describes the system design of the released repository assets: the
 The system's principal outcomes are:
 
 1. Maintain and review public profile/documentation content.
-2. Validate repository content, workflow configuration, DCO sign-offs and VEX data.
+2. Validate repository content, workflow configuration, DCO sign-offs, VEX data and GitHub Dependency Graph SPDX SBOM responses.
 3. Detect secret, dependency, workflow and static-analysis policy violations.
 4. Produce a signed and attested documentation/source-configuration snapshot when explicitly authorized.
 5. Mirror the protected Git history to GitVerse.
@@ -38,6 +38,8 @@ The collaborator's effective repository permission remains recorded in the owner
 | Security-analysis workflows | Secret scanning, workflow security audit, CodeQL, dependency review and alert policy | GitHub Actions, GitHub Security, Dependabot and CodeQL |
 | Ruby VEX validator | Validate VEX register structure, evidence metadata, advisory/component linkage and expiry | Local JSON files, Ruby standard library and process exit status |
 | Ruby DCO validator | Verify every post-adoption pull-request commit contains an exact sign-off matching the commit author or committer | Git commit history, base/head SHA environment values and process exit status |
+| Ruby SPDX SBOM validator | Validate GitHub Dependency Graph SPDX 2.3 documents, both direct and API-wrapped JSON shapes, and package/relationship arrays | Local SBOM JSON file and process exit status |
+| Ruby SBOM response classifier | Classify HTTP 302 as report-ready, 202 as processing and all other status codes as unexpected | HTTP status string supplied by the workflow; no network access |
 | Controlled documentation release workflow | Validate owner request, verify checks, package source, sign, attest and publish | Workflow-dispatch inputs, Git, GPG, GitHub API/CLI and artifact attestations |
 | GitVerse mirror workflow | Push protected history and tags to the secondary mirror | Git transport over SSH and protected repository secret |
 | Security policy and advisory process | Receive, triage, coordinate and publish confirmed vulnerability information | GitHub Private Vulnerability Reporting and GitHub Security Advisories |
@@ -49,7 +51,7 @@ The collaborator's effective repository permission remains recorded in the owner
 1. A contributor creates a pull request against the repository.
 2. GitHub creates a pull-request event and exposes the proposed commit range.
 3. Read-only QA and security jobs inspect the proposed content. Pull-request workflows do not receive GPG signing keys, GitVerse credentials or release secrets.
-4. The VEX validator and regression tests execute; the DCO validator checks every commit in the pull-request range after DCO policy adoption.
+4. The VEX, DCO, SPDX SBOM and SBOM response-classifier regression tests execute; the DCO validator checks every commit in the pull-request range after DCO policy adoption.
 5. The required `Major change validation` check fails if the automated test suite or DCO validation does not succeed. For major/security-sensitive paths, it also requires the relevant Markdown, YAML, link, actionlint, Prettier and VEX checks.
 6. The owner reviews the proposed change and merges only after required checks pass. The active ruleset does not claim independent human approval because no independent reviewer is currently available.
 
