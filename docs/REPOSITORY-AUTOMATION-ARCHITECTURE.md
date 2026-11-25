@@ -71,7 +71,7 @@ The collaborator's effective repository permission remains recorded in the owner
 
 ### Vulnerability-report path
 
-1. A researcher submits a report through GitHub Private Vulnerability Reporting when enabled.
+1. A researcher submits a report through GitHub Private Vulnerability Reporting, which the owner confirmed enabled on 2026-11-24; the reporter-facing form should be checked periodically.
 2. The owner acknowledges and triages the report according to the response targets in `SECURITY.md`.
 3. The owner investigates privately, coordinates a fix or mitigation and agrees a disclosure timeline.
 4. For a confirmed vulnerability, the owner publishes a GitHub Security Advisory with affected scope and remediation details. No advisory is fabricated for an unconfirmed or non-affected report.
