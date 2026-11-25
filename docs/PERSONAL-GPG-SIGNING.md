@@ -32,7 +32,7 @@ steps:
       fetch-depth: 0
 
   - name: Configure personal GPG signing
-    uses: ./.github/actions/setup-personal-gpg
+    uses: $/.github/actions/setup-personal-gpg
     with:
       private-key: ${{ secrets.GPG_PRIVATE_KEY }}
       passphrase: ${{ secrets.GPG_PASSPHRASE }}
