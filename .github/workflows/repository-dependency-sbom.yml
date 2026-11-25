@@ -37,7 +37,7 @@ jobs:
         run: |
           set -euo pipefail
           response="$RUNNER_TEMP/sbom-generation-response.json"
-          curl --fail --silent --show-error \
+          curl --fail --silent --show-error --proto '=https' --tlsv1.2 \
             --request GET \
             --header "Accept: application/vnd.github+json" \
             --header "Authorization: Bearer $GH_TOKEN" \
@@ -62,7 +62,7 @@ jobs:
           response="$RUNNER_TEMP/sbom-response-body.json"
           download_url=""
           for attempt in {1..18}; do
-            status="$(curl --silent --show-error \
+            status="$(curl --silent --show-error --proto '=https' --tlsv1.2 \
               --dump-header "$headers" \
               --output "$response" \
               --write-out '%{http_code}' \
@@ -88,7 +88,7 @@ jobs:
           fi
           mkdir -p dist
           # The signed temporary download URL is separate from the authenticated API endpoint.
-          curl --fail --silent --show-error --location "$download_url" \
+          curl --fail --silent --show-error --proto '=https' --tlsv1.2 --location "$download_url" \
             --output dist/repository-dependency-sbom.spdx.json
 
       - name: Validate SPDX document and dependency coverage
