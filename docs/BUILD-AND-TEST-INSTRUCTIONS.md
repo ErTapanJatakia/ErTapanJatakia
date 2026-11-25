@@ -6,7 +6,7 @@ This repository contains a public profile README, documentation and policy recor
 
 There is therefore **no compilation or application build step**. The maintained Ruby utilities are interpreted directly by Ruby. The controlled release process creates a source-and-documentation archive using Git; it does not compile software or resolve application packages.
 
-These instructions describe how to reproduce the repository's validation and documentation-release preparation without implying that an application binary exists. The Ruby validators are small maintained command-line utilities and are tested as software components; their branch coverage is measured separately from any application-coverage claim.
+These instructions describe how to reproduce the repository's validation and documentation-release preparation without implying that an application binary exists. The Ruby validators are maintained command-line utilities and are tested as software components; their statement and branch coverage are measured separately from any application-coverage claim.
 
 ## 2. Required toolchain
 
