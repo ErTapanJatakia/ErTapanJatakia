@@ -1,6 +1,6 @@
 # OpenSSF Best Practices Badge — Gold Implementation and Assessment
 
-**Assessment date:** 2026-11-25  
+**Assessment date:** 2026-11-26  
 **Badge project:** [Er. Tapan Jatakia - GitHub Profile](https://www.bestpractices.dev/en/projects/17059)  
 **Repository:** [ErTapanJatakia/ErTapanJatakia](https://github.com/ErTapanJatakia/ErTapanJatakia)  
 **Official criteria:** [Gold criteria](https://www.bestpractices.dev/en/criteria/2)  
@@ -12,14 +12,14 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 6 |
-| Partial | 2 |
-| Unmet | 11 |
-| Not applicable (N/A) | 2 |
+| Met | 11 |
+| Partial | 1 |
+| Unmet | 6 |
+| Not applicable (N/A) | 3 |
 | Unverified | 2 |
 | **Total** | **23** |
 
-Gold is cumulative: the project must first achieve Silver. Its contributor-diversity, bus-factor, two-person review, 2FA enforcement, per-file metadata, coverage and dynamic-analysis requirements are assessed separately; owner-attested MFA is not treated as repository-wide enforcement.
+Gold is cumulative: the project must first achieve an official Silver badge. This repository has completed an internal Silver register but the public BadgeApp profile remains in_progress and does not show an awarded Silver badge. The contributor-diversity, operational bus-factor, two-person review, 2FA enforcement, coverage and site-header requirements remain evidence-gated. Per-file metadata and contributor documentation were remediated in the 2026-11-26 Gold remediation branch. The DCO policy remains documented as enabled for contributors while automated CI enforcement remains disabled.
 
 ### Status rules
 
@@ -33,18 +33,18 @@ Gold is cumulative: the project must first achieve Silver. Its contributor-diver
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
-| `achieve_silver` | achieve silver | **Unmet** | The public BadgeApp profile is in_progress; Silver has not been achieved. |
-| `bus_factor` | Maintain a bus factor of at least two (should at Silver) | **Unmet** | The documented operating model identifies one maintainer. |
+| `achieve_silver` | achieve silver | **Unmet** | The internal Silver register is complete, but the public BadgeApp profile remains in_progress and does not show an official Silver achievement. Repository documentation or an internal tally cannot substitute for the BadgeApp award. |
+| `bus_factor` | Maintain a bus factor of at least two (should at Silver) | **Unmet** | The owner confirms @ShaikhDanish04 as a second maintainer, but the live GitHub collaborator-permission lookup on 2026-11-26 reports effective `read` access. The collaborator cannot currently write, merge, administer rulesets or publish releases. A designation without the access and operational capability to maintain the project does not demonstrate a Gold bus factor of two. |
 | `contributors_unassociated` | contributors unassociated | **Unmet** | Two unassociated significant contributors are not evidenced; the current project has one maintainer and one collaborator whose significant independent contribution status is not established. |
-| `copyright_per_file` | Include copyright statement in every source file | **Unmet** | Inspection of all ten maintained Ruby source/test files (`scripts/check-branch-coverage.rb`, `scripts/classify-sbom-response.rb`, `scripts/validate-dco.rb`, `scripts/validate-network-transport.rb`, `scripts/validate-sbom.rb`, `scripts/validate-vex.rb`, `tests/dco_validator_test.rb`, `tests/network_transport_validator_test.rb`, `tests/sbom_validator_test.rb` and `tests/vex_validator_test.rb`) found no copyright statement identifying the copyright holder. |
-| `license_per_file` | Include SPDX licence statement in every source file | **Unmet** | The root LICENSE exists, but inspection of all ten maintained Ruby source/test files found no per-file `SPDX-License-Identifier` statement. |
+| `copyright_per_file` | Include copyright statement in every source file | **Met** | All six maintained Ruby scripts and five Ruby test files now carry `Copyright (C) 2026 Er. Tapan Jatakia` in the file header. `tests/source_notices_test.rb` checks every `scripts/*.rb` and `tests/*_test.rb` file so future additions cannot silently omit the notice. |
+| `license_per_file` | Include SPDX licence statement in every source file | **Met** | All six maintained Ruby scripts and five Ruby test files now carry `SPDX-License-Identifier: GPL-3.0-only`, matching the repository's GNU GPL version 3 root licence. `tests/source_notices_test.rb` enforces the header across the maintained Ruby source/test inventory. |
 
 ## Change Control
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
 | `repo_distributed` | Use distributed version control (suggested) | **Met** | The public repository uses Git. |
-| `small_tasks` | Identify small tasks for new/casual contributors | **Unmet** | CONTRIBUTING.md does not currently identify and label small tasks suitable for new or casual contributors. |
+| `small_tasks` | Identify small tasks for new/casual contributors | **Met** | CONTRIBUTING.md now has a dedicated, clearly labelled small-task table for documentation clarity, link checks, README accessibility, focused Ruby regression cases, error-message documentation and technical-reference refreshes, with validation guidance and access boundaries. |
 | `require_2FA` | Require 2FA for developers with repository/sensitive access | **Unmet** | Owner confirmation that MFA is enabled on both known accounts is not equivalent to a repository/project mechanism requiring 2FA for every developer with central-repository or sensitive-data access. |
 | `secure_2FA` | Use cryptographic 2FA to prevent impersonation (should) | **Unverified** | The authentication factors used by each developer have not been verified as cryptographic anti-impersonation mechanisms; SMS alone would not satisfy this SHOULD criterion. |
 
@@ -52,7 +52,7 @@ Gold is cumulative: the project must first achieve Silver. Its contributor-diver
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
-| `code_review_standards` | Document code-review process, checks and acceptance criteria | **Partial** | CONTRIBUTING.md and REPOSITORY-QA-POLICY.md define PR expectations and automated checks, but do not yet document a complete human code-review checklist, review method and acceptance criteria. |
+| `code_review_standards` | Document code-review process, checks and acceptance criteria | **Met** | CONTRIBUTING.md now documents the review method, risk-based review scope, eight-point checklist, evidence to inspect, blocking-finding resolution and acceptance criteria. It explicitly distinguishes the documented review standard from the currently unavailable independent reviewer and zero-approval ruleset. |
 | `two_person_review` | Have at least 50% of proposed changes reviewed by another person | **Unmet** | The active ruleset does not require a non-author human approval, and the owner has confirmed that an independent reviewer is not currently available. |
 | `build_reproducible` | Provide reproducible builds | **N/A** | No build/compilation step is required for the repository's current outputs. |
 | `test_invocation` | Provide standard test invocation (should) | **Met** | The Ruby validation and regression test commands are documented and invocable using standard Ruby commands. |
@@ -68,19 +68,20 @@ Gold is cumulative: the project must first achieve Silver. Its contributor-diver
 | `crypto_tls12` | Support TLS 1.2 or later | **Met** | Maintained curl requests explicitly require HTTPS and TLS 1.2 or later; redirects are HTTPS-only. The network transport validator and its regression tests enforce these settings and reject known certificate-verification bypasses. The required repository-configuration validation passed in [PR #68 run 45561468743](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468743). See NETWORK-CRYPTOGRAPHY-REVIEW.md. |
 | `hardened_site` | Use nonpermissive security headers on project sites | **Unverified** | No current header assessment was captured for the canonical project site/repository and any separate download endpoint. |
 | `security_review` | Perform a security review within the last five years | **Partial** | THREAT-MODEL.md and the Baseline implementation assessments document human security analysis, assets, trust boundaries and safeguards, but there is no distinct dated security-review record within the five-year window explicitly reviewing security requirements and boundaries. |
-| `hardening` | Use software hardening mechanisms (should) | **N/A** | The repository does not release an application or runtime to which software hardening mechanisms apply. |
+| `hardening` | Use software hardening mechanisms (should) | **Met** | The maintained Ruby utilities apply fail-closed schema and allowlist validation, strict path constraints, bounded dates/expiry, safe argument-array subprocess execution, explicit network protocol/TLS restrictions and rejection of certificate-verification bypasses. GitHub Actions use least-privilege permissions and immutable action pins. These controls harden the actual maintained command-line software; see THREAT-MODEL.md and the validator regression suites. |
 
 ## Analysis
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
-| `dynamic_analysis` | Apply dynamic analysis before major releases | **Unmet** | No dynamic-analysis tool is applied to a proposed major release of the repository's produced software assets. |
-| `dynamic_analysis_enable_assertions` | Check runtime assertions during dynamic analysis | **Unmet** | No evidence shows a dynamic-analysis configuration that enables and checks many runtime assertions. |
+| `dynamic_analysis` | Apply dynamic analysis before major releases | **N/A** | The repository does not publish a major production release of its Ruby utilities or any end-user software. Its only release product is a source/documentation snapshot. The Ruby utilities are exercised by CI regression tests on proposed changes, but that does not create a major production software release; the criterion's N/A path is therefore used rather than inventing a release event. Reassess if the utilities become separately released production software. |
+| `dynamic_analysis_enable_assertions` | Check runtime assertions during dynamic analysis | **N/A** | No major production software release or corresponding dynamic-analysis release gate exists within the current documentation/source-snapshot scope. The regression tests use Minitest assertions during CI, but these are not represented as a production-release dynamic-analysis configuration. Reassess if production software releases are introduced. |
 
 ## Evidence references
 
 - [README.md](../README.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
+- [Source notice regression test](../tests/source_notices_test.rb)
 - [SECURITY.md](../SECURITY.md)
 - [LICENSE](../LICENSE)
 - [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md)
