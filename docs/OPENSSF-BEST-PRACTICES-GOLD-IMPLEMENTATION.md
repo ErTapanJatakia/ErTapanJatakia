@@ -67,7 +67,7 @@ Gold is cumulative: the project must first achieve an official Silver badge. Thi
 | `crypto_used_network` | crypto used network | **Met** | Repository automation communicates with GitHub over HTTPS/TLS and mirrors protected history over SSH. |
 | `crypto_tls12` | Support TLS 1.2 or later | **Met** | Maintained curl requests explicitly require HTTPS and TLS 1.2 or later; redirects are HTTPS-only. The network transport validator and its regression tests enforce these settings and reject known certificate-verification bypasses. The required repository-configuration validation passed in [PR #68 run 45561468743](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468743). See NETWORK-CRYPTOGRAPHY-REVIEW.md. |
 | `hardened_site` | Use nonpermissive security headers on project sites | **Unverified** | No current header assessment was captured for the canonical project site/repository and any separate download endpoint. |
-| `security_review` | Perform a security review within the last five years | **Partial** | THREAT-MODEL.md and the Baseline implementation assessments document human security analysis, assets, trust boundaries and safeguards, but there is no distinct dated security-review record within the five-year window explicitly reviewing security requirements and boundaries. |
+| `security_review` | Perform a security review within the last five years | **Partial** | A dated [2026-11-26 internal security review](SECURITY-REVIEW-2026-11-26.md) now records the reviewed security requirements, trust boundaries, source/workflow controls, findings and residual risks. It is explicitly an AI-assisted draft prepared for repository-owner validation, not an independent human review. The owner must validate the findings and record approval before this is treated as completed review evidence. |
 | `hardening` | Use software hardening mechanisms (should) | **Met** | The maintained Ruby utilities apply fail-closed schema and allowlist validation, strict path constraints, bounded dates/expiry, safe argument-array subprocess execution, explicit network protocol/TLS restrictions and rejection of certificate-verification bypasses. GitHub Actions use least-privilege permissions and immutable action pins. These controls harden the actual maintained command-line software; see THREAT-MODEL.md and the validator regression suites. |
 
 ## Analysis
@@ -88,6 +88,7 @@ Gold is cumulative: the project must first achieve an official Silver badge. Thi
 - [Access and Collaborator Governance](ACCESS-GOVERNANCE.md)
 - [Repository Automation Architecture](REPOSITORY-AUTOMATION-ARCHITECTURE.md)
 - [Repository Automation Threat Model](THREAT-MODEL.md)
+- [2026-11-26 Internal Security Review](SECURITY-REVIEW-2026-11-26.md)
 - [Repository Quality Assurance Policy](REPOSITORY-QA-POLICY.md)
 - [Build, Validation and Release Instructions](BUILD-AND-TEST-INSTRUCTIONS.md)
 - [Release Verification](RELEASE-VERIFICATION.md)
