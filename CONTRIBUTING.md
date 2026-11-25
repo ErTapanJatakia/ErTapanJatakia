@@ -49,15 +49,9 @@ By participating, you agree to follow the repository's [Code of Conduct](CODE_OF
 
 Thank you for helping keep this profile repository accurate, accessible, and professional.
 
-## Developer Certificate of Origin (DCO)
+## Contribution sign-off
 
-After this policy is merged, every commit in each new pull request must include a DCO sign-off matching that commit's author or committer identity. Use Git's sign-off option when creating each commit:
-
-```bash
-git commit -s -m "type: describe the change"
-```
-
-The resulting commit message must contain a trailer such as `Signed-off-by: Your Name <your-verified-email@example.com>`. The sign-off is a legal assertion under the [Developer Certificate of Origin](DCO), not a cryptographic signature. GPG signing and DCO sign-off are separate controls; use both when the repository's signing process requires them. If you amend or recreate a commit, preserve or add its sign-off again. The required `Major change validation` check rejects a pull request if any new commit lacks the matching sign-off. Historical commits before this policy's adoption are not retroactively rewritten.
+DCO sign-off is not currently required for pull requests. Contributors remain responsible for ensuring that submitted work is original or that they have the necessary rights and permissions to submit it under the repository's GPL-3.0 licence, as described in the Licensing section above. Do not add a `Signed-off-by` trailer unless a future repository policy explicitly reinstates that requirement.
 
 ## Developer setup
 
