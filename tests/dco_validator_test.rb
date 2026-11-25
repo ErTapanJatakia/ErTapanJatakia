@@ -72,6 +72,21 @@ class DcoValidatorTest < Minitest::Test
     end
   end
 
+  def test_cli_reports_successful_validation
+    with_git_repository do |base_sha|
+      create_commit("cli validation", "Signed-off-by: Test Author <test@example.com>")
+      head_sha = git!("rev-parse", "HEAD")
+      script = File.expand_path("../scripts/validate-dco.rb", __dir__)
+      output, error, status = Open3.capture3(
+        { "BASE_SHA" => base_sha, "HEAD_SHA" => head_sha },
+        "ruby", script, chdir: Dir.pwd
+      )
+      assert status.success?, error
+      assert_includes output, "DCO validation passed"
+      assert_empty error
+    end
+  end
+
   private
 
   def with_git_repository
