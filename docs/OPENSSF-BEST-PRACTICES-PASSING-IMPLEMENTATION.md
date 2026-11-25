@@ -12,10 +12,10 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 45 |
+| Met | 46 |
 | Partial | 0 |
 | Unmet | 0 |
-| Not applicable (N/A) | 15 |
+| Not applicable (N/A) | 14 |
 | Unverified | 7 |
 | **Total** | **67** |
 
@@ -124,14 +124,14 @@ Passing includes the repository/project basics, change control, reporting, quali
 | `dynamic_analysis` | Apply dynamic analysis before major releases | **Met** | The automated Ruby validator test suite is executed dynamically and provides 86.49% branch coverage (64/74 branches) in CI, exceeding the criterion's 80% branch-coverage alternative. See run [45515536242](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45515536242). |
 | `dynamic_analysis_unsafe` | Use memory-safety dynamic analysis if unsafe languages exist (suggested) | **N/A** | The repository's maintained Ruby/Markdown/YAML/JavaScript workflow assets do not include memory-unsafe C/C++ software. |
 | `dynamic_analysis_enable_assertions` | Check runtime assertions during dynamic analysis | **Met** | The dynamic Ruby test configuration executes Minitest assertions throughout the validator regression suites; the coverage run recorded 82 assertions. These assertions are test-only and are not enabled in a production runtime. |
-| `dynamic_analysis_fixed` | Fix confirmed medium+ dynamic-analysis vulnerabilities | **N/A** | No dynamic-analysis findings are recorded because the project does not currently run dynamic code analysis. |
+| `dynamic_analysis_fixed` | Fix confirmed medium+ dynamic-analysis vulnerabilities | **Met** | The dynamic Ruby regression suite completed 43 tests and 82 assertions with no failures; no medium-or-higher exploitable vulnerability was confirmed from those test executions. Any future confirmed dynamic-analysis finding is subject to the SAST remediation policy, including the 30-day Medium remediation limit and immediate Critical/High release block. |
 
 ## Evidence snapshots and remaining owner confirmations
 
-- **Ruby dynamic test evidence:** [Repository Quality Assurance run 45515536242](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45515536242) — 43 tests, 82 assertions, 64/74 branch outcomes covered (86.49%); the enforced threshold is 80%.
+- **Ruby dynamic test evidence:** [Repository Quality Assurance run 45515536242](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45515536242) — 43 tests, 82 assertions, 64/74 branch outcomes covered (86.49%); the enforced threshold is 80%. The run completed without test failures or errors.
 - **Public report tracker snapshot:** the repository's [public issue tracker](https://github.com/ErTapanJatakia/ErTapanJatakia/issues) was queried on 2026-11-25. The GitHub issue endpoint returned 63 records, all pull requests; no actual issue records were returned. This supports the zero-public-bug-report and zero-public-enhancement-request response findings, but it does not cover reports received outside the issue tracker.
 - **Vulnerability response policy:** SECURITY.md now commits to an initial response within 7 calendar days (and never later than 14 calendar days). This is prospective policy evidence, not proof of historical response performance.
-- **Still requiring owner/platform evidence:** private vulnerability reporting must be enabled and the reporter-facing form verified; private vulnerability reports received in the last six months must be checked for response timing; the primary developer must attest to the secure-design and common-error knowledge criteria; public vulnerability/advisory history and confirmed medium-or-higher CodeQL findings must be reviewed to establish remediation timeliness.
+- **Still requiring owner/platform evidence:** private vulnerability reporting must be enabled and the reporter-facing form verified; private vulnerability reports received in the last six months must be checked for response timing; the primary developer must attest to the secure-design and common-error knowledge criteria; the current CodeQL open-alert inventory and public vulnerability/advisory history must be reviewed before marking the remaining static-analysis and public-vulnerability remediation criteria Met.
 
 ## Evidence references
 
