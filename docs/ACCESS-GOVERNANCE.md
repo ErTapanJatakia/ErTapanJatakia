@@ -1,5 +1,7 @@
 # Access and Collaborator Governance
 
+The public decision-making and contribution-acceptance model is defined in [PROJECT-GOVERNANCE.md](PROJECT-GOVERNANCE.md). This document complements that model with access, privilege, vetting and continuity controls.
+
 ## 1. Sensitive resources
 
 Sensitive resources include repository administration, branch/ruleset settings, Actions secrets and variables, signing keys, deployment credentials, GitVerse mirroring credentials, release publication permissions and security-alert configuration.
