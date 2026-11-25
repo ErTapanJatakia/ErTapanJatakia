@@ -87,7 +87,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl_count="$(grep -RhoE '(^|[[:space:](])curl([[:space:]]|$)' .github/workflows | wc -l)"
+          curl_count="$(grep -RhoE '^[[:space:]]*curl[[:space:]]|\\$\\([[:space:]]*curl[[:space:]]' .github/workflows | wc -l)"
           tls_count="$(grep -Rho -- '--tlsv1.2' .github/workflows | wc -l)"
           https_count="$(grep -Rho -- "--proto '=https'" .github/workflows | wc -l)"
           redirect_count="$(grep -Rho -- "--location" .github/workflows | wc -l)"
