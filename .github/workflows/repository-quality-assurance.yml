@@ -131,7 +131,7 @@ jobs:
             ".prettierrc.json"
 
   vex-validation:
-    name: VEX register validation
+    name: Ruby validator, VEX and branch-coverage validation
     runs-on: ubuntu-latest
     permissions:
       contents: read
