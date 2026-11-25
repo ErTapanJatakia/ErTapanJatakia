@@ -85,4 +85,4 @@ jobs:
           fi
 
           echo "No open Critical/High CodeQL findings were returned by the repository API."
-          The main-branch ruleset should require both CodeQL analysis checks and the SAST policy gate so analysis completes before merge.
+          echo "The main-branch ruleset should require both CodeQL analysis checks and the SAST policy gate so analysis completes before merge."
