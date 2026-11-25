@@ -89,7 +89,7 @@ jobs:
           fi
           mkdir -p dist
           # The signed temporary download URL is separate from the authenticated API endpoint.
-          curl --fail --silent --show-error --proto '=https' --tlsv1.2 --location "$download_url" \
+          curl --fail --silent --show-error --proto '=https' --proto-redir '=https' --tlsv1.2 --location "$download_url" \
             --output dist/repository-dependency-sbom.spdx.json
 
       - name: Validate SPDX document and dependency coverage
