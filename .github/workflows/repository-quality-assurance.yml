@@ -190,6 +190,14 @@ jobs:
           done
 
           echo "The automated regression suite passed for this pull request."
+
+          if git cat-file -e "$BASE_SHA:DCO" 2>/dev/null; then
+            echo "DCO policy is present in the pull-request base; validating every new commit."
+            BASE_SHA="$BASE_SHA" HEAD_SHA="$HEAD_SHA" ruby scripts/validate-dco.rb
+          else
+            echo "DCO policy is not present in the pull-request base; the one-time adoption change is grandfathered."
+          fi
+
           git diff --name-only "$BASE_SHA...$HEAD_SHA" > "$RUNNER_TEMP/changed-files.txt"
           major_change=false
           while IFS= read -r path; do
