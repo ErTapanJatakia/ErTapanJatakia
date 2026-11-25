@@ -25,7 +25,19 @@ This inventory documents the external software interfaces used by the released r
 | GitVerse SSH Git endpoint | Receives the protected main branch and tags as a secondary mirror | Git refs and objects over SSH; dedicated private key and pinned host key | `mirror-gitverse.yml` |
 | Public external profile/resource links | Readers navigate from README badges and profile links to external websites | HTTPS URLs and ordinary browser navigation; no credentials are sent by repository automation | `README.md` and referenced badge/image URLs |
 
-## 3. Input/output and trust constraints
+## 3. Network transport and certificate verification
+
+- Maintained curl calls to GitHub APIs, GitHub release downloads and temporary SBOM downloads explicitly use HTTPS-only protocol selection and require TLS 1.2 or later.
+- curl/libcurl peer and hostname certificate verification remains enabled; no insecure option is used.
+- Git and GitHub CLI use their standard TLS-capable clients with certificate verification enabled by default. The project does not configure certificate verification bypasses.
+- npm/npx uses the standard Node.js TLS client and default certificate verification; no strict-ssl=false setting is configured.
+- The workflow configuration validator checks all maintained curl invocations for HTTPS/TLS 1.2 options and rejects known certificate-verification bypass settings.
+- The TLS handshake and certificate verification occur before HTTP request headers, including authorization headers, are transmitted.
+- GitVerse mirroring uses SSH with strict host-key verification, not TLS.
+
+See [Network Transport and Certificate Verification Review](NETWORK-CRYPTOGRAPHY-REVIEW.md) for the dated review and verification scope.
+
+## 4. Input/output and trust constraints
 
 - Pull-request metadata and commit messages are treated as untrusted inputs until validated.
 - Workflow jobs use workflow-level `permissions: {}` or a read-only `contents: read` baseline, with explicit job-level grants for privileged operations.
