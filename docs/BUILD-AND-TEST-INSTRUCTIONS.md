@@ -38,6 +38,7 @@ Run the Ruby validators and regression suites:
 
 ```bash
 ruby scripts/validate-vex.rb
+ruby scripts/validate-network-transport.rb .github/workflows
 ruby scripts/check-branch-coverage.rb
 ```
 
