@@ -4,7 +4,7 @@
 **Badge project:** [Er. Tapan Jatakia - GitHub Profile](https://www.bestpractices.dev/en/projects/17059)  
 **Repository:** [ErTapanJatakia/ErTapanJatakia](https://github.com/ErTapanJatakia/ErTapanJatakia)  
 **Official criteria:** [Gold criteria](https://www.bestpractices.dev/en/criteria/2)  
-**Scope:** Evidence-led internal assessment of all 23 Gold criteria for this repository's profile, documentation, Ruby validation utilities and GitHub Actions automation. The repository does not release an end-user application, compiled binary or deployable service.
+**Scope:** Evidence-led internal assessment of all 23 Gold criteria for this repository's profile, documentation, Ruby validation utilities and GitHub Actions automation. The repository does not release an end-user application, compiled binary or deployable service; it maintains four Ruby utilities and their regression suites.
 
 > **Assessment limitation:** This is an internal implementation register, not an OpenSSF badge award, independent audit or certification. The public BadgeApp profile currently reports **in_progress**; its visible category counters are 0 and no Gold achievement is shown. Do not present this register as a badge award. The official BadgeApp uses Met, Unmet and N/A; **Partial** and **Unverified** are internal evidence states and must be resolved before submitting an official answer.
 
@@ -36,8 +36,8 @@ Gold is cumulative: the project must first achieve Silver. Its contributor-diver
 | `achieve_silver` | achieve silver | **Unmet** | The public BadgeApp profile is in_progress; Silver has not been achieved. |
 | `bus_factor` | Maintain a bus factor of at least two (should at Silver) | **Unmet** | The documented operating model identifies one maintainer. |
 | `contributors_unassociated` | contributors unassociated | **Unmet** | Two unassociated significant contributors are not evidenced; the current project has one maintainer and one collaborator whose significant independent contribution status is not established. |
-| `copyright_per_file` | Include copyright statement in every source file | **Unmet** | Inspection of all four maintained Ruby source/test files (`scripts/validate-dco.rb`, `scripts/validate-vex.rb`, `tests/dco_validator_test.rb` and `tests/vex_validator_test.rb`) found no copyright statement identifying the copyright holder. |
-| `license_per_file` | Include SPDX licence statement in every source file | **Unmet** | The root LICENSE exists, but inspection of all four maintained Ruby source/test files found no per-file `SPDX-License-Identifier` statement. |
+| `copyright_per_file` | Include copyright statement in every source file | **Unmet** | Inspection of all eight maintained Ruby source/test files (`scripts/check-branch-coverage.rb`, `scripts/classify-sbom-response.rb`, `scripts/validate-dco.rb`, `scripts/validate-sbom.rb`, `scripts/validate-vex.rb`, `tests/dco_validator_test.rb`, `tests/sbom_validator_test.rb` and `tests/vex_validator_test.rb`) found no copyright statement identifying the copyright holder. |
+| `license_per_file` | Include SPDX licence statement in every source file | **Unmet** | The root LICENSE exists, but inspection of all eight maintained Ruby source/test files found no per-file `SPDX-License-Identifier` statement. |
 
 ## Change Control
 
