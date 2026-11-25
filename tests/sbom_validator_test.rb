@@ -186,7 +186,7 @@ class SbomValidatorTest < Minitest::Test
         success = assert_raises(SystemExit) { load script }
         assert_equal 0, success.status
       end
-      assert_equal "ready\\n", output
+      assert_equal "ready\n", output
       assert_empty error
     ensure
       $PROGRAM_NAME = original_program_name
