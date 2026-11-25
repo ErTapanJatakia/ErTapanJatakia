@@ -45,20 +45,23 @@ module SbomValidator
   rescue SystemCallError => e
     { valid: false, errors: ["Unable to read SPDX document: #{e.message}"], package_count: 0, dependency_count: 0 }
   end
+
+  def run_cli(path, output: $stdout, error: $stderr)
+    result = validate_file(path)
+    unless result[:valid]
+      error.puts result[:errors].map { |message| "::error::#{message}" }.join("\n")
+      return 1
+    end
+
+    output.puts "SPDX 2.3 document validated."
+    output.puts "package_count=#{result[:package_count]}"
+    output.puts "dependency_count=#{result[:dependency_count]}"
+    output.puts "::notice::Valid SPDX document has no DEPENDS_ON relationships; retain as an empty graph snapshot." if result[:dependency_count].zero?
+    0
+  end
 end
 
 if $PROGRAM_NAME == __FILE__
   path = ARGV.fetch(0) { abort "Usage: ruby scripts/validate-sbom.rb <spdx-json-file>" }
-  result = SbomValidator.validate_file(path)
-  unless result[:valid]
-    warn result[:errors].map { |error| "::error::#{error}" }.join("\n")
-    exit 1
-  end
-
-  puts "SPDX 2.3 document validated."
-  puts "package_count=#{result[:package_count]}"
-  puts "dependency_count=#{result[:dependency_count]}"
-  if result[:dependency_count].zero?
-    puts "::notice::Valid SPDX document has no DEPENDS_ON relationships; retain as an empty graph snapshot."
-  end
+  exit SbomValidator.run_cli(path)
 end
