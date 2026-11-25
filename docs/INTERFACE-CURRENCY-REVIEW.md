@@ -1,7 +1,7 @@
 # External Interface Currency Review
 
 **Review date:** 2026-11-25  
-**Scope:** Maintained Ruby validators, SBOM helpers, regression/coverage harness, GitHub Actions workflows, GitHub REST/CLI integrations, package/tool downloads and GitVerse mirroring.
+**Scope:** Maintained Ruby validators, SBOM helpers, network transport validator and regression/coverage harness, GitHub Actions workflows, GitHub REST/CLI integrations, package/tool downloads and GitVerse mirroring.
 
 ## Review method
 
@@ -15,7 +15,7 @@
 
 | Interface / area | Review result | Evidence |
 |---|---|---|
-| Ruby standard-library APIs | No deprecated or obsolete API use was identified in the maintained VEX/DCO validators, SBOM validator and response classifier. The code uses supported Ruby standard-library interfaces including Open3, Coverage, Date, JSON, Pathname and Time. | scripts/validate-dco.rb, scripts/validate-vex.rb, scripts/validate-sbom.rb, scripts/classify-sbom-response.rb and scripts/check-branch-coverage.rb; Ruby regression suite |
+| Ruby standard-library APIs | No deprecated or obsolete API use was identified in the maintained VEX/DCO validators, SBOM validator and response classifier. The code uses supported Ruby standard-library interfaces including Open3, Coverage, Date, JSON, Pathname and Time. | scripts/validate-dco.rb, scripts/validate-vex.rb, scripts/validate-sbom.rb, scripts/classify-sbom-response.rb, scripts/validate-network-transport.rb and scripts/check-branch-coverage.rb; Ruby regression suite |
 | GitHub Actions workflow commands | No legacy ::set-output or ::save-state commands were found. | Repository code search on 2026-11-25 |
 | GitHub Actions runtime declarations | No legacy node16 runtime declaration was found in maintained repository source. | Repository code search on 2026-11-25 |
 | Workflow syntax and action interfaces | Current workflow definitions passed actionlint and zizmor in PR #68 validation. | [Repository QA run 45559159811](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45559159811); [Repository Security Analysis run 45559159830](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45559159830) |
