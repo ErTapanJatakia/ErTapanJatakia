@@ -14,9 +14,14 @@ module SbomResponseClassifier
       "unexpected"
     end
   end
+
+  def run_cli(status, output: $stdout)
+    output.puts classify(status)
+    0
+  end
 end
 
 if $PROGRAM_NAME == __FILE__
   status = ARGV.fetch(0) { abort "Usage: ruby scripts/classify-sbom-response.rb <http-status>" }
-  puts SbomResponseClassifier.classify(status)
+  exit SbomResponseClassifier.run_cli(status)
 end
