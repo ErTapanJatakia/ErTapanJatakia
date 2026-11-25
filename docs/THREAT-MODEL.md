@@ -54,12 +54,12 @@ Common implementation weaknesses relevant to the maintained Ruby and workflow as
 | Weakness / error class | Potential impact | Mitigation in maintained assets |
 |---|---|---|
 | Command injection and unsafe shell interpolation | Untrusted PR metadata or inputs alter privileged commands | Ruby validators use argument-array subprocess calls; workflows validate and quote constrained inputs and avoid passing signing secrets to untrusted jobs. |
-| Path traversal and arbitrary file access | VEX records reference files outside the approved evidence directory | VEX validator restricts statements to real JSON files under `docs/vex/`, rejects traversal and excludes the template. |
+| Path traversal and arbitrary file access | VEX records reference files outside the approved evidence directory | VEX validator requires the `docs/vex/` relative-path prefix, rejects `..` segments and excludes the template path; it also checks file existence and JSON validity. |
 | Trusting malformed or placeholder security evidence | False VEX exception suppresses a real dependency alert | Fail-closed schema, identity, date, expiry, evidence, advisory and package-reference validation. |
 | Authentication/authorization confusion | A forged sign-off or overprivileged workflow can authorize a change | DCO validator requires an exact sign-off matching author or committer identity; workflows use least-privilege tokens and protected secrets. |
 | Supply-chain substitution | A compromised action or release asset changes repository output | Full-SHA action pinning, dependency review, GPG signatures, SHA-256 checksums and artifact attestations. |
 | Secret leakage | Signing or mirror credentials become public | Gitleaks scans full history; secrets are isolated to trusted jobs and temporary key material is cleaned up. |
-| Denial of service through unbounded input/work | Oversized or malformed records consume runner resources | Validators use bounded local repository inputs and fail on invalid structure; workflows apply concurrency controls and timeouts where configured. |
+| Denial of service through unbounded input/work | Oversized or malformed records consume runner resources | Validators read repository-local JSON files and fail on invalid structure; CI uses concurrency controls to limit overlapping runs. |
 | Inadequate error handling | A failed check is treated as success | Validators return nonzero status on invalid evidence; required QA gates fail closed. |
 
 ## 5. Threat scenarios and safeguards
