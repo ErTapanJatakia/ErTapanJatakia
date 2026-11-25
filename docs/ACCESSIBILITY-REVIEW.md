@@ -1,7 +1,7 @@
 # Accessibility Review
 
 **Scope:** Public profile README, repository documentation, tables, links, badges, images and embedded external content.  
-**Review status:** Checklist published; a complete manual review has not yet been performed. Do not treat this policy as evidence that all content already conforms.
+**Review status:** Source-level accessibility review completed on 2026-11-25. No custom interactive controls or application UI are produced by this repository. Assistive-technology testing of GitHub's rendered page and third-party embeds remains outside the connected tooling and is not claimed.
 
 ## Requirements
 
@@ -30,11 +30,11 @@
 
 | Date | Scope | Method | Result |
 |---|---|---|---|
-| 2026-11-25 | Review process definition | Documentation and repository source inspection | Checklist established; manual rendered-page and assistive-technology review remains outstanding |
+| 2026-11-25 | README and maintained Markdown documentation | Source-level audit of image alternatives, heading hierarchy, table structure, status labels, links and interactive elements | Corrected the README heading hierarchy and added missing image alternatives; all 53 README image elements now have alt text. Maintained documentation uses descriptive headings/links and text labels for status. No custom interactive controls were found. Screen-reader testing of GitHub's rendered page and external embeds was not performed and is not claimed |
 
 ## Limitations
 
-Automated Markdown linting and link checking can detect some structural defects but cannot establish full accessibility. External images, badges, fonts and animated embeds may change independently of this repository. A complete review requires inspection of the rendered output and assistive-technology testing.
+Automated Markdown linting and link checking can detect some structural defects but cannot establish full accessibility. External images, badges, fonts and animated embeds may change independently of this repository. Source review cannot establish every browser/screen-reader behavior. External images, badges, fonts and animated embeds may change independently of this repository; verify rendered behavior with assistive technology when available or after material layout changes.
 
 ## Maintenance
 
