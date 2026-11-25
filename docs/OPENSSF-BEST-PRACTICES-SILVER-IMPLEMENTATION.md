@@ -12,11 +12,11 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 27 |
+| Met | 28 |
 | Partial | 3 |
 | Unmet | 3 |
 | Not applicable (N/A) | 16 |
-| Unverified | 6 |
+| Unverified | 5 |
 | **Total** | **55** |
 
 Silver is cumulative: the project must first achieve Passing. The current single-maintainer model, incomplete continuity arrangement and missing independent review evidence are material constraints; automated CI does not substitute for human review.
@@ -81,7 +81,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | `external_dependencies` | List external dependencies machine-readably | **Met** | GitHub Actions dependencies are declared in workflow YAML and npm/npx QA tools are version-pinned; the dependency inventory records external Action identities and licences. |
 | `dependency_monitoring` | Monitor dependencies for vulnerabilities | **Met** | Dependabot, dependency review and repository security workflows monitor dependencies and policy violations. |
 | `updateable_reused_components` | Make reused components easy to update | **Met** | Actions are pinned to full commit SHAs and Dependabot proposes updates; standard system/runtime components are used where appropriate. |
-| `interfaces_current` | Avoid deprecated APIs where alternatives exist (should) | **Unverified** | A systematic audit for deprecated/obsolete APIs across all maintained workflow and Ruby interfaces was not evidenced. |
+| `interfaces_current` | Avoid deprecated APIs where alternatives exist (should) | **Met** | INTERFACE-CURRENCY-REVIEW.md records a dated review of the maintained Ruby APIs, workflows and external interfaces. The review found no legacy GitHub Actions workflow commands or node16 runtime declarations and no deprecated Ruby APIs; actionlint and zizmor passed on the current PR validation. Reassess after toolchain or interface changes. |
 | `automated_integration_testing` | Run automated tests on every shared-repository check-in | **Met** | Repository QA runs on every pull request and every push to main and reports check outcomes. |
 | `regression_tests_added50` | Add regression tests for at least 50% of recent bugs | **Unverified** | The number of bugs fixed in the preceding six months and the proportion with regression tests were not audited. |
 | `test_statement_coverage80` | Achieve at least 80% statement coverage | **Met** | The Ruby standard-library Coverage tool measures executable source lines in both maintained Ruby validators. The CI gate requires at least 80% statement coverage and 80% branch coverage. PR #68 run [45559085834](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45559085834) passed with 107/124 statements (86.29%) and 64/74 branches (86.49%); 43 tests and 82 assertions passed. This is coverage of the two maintained validators, not an application-wide coverage claim. |
@@ -129,6 +129,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 - [Repository Security Assurance Case](SECURITY-ASSURANCE-CASE.md)
 - [Accessibility Review](ACCESSIBILITY-REVIEW.md)
 - [Documentation Maintenance](DOCUMENTATION-MAINTENANCE.md)
+- [External Interface Currency Review](INTERFACE-CURRENCY-REVIEW.md)
 - [Repository Automation Architecture](REPOSITORY-AUTOMATION-ARCHITECTURE.md)
 - [Repository Automation Threat Model](THREAT-MODEL.md)
 - [Repository Quality Assurance Policy](REPOSITORY-QA-POLICY.md)
