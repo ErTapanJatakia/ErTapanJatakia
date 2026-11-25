@@ -12,11 +12,11 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 49 |
+| Met | 51 |
 | Partial | 0 |
 | Unmet | 0 |
 | Not applicable (N/A) | 14 |
-| Unverified | 4 |
+| Unverified | 2 |
 | **Total** | **67** |
 
 Passing includes the repository/project basics, change control, reporting, quality, security and analysis criteria. This register distinguishes the two maintained Ruby command-line validators and their regression/branch-coverage tests from an end-user application; no application runtime or compiled application build is claimed.
@@ -96,8 +96,8 @@ Passing includes the repository/project basics, change control, reporting, quali
 
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
-| `know_secure_design` | Primary developer knows secure-design principles | **Unverified** | The threat model now maps least privilege, complete mediation, fail-safe defaults, separation of trust boundaries, defense in depth, attack-surface minimization, secure defaults and auditability to repository controls. The primary developer must still personally attest to the criterion's detailed knowledge requirement; documentation alone cannot establish personal knowledge. |
-| `know_common_errors` | Primary developer knows common vulnerability classes/mitigations | **Unverified** | The threat model maps command injection, path traversal, malformed security evidence, authorization confusion, supply-chain substitution, secret leakage, denial of service and error-handling failures to mitigations in the maintained assets. The primary developer must still personally attest to knowing the relevant classes and at least one mitigation for each. |
+| `know_secure_design` | Primary developer knows secure-design principles | **Met** | On 2026-11-25, the repository owner explicitly confirmed/attested to understanding the secure-design principles documented in the threat model, including least privilege, complete mediation, fail-safe defaults, separation of trust boundaries, defense in depth, attack-surface minimization, secure defaults and auditability. Owner attestation recorded in the project conversation; this is a self-attestation, not an independent examination. |
+| `know_common_errors` | Primary developer knows common vulnerability classes/mitigations | **Met** | On 2026-11-25, the repository owner explicitly confirmed/attested to understanding the common vulnerability classes and mitigations documented in the threat model, including command injection, path traversal, malformed security evidence, authorization confusion, supply-chain substitution, secret leakage, denial of service and error-handling failures. Owner attestation recorded in the project conversation; this is a self-attestation, not an independent examination. |
 | `crypto_published` | Use public, expert-reviewed crypto when crypto is used | **N/A** | The repository does not implement cryptographic functionality in a released application; cryptography is provided by standard Git/GPG/HTTPS platform tooling. |
 | `crypto_call` | Use established crypto libraries rather than reimplementing | **N/A** | The repository does not release an application or library that implements cryptographic functions. |
 | `crypto_floss` | Crypto-dependent functionality must be implementable with FLOSS | **N/A** | No application cryptographic functionality is produced by the repository; release signing uses standard FLOSS tooling. |
