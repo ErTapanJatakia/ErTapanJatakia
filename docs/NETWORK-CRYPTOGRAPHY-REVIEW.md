@@ -30,4 +30,4 @@ The review covers repository-maintained network calls and their client configura
 
 ## Review history
 
-- 2026-11-25: Reviewed the current network interface inventory and added explicit TLS 1.2+ and HTTPS-only options to all maintained curl requests. Certificate verification remains enabled using the standard client defaults.
+- 2026-11-25: Reviewed the current network interface inventory, added explicit TLS 1.2+ and HTTPS-only options to all maintained curl requests, and restricted redirects to HTTPS. `scripts/validate-network-transport.rb` now enforces these settings and rejects known certificate-verification bypasses; its regression tests and the required repository-configuration validation passed in [PR #68 run 45561468743](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468743). Certificate verification remains enabled using the standard client defaults.
