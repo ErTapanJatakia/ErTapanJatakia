@@ -21,7 +21,7 @@ Use HTTPS and confirm the repository owner and repository name are exactly `ErTa
 
 ## 3. Verify GitHub artifact provenance and workflow identity
 
-Install a current GitHub CLI version with artifact-attestation support, then run:
+Install GitHub CLI **2.102.0 or newer** with artifact-attestation support, then run the commands below. This minimum includes the exact signer-workflow identity matching fix; do not use an older CLI for release authorization.
 
 ```bash
 gh attestation verify <tag>.tar.gz \
