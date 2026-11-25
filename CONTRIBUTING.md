@@ -41,6 +41,40 @@ The repository's root `LICENSE` contains the GNU General Public License, version
 
 Do not submit material copied from sources whose terms are incompatible with GPL-3.0 or whose rights you cannot establish.
 
+## Small tasks for new and casual contributors
+
+The following bounded tasks are suitable starting points. They do not require repository administration, access to secrets, or changes to the profile owner's personal claims. Check the issue tracker before starting so work is not duplicated; open an issue if you intend to take one.
+
+| Task | Scope | Suggested validation |
+|---|---|---|
+| Improve documentation clarity | Fix a confusing sentence or add a short explanation in an existing guide without changing policy meaning | Markdown lint and link validation |
+| Check documentation links | Identify and report a broken or redirected link in a Markdown document | Offline link validation plus a documented source check |
+| Improve README accessibility | Propose descriptive alt text or a heading-structure correction without changing profile claims | README image-alt-text and heading checks |
+| Add a Ruby validator regression case | Add one focused positive or negative test for an existing validator using temporary fixtures | `ruby scripts/check-branch-coverage.rb` |
+| Improve error-message documentation | Clarify an existing validator's documented error or remediation path | Ruby regression suite and Markdown lint |
+| Refresh a technical reference | Update a stale external standards/tool reference with an authoritative source and review date | Link validation and reviewer source check |
+
+These are contribution opportunities, not claims that an issue has already been assigned or completed. New contributors must not modify credentials, access settings, release workflows, signing material, security exceptions, or owner-controlled profile facts without explicit authorization.
+
+## Code review method and acceptance criteria
+
+Every pull request is reviewed against the change's risk and scope before acceptance. The review is conducted in GitHub's pull-request diff and conversation, with the relevant workflow results and local validation output inspected. For code, workflow, dependency, permission, release, or security-policy changes, the reviewer must also inspect the affected execution path and trust boundary rather than relying on a passing CI badge alone.
+
+The review checklist is:
+
+1. **Purpose and scope:** the change solves the stated problem, is minimal, and does not include unrelated edits.
+2. **Correctness:** logic, edge cases, error handling, compatibility and failure behavior are appropriate.
+3. **Security and privacy:** no secret exposure, unsafe input handling, path traversal, command injection, privilege expansion, unnecessary data collection or insecure network fallback is introduced.
+4. **Supply chain:** new dependencies and GitHub Actions are justified, licence-checked and pinned to immutable revisions where supported.
+5. **Testing:** new behavior has focused positive and negative regression tests; bug fixes include a reproducible regression case where practical; existing tests are not weakened or deleted.
+6. **Documentation:** commands, supported scope, policy statements, evidence links and limitations match the implementation.
+7. **Accessibility and presentation:** rendered Markdown, headings, tables, images and links remain usable.
+8. **CI and release safety:** all applicable required checks pass; release/signing changes follow the controlled release policy.
+
+A change is acceptable only when blocking findings are resolved, required checks pass, the patch is consistent with repository policy, and the authorized decision-maker approves it. Changes affecting personal/professional claims require the profile owner's explicit approval. A reviewer must not approve their own changes.
+
+The current repository ruleset requires pull requests and status checks but has zero required approving reviews because an independent reviewer is not presently available. This is a disclosed operating limitation, not a claim that the 50% independent-review threshold is met. When an eligible independent reviewer becomes available, the owner should require and record human review for at least half of proposed modifications before release.
+
 ## Review and acceptance
 
 All contributions are subject to review and may be revised, deferred, or declined. The repository owner makes the final decision on whether a change is accepted. Opening a pull request does not guarantee acceptance or publication.
@@ -59,7 +93,7 @@ To record the DCO certification in a commit, use Git's sign-off option:
 git commit -s -m "type: describe the change"
 ```
 
-Git adds a `Signed-off-by` trailer containing the commit author's name and email. Use your own accurate identity details. The DCO text and these contributor instructions remain part of the repository's documented contribution policy. **Automated CI enforcement of DCO trailers is currently disabled**; this documentation must not be interpreted as evidence that the workflow presently checks every commit.
+Git adds a `Signed-off-by` trailer containing the commit author's name and email. Use your own accurate identity details. The DCO policy is enabled as a documented contribution requirement: contributors are expected to include the certification in their commit history using the sign-off procedure above. The root DCO 1.1 text and these instructions remain authoritative policy documentation. **Automated CI enforcement and mandatory sign-off validation are currently disabled in practice**; this is an implementation limitation, not a suspension of the documented contributor policy. Do not claim that GitHub Actions presently checks every commit.
 
 ## Developer setup
 
