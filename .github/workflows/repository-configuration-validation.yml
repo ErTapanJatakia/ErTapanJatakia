@@ -92,8 +92,16 @@ jobs:
           https_count="$(grep -Rho -- "--proto '=https'" .github/workflows | wc -l)"
           redirect_count="$(grep -Rho -- "--location" .github/workflows | wc -l)"
           redirect_https_count="$(grep -Rho -- "--proto-redir '=https'" .github/workflows | wc -l)"
-          if (( curl_count != tls_count || curl_count != https_count || redirect_count != redirect_https_count )); then
-            echo "::error::Every maintained curl request must explicitly require HTTPS and TLS 1.2 or later, and every redirect must remain HTTPS."
+          if (( curl_count != tls_count )); then
+            echo "::error::Every maintained curl request must explicitly require TLS 1.2 or later."
+            exit 1
+          fi
+          if (( curl_count != https_count )); then
+            echo "::error::Every maintained curl request must explicitly require HTTPS."
+            exit 1
+          fi
+          if (( redirect_count != redirect_https_count )); then
+            echo "::error::Every maintained curl redirect must remain HTTPS."
             exit 1
           fi
           if grep -RniE -- '--insecure|--proxy-insecure|GIT_SSL_NO_VERIFY|NODE_TLS_REJECT_UNAUTHORIZED=0|strict-ssl[[:space:]]*=[[:space:]]*false|sslVerify[[:space:]]*=[[:space:]]*false' .github/workflows; then
