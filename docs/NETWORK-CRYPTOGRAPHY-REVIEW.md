@@ -16,7 +16,7 @@
 
 ## Security controls
 
-- All maintained curl requests explicitly restrict the protocol to HTTPS and require TLS 1.2 or later.
+- All maintained curl requests explicitly restrict the protocol to HTTPS and require TLS 1.2 or later; redirects are also restricted to HTTPS.
 - curl's default peer and hostname verification is retained.
 - Git, GitHub CLI and Node.js use their standard TLS implementations and certificate-verification defaults; the repository does not disable those checks.
 - Private authorization headers are sent only through the established TLS/HTTPS client path; the TLS handshake and certificate verification occur before HTTP request headers are transmitted.
