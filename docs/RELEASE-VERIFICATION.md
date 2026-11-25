@@ -26,15 +26,15 @@ Install a current GitHub CLI version with artifact-attestation support, then run
 ```bash
 gh attestation verify <tag>.tar.gz \
   --repo ErTapanJatakia/ErTapanJatakia \
-  --signer-workflow github.com/ErTapanJatakia/ErTapanJatakia/.github/workflows/documentation-release.yml
+  --signer-workflow ErTapanJatakia/ErTapanJatakia/.github/workflows/documentation-release.yml
 
 gh attestation verify <tag>-SHA256SUMS \
   --repo ErTapanJatakia/ErTapanJatakia \
-  --signer-workflow github.com/ErTapanJatakia/ErTapanJatakia/.github/workflows/documentation-release.yml
+  --signer-workflow ErTapanJatakia/ErTapanJatakia/.github/workflows/documentation-release.yml
 
 gh attestation verify <tag>-release-manifest.json \
   --repo ErTapanJatakia/ErTapanJatakia \
-  --signer-workflow github.com/ErTapanJatakia/ErTapanJatakia/.github/workflows/documentation-release.yml
+  --signer-workflow ErTapanJatakia/ErTapanJatakia/.github/workflows/documentation-release.yml
 ```
 
 The expected signer is the GitHub Actions workflow in this repository, not an arbitrary account or workflow. Review the verified certificate identity, source repository, workflow path, commit and transparency-log evidence reported by GitHub CLI.
