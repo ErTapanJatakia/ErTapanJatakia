@@ -19,7 +19,7 @@
 | Unverified | 0 |
 | **Total** | **55** |
 
-Silver is cumulative: the project must first achieve Passing. The owner supplied the OpenSSF BadgeApp user-profile evidence at https://www.bestpractices.dev/en/users/61861 confirming the Passing prerequisite. The owner confirms @ShaikhDanish04 is a second maintainer; this resolves the bus-factor item. The `access_continuity` criterion remains N/A under the repository's owner-led operating model; it is not being represented as a verified continuity capability. DCO sign-off is no longer enforced. The `dco` criterion is therefore Unmet: the repository retains the DCO text, but does not require contributor sign-off or another independently verifiable contribution-authorization attestation. The repository front page now links both the OpenSSF Baseline status and the OpenSSF Best Practices achievement badges at the top of README.md.
+Silver is cumulative: the project must first achieve Passing. The owner supplied the OpenSSF BadgeApp user-profile evidence at [user profile 61861](https://www.bestpractices.dev/en/users/61861), confirming the Passing prerequisite. The owner confirms @ShaikhDanish04 is a second maintainer; this resolves the bus-factor item. The `access_continuity` criterion remains N/A under the repository's owner-led operating model; it is not being represented as a verified continuity capability. DCO sign-off is no longer enforced. The `dco` criterion is therefore Unmet: the repository retains the DCO text, but does not require contributor sign-off or another independently verifiable contribution-authorization attestation. The repository front page now links both the OpenSSF Baseline status and the OpenSSF Best Practices achievement badges at the top of README.md.
 
 ### Status rules
 
