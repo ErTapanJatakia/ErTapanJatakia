@@ -28,7 +28,7 @@ The security-analysis, CodeQL default setup, Scorecard and dependency-analysis w
 | VEX register validation | Machine-readable exception records, CycloneDX 1.6 statements, expiry, evidence and matching advisory/component references | `ruby scripts/validate-vex.rb` |
 | Ruby validator regression tests | Positive and negative cases for VEX exception validation, DCO commit-range validation, SPDX SBOM validation and GitHub SBOM polling-response classification | `ruby scripts/check-branch-coverage.rb` |
 | Ruby validator branch coverage | Ruby standard-library Coverage measures executed branch paths across all four maintained Ruby utilities; CI requires at least 80% | Included in `ruby scripts/check-branch-coverage.rb` |
-| Ruby validator statement coverage | Ruby standard-library Coverage measures executable source lines across both maintained validators; CI requires at least 80% statement coverage | Included in `ruby scripts/check-branch-coverage.rb` |
+| Ruby validator statement coverage | Ruby standard-library Coverage measures executable source lines across all four maintained Ruby utilities; CI requires at least 80% statement coverage | Included in `ruby scripts/check-branch-coverage.rb` |
 | DCO commit validation | Checks every commit in the pull-request range for an exact sign-off matching its author or committer identity | `BASE_SHA=<base> HEAD_SHA=<head> ruby scripts/validate-dco.rb` |
 
 CI is authoritative for the exact pinned action versions and command lines. If a local tool version differs, use the workflow definition as the source of truth.
