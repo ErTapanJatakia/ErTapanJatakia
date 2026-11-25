@@ -49,9 +49,17 @@ By participating, you agree to follow the repository's [Code of Conduct](CODE_OF
 
 Thank you for helping keep this profile repository accurate, accessible, and professional.
 
-## Contribution sign-off
+## Developer Certificate of Origin (DCO)
 
-DCO sign-off is not currently required for pull requests. Contributors remain responsible for ensuring that submitted work is original or that they have the necessary rights and permissions to submit it under the repository's GPL-3.0 licence, as described in the Licensing section above. Do not add a `Signed-off-by` trailer unless a future repository policy explicitly reinstates that requirement.
+This repository retains the unmodified [Developer Certificate of Origin 1.1](DCO). Contributors are expected to understand and follow its certification when submitting work for inclusion. The DCO confirms that the contributor has the right to submit the work under the applicable open-source licence or is otherwise authorized to submit it.
+
+To record the DCO certification in a commit, use Git's sign-off option:
+
+```bash
+git commit -s -m "type: describe the change"
+```
+
+Git adds a `Signed-off-by` trailer containing the commit author's name and email. Use your own accurate identity details. The DCO text and these contributor instructions remain part of the repository's documented contribution policy. **Automated CI enforcement of DCO trailers is currently disabled**; this documentation must not be interpreted as evidence that the workflow presently checks every commit.
 
 ## Developer setup
 
