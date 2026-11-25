@@ -70,7 +70,7 @@ jobs:
           curl_count="$(grep -RhoE '(^|[[:space:](])curl([[:space:]]|$)' .github/workflows | wc -l)"
           tls_count="$(grep -Rho -- '--tlsv1.2' .github/workflows | wc -l)"
           https_count="$(grep -Rho -- "--proto '=https'" .github/workflows | wc -l)"
-          if [[ "$curl_count" -ne "$tls_count" || "$curl_count" -ne "$https_count" ]]; then
+          if (( curl_count != tls_count || curl_count != https_count )); then
             echo "::error::Every maintained curl request must explicitly require HTTPS and TLS 1.2 or later."
             exit 1
           fi
