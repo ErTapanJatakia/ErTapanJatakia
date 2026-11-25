@@ -28,10 +28,12 @@ Before granting write, maintain, admin, Actions-secret or release-publication ac
 1. Verify the person's identity through an established professional or organizational channel.
 2. Confirm the person's need for access and the exact duties to be performed.
 3. Review relevant contribution history, security experience and references proportionate to the requested privilege.
-4. Assign the lowest role that permits the required work; do not grant admin access for routine contribution.
-5. Explain confidentiality, secret-handling, incident-reporting and acceptable-use expectations.
-6. Record the approver, identity-verification method, requested role, rationale, date and review date in a private administrative record.
-7. Reassess access at least annually and after role changes; remove access promptly when no longer required.
+4. Confirm that the account has multi-factor authentication (2FA) enabled before granting any write, maintain, admin, private-vulnerability-report or other sensitive-data access. Do not grant or retain such access if the person cannot demonstrate 2FA enrollment.
+5. Prefer phishing-resistant cryptographic factors such as passkeys or FIDO2/WebAuthn security keys. TOTP authenticator applications are preferable to SMS; SMS-only 2FA is not accepted for privileged access where a stronger factor is available.
+6. Assign the lowest role that permits the required work; do not grant admin access for routine contribution.
+7. Explain confidentiality, secret-handling, incident-reporting and acceptable-use expectations.
+8. Record the approver, identity-verification method, requested role, 2FA confirmation, rationale, date and review date in a private administrative record.
+9. Reassess access at least annually and after role changes; remove access promptly when no longer required.
 
 Do not publish personal vetting records, identity documents or confidential references in this repository.
 
@@ -41,7 +43,7 @@ Elevated permissions require an explicit owner decision. A pull request, success
 
 ## 6. Change approval and sole-maintainer limitation
 
-The repository requires pull requests, conversation resolution, linear history and the configured security checks. The current ruleset does **not** require a non-author approval because no eligible independent reviewer is currently available.
+The repository requires pull requests, conversation resolution, linear history and the configured security checks. The current ruleset does **not** require a non-author approval because no eligible independent reviewer is currently available. Likewise, the personal-repository configuration does not provide an organization-wide 2FA enforcement control. The access policy therefore requires 2FA as a precondition for any future write or sensitive-data grant, but this policy is not misrepresented as a platform-enforced 2FA requirement.
 
 The intended policy is at least one approval by a human other than the change author when a genuine independent reviewer becomes available. Until then, the repository must retain the explicit single-maintainer limitation. Self-approval, bot approval and fabricated reviewer identities are not acceptable substitutes. The owner must reassess this limitation before adding another maintainer or granting elevated access.
 

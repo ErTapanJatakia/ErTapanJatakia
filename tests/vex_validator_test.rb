@@ -1,9 +1,12 @@
 # frozen_string_literal: true
+# Copyright (C) 2026 Er. Tapan Jatakia
+# SPDX-License-Identifier: GPL-3.0-only
 
 require "date"
 require "fileutils"
 require "json"
 require "minitest/autorun"
+require "open3"
 require "pathname"
 require "tmpdir"
 require_relative "../scripts/validate-vex"
@@ -122,6 +125,38 @@ class VexValidatorTest < Minitest::Test
   def test_rejects_invalid_register_json
     @root.join(".github/dependabot-vex-exceptions.json").write("{")
     assert_includes VexValidator.validate_register(root: @root, today: TODAY).join(" "), "Invalid VEX exception register JSON"
+  end
+
+  def test_rejects_non_object_register_root
+    @root.join(".github/dependabot-vex-exceptions.json").write(JSON.generate([]))
+    errors = VexValidator.validate_register(root: @root, today: TODAY)
+    assert_includes errors, "VEX exception register must be a JSON object"
+  end
+
+  def test_rejects_non_object_vex_document_root
+    record = valid_record
+    @root.join(record["vex_document"]).write(JSON.generate([]))
+    write_register(record)
+    assert_includes VexValidator.validate_register(root: @root, today: TODAY).join(" "),
+                    "VEX document must be a JSON object"
+  end
+
+  def test_rejects_non_object_metadata_without_raising
+    record = valid_record
+    write_statement(record)
+    mutate_statement(record) { |document| document["metadata"] = "malformed" }
+    write_register(record)
+    assert_includes VexValidator.validate_register(root: @root, today: TODAY).join(" "),
+                    "project metadata must be an object"
+  end
+
+  def test_rejects_non_object_vulnerability_analysis_without_raising
+    record = valid_record
+    write_statement(record)
+    mutate_statement(record) { |document| document["vulnerabilities"][0]["analysis"] = "malformed" }
+    write_register(record)
+    assert_includes VexValidator.validate_register(root: @root, today: TODAY).join(" "),
+                    "VEX analysis must be an object"
   end
 
   def test_rejects_wrong_schema_version
@@ -275,6 +310,25 @@ class VexValidatorTest < Minitest::Test
     mutate_statement(record) { |document| document["vulnerabilities"][0]["affects"] = [] }
     write_register(record)
     assert_includes VexValidator.validate_register(root: @root, today: TODAY).join(" "), "must reference a component purl matching package_name"
+  end
+
+  def test_cli_reports_success_for_current_repository_register
+    root = File.expand_path("..", __dir__)
+    script = File.join(root, "scripts/validate-vex.rb")
+    output, error, status = Open3.capture3("ruby", script, chdir: root)
+    assert status.success?, error
+    assert_includes output, "VEX exception register validated"
+    assert_empty error
+  end
+
+  def test_cli_fails_closed_when_register_is_missing
+    Dir.mktmpdir("vex-cli") do |directory|
+      script = File.expand_path("../scripts/validate-vex.rb", __dir__)
+      output, error, status = Open3.capture3("ruby", script, chdir: directory)
+      refute status.success?
+      assert_empty output
+      assert_match(/Missing VEX exception register/, error)
+    end
   end
 
   private

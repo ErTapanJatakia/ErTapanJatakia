@@ -56,7 +56,7 @@ Common implementation weaknesses relevant to the maintained Ruby and workflow as
 | Command injection and unsafe shell interpolation | Untrusted PR metadata or inputs alter privileged commands | Ruby validators use argument-array subprocess calls; workflows validate and quote constrained inputs and avoid passing signing secrets to untrusted jobs. |
 | Path traversal and arbitrary file access | VEX records reference files outside the approved evidence directory | VEX validator requires the `docs/vex/` relative-path prefix, rejects `..` segments and excludes the template path; it also checks file existence and JSON validity. |
 | Trusting malformed or placeholder security evidence | False VEX exception suppresses a real dependency alert | Fail-closed schema, identity, date, expiry, evidence, advisory and package-reference validation. |
-| Authentication/authorization confusion | A forged sign-off or overprivileged workflow can authorize a change | DCO validator requires an exact sign-off matching author or committer identity; workflows use least-privilege tokens and protected secrets. |
+| Authentication/authorization confusion | A forged sign-off or overprivileged workflow can authorize a change | DCO 1.1 is the documented contributor policy and contributors are instructed to use matching Signed-off-by trailers. The DCO range validator remains available for manual diagnostics, but automated CI enforcement is disabled; workflows do not currently require or verify a sign-off on every commit. Workflows separately use least-privilege tokens and protected secrets. |
 | Supply-chain substitution | A compromised action or release asset changes repository output | Full-SHA action pinning, dependency review, GPG signatures, SHA-256 checksums and artifact attestations. |
 | Secret leakage | Signing or mirror credentials become public | Gitleaks scans full history; secrets are isolated to trusted jobs and temporary key material is cleaned up. |
 | Denial of service through unbounded input/work | Oversized or malformed records consume runner resources | Validators read repository-local JSON files and fail on invalid structure; CI uses concurrency controls to limit overlapping runs. |
@@ -81,7 +81,7 @@ Common implementation weaknesses relevant to the maintained Ruby and workflow as
 ## 6. Critical workflows and security gates
 
 1. **Pull-request validation:** untrusted proposed changes are checked without access to signing secrets.
-2. **Required pull-request QA and DCO:** the active required `Major change validation` check fails unless the VEX regression suite succeeds and, after DCO adoption, every pull-request commit carries an author-matching `Signed-off-by` trailer. For major/security-sensitive paths, relevant YAML, actionlint, Markdown, link, formatting and VEX checks must also pass. The one-time DCO adoption PR and pre-policy history are grandfathered.
+2. **Required pull-request QA and DCO:** the active required `Major change validation` check fails unless the VEX regression suite succeeds and applicable major/security-sensitive checks also pass. DCO sign-off remains documented contributor policy, but the current workflow does not enforce or validate it. For major/security-sensitive paths, relevant YAML, actionlint, Markdown, link, formatting and VEX checks must also pass. The one-time DCO adoption PR and pre-policy history are grandfathered.
 3. **Signed publication:** accepts only a validated staging branch descended from current `main`; signs a publication commit and opens a PR.
 4. **Repository controller:** operates only on the explicitly configured repository registry and removes temporary signing material.
 5. **Dependency alert gate:** validates VEX exceptions, blocks unresolved general alerts and blocks every malware alert.
@@ -98,5 +98,7 @@ Common implementation weaknesses relevant to the maintained Ruby and workflow as
 - This model covers repository automation and documentation distribution, not application software, runtime infrastructure or a production service.
 
 ## 8. Review triggers and ownership
+
+The dated [2026-11-26 internal security review](SECURITY-REVIEW-2026-11-26.md) records the current review scope, observations, findings and residual risks. It is an AI-assisted draft pending repository-owner validation and must not be described as an independent audit or owner-approved review until that validation is recorded.
 
 The repository owner maintains this model. Review it at least annually and whenever a trigger in Section 1 occurs. For each review, record the date, changed assets/workflows, newly introduced trust boundaries, changed safeguards and accepted residual risks. A material change must include updated threat scenarios and relevant automated tests in its pull request.

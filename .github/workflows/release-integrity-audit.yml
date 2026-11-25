@@ -1,0 +1,178 @@
+name: Post-publication Release Integrity Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing profile-docs-YYYY.MM.DD.N release tag to audit"
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: release-integrity-audit
+  cancel-in-progress: false
+
+jobs:
+  verify-release:
+    name: Verify published release assets and provenance
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      attestations: read
+    steps:
+      - name: Validate release identifier
+        id: release
+        env:
+          TAG: ${{ inputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! "$TAG" =~ ^profile-docs-20[0-9]{2}\.[0-9]{2}\.[0-9]{2}\.[0-9]{1,3}$ ]]; then
+            echo "::error::Expected profile-docs-YYYY.MM.DD.N."
+            exit 1
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Check out repository and fetch release tag
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Fetch and resolve immutable release tag
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "refs/tags/$TAG:refs/tags/$TAG"
+          echo "tag_commit=$(git rev-parse "$TAG^{commit}")" >> "$GITHUB_ENV"
+      - name: Download exact release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir release
+          expected=(
+            "$TAG.tar.gz"
+            "$TAG-SHA256SUMS"
+            "$TAG-SHA256SUMS.asc"
+            "$TAG-release-manifest.json"
+          )
+          for file in "${expected[@]}"; do
+            test -s "release/$file" || {
+              echo "::error::Missing or empty release asset: $file"
+              exit 1
+            }
+          done
+          actual="$(find release -maxdepth 1 -type f -printf '%f\n' | sort)"
+          expected_sorted="$(printf '%s\n' "${expected[@]}" | sort)"
+          if [[ "$actual" != "$expected_sorted" ]]; then
+            echo "::error::Unexpected release asset inventory."
+            printf 'Actual:\n%s\nExpected:\n%s\n' "$actual" "$expected_sorted"
+            exit 1
+          fi
+
+      - name: Require patched GitHub CLI for attestation verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(gh version | head -n1 | awk '{print $3}')"
+          if ! dpkg --compare-versions "$version" ge "2.102.0"; then
+            echo "::error::GitHub CLI 2.102.0 or newer is required for exact signer-workflow verification. Found: $version"
+            exit 1
+          fi
+
+      - name: Verify GitHub artifact attestations
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+        working-directory: release
+        run: |
+          set -euo pipefail
+          signer="$GITHUB_REPOSITORY/.github/workflows/documentation-release.yml"
+          for subject in "$TAG.tar.gz" "$TAG-SHA256SUMS" "$TAG-release-manifest.json"; do
+            gh attestation verify "$subject" --repo "$GITHUB_REPOSITORY" --signer-workflow "$signer"
+          done
+
+      - name: Verify checksums and manifest identity
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+        working-directory: release
+        run: |
+          set -euo pipefail
+          sha256sum --check "$TAG-SHA256SUMS"
+          jq -e --arg tag "$TAG" --arg repo "$GITHUB_REPOSITORY" --arg commit "$tag_commit" '
+            .releaseTag == $tag and
+            .sourceCommit == $commit and
+            .project == $repo and
+            .distributionType == "source-and-documentation-snapshot" and
+            .compiledSoftwareAssetsIncluded == false and
+            ([.assets[] | select(.name == ($tag + ".tar.gz"))] | length) == 1
+          ' "$TAG-release-manifest.json" >/dev/null
+          expected="$(jq -r --arg name "$TAG.tar.gz" '.assets[] | select(.name == $name) | .sha256' "$TAG-release-manifest.json")"
+          actual="$(sha256sum "$TAG.tar.gz" | cut -d ' ' -f 1)"
+          [[ "$expected" == "$actual" ]] || {
+            echo "::error::Manifest archive digest does not match the downloaded archive."
+            exit 1
+          }
+
+      - name: Validate archive paths and entry types
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+        working-directory: release
+        run: |
+          set -euo pipefail
+          python3 - "$TAG.tar.gz" <<'PY'
+          import pathlib
+          import sys
+          import tarfile
+
+          with tarfile.open(pathlib.Path(sys.argv[1]), "r:gz") as tf:
+              members = tf.getmembers()
+              if not members:
+                  raise SystemExit("Release archive is empty")
+              for member in members:
+                  path = pathlib.PurePosixPath(member.name)
+                  if path.is_absolute() or ".." in path.parts:
+                      raise SystemExit(f"Unsafe archive path: {member.name}")
+                  if member.issym() or member.islnk():
+                      target = pathlib.PurePosixPath(member.linkname)
+                      if target.is_absolute() or ".." in target.parts:
+                          raise SystemExit(f"Unsafe archive link: {member.name} -> {member.linkname}")
+                  if not (member.isfile() or member.isdir() or member.issym() or member.islnk()):
+                      raise SystemExit(f"Unsupported archive entry: {member.name}")
+              print(f"Archive structure validated: {len(members)} entries")
+          PY
+
+      - name: Scan release archive with ClamAV
+        working-directory: release
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y clamav clamav-freshclam
+          sudo systemctl stop clamav-freshclam || true
+          sudo freshclam
+          clamscan --infected --no-summary ./*.tar.gz
+
+      - name: Publish audit summary
+        if: success()
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          {
+            echo "## Release integrity audit passed"
+            echo
+            echo "- Release: $TAG"
+            echo "- GitHub artifact attestations: verified for archive, checksum manifest and release manifest"
+            echo "- SHA-256 checksums and manifest identity: verified"
+            echo "- Archive path and entry-type validation: passed"
+            echo "- ClamAV scan: passed"
+            echo
+            echo "The detached personal GPG signature remains independently verifiable using the owner's trusted public-key fingerprint and the commands in docs/RELEASE-VERIFICATION.md."
+          } >> "$GITHUB_STEP_SUMMARY"

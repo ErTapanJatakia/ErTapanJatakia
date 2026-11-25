@@ -1,6 +1,9 @@
 # frozen_string_literal: true
+# Copyright (C) 2026 Er. Tapan Jatakia
+# SPDX-License-Identifier: GPL-3.0-only
 
 require "minitest/autorun"
+require "open3"
 require "stringio"
 require "tempfile"
 require_relative "../scripts/validate-sbom"
@@ -147,6 +150,26 @@ class SbomValidatorTest < Minitest::Test
     workflow = File.read(File.expand_path("../.github/workflows/repository-dependency-sbom.yml", __dir__))
     assert_match(/--request GET/, workflow)
     refute_match(/--request POST/, workflow)
+  end
+
+  def test_sbom_validator_cli_validates_a_file
+    Tempfile.create(["cli-sbom", ".json"]) do |file|
+      file.write(JSON.generate(valid_document))
+      file.flush
+      script = File.expand_path("../scripts/validate-sbom.rb", __dir__)
+      output, error, status = Open3.capture3("ruby", script, file.path)
+      assert status.success?, error
+      assert_includes output, "SPDX 2.3 document validated"
+      assert_empty error
+    end
+  end
+
+  def test_sbom_classifier_cli_reports_ready
+    script = File.expand_path("../scripts/classify-sbom-response.rb", __dir__)
+    output, error, status = Open3.capture3("ruby", script, "302")
+    assert status.success?, error
+    assert_equal "ready\n", output
+    assert_empty error
   end
 
   def test_local_gpg_action_reference_resolves

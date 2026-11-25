@@ -58,9 +58,11 @@ jobs:
         run: |
           set -euo pipefail
           action_file=".github/actions/setup-personal-gpg/action.yml"
-          workflow_file=".github/workflows/documentation-release.yml"
+          release_workflow=".github/workflows/documentation-release.yml"
+          publish_workflow=".github/workflows/signed-publish.yml"
           test -f "$action_file"
-          grep -Fq "$/.github/actions/setup-personal-gpg" "$workflow_file"
+          grep -Fq "uses: $/.github/actions/setup-personal-gpg" "$release_workflow"
+          grep -Fq "uses: $/.github/actions/setup-personal-gpg" "$publish_workflow"
           test -f script/setup
           bash -n script/setup
           echo "The controlled release workflow references an existing local GPG setup action; developer bootstrap syntax is valid."

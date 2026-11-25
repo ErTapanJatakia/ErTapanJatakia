@@ -1,6 +1,9 @@
 # frozen_string_literal: true
+# Copyright (C) 2026 Er. Tapan Jatakia
+# SPDX-License-Identifier: GPL-3.0-only
 
 require "minitest/autorun"
+require "stringio"
 require "tmpdir"
 require_relative "../scripts/validate-dco"
 
@@ -67,6 +70,54 @@ class DcoValidatorTest < Minitest::Test
     with_git_repository do |base_sha|
       error = assert_raises(RuntimeError) { DcoValidator.validate_range(base_sha, base_sha) }
       assert_equal "No commits found in the pull-request range", error.message
+    end
+  end
+
+  def test_cli_reports_successful_validation
+    with_git_repository do |base_sha|
+      create_commit("change with sign-off", "Signed-off-by: Test Author <test@example.com>")
+      head_sha = git!("rev-parse", "HEAD")
+      script = File.expand_path("../scripts/validate-dco.rb", __dir__)
+      output, error, status = Open3.capture3(
+        { "BASE_SHA" => base_sha, "HEAD_SHA" => head_sha },
+        "ruby", script, chdir: Dir.pwd
+      )
+      assert status.success?, error
+      assert_includes output, "DCO validation passed"
+      assert_empty error
+    end
+  end
+
+  def test_run_cli_rejects_missing_range
+    output = StringIO.new
+    error = StringIO.new
+    assert_equal 1, DcoValidator.run_cli(nil, nil, output: output, error: error)
+    assert_empty output.string
+    assert_match(/BASE_SHA and HEAD_SHA must be provided/, error.string)
+  end
+
+  def test_run_cli_reports_invalid_commit_signoff
+    with_git_repository do |base_sha|
+      create_commit("change without sign-off", nil)
+      output = StringIO.new
+      error = StringIO.new
+      head_sha = git!("rev-parse", "HEAD")
+      assert_equal 1, DcoValidator.run_cli(base_sha, head_sha, output: output, error: error)
+      assert_empty output.string
+      assert_match(/DCO validation failed/, error.string)
+      assert_match(/missing exact DCO sign-off/, error.string)
+    end
+  end
+
+  def test_run_cli_reports_successful_validation
+    with_git_repository do |base_sha|
+      create_commit("change with sign-off", "Signed-off-by: Test Author <test@example.com>")
+      output = StringIO.new
+      error = StringIO.new
+      head_sha = git!("rev-parse", "HEAD")
+      assert_equal 0, DcoValidator.run_cli(base_sha, head_sha, output: output, error: error)
+      assert_includes output.string, "DCO validation passed"
+      assert_empty error.string
     end
   end
 
