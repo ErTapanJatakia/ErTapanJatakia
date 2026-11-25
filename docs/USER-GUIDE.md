@@ -89,7 +89,7 @@ For a broken link, typo, inaccurate description, inaccessible content or other n
 
 ## 7. Validate repository changes locally
 
-This is a documentation/configuration repository, not an application build. There is no end-user application to compile, install or run. The two Ruby validators are executable command-line utilities and can be run directly with Ruby.
+This is a documentation/configuration repository, not an application build. There is no end-user application to compile, install or run. The four Ruby utilities (DCO and VEX validators, SPDX SBOM validator and SBOM response classifier) are executable command-line tools and can be run directly with Ruby.
 
 Contributors who need local validation should:
 
