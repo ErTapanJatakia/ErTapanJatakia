@@ -2,7 +2,7 @@
 
 This guide explains how to use the public profile repository, find authoritative information, contribute changes, report concerns, and verify published documentation snapshots. It is written for profile visitors, contributors, security researchers and release consumers.
 
-> **Scope:** This repository publishes a professional profile, documentation, policies, configuration and repository automation. It is not an end-user application. There is no application runtime, installable product, compiled binary or application feature set to operate. The procedures below cover the repository's actual user-facing and maintainer-facing workflows; they do not imply otherwise.
+> **Scope:** This repository publishes a professional profile, documentation, policies, configuration, GitHub Actions automation and two small Ruby command-line validation utilities. It is not an end-user application and has no application runtime, installable end-user product or compiled binary. The procedures below cover the repository's actual user-facing and maintainer-facing workflows, including the validators; they do not imply otherwise.
 
 ## 1. Understand the repository
 
@@ -89,7 +89,7 @@ For a broken link, typo, inaccurate description, inaccessible content or other n
 
 ## 7. Validate repository changes locally
 
-This is a documentation/configuration repository, not an application build. There is no application to compile, install or run.
+This is a documentation/configuration repository, not an application build. There is no end-user application to compile, install or run. The two Ruby validators are executable command-line utilities and can be run directly with Ruby.
 
 Contributors who need local validation should:
 
