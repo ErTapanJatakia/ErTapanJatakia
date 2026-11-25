@@ -1,8 +1,8 @@
 # Internal Security Review — 2026-11-26
 
-**Review status:** Draft prepared for repository-owner validation  
+**Review status:** Owner-approved internal review (2026-11-26)  
 **Review type:** AI-assisted internal source, workflow and security-boundary review  
-**Reviewer independence:** This is not an independent human review, penetration test, external audit or certification. The repository owner must validate the findings and record acceptance before this report is used as completed owner-approved review evidence.  
+**Reviewer independence:** This is not an independent human review, penetration test, external audit or certification. The repository owner explicitly approved and authorized this review on 2026-11-26. This is an owner-approved AI-assisted internal review, not an independent human review, penetration test, external audit or certification.  
 **Scope:** Public profile repository, six maintained Ruby scripts, Ruby regression tests, GitHub Actions workflow configuration, dependency controls, DCO policy/enforcement distinction, release integrity and repository access governance.
 
 ## 1. Review objective and method
@@ -79,4 +79,4 @@ The reviewed source and workflow controls show a reasonable defence-in-depth des
 
 The review also identifies material limits: the network validator is pattern-scoped; DCO enforcement is disabled in CI; the second collaborator currently has read-only permission; independent review is unavailable; and current site-header evidence is missing.
 
-**Owner validation required:** The repository owner must review this report, confirm the scope and findings, decide whether the stated residual risks are accepted, and record approval/date before treating this as a completed internal security review. No independent auditor or external reviewer is implied.
+**Owner approval:** The repository owner approved/authorized this review on 2026-11-26 and accepted it as the repository's completed internal security review for this assessment cycle. Residual risks remain recorded above. No independent auditor or external reviewer is implied.
