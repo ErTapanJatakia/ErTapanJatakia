@@ -60,8 +60,10 @@ jobs:
           action_file=".github/actions/setup-personal-gpg/action.yml"
           workflow_file=".github/workflows/documentation-release.yml"
           test -f "$action_file"
-          grep -Fq "./.github/actions/setup-personal-gpg" "$workflow_file"
-          echo "The controlled release workflow references an existing local GPG setup action."
+          grep -Fq "$/.github/actions/setup-personal-gpg" "$workflow_file"
+          test -f script/setup
+          bash -n script/setup
+          echo "The controlled release workflow references an existing local GPG setup action; developer bootstrap syntax is valid."
 
       - name: Validate secure network transport defaults
         shell: bash
