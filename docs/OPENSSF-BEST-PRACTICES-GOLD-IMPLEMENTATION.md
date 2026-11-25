@@ -57,8 +57,8 @@ Gold is cumulative: the project must first achieve Silver. Its contributor-diver
 | `build_reproducible` | Provide reproducible builds | **N/A** | No build/compilation step is required for the repository's current outputs. |
 | `test_invocation` | Provide standard test invocation (should) | **Met** | The Ruby validation and regression test commands are documented and invocable using standard Ruby commands. |
 | `test_continuous_integration` | Implement CI (suggested) | **Met** | Repository QA runs on pull requests and pushes to main and produces pass/fail workflow results. |
-| `test_statement_coverage90` | Achieve at least 90% statement coverage | **Unmet** | PR #68 QA run [45560738278](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45560738278) measured 154/175 statements (88.00%) across the four maintained Ruby utilities. This is below the Gold threshold of 90%; no application-wide coverage is claimed. |
-| `test_branch_coverage80` | Achieve at least 80% branch coverage | **Met** | PR #68 QA run [45560738278](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45560738278) measured 88/101 branches covered (87.13%) across the four maintained Ruby utilities, above the 80% Gold threshold. |
+| `test_statement_coverage90` | Achieve at least 90% statement coverage | **Unmet** | PR #68 QA run [45561468875](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468875) measured 196/220 statements (89.09%) across the five maintained Ruby utilities. This is below the Gold threshold of 90%; no application-wide coverage is claimed. |
+| `test_branch_coverage80` | Achieve at least 80% branch coverage | **Met** | PR #68 QA run [45561468875](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45561468875) measured 105/119 branches covered (88.24%) across the five maintained Ruby utilities, above the 80% Gold threshold. |
 
 ## Security
 
