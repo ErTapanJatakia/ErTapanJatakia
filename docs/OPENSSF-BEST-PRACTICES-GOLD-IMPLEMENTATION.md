@@ -14,8 +14,8 @@
 |---|---:|
 | Met | 16 |
 | Partial | 0 |
-| Unmet | 0 |
-| Not applicable (N/A) | 5 |
+| Unmet | 2 |
+| Not applicable (N/A) | 3 |
 | Unverified | 2 |
 | **Total** | **23** |
 
@@ -35,7 +35,7 @@ Gold is cumulative: the project must first achieve Silver. The owner supplied Ba
 |---|---|---|---|
 | `achieve_silver` | achieve silver | **Met** | Owner-provided BadgeApp evidence: [account profile 61861](https://www.bestpractices.dev/en/users/61861) and [project 17059 Silver assessment](https://www.bestpractices.dev/en/projects/17059/silver). Accepted as evidence of the Silver prerequisite for this internal Gold assessment. This is not a claim of Gold achievement. |
 | `bus_factor` | Maintain a bus factor of at least two (should at Silver) | **Met** | The repository owner explicitly confirms @ShaikhDanish04 as a second maintainer. This maintainer designation is accepted for this internal assessment. Repository write/release access remains separately assessed under `access_continuity`, which remains N/A in the Silver register; this Met status does not claim independent release or administrative capability. |
-| `contributors_unassociated` | contributors unassociated | **N/A** | The repository's current deliverable is a professional profile, documentation, repository policy and automation configuration, not a community-developed end-user software product. The current owner-led project scope has no applicable contributor-acquisition programme or product contribution model against which two unassociated significant software contributors can reasonably be assessed. Reassess if the repository begins developing and releasing community-facing software. |
+| `contributors_unassociated` | contributors unassociated | **Unmet** | The repository currently has not demonstrated at least two genuinely unassociated significant contributors. The Gold criterion is a MUST and the official BadgeApp form offers Met/Unmet/? rather than N/A for this item; a profile/documentation-only scope does not create an applicability exception. Evidence of two significant contributors, using the BadgeApp definition of non-trivial contributions within the past year, is still required. |
 | `copyright_per_file` | Include copyright statement in every source file | **Met** | All six maintained Ruby scripts and five Ruby test files now carry `Copyright (C) 2026 Er. Tapan Jatakia` in the file header. `tests/source_notices_test.rb` checks every `scripts/*.rb` and `tests/*_test.rb` file so future additions cannot silently omit the notice. |
 | `license_per_file` | Include SPDX licence statement in every source file | **Met** | All six maintained Ruby scripts and five Ruby test files now carry `SPDX-License-Identifier: GPL-3.0-only`, matching the repository's GNU GPL version 3 root licence. `tests/source_notices_test.rb` enforces the header across the maintained Ruby source/test inventory. |
 
@@ -53,7 +53,7 @@ Gold is cumulative: the project must first achieve Silver. The owner supplied Ba
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
 | `code_review_standards` | Document code-review process, checks and acceptance criteria | **Met** | CONTRIBUTING.md now documents the review method, risk-based review scope, eight-point checklist, evidence to inspect, blocking-finding resolution and acceptance criteria. It explicitly distinguishes the documented review standard from the currently unavailable independent reviewer and zero-approval ruleset. |
-| `two_person_review` | Have at least 50% of proposed changes reviewed by another person | **N/A** | The current repository scope is an owner-maintained professional profile and documentation/automation configuration rather than a multi-developer software product. The owner-led change process does not have a second independent reviewer available; this criterion is treated as outside the current project model, not as a claim that the 50% review threshold is met. Reassess if the project expands into collaborative software development. |
+| `two_person_review` | Have at least 50% of proposed changes reviewed by another person | **Unmet** | The current ruleset requires zero approving reviews and no evidence demonstrates that at least 50% of proposed modifications were reviewed by a person other than the author before release. The Gold criterion is a MUST and the official BadgeApp form offers Met/Unmet/? rather than N/A for this item; the owner-led repository model does not make proposed modifications inapplicable. |
 | `build_reproducible` | Provide reproducible builds | **N/A** | No build/compilation step is required for the repository's current outputs. |
 | `test_invocation` | Provide standard test invocation (should) | **Met** | The Ruby validation and regression test commands are documented and invocable using standard Ruby commands. |
 | `test_continuous_integration` | Implement CI (suggested) | **Met** | Repository QA runs on pull requests and pushes to main and produces pass/fail workflow results. |
