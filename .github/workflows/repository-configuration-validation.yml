@@ -85,30 +85,7 @@ jobs:
 
       - name: Validate secure network transport defaults
         shell: bash
-        run: |
-          set -euo pipefail
-          curl_count="$(grep -RhoE --exclude=repository-configuration-validation.yml 'curl[[:space:]]+--' .github/workflows | wc -l)"
-          tls_count="$(grep -Rho --exclude=repository-configuration-validation.yml -- '--tlsv1.2' .github/workflows | wc -l)"
-          https_count="$(grep -Rho --exclude=repository-configuration-validation.yml -- "--proto '=https'" .github/workflows | wc -l)"
-          redirect_count="$(grep -Rho --exclude=repository-configuration-validation.yml -- "--location" .github/workflows | wc -l)"
-          redirect_https_count="$(grep -Rho --exclude=repository-configuration-validation.yml -- "--proto-redir '=https'" .github/workflows | wc -l)"
-          if (( curl_count != tls_count )); then
-            echo "::error::Every maintained curl request must explicitly require TLS 1.2 or later."
-            exit 1
-          fi
-          if (( curl_count != https_count )); then
-            echo "::error::Every maintained curl request must explicitly require HTTPS."
-            exit 1
-          fi
-          if (( redirect_count != redirect_https_count )); then
-            echo "::error::Every maintained curl redirect must remain HTTPS."
-            exit 1
-          fi
-          if grep -RniE --exclude=repository-configuration-validation.yml -- '--insecure|--proxy-insecure|GIT_SSL_NO_VERIFY|NODE_TLS_REJECT_UNAUTHORIZED=0|strict-ssl[[:space:]]*=[[:space:]]*false|sslVerify[[:space:]]*=[[:space:]]*false' .github/workflows; then
-            echo "::error::A network certificate-verification bypass was found."
-            exit 1
-          fi
-          echo "All maintained curl requests require HTTPS/TLS 1.2+; no known certificate-verification bypass is configured."
+        run: ruby scripts/validate-network-transport.rb .github/workflows
       - name: Validate repository controller registry
         shell: bash
         run: |
