@@ -2,9 +2,9 @@
 
 ## 1. Scope
 
-This repository is a professional profile and documentation repository with GitHub Actions automation. It is not an application codebase and does not claim to have an application runtime, application unit/integration test suite or application code-coverage measurement.
+This repository publishes a professional profile, documentation, GitHub Actions automation and two small Ruby command-line validation utilities. It is not an end-user application and has no application runtime or application integration-test suite. The Ruby utilities are maintained software components and are covered by dedicated regression tests and measured branch coverage.
 
-The automated checks validate repository content, policy data and automation configuration. They must be described as repository QA, not application tests.
+The automated checks validate repository content, policy data, automation configuration and the Ruby validators. They must be described accurately by target; repository-content checks are not application tests, while validator tests are executable software tests.
 
 ## 2. When checks run
 
@@ -26,8 +26,8 @@ The security-analysis, CodeQL default setup, Scorecard and dependency-analysis w
 | GitHub Actions lint | Workflow syntax and common GitHub Actions errors | Install actionlint 1.7.12, verify its published SHA-256, then run `actionlint -color -ignore 'specifying action .*setup-personal-gpg.* in invalid format because ref is missing' -ignore 'unknown permission scope .*vulnerability-alerts.*' .github/workflows/*.yml`; the CI workflow documents its narrow compatibility exception |
 | Prettier | Maintained workflow and repository configuration formatting | `npx --yes prettier@3.6.2 --check ".github/workflows/*.yml" ".github/dependabot.yml" ".prettierrc.json"` |
 | VEX register validation | Machine-readable exception records, CycloneDX 1.6 statements, expiry, evidence and matching advisory/component references | `ruby scripts/validate-vex.rb` |
-| VEX validator tests | Positive and negative cases for exception validation and fail-closed handling; this is the repository's automated regression test suite, not an application test suite | `ruby tests/vex_validator_test.rb` |
-| DCO validator tests | Positive and negative cases for commit sign-off validation | `ruby tests/dco_validator_test.rb` |
+| Ruby validator regression tests | Positive and negative cases for VEX exception validation and DCO commit-range validation | `ruby scripts/check-branch-coverage.rb` |
+| Ruby validator branch coverage | Ruby standard-library Coverage measures executed branch paths across both maintained validators; CI requires at least 80% | Included in `ruby scripts/check-branch-coverage.rb` |
 | DCO commit validation | Checks every commit in the pull-request range for an exact sign-off matching its author or committer identity | `BASE_SHA=<base> HEAD_SHA=<head> ruby scripts/validate-dco.rb` |
 
 CI is authoritative for the exact pinned action versions and command lines. If a local tool version differs, use the workflow definition as the source of truth.
@@ -46,7 +46,7 @@ For major changes, contributors must add or update automated checks that exercis
 
 The `Major change validation` job is an active required main-branch status check. On every pull request it fails closed unless the VEX regression test suite succeeds and the DCO validation job succeeds. The DCO sign-off check is activated when the pull request's base branch already contains the root `DCO` policy; the one-time policy-adoption pull request and pre-policy history are grandfathered. From the first commit based on the merged policy, every commit in a pull request must carry an exact `Signed-off-by` trailer matching its author or committer identity. For changes to major/security-sensitive paths, it additionally requires Markdown lint, YAML validation, link validation, actionlint, Prettier and VEX validation to succeed. This makes an automated regression suite a pre-acceptance gate for every pull request, while preserving broader targeted validation for major changes.
 
-Because this repository has no application source or application test suite, contributors must not invent meaningless unit tests or claim application test coverage. If maintained executable code or an application is introduced, its author must add suitable unit/integration tests and document their local and CI execution before that code is treated as production-ready.
+The Ruby validators are maintained executable code, so changes to them require targeted positive/negative regression tests and must preserve the 80% minimum branch-coverage gate. The repository still has no end-user application, application runtime or application-level coverage claim. If an application or additional executable component is introduced, its author must add suitable unit/integration tests and document their local and CI execution before that code is treated as production-ready.
 
 ## 5. Pull request acceptance
 
@@ -59,4 +59,4 @@ Because this repository has no application source or application test suite, con
 
 ## 6. Results and evidence
 
-Workflow runs and check summaries are the execution evidence. A successful repository QA run does not establish application correctness, application test coverage, runtime security or release readiness for software binaries. The active main ruleset explicitly requires `Major change validation`; inspect the current ruleset and latest commit checks when auditing enforcement.
+Workflow runs and check summaries are the execution evidence. A successful repository QA run does not establish application correctness, application-level test coverage, runtime security or release readiness for software binaries. The separate Ruby validator coverage result applies only to the two named validator scripts. The active main ruleset explicitly requires `Major change validation`; inspect the current ruleset and latest commit checks when auditing enforcement.
