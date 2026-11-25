@@ -6,6 +6,7 @@ require "date"
 require "fileutils"
 require "json"
 require "minitest/autorun"
+require "open3"
 require "pathname"
 require "tmpdir"
 require_relative "../scripts/validate-vex"
@@ -277,6 +278,25 @@ class VexValidatorTest < Minitest::Test
     mutate_statement(record) { |document| document["vulnerabilities"][0]["affects"] = [] }
     write_register(record)
     assert_includes VexValidator.validate_register(root: @root, today: TODAY).join(" "), "must reference a component purl matching package_name"
+  end
+
+  def test_cli_reports_success_for_current_repository_register
+    root = File.expand_path("..", __dir__)
+    script = File.join(root, "scripts/validate-vex.rb")
+    output, error, status = Open3.capture3("ruby", script, chdir: root)
+    assert status.success?, error
+    assert_includes output, "VEX exception register validated"
+    assert_empty error
+  end
+
+  def test_cli_fails_closed_when_register_is_missing
+    Dir.mktmpdir("vex-cli") do |directory|
+      script = File.expand_path("../scripts/validate-vex.rb", __dir__)
+      output, error, status = Open3.capture3("ruby", script, chdir: directory)
+      refute status.success?
+      assert_empty output
+      assert_match(/Missing VEX exception register/, error)
+    end
   end
 
   private
