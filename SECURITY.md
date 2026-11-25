@@ -157,7 +157,7 @@ Thank you for helping keep this repository and its visitors safe.
 ## OpenSSF Baseline status and implementation
 
 [![OpenSSF Baseline](https://www.bestpractices.dev/projects/17059/baseline)](https://www.bestpractices.dev/projects/17059)
-<a href="https://www.bestpractices.dev/projects/17059"><img src="https://www.bestpractices.dev/projects/17059/badge" alt="OpenSSF Best Practices badge status" height="30" /></a>
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/17059/badge)](https://www.bestpractices.dev/projects/17059)
 
 The badge links to the project's public OpenSSF Best Practices profile and displays its published Baseline status. It is distinct from the repository's internal implementation assessments; consult the Level 1, Level 2 and Level 3 registers below for control-by-control evidence and applicability decisions. The badge alone does not represent independent certification or an audit.
 
