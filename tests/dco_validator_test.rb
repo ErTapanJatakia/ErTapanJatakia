@@ -77,13 +77,21 @@ class DcoValidatorTest < Minitest::Test
       create_commit("cli validation", "Signed-off-by: Test Author <test@example.com>")
       head_sha = git!("rev-parse", "HEAD")
       script = File.expand_path("../scripts/validate-dco.rb", __dir__)
-      output, error, status = Open3.capture3(
-        { "BASE_SHA" => base_sha, "HEAD_SHA" => head_sha },
-        "ruby", script, chdir: Dir.pwd
-      )
-      assert status.success?, error
-      assert_includes output, "DCO validation passed"
-      assert_empty error
+      original_program_name = $PROGRAM_NAME
+      original_base_sha = ENV["BASE_SHA"]
+      original_head_sha = ENV["HEAD_SHA"]
+      begin
+        ENV["BASE_SHA"] = base_sha
+        ENV["HEAD_SHA"] = head_sha
+        $PROGRAM_NAME = script
+        output, error = capture_io { load script }
+        assert_includes output, "DCO validation passed"
+        assert_empty error
+      ensure
+        $PROGRAM_NAME = original_program_name
+        original_base_sha.nil? ? ENV.delete("BASE_SHA") : ENV["BASE_SHA"] = original_base_sha
+        original_head_sha.nil? ? ENV.delete("HEAD_SHA") : ENV["HEAD_SHA"] = original_head_sha
+      end
     end
   end
 
