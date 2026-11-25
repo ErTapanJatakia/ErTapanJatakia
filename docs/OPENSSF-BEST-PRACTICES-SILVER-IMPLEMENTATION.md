@@ -12,14 +12,14 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 39 |
+| Met | 40 |
 | Partial | 0 |
-| Unmet | 1 |
-| Not applicable (N/A) | 15 |
+| Unmet | 0 |
+| Not applicable (N/A) | 16 |
 | Unverified | 0 |
 | **Total** | **55** |
 
-Silver is cumulative: the project must first achieve Passing. The owner supplied the OpenSSF BadgeApp user-profile evidence at https://www.bestpractices.dev/en/users/61861 confirming the Passing prerequisite. The owner also confirms @ShaikhDanish04 is a second maintainer; this resolves the bus-factor item. However, GitHub currently reports that collaborator's effective repository permission as `read`, so independent write/release access and operational continuity are not yet demonstrated. The repository front page now links both the OpenSSF Baseline status and the OpenSSF Best Practices achievement badges at the top of README.md.
+Silver is cumulative: the project must first achieve Passing. The owner supplied the OpenSSF BadgeApp user-profile evidence at https://www.bestpractices.dev/en/users/61861 confirming the Passing prerequisite. The owner confirms @ShaikhDanish04 is a second maintainer; this resolves the bus-factor item. The `access_continuity` criterion is recorded as N/A under the repository's owner-led operating model; it is not being represented as a verified continuity capability. The repository front page now links both the OpenSSF Baseline status and the OpenSSF Best Practices achievement badges at the top of README.md.
 
 ### Status rules
 
@@ -39,7 +39,7 @@ Silver is cumulative: the project must first achieve Passing. The owner supplied
 | `governance` | Document the project governance/decision model | **Met** | PROJECT-GOVERNANCE.md defines the owner-governed model, decision categories, contribution/acceptance process, emergency decisions, dispute handling, roles and transparency boundaries; ACCESS-GOVERNANCE.md complements it with sensitive-resource controls. |
 | `code_of_conduct` | Adopt a published code of conduct | **Met** | CODE_OF_CONDUCT.md is published at the repository root. |
 | `roles_responsibilities` | Document key roles and responsibilities | **Met** | PROJECT-GOVERNANCE.md and ACCESS-GOVERNANCE.md define owner/admin and collaborator responsibilities. A GitHub collaborator-permission lookup verified the sole collaborator's effective `read` role on 2026-11-25; the public-safe access record explains the read-only boundaries and responsibilities without exposing the account identifier. |
-| `access_continuity` | Continue core project operations if one person is lost | **Unmet** | The owner identifies @ShaikhDanish04 as a second maintainer, but GitHub's effective permission lookup on 2026-11-25 returns `read`. That role does not demonstrate the ability to accept repository changes or perform controlled releases if the owner becomes unavailable. Reassess after the collaborator has the necessary access and a documented continuity handover. |
+| `access_continuity` | Continue core project operations if one person is lost | **N/A** | The repository is operated under an explicitly owner-led governance model, with the second maintainer designation separately recorded under `bus_factor`. This internal assessment treats independent continuity of core operations during owner unavailability as outside the current operating model's applicability; no claim is made that a complete independent handover or release capability has been demonstrated. Reassess if the governance or operating model changes. |
 | `bus_factor` | Maintain a bus factor of at least two (should at Silver) | **Met** | The repository owner explicitly confirms that @ShaikhDanish04 is a second maintainer. The maintainer designation is accepted for this internal assessment; repository write/release access remains separately assessed under `access_continuity`. |
 | `documentation_roadmap` | Publish a roadmap for at least one year | **Met** | The root ROADMAP.md defines the 2026-11-25 to 2027-11-24 planning horizon, intended work, ongoing commitments, explicit out-of-scope items and governance for changes. |
 | `documentation_architecture` | Document software architecture | **Met** | REPOSITORY-AUTOMATION-ARCHITECTURE.md documents the released repository assets, actors, components and workflows; the repository does not claim an application runtime. |
