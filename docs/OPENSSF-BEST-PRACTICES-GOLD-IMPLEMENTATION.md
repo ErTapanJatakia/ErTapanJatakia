@@ -45,7 +45,7 @@ Gold is cumulative: the project must first achieve an official Silver badge. Thi
 |---|---|---|---|
 | `repo_distributed` | Use distributed version control (suggested) | **Met** | The public repository uses Git. |
 | `small_tasks` | Identify small tasks for new/casual contributors | **Met** | CONTRIBUTING.md now has a dedicated, clearly labelled small-task table for documentation clarity, link checks, README accessibility, focused Ruby regression cases, error-message documentation and technical-reference refreshes, with validation guidance and access boundaries. |
-| `require_2FA` | Require 2FA for developers with repository/sensitive access | **Unmet** | Owner confirmation that MFA is enabled on both known accounts is not equivalent to a repository/project mechanism requiring 2FA for every developer with central-repository or sensitive-data access. |
+| `require_2FA` | Require 2FA for developers with repository/sensitive access | **Unmet** | ACCESS-GOVERNANCE.md now makes verified 2FA a precondition for any future write, maintain, admin or sensitive-data grant and prohibits privileged access without it. However, this personal repository has no organization-wide platform control that enforces 2FA for every eligible account. The policy is documented, but enforcement remains unverified/not platform-enforced; owner MFA attestation alone is insufficient. |
 | `secure_2FA` | Use cryptographic 2FA to prevent impersonation (should) | **Unverified** | The authentication factors used by each developer have not been verified as cryptographic anti-impersonation mechanisms; SMS alone would not satisfy this SHOULD criterion. |
 
 ## Quality
@@ -53,7 +53,7 @@ Gold is cumulative: the project must first achieve an official Silver badge. Thi
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
 | `code_review_standards` | Document code-review process, checks and acceptance criteria | **Met** | CONTRIBUTING.md now documents the review method, risk-based review scope, eight-point checklist, evidence to inspect, blocking-finding resolution and acceptance criteria. It explicitly distinguishes the documented review standard from the currently unavailable independent reviewer and zero-approval ruleset. |
-| `two_person_review` | Have at least 50% of proposed changes reviewed by another person | **Unmet** | The active ruleset does not require a non-author human approval, and the owner has confirmed that an independent reviewer is not currently available. |
+| `two_person_review` | Have at least 50% of proposed changes reviewed by another person | **Unmet** | CONTRIBUTING.md now defines a complete review process and acceptance checklist, but the active ruleset requires zero approving reviews and the owner has confirmed that an eligible independent reviewer is not currently available. Documentation cannot establish the historical/prospective 50% independent-review rate. |
 | `build_reproducible` | Provide reproducible builds | **N/A** | No build/compilation step is required for the repository's current outputs. |
 | `test_invocation` | Provide standard test invocation (should) | **Met** | The Ruby validation and regression test commands are documented and invocable using standard Ruby commands. |
 | `test_continuous_integration` | Implement CI (suggested) | **Met** | Repository QA runs on pull requests and pushes to main and produces pass/fail workflow results. |
