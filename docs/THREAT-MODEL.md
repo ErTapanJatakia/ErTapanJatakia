@@ -99,4 +99,6 @@ Common implementation weaknesses relevant to the maintained Ruby and workflow as
 
 ## 8. Review triggers and ownership
 
+The dated [2026-11-26 internal security review](SECURITY-REVIEW-2026-11-26.md) records the current review scope, observations, findings and residual risks. It is an AI-assisted draft pending repository-owner validation and must not be described as an independent audit or owner-approved review until that validation is recorded.
+
 The repository owner maintains this model. Review it at least annually and whenever a trigger in Section 1 occurs. For each review, record the date, changed assets/workflows, newly introduced trust boundaries, changed safeguards and accepted residual risks. A material change must include updated threat scenarios and relevant automated tests in its pull request.
