@@ -2,7 +2,7 @@
 
 ## 1. Scope
 
-This repository publishes a professional profile, documentation, GitHub Actions automation and two small Ruby command-line validation utilities. It is not an end-user application and has no application runtime or application integration-test suite. The Ruby utilities are maintained software components and are covered by dedicated regression tests and measured branch coverage.
+This repository publishes a professional profile, documentation, GitHub Actions automation and four small Ruby command-line validation utilities. It is not an end-user application and has no application runtime or application integration-test suite. The Ruby utilities are maintained software components and are covered by dedicated regression tests and measured branch coverage.
 
 The automated checks validate repository content, policy data, automation configuration and the Ruby validators. They must be described accurately by target; repository-content checks are not application tests, while validator tests are executable software tests.
 
@@ -26,8 +26,8 @@ The security-analysis, CodeQL default setup, Scorecard and dependency-analysis w
 | GitHub Actions lint | Workflow syntax and common GitHub Actions errors | Install actionlint 1.7.12, verify its published SHA-256, then run `actionlint -color -ignore 'specifying action .*setup-personal-gpg.* in invalid format because ref is missing' -ignore 'unknown permission scope .*vulnerability-alerts.*' .github/workflows/*.yml`; the CI workflow documents its narrow compatibility exception |
 | Prettier | Maintained workflow and repository configuration formatting | `npx --yes prettier@3.6.2 --check ".github/workflows/*.yml" ".github/dependabot.yml" ".prettierrc.json"` |
 | VEX register validation | Machine-readable exception records, CycloneDX 1.6 statements, expiry, evidence and matching advisory/component references | `ruby scripts/validate-vex.rb` |
-| Ruby validator regression tests | Positive and negative cases for VEX exception validation and DCO commit-range validation | `ruby scripts/check-branch-coverage.rb` |
-| Ruby validator branch coverage | Ruby standard-library Coverage measures executed branch paths across both maintained validators; CI requires at least 80% | Included in `ruby scripts/check-branch-coverage.rb` |
+| Ruby validator regression tests | Positive and negative cases for VEX exception validation, DCO commit-range validation, SPDX SBOM validation and GitHub SBOM polling-response classification | `ruby scripts/check-branch-coverage.rb` |
+| Ruby validator branch coverage | Ruby standard-library Coverage measures executed branch paths across all four maintained Ruby utilities; CI requires at least 80% | Included in `ruby scripts/check-branch-coverage.rb` |
 | Ruby validator statement coverage | Ruby standard-library Coverage measures executable source lines across both maintained validators; CI requires at least 80% statement coverage | Included in `ruby scripts/check-branch-coverage.rb` |
 | DCO commit validation | Checks every commit in the pull-request range for an exact sign-off matching its author or committer identity | `BASE_SHA=<base> HEAD_SHA=<head> ruby scripts/validate-dco.rb` |
 
@@ -60,4 +60,4 @@ The Ruby validators are maintained executable code, so changes to them require t
 
 ## 6. Results and evidence
 
-Workflow runs and check summaries are the execution evidence. A successful repository QA run does not establish application correctness, application-level test coverage, runtime security or release readiness for software binaries. The separate Ruby validator coverage result applies only to the two named validator scripts. The active main ruleset explicitly requires `Major change validation`; inspect the current ruleset and latest commit checks when auditing enforcement.
+Workflow runs and check summaries are the execution evidence. A successful repository QA run does not establish application correctness, application-level test coverage, runtime security or release readiness for software binaries. The separate Ruby validator coverage result applies only to the four named Ruby utility scripts. The active main ruleset explicitly requires `Major change validation`; inspect the current ruleset and latest commit checks when auditing enforcement.
