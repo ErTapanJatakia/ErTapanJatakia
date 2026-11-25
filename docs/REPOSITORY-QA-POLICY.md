@@ -4,7 +4,7 @@
 
 This repository publishes a professional profile, documentation, GitHub Actions automation and four small Ruby command-line validation utilities. It is not an end-user application and has no application runtime or application integration-test suite. The Ruby utilities are maintained software components and are covered by dedicated regression tests and measured branch coverage.
 
-The automated checks validate repository content, policy data, automation configuration and the Ruby validators. They must be described accurately by target; repository-content checks are not application tests, while validator tests are executable software tests.
+The automated checks validate repository content, policy data, automation configuration and the four maintained Ruby utilities. Contributors can bootstrap the local Ruby test environment with `bash script/setup`. Checks must be described accurately by target; repository-content checks are not application tests, while utility tests are executable software tests.
 
 ## 2. When checks run
 
