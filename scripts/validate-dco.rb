@@ -44,20 +44,26 @@ module DcoValidator
 
     errors
   end
+
+  def self.run_cli(base_sha, head_sha, output: $stdout, error: $stderr)
+    if [base_sha, head_sha].any? { |value| value.nil? || value.empty? }
+      error.puts "BASE_SHA and HEAD_SHA must be provided by the pull-request workflow."
+      return 1
+    end
+
+    errors = validate_range(base_sha, head_sha)
+    unless errors.empty?
+      error.puts "DCO validation failed:"
+      errors.each { |message| error.puts " - #{message}" }
+      error.puts "Add a Signed-off-by trailer matching the commit author or committer identity (for example, git commit -s)."
+      return 1
+    end
+
+    output.puts "DCO validation passed for every commit in #{base_sha}..#{head_sha}."
+    0
+  end
 end
 
 if $PROGRAM_NAME == __FILE__
-  base_sha = ENV["BASE_SHA"]
-  head_sha = ENV["HEAD_SHA"]
-  abort "BASE_SHA and HEAD_SHA must be provided by the pull-request workflow." if [base_sha, head_sha].any?(&:nil?) || [base_sha, head_sha].any?(&:empty?)
-
-  errors = DcoValidator.validate_range(base_sha, head_sha)
-  unless errors.empty?
-    warn "DCO validation failed:"
-    errors.each { |error| warn " - #{error}" }
-    warn "Add a Signed-off-by trailer matching the commit author or committer identity (for example, git commit -s)."
-    exit 1
-  end
-
-  puts "DCO validation passed for every commit in #{base_sha}..#{head_sha}."
+  exit DcoValidator.run_cli(ENV["BASE_SHA"], ENV["HEAD_SHA"])
 end
