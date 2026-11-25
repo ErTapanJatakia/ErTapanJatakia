@@ -75,7 +75,7 @@ jobs:
           echo "source_sha=$(git rev-parse "$SOURCE_REF")" >> "$GITHUB_OUTPUT"
 
       - name: Configure personal GPG signing
-        uses: $/.github/actions/setup-personal-gpg
+        uses: ./.github/actions/setup-personal-gpg
         with:
           private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
