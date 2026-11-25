@@ -127,6 +127,38 @@ class VexValidatorTest < Minitest::Test
     assert_includes VexValidator.validate_register(root: @root, today: TODAY).join(" "), "Invalid VEX exception register JSON"
   end
 
+  def test_rejects_non_object_register_root
+    @root.join(".github/dependabot-vex-exceptions.json").write(JSON.generate([]))
+    errors = VexValidator.validate_register(root: @root, today: TODAY)
+    assert_includes errors, "VEX exception register must be a JSON object"
+  end
+
+  def test_rejects_non_object_vex_document_root
+    record = valid_record
+    @root.join(record["vex_document"]).write(JSON.generate([]))
+    write_register(record)
+    assert_includes VexValidator.validate_register(root: @root, today: TODAY).join(" "),
+                    "VEX document must be a JSON object"
+  end
+
+  def test_rejects_non_object_metadata_without_raising
+    record = valid_record
+    write_statement(record)
+    mutate_statement(record) { |document| document["metadata"] = "malformed" }
+    write_register(record)
+    assert_includes VexValidator.validate_register(root: @root, today: TODAY).join(" "),
+                    "project metadata must be an object"
+  end
+
+  def test_rejects_non_object_vulnerability_analysis_without_raising
+    record = valid_record
+    write_statement(record)
+    mutate_statement(record) { |document| document["vulnerabilities"][0]["analysis"] = "malformed" }
+    write_register(record)
+    assert_includes VexValidator.validate_register(root: @root, today: TODAY).join(" "),
+                    "VEX analysis must be an object"
+  end
+
   def test_rejects_wrong_schema_version
     @root.join(".github/dependabot-vex-exceptions.json").write(JSON.generate("schemaVersion" => 2, "exceptions" => []))
     assert_includes VexValidator.validate_register(root: @root, today: TODAY).join(" "), "schemaVersion must be 1"
