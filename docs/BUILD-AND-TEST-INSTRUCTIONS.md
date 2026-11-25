@@ -38,6 +38,8 @@ ruby scripts/validate-vex.rb
 ruby scripts/check-branch-coverage.rb
 ```
 
+The command runs the Ruby validator regression suite and reports both statement and branch coverage for `scripts/validate-dco.rb` and `scripts/validate-vex.rb`. CI enforces a minimum of 80% for each metric.
+
 For a pull request, the DCO range validator is invoked by CI with the exact base and head commit SHAs:
 
 ```bash
