@@ -5,6 +5,7 @@
 
 require "coverage"
 require "minitest/autorun"
+require "pathname"
 
 ROOT = File.expand_path("..", __dir__)
 COVERED_SOURCE_FILES = %w[
@@ -56,6 +57,19 @@ Minitest.after_run do
               branch_covered, branch_total, branch_percentage, MINIMUM_BRANCH_COVERAGE)
   puts format("Ruby validator statement coverage: %d/%d (%.2f%%); required: %.2f%%",
               statement_covered, statement_total, statement_percentage, MINIMUM_STATEMENT_COVERAGE)
+
+  COVERED_SOURCE_FILES.each do |path|
+    metrics = results[path]
+    next unless metrics
+
+    uncovered_lines = Array(metrics[:lines]).each_with_index.filter_map do |count, index|
+      index + 1 if !count.nil? && count.zero?
+    end
+    next if uncovered_lines.empty?
+
+    relative_path = Pathname(path).relative_path_from(Pathname(ROOT))
+    puts "Uncovered executable lines in #{relative_path}: #{uncovered_lines.join(", ")}"
+  end
 
   if branch_percentage < MINIMUM_BRANCH_COVERAGE
     warn "Ruby validator branch coverage is below the required threshold."
