@@ -49,6 +49,6 @@ See [Network Transport and Certificate Verification Review](NETWORK-CRYPTOGRAPHY
 - The VEX validator fails closed on malformed, expired, placeholder or mismatched exception evidence; the DCO validator fails closed when commit metadata or sign-off evidence is unavailable.
 - No external application API is exposed by the repository itself.
 
-## 4. Interface maintenance
+## 5. Interface maintenance
 
 Review this inventory whenever a workflow adds or removes an external Action, API, package registry, Git remote, credential, attestation provider or reporting channel. Update the dependency license register and threat model at the same time. The inventory is scoped to the repository's released automation/configuration assets and must not be represented as an application API specification.
