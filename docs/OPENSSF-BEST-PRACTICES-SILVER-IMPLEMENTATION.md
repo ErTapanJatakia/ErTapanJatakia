@@ -12,11 +12,11 @@
 
 | Internal assessment | Count |
 |---|---:|
-| Met | 35 |
+| Met | 36 |
 | Partial | 0 |
 | Unmet | 3 |
 | Not applicable (N/A) | 16 |
-| Unverified | 1 |
+| Unverified | 0 |
 | **Total** | **55** |
 
 Silver is cumulative: the project must first achieve Passing. The current single-maintainer model, incomplete continuity arrangement and missing independent review evidence are material constraints; automated CI does not substitute for human review.
@@ -83,8 +83,8 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | `updateable_reused_components` | Make reused components easy to update | **Met** | Actions are pinned to full commit SHAs and Dependabot proposes updates; standard system/runtime components are used where appropriate. |
 | `interfaces_current` | Avoid deprecated APIs where alternatives exist (should) | **Met** | INTERFACE-CURRENCY-REVIEW.md records a dated review of the maintained Ruby APIs, workflows and external interfaces. The review found no legacy GitHub Actions workflow commands or node16 runtime declarations and no deprecated Ruby APIs; actionlint and zizmor passed on the current PR validation. Reassess after toolchain or interface changes. |
 | `automated_integration_testing` | Run automated tests on every shared-repository check-in | **Met** | Repository QA runs on every pull request and every push to main and reports check outcomes. |
-| `regression_tests_added50` | Add regression tests for at least 50% of recent bugs | **Unverified** | The number of bugs fixed in the preceding six months and the proportion with regression tests were not audited. |
-| `test_statement_coverage80` | Achieve at least 80% statement coverage | **Met** | The Ruby standard-library Coverage tool measures executable source lines in all four maintained Ruby utilities: the DCO validator, VEX validator, SPDX SBOM validator and SBOM response classifier. The CI gate requires at least 80% statement coverage and 80% branch coverage. PR #68's earlier successful run measured 107/124 statements (86.29%) and 64/74 branches (86.49%) for the original two validators; the expanded four-utility suite is awaiting its current PR CI run. This is repository utility coverage, not an application-wide coverage claim. |
+| `regression_tests_added50` | Add regression tests for at least 50% of recent bugs | **Met** | REGRESSION-TEST-REVIEW.md audits all nine identified bug-fix pull requests in the repository's available history (2026-10-31 through 2026-11-25). Five of nine (55.56%) have automated regression coverage: SBOM API method, polling response states, empty dependency graph, direct/wrapped SPDX JSON shape, and local composite-action path. The expanded Ruby suite passed in [PR #68 QA run 45560738278](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45560738278) with 63 tests and 143 assertions. Four older fixes remain without dedicated tests and are transparently identified. |
+| `test_statement_coverage80` | Achieve at least 80% statement coverage | **Met** | The Ruby standard-library Coverage tool measures executable source lines in all four maintained Ruby utilities: the DCO validator, VEX validator, SPDX SBOM validator and SBOM response classifier. The CI gate requires at least 80% statement coverage and 80% branch coverage. [PR #68 QA run 45560738278](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45560738278) passed with 154/175 statements (88.00%) and 88/101 branches (87.13%); 63 tests and 143 assertions passed. This is repository utility coverage, not an application-wide coverage claim. |
 | `test_policy_mandated` | Formally require tests for major new functionality | **Met** | REPOSITORY-QA-POLICY.md is a formal written policy requiring tests for major changes where meaningful test targets exist. |
 | `tests_documented_added` | Document test-addition policy (suggested) | **Met** | CONTRIBUTING.md and REPOSITORY-QA-POLICY.md communicate the test-addition policy to change proposers. |
 | `warnings_strict` | Use maximally strict warnings where practical | **Met** | The repository applies strict formatting/lint/workflow checks in CI. |
