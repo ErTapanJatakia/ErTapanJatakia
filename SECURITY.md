@@ -162,6 +162,8 @@ The badge links to the project's public OpenSSF Best Practices profile and displ
 
 The repository's assessment registers are maintained in [Baseline Level 1](docs/OPENSSF-BASELINE-L1-IMPLEMENTATION.md), [Baseline Level 2](docs/OPENSSF-BASELINE-L2-IMPLEMENTATION.md) and [Baseline Level 3](docs/OPENSSF-BASELINE-L3-IMPLEMENTATION.md). PR [#38](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/38) introduced the governance/security policies and controlled documentation-release workflow. PR [#39](https://github.com/ErTapanJatakia/ErTapanJatakia/pull/39) refreshed the dashboard and hardened the malware and SAST gates.
 
+The separate **OpenSSF Best Practices Badge** assessments are maintained in [Passing](docs/OPENSSF-BEST-PRACTICES-PASSING-IMPLEMENTATION.md), [Silver](docs/OPENSSF-BEST-PRACTICES-SILVER-IMPLEMENTATION.md) and [Gold](docs/OPENSSF-BEST-PRACTICES-GOLD-IMPLEMENTATION.md). These are internal evidence registers for the BadgeApp project profile, not OpenSSF OSPS Baseline assessments and not a claim that any Best Practices badge level has been awarded.
+
 ### PR #39 validation
 
 - [Dependency and Malware Alert Policy run 45347826556](https://github.com/ErTapanJatakia/ErTapanJatakia/actions/runs/45347826556): general and malware classifications queried; no unresolved alerts returned.
