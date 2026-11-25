@@ -42,7 +42,7 @@ ruby scripts/validate-network-transport.rb .github/workflows
 ruby scripts/check-branch-coverage.rb
 ```
 
-The command automatically discovers every `tests/*_test.rb` file, including the source-notice regression test that verifies copyright and SPDX headers across all maintained Ruby scripts and tests. It also runs the Ruby validator regression suite and reports both statement and branch coverage for `scripts/validate-dco.rb`, `scripts/validate-vex.rb`, `scripts/validate-sbom.rb`, `scripts/classify-sbom-response.rb` and `scripts/validate-network-transport.rb`. CI enforces a minimum of 80% for each metric.
+The command automatically discovers every `tests/*_test.rb` file, including the source-notice regression test that verifies copyright and SPDX headers across all maintained Ruby scripts and tests. It also runs the Ruby validator regression suite and reports both statement and branch coverage for `scripts/validate-dco.rb`, `scripts/validate-vex.rb`, `scripts/validate-sbom.rb`, `scripts/classify-sbom-response.rb` and `scripts/validate-network-transport.rb`. CI enforces at least 90% statement coverage and 80% branch coverage.
 
 The DCO range validator remains available for manual diagnostics; CI does not invoke it and does not enforce sign-off trailers. The documented DCO policy remains enabled: contributors are expected to sign off commits using the procedure below, even though automated enforcement is disabled. To run the validator manually with explicit base and head commit SHAs:
 
