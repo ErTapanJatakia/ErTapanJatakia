@@ -24,12 +24,15 @@ These instructions describe how to reproduce the repository's validation and doc
 
 The CI workflows are the authoritative source for exact Action commit SHAs, command versions, checksums and permission scopes. External GitHub Actions are pinned to full commit SHAs and updated through the GitHub Actions ecosystem in Dependabot.
 
-## 3. Clone and validate the repository
+## 3. Clone, bootstrap and validate the repository
 
 ```bash
 git clone https://github.com/ErTapanJatakia/ErTapanJatakia.git
 cd ErTapanJatakia
+bash script/setup
 ```
+
+The idempotent bootstrap checks Git and Ruby 3.2+, ensures Minitest is available (installing it in the current user's gem directory only if missing), and reports optional Node.js/npm availability. It does not install an application, database, container runtime or paid dependency. Markdown lint and Prettier use the pinned npx package versions listed below; actionlint and lychee are installed/verified according to the CI workflow and toolchain table.
 
 Run the Ruby validators and regression suites:
 
