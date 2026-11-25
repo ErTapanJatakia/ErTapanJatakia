@@ -53,6 +53,16 @@ jobs:
           grep -Fxq 'trim_trailing_whitespace = false' .editorconfig
           echo "EditorConfig policy is present and contains the required repository settings."
 
+      - name: Validate local composite action references
+        shell: bash
+        run: |
+          set -euo pipefail
+          action_file=".github/actions/setup-personal-gpg/action.yml"
+          workflow_file=".github/workflows/documentation-release.yml"
+          test -f "$action_file"
+          grep -Fq "./.github/actions/setup-personal-gpg" "$workflow_file"
+          echo "The controlled release workflow references an existing local GPG setup action."
+
       - name: Validate secure network transport defaults
         shell: bash
         run: |
