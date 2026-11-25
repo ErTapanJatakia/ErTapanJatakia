@@ -8,6 +8,8 @@ ROOT = File.expand_path("..", __dir__)
 COVERED_SOURCE_FILES = %w[
   scripts/validate-dco.rb
   scripts/validate-vex.rb
+  scripts/validate-sbom.rb
+  scripts/classify-sbom-response.rb
 ].map { |path| File.expand_path(path, ROOT) }.freeze
 MINIMUM_BRANCH_COVERAGE = 80.0
 MINIMUM_STATEMENT_COVERAGE = 80.0
