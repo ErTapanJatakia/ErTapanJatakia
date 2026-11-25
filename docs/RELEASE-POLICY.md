@@ -47,6 +47,14 @@ Before publishing:
 
 A Critical/High SCA or SAST finding, any unresolved malware alert, an exposed secret or a failed integrity check blocks publication.
 
-## 7. No compiled assets
+## 7. Release artifact hardening controls
+
+The controlled publication workflow requires successful source-commit checks for Gitleaks secret detection, zizmor GitHub Actions audit, repository configuration validation, Ruby validator/VEX/branch-coverage validation, Dependency Review, Dependabot alert gate and SAST policy gate. These checks are evaluated against the exact source commit selected for release; missing, incomplete or unsuccessful required checks block publication. The workflow also validates the archive member inventory and rejects absolute paths, parent-directory traversal, unsafe links and unsupported tar entry types. It updates ClamAV signatures and scans the packaged archive before generating attestations or publishing.
+
+The separate **Post-publication Release Integrity Audit** workflow independently downloads the published assets and repeats attestation, checksum, manifest, archive-structure and ClamAV checks against the public release. This is a post-publication verification control, not a substitute for the pre-publication gate. The personal GPG signature remains separately verified using the independently trusted public-key fingerprint; the workflow does not silently treat GitHub provenance as a substitute for the owner's GPG signature.
+
+The owner-provided Malware alerts and license-review dispatch inputs remain attestations of human review. They are not automated malware-alert or license scanning. ClamAV scans the packaged archive; it does not prove the absence of all malicious content. Release evidence should retain the source commit, workflow run URLs, attestation verification output and GPG fingerprint verification record.
+
+## 8. No compiled assets
 
 The current release workflow distributes a source/documentation archive only. It does not create compiled software assets. Therefore a compiled-asset SBOM requirement remains not applicable until compiled software is actually produced and distributed. The repository Dependency Graph SBOM must not be represented as a full binary SBOM.
