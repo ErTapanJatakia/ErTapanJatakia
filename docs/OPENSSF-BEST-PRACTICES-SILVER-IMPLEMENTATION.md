@@ -15,8 +15,8 @@
 | Met | 26 |
 | Partial | 3 |
 | Unmet | 4 |
-| Not applicable (N/A) | 15 |
-| Unverified | 7 |
+| Not applicable (N/A) | 16 |
+| Unverified | 6 |
 | **Total** | **55** |
 
 Silver is cumulative: the project must first achieve Passing. The current single-maintainer model, incomplete continuity arrangement and missing independent review evidence are material constraints; automated CI does not substitute for human review.
@@ -62,7 +62,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 | Criterion ID | Requirement | Assessment | Evidence / implementation / remaining gap |
 |---|---|---|---|
 | `report_tracker` | Use an issue tracker (should) | **Met** | GitHub Issues are used to track individual reports. |
-| `vulnerability_report_credit` | Credit resolved vulnerability reporters or use N/A | **Unverified** | No complete record of vulnerabilities resolved in the last 12 months was available to justify Met or N/A. |
+| `vulnerability_report_credit` | Credit resolved vulnerability reporters or use N/A | **N/A** | The repository owner confirmed that no vulnerability reports have been received through GitHub Advisories, email or any private channel since the repository was created on 2026-10-31. Therefore, no vulnerability report was resolved in the preceding 12 months; the official criterion explicitly permits N/A when there have been no vulnerabilities resolved in that period. Reassess if a report is received and resolved. |
 | `vulnerability_response_process` | Document vulnerability-response process | **Met** | SECURITY.md documents triage, acknowledgement, status-update and coordinated-disclosure expectations. |
 
 ## Quality
@@ -122,6 +122,7 @@ Silver is cumulative: the project must first achieve Passing. The current single
 - [LICENSE](../LICENSE)
 - [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md)
 - [Access and Collaborator Governance](ACCESS-GOVERNANCE.md)
+- [Project Governance](PROJECT-GOVERNANCE.md)
 - [Project Governance](PROJECT-GOVERNANCE.md)
 - [Twelve-month Roadmap](../ROADMAP.md)
 - [Coding and Documentation Standards](CODING-STANDARDS.md)
