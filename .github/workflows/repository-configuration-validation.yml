@@ -52,6 +52,23 @@ jobs:
           grep -Fxq 'indent_size = 2' .editorconfig
           grep -Fxq 'trim_trailing_whitespace = false' .editorconfig
           echo "EditorConfig policy is present and contains the required repository settings."
+
+      - name: Validate secure network transport defaults
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl_count="$(grep -RhoE '(^|[[:space:](])curl([[:space:]]|$)' .github/workflows | wc -l)"
+          tls_count="$(grep -Rho -- '--tlsv1.2' .github/workflows | wc -l)"
+          https_count="$(grep -Rho -- "--proto '=https'" .github/workflows | wc -l)"
+          if [[ "$curl_count" -ne "$tls_count" || "$curl_count" -ne "$https_count" ]]; then
+            echo "::error::Every maintained curl request must explicitly require HTTPS and TLS 1.2 or later."
+            exit 1
+          fi
+          if grep -RniE -- '--insecure|--proxy-insecure|GIT_SSL_NO_VERIFY|NODE_TLS_REJECT_UNAUTHORIZED=0|strict-ssl[[:space:]]*=[[:space:]]*false|sslVerify[[:space:]]*=[[:space:]]*false' .github/workflows; then
+            echo "::error::A network certificate-verification bypass was found."
+            exit 1
+          fi
+          echo "All maintained curl requests require HTTPS/TLS 1.2+; no known certificate-verification bypass is configured."
       - name: Validate repository controller registry
         shell: bash
         run: |
